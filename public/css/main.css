@@ -1,0 +1,32 @@
+.btn-submit {
+    padding: 13px 0 ;
+}
+
+.stickyImg{
+    width: 100%;
+    position: sticky;
+    top: 0;
+    left: 0;
+    height: 100vh;
+
+}
+
+.label-auth::before {
+    content: '';
+    position: absolute;
+    width: 27%;
+    height: 2px;
+    left: 0;
+    top: 50%;
+    background-color: #eaeaea;
+}
+
+.label-auth::after {
+    content: '';
+    position: absolute;
+    background-color: #eaeaea;
+    width: 27%;
+    height: 2px;
+    right: 0;
+    top: 50%;
+}

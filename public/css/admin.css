@@ -1,0 +1,195 @@
+body {
+    background: #f6f6f6;
+}
+
+/* ======= SIDERBAR CONTENT =======  */
+ 
+.panel_left {
+    background: #fff;
+    width: 260px !important;
+    height: 100vh;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1059 !important;
+    overflow-y: auto;
+
+}
+
+.panel_left::-webkit-scrollbar {
+    width: 3px;
+}
+
+.panel_left::-webkit-scrollbar-thumb {
+    background-color: #cbcbcb;
+    border-radius: 10px;
+}
+
+.header_siderbar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: 24px 30px 0 18px;
+}
+
+.menuList .collapse.show {
+    display: flex !important;
+}
+
+/* .menuList .collapse a {
+    display: block !important;
+    text-decoration: none !important;
+    opacity: 75% !important;
+    font-size: 13.8px !important;
+    padding-top: .5rem!important;
+    padding-bottom: .5rem!important;
+    margin-right: 1.5rem!important;
+    margin-top: .25rem!important;
+    letter-spacing: 0.2px !important;
+    color: var(--var-black-50) !important;
+} */
+
+.menuList .collapsing {
+    display: flex !important;
+    transition: .35s ease !important;
+}
+
+.headerTitle {
+    margin-left: 14px;
+}
+
+.titleMenu {
+    color: var(--var-gray);
+    margin-left: 18px;
+    opacity: 60%;
+}
+
+.wrapper-content .menuList {
+    width: 100%;
+    margin-top: 30px;
+}
+
+.navMenuButton {
+    width: 100%;
+    color: var(--var-gray);
+    text-decoration: none;
+    padding: 15px 0 15px 40px;
+    margin: 0 10px;
+    border-radius: 5px;
+}
+
+.navMenuButton:hover{
+    background: var(--var-primary);
+    color: #fff;
+}
+
+/* ======= END SIDERBAR CONTENT =======  */
+
+/* ======= PANEL RIGHT BAR SECTION =======  */
+
+.panel_right {
+    width: calc(100% - 260px);
+    margin: 70px 0 0 260px;
+}
+
+.panel_right .navbar {
+    width: calc(100% - 260px);
+    height: 70px;
+    background: #fff;
+    top: 0;
+    right: 0;
+    position: fixed;
+    z-index: 90;
+}
+
+.dropdown-menu {
+    min-width: 15rem !important;
+    box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.08);
+}
+
+.panel_right .dropdown-toggle.notification::after {
+    display: none !important;
+}
+
+.dropdown-item:active {
+    background: var(--var-primary);
+}
+
+
+/* ======= END PANEL RIGHT BAR SECTION =======  */
+
+
+/* DASHBOARD SECTION  */
+
+.icon-dashboard-panel {
+    width: max-content;
+    padding: 15px;
+    border-radius: 50%;
+}
+
+.card-footer.dashboard {
+    background: #2bacfb;
+    height: 7px !important;
+    padding: 0;
+}
+
+
+
+/* END DASHBOARD SECTION  */
+
+@media only screen and (max-width: 991px) {
+
+    body {
+        /* background: #fff; */
+    }
+
+    td {
+        white-space: nowrap;
+    }
+
+    .panel_left {
+        top: 0;
+        left: 0;
+        bottom: 0;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out !important; 
+        border-right: solid #f2f2f2 1px;
+    }
+
+    .row.dashboard {
+        white-space: nowrap !important;
+        overflow-x: auto !important;
+    }
+
+    .row.dashboard .col-3 .card {
+        /* margin: 100px; */
+        /* margin-right: 50px; */
+        /* width: 300px; */
+    }
+
+}
+
+@media only screen and (min-width: 768px) {
+
+    .panel_left {
+        visibility: visible !important;
+        transform: translateX(0) !important;
+    }
+
+}
+
+@media only screen and (max-width: 767px) {
+
+    .panel_right {
+        width: 100% !important;
+        margin-left: 0 !important;
+
+    }
+
+    .panel_right .navbar {
+        width: 100% !important;
+        left: 0;
+    }
+
+}

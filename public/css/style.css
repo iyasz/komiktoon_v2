@@ -1,0 +1,220 @@
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+:root {
+    --var-gray: #565656; 
+    --var-primary: #ef6864; 
+    --var-dark-primary: #1b46e3; 
+    --var-dark: #3b3f58;
+    --var-black-75: #333333;
+    --var-black-50: #5f5f5f;
+}
+
+/* CUSTOM CLASS CSS ALL  */
+
+.fw-300 {
+    font-weight: 300 !important;
+}
+.fw-400 {
+    font-weight: 400 !important;
+}
+.fw-500 {
+    font-weight: 500 !important;
+}
+.fw-600 {
+    font-weight: 600 !important;
+}
+.fw-700 {
+    font-weight: 700 !important;
+}
+
+.fs-sm {
+    font-size: 13.8px !important;
+    letter-spacing: 0.2px;
+}
+
+hr {
+    opacity: 13% !important;
+}
+
+th {
+    white-space: nowrap;
+}
+
+td {
+    font-size: 14px !important;
+}
+
+th {
+    color: var(--var-black-75) !important;
+    font-weight: 500 !important;
+}
+
+.text-primary {
+    color: var(--var-primary) !important;
+}
+
+.btn.btn-primary {
+    background: var(--var-primary);
+}
+
+.btn.btn-primary:focus {
+    background: var(--var-primary);
+}
+
+.navbar-toggler:focus, .btn-close:focus {
+    box-shadow: none !important;
+}
+
+.badge {
+    width: max-content !important;
+    padding: 7px 15px;
+    font-weight: 600;
+    border-radius: 20px;
+    font-size: 15px;
+}
+
+.badge-danger {
+    color: #de2626;
+    background: #fee2dc;
+}
+
+.badge-success {
+    color: #15bd34;
+    background: #e8fedc;
+}
+
+.badge-confirmed {
+    color: #bd8b15;
+    background: #fefddc;
+}
+
+.fs-s-sm {
+    font-size: 12px !important;
+    letter-spacing: 0.2px;
+}
+
+.text-gray {
+    color: var(--var-black-50) !important;
+}
+
+.text-dark, .color-dark {
+    color: var(--var-dark) !important;
+}
+
+.form-control:focus, .form-check-input:focus, .form-select:focus {
+    box-shadow: none;
+}
+
+.form-control, .form-select {
+    padding: 11px 17px;
+}
+
+.alert.alert-danger {
+    display: flex;
+    align-items: center;
+    color: #e83434;
+    border: none;
+    background: #fee2dc;
+
+}
+
+/* END CUSTOM CLASS CSS ALL  */
+
+
+
+/* BOOK SECTION  */
+
+.form-check.category {
+    width: 100px !important;
+}
+
+.file-input-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 280px;
+    border: 1px var(--var-black-50) solid;
+    cursor: pointer;
+    position: relative;
+}
+
+#imagePreview {
+    width: 100%;
+    height: 280px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    object-fit: cover;
+}
+
+/* END BOOK SECTION  */
+
+/* TRANSAKSI SECTION  */
+
+input.jumlah-barang::-webkit-inner-spin-button, input.jumlah-barang::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* END TRANSAKSI SECTION  */
+
+
+/* @media only screen and (max-width: 991px) {
+
+    body {
+    }
+
+    td {
+        white-space: nowrap;
+    }
+
+
+
+    .panel_left {
+        top: 0;
+        left: 0;
+        bottom: 0;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out !important; 
+        border-right: solid #f2f2f2 1px;
+    }
+
+    .row.dashboard {
+        white-space: nowrap !important;
+        overflow-x: auto !important;
+    }
+
+    .row.dashboard .col-3 .card {
+     
+    }
+    
+} */
+
+/* @media only screen and (min-width: 768px) {
+
+    .panel_left {
+        visibility: visible !important;
+        transform: translateX(0) !important;
+    }
+    
+}
+
+@media only screen and (max-width: 767px) {
+
+    .panel_right {
+        width: 100% !important;
+        margin-left: 0 !important;
+
+    }
+
+    .panel_right .navbar {
+        width: 100% !important;
+        left: 0;
+    }
+    
+} */
