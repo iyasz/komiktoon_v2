@@ -1,11 +1,25 @@
-@extends('layout.app')
+@extends('layout.auth')
 
 @section('content')
 
 <div class='container-fluid'>
     <div class="row">
         <div class="col-lg-5 d-lg-block d-none px-0">
-            <img src="{{asset('img/auth/banner-auth.png')}}" class="stickyImg" alt="" />
+            
+            <div id="carouselBannerAuth" class="carousel slide" data-bs-ride="carousel"data-bs-touch="false" > 
+                <div class="carousel-inner">
+                    <div class="carousel-item active" data-bs-interval="7000">
+                        <img src="{{asset('img/auth/banner-auth.png')}}" class="d-block w-100" alt="" />
+                    </div>
+                    <div class="carousel-item" data-bs-interval="7000">
+                        <img src="{{asset('img/auth/banner-auth.png')}}" class="d-block w-100" alt="" />
+                    </div>
+                    <div class="carousel-item" data-bs-interval="7000">
+                        <img src="{{asset('img/auth/banner-auth.png')}}" class="d-block w-100" alt="" />
+                    </div>
+                </div>
+            </div>
+
         </div>
         <div class="col-lg-5 col-12 mx-lg-4 mx-0 mb-4">
             <div class="mt-5 me-lg-5 me-0 pe-lg-4 pe-0">
@@ -26,22 +40,22 @@
 
                             <div class="mb-3">
                                 <label class="mb-2 fs-sm opacity-75">Email</label>
-                                <input type="email" name="email" required id="" value="{{old('email')}}" placeholder="Email" class='form-control text-gray' />
+                                <input type="email" name="email" required value="{{old('email')}}" placeholder="Email" class='form-control text-gray' />
                                 @error('email')<p class="mb-0 fs-s-sm text-danger mt-2">{{$message}}</p>@enderror
                             </div>
                             <div class="mb-3">
                                 <label class="mb-2 fs-sm opacity-75">Nama</label>
-                                <input type="text" name="name" required id="" placeholder="Nama" value="{{old('name')}}" class='form-control text-gray' />
+                                <input type="text" name="name" required placeholder="Nama" value="{{old('name')}}" class='form-control text-gray' />
                                 @error('name')<p class="mb-0 fs-s-sm text-danger mt-2">{{$message}}</p>@enderror
                             </div>
                             <div class="mb-3">
                                 <label class="mb-2 fs-sm opacity-75">Password</label>
-                                <input type="password" name="password" required id="" placeholder="******" class='form-control text-gray' />
+                                <input type="password" name="password" required placeholder="******" class='form-control text-gray' />
                                 @error('password')<p class="mb-0 fs-s-sm text-danger mt-2">{{$message}}</p>@enderror
                             </div>
                             <div class="mb-3">
                                 <label class="mb-2 fs-sm opacity-75">Confirm Password</label>
-                                <input type="password" name="password_confirmation" required id="" placeholder="******" class='form-control text-gray' />
+                                <input type="password" name="password_confirmation" required placeholder="******" class='form-control text-gray' />
                                 @error('password_confirmation')<p class="mb-0 fs-s-sm text-danger mt-2">{{$message}}</p>@enderror
                             </div>
                         </div>

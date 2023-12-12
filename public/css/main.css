@@ -1,14 +1,23 @@
+/* ALL USER  */
+
+
+
+/* END ALL USER  */
+
+
+/* ===== AUTHENTICATION SECTION =====  */
+
 .btn-submit {
     padding: 13px 0 ;
 }
 
-.stickyImg{
+#carouselBannerAuth{
     width: 100%;
     position: sticky;
     top: 0;
     left: 0;
     height: 100vh;
-
+    
 }
 
 .label-auth::before {
@@ -30,3 +39,5 @@
     right: 0;
     top: 50%;
 }
+
+/* ===== END AUTHENTICATION SECTION =====  */
