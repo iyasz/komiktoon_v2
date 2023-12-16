@@ -1,0 +1,23 @@
+body {
+    background-image: url('https://i.ibb.co/MVJSTyM/email-bg-manga.png') !important;
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family: 'Poppins', sans-serif;
+    background-position: center;
+}
+
+p {
+    color: #718096;
+}
+
+h1 {
+    color: #3d4852 !important;
+}
+
+.btn.btn-primary {
+    background: #ef6864 !important;
+}
+
+.btn.btn-primary:focus {
+    background: #ef6864 !important;
+}

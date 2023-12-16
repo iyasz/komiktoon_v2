@@ -1,4 +1,5 @@
 @extends('layout.auth')
+@section('title', 'Sign In')
 
 @section('content')
 
@@ -25,11 +26,11 @@
         <div class="col-lg-5 col-12 mx-lg-4 mx-0 mb-4">
             <div class="mt-5 me-lg-5 me-0 pe-lg-4 pe-0">
                 <div class="">
-                    <a href="/" class='text-decoration-none text-dark d-flex align-items-center' >
+                    <a href="/" class='text-decoration-none text-dark d-inline-flex align-items-center' >
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="15" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
                     <path fillRule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
                     </svg> <span class="ms-1 fs-sm">Beranda</span></a>
-                    <div class="mt-4">
+                    <div class="mt-3">
                         <h4 class='fw-600'>Log In Akun</h4>
                         <p class='fs-sm text-gray'>Hi, Silahkan masuk terlebih dahulu</p>
                     </div>
@@ -50,27 +51,26 @@
                                     @endforeach
                                 </div>
                             @endif
-
                             <div class="mb-4">
                                 <label class="mb-2 fs-sm opacity-75">Email</label>
                                 <input type="email" name="email" @if($user != NULL) value="{{$user->email}}" @endif required placeholder="Email" class='form-control text-gray' />
                             </div>
                             <div class="mb-3">
                                 <label class="mb-2 fs-sm opacity-75">Password</label>
-                                <input type="password" name="password" @if(isset($_COOKIE['password'])) value="{{$_COOKIE['password']}}" @endif required placeholder="******" class='form-control text-gray' />
+                                <input type="password" name="password" required placeholder="******" class='form-control text-gray' />
                             </div>
                         </div>
                         <div class="d-flex justify-content-between">
                             <div class="">
                                 <div class="form-check d-flex align-content-center">
-                                    <input class="form-check-input" type="checkbox" @if(isset($_COOKIE['email'])) checked @endif name="remember" id="rememberMe"/>
+                                    <input class="form-check-input" type="checkbox" @if($user != NULL) checked @endif name="remember" id="rememberMe"/>
                                     <label class="form-check-label fs-sm mt-1 ms-2 text-gray" for="rememberMe">
                                         Ingat Saya
                                     </label>
                                 </div>
                             </div>
                             <div class="">
-                                <a href="/auth/forgot-password" class='text-decoration-none text-primary fs-sm'>Lupa Password</a>
+                                <a href="/auth/forget-password" class='text-decoration-none text-primary fs-sm'>Lupa Password</a>
                             </div>
                         </div>
                         <div class="mt-5">
@@ -95,13 +95,3 @@
 </div>
 
 @endsection
-
-@push('javascript')
-
-    <script>
-        $('.navbar.main').hide();
-    </script>
-@endpush
-
-
-

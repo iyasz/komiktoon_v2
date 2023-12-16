@@ -1,4 +1,5 @@
 @extends('layout.auth')
+@section('title', 'Sign Up')
 
 @section('content')
 
@@ -24,11 +25,11 @@
         <div class="col-lg-5 col-12 mx-lg-4 mx-0 mb-4">
             <div class="mt-5 me-lg-5 me-0 pe-lg-4 pe-0">
                 <div class="">
-                    <a href="/" class='text-decoration-none text-dark d-flex align-items-center' >
+                    <a href="/" class='text-decoration-none text-dark d-inline-flex align-items-center' >
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="15" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
                     <path fillRule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
                     </svg> <span class="ms-1 fs-sm">Beranda</span></a>
-                    <div class="mt-4">
+                    <div class="mt-3">
                         <h4 class='fw-600'>Registrasi Akun</h4>
                         <p class='fs-sm text-gray'>Hi, Silahkan buat akun terlebih dahulu</p>
                     </div>
@@ -75,12 +76,4 @@
 </div>
 
 @endsection
-
-@push('javascript')
-    <script>
-        $('.navbar.main').hide();
-    </script>
-@endpush
-
-
 

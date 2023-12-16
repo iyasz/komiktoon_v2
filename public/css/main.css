@@ -40,4 +40,40 @@
     top: 50%;
 }
 
+.circle{
+    width: 13px;
+    height: 13px;
+    background-color: #454545;
+    border-radius: 50%;
+    margin-left: 15px;
+    animation: moveRight 1s linear infinite;
+    margin-bottom: 20px
+}
+
+.cirle-2 {
+    animation-delay: -0.2s;
+}
+
+.cirle-3 {
+    animation-delay: -0.4s;
+}
+
+@keyframes moveRight {
+    0% {
+        transform: translateY(5px);
+    }
+    25% {
+        transform: translateY(10px);
+    }
+    50% {
+        transform: translateY(15px);
+    }
+    75% {
+        transform: translateY(10px);
+    }
+    100% {
+        transform: translateY(5px);
+    }
+}
+
 /* ===== END AUTHENTICATION SECTION =====  */

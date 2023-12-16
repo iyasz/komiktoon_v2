@@ -2,11 +2,19 @@
 
 namespace App\Http\Controllers\auth;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\PasswordResetToken;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -34,17 +42,17 @@ class AuthController extends Controller
                 return back()->withErrors(['error_message' => 'Email atau Password anda salah!']);
             }
 
-            if(Auth::attempt(['email' => $request->email, 'password' => $request->password], true)){
+            if(Auth::attempt(['email' => $request->email, 'password' => $request->password], $request->remember)){
                 $request->session()->regenerate();
 
+                // setcookie("email", $request->email, time() + (365 * 24 * 60 * 60));
+                
                 $user = Auth::user()->role_id;
 
-                // setcookie("email", $request->email, time() + (365 * 24 * 60 * 60));
-
                 if($user == 1){
-                    return redirect('/panel/admin/dashboard')->with('success', 'Anda berhasil login!');
+                    return redirect('/panel/admin/dashboard');
                 }else{
-                    return redirect('/')->with('success', 'Anda berhasil login!');
+                    return redirect()->intended('/');
                 }
                 
             }
@@ -68,7 +76,7 @@ class AuthController extends Controller
         if($user && $user->password != NULL){
 
             Auth::login($user);
-            return redirect('/')->with('success', 'Anda berhasil login!');
+            return redirect('/');
         }else{
 
             if(!$user){
@@ -123,7 +131,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect('/')->with('success', 'Anda berhasil login!');
+        return redirect('/');
     }
     
     public function handleSubmitRegister(Request $request) {
@@ -134,9 +142,9 @@ class AuthController extends Controller
         
         if($request->isMethod('post')){
             $credentials = $request->validate([
-                'email' => 'required|email|unique:users|max:150|min:5',
-                'name' => 'required|max:150|string',
-                'password' => 'required|string|confirmed|max:150',
+                'email' => 'required|email|unique:users|max:150',
+                'name' => 'required|max:50|string|min:5',
+                'password' => 'required|string|confirmed|max:50|min:5',
                 'password_confirmation' => 'required|string|max:150',
             ], [
                 'email.required' => 'Email tidak boleh kosong!',
@@ -145,15 +153,16 @@ class AuthController extends Controller
                 'email.max' => 'Tidak boleh lebih dari 150 huruf!',
                 
                 'name.required' => 'Nama tidak boleh kosong!',
-                'name.max' => 'Tidak boleh lebih dari 150 huruf!',
+                'name.max' => 'Tidak boleh lebih dari 50 huruf!',
+                'password.min' => 'Nama terlalu pendek!',
     
                 'password.required' => 'Password tidak boleh kosong!',
                 'password.confirmed' => 'Password tidak sesuai!',
-                'password.max' => 'Tidak boleh lebih dari 150 huruf!',
+                'password.max' => 'Tidak boleh lebih dari 50 huruf!',
                 'password.min' => 'Tidak boleh kurang dari 5 huruf!',
                 
                 'password_confirmation.required' => 'Confirm Password tidak boleh kosong!',
-                'password_confirmation.max' =>  'Tidak boleh lebih dari 150 huruf!',
+                'password_confirmation.max' =>  'Tidak boleh lebih dari 50 huruf!',
             ]);
 
             $user = new User();
@@ -165,14 +174,110 @@ class AuthController extends Controller
 
             Auth::login($user);
 
-            return redirect('/')->with('success', 'Anda berhasil login!');
+            return redirect('/');
 
         }
 
     }
 
-    public function showForgotPassword() {
-        return view('auth.forgot-password');    
+    public function showForgetPassword() {
+        return view('auth.forget-password');    
+    }
+
+    public function handleForgetPassword(Request $request) {
+        $credentials = $request->validate([
+            'email' => 'required|email|string',
+        ], [
+            'email.required' => 'Email tidak boleh kosong!',
+            'email.email' => 'Harus menggunakan email!',
+        ]);
+
+        // $tokenRand = Str::random(64);
+        // $token = $tokenRand;
+
+        // $insertPasswordToken = new PasswordResetToken();    
+        // $insertPasswordToken->email = $request->email;
+        // $insertPasswordToken->token = $token;   
+        // $insertPasswordToken->created_at = Carbon::now();   
+        // $insertPasswordToken->save();
+
+        // Mail::send("emails.forget-password", ['token' => $token], function($message) use ($request){
+        //     $message->to($request->email);
+        //     $message->subject("Reset Password");
+        // });
+
+        // return redirect('/auth/forgot-password')->with('success', 'Email berhasil dikirim!');
+
+        $status = Password::sendResetLink(
+            $request->only('email')
+        );
+
+        return $status === Password::RESET_LINK_SENT
+                ? back()->with(['success' => 'Email berhasil terkirim!'])
+                : back()->withErrors(['email' => __($status)]);
+    }
+
+    public function showResetPassword($token) {
+        $email = PasswordResetToken::where('email', request()->email)->first();
+
+        if(!$email){
+            abort(404);
+        }
+
+        return view('auth.reset-password', ['token' => $token]);
+    }
+
+    public function handleResetPassword(Request $request, $token) {
+        $validate = $request->validate([
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|string|confirmed|max:150|min:5',
+            'password_confirmation' => 'required|string|max:150',
+        ], [
+            'token.required' => 'Token tidak valid!',
+
+            'email.required' => 'Email tidak valid!',
+            'email.email' => 'Email tidak valid!',
+
+            'password.required' => 'Password tidak boleh kosong!',
+            'password.confirmed' => 'Password tidak sesuai!',
+            'password.max' => 'Tidak boleh lebih dari 150 huruf!',
+            'password.min' => 'Tidak boleh kurang dari 5 huruf!',
+            
+            'password_confirmation.required' => 'Confirm Password tidak boleh kosong!',
+            'password_confirmation.max' =>  'Tidak boleh lebih dari 150 huruf!',
+        ]);
+
+        $userToken = PasswordResetToken::where('email', request()->email)->first();
+        if(!$userToken || $request->email != request()->email || $request->token != request()->token){
+            abort(404);
+        }
+
+        $status = Password::reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function (User $user, string $password) {
+                $user->forceFill([
+                    'password' => Hash::make($password)
+                ])->setRememberToken(Str::random(60));
+     
+                $user->save();
+     
+                event(new PasswordReset($user));
+            }
+        );
+
+        if($status === Password::PASSWORD_RESET){
+            $userForget = User::where('email', $request->email)->first();
+            if($userForget->register_token != NULL){
+                $userForget->register_token = NULL;
+                $userForget->update();
+            }
+        }
+
+        return $status === Password::PASSWORD_RESET
+                ? redirect()->route('login')->with('success', __($status))
+                : back()->withErrors(['email' => [__($status)]]);       
+
     }
 
     public function logout(Request $request) {
@@ -180,7 +285,7 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
         $request->session()->invalidate();
 
-        return redirect('/auth/login')->with('success', 'Anda berhasil logout!');
+        return redirect('/');
 
     }
 }

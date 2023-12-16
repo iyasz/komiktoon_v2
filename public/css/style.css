@@ -38,6 +38,14 @@ hr {
     opacity: 13% !important;
 }
 
+.border-primary {
+    border: 1px var(--var-primary) solid !important;
+}
+
+ul {
+    list-style-type: none;
+}
+
 th {
     white-space: nowrap;
 }
@@ -111,14 +119,40 @@ th {
     padding: 11px 17px;
 }
 
-.alert.alert-danger {
+.alert {
     display: flex;
     align-items: center;
-    color: #e83434;
     border: none;
-    background: #fee2dc;
-
 }
+
+.alert.alert-danger {
+    color: #e83434;
+    background: #fee2dc;
+}
+
+.alert.alert-success{
+    color: #1fcf25;
+    background: #defedc;
+    transform: translateY(-110%);
+    justify-content: center;
+    animation: slideInDown 5s ease-in-out;
+}
+
+@keyframes slideInDown {
+    0% {
+        transform: translateY(-100%);
+    }
+    20% {
+        transform: translateY(0);
+    }
+    80% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-100%);
+    }
+}
+
 
 /* END CUSTOM CLASS CSS ALL  */
 

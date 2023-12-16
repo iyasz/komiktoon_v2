@@ -1,5 +1,5 @@
 @extends('layout.auth')
-@section('title', 'Confirm Password')
+@section('title', 'Reset Password')
 
 @section('content')
 
@@ -10,13 +10,12 @@
             <div class="mt-5 ">
                 <div class="">
                     <div class="mt-4 text-center">
-                        <h2 class='fw-600'>Buat Kata Sandi</h2>
-                        <p class='fs-sm text-gray'>Buat kata sandi untuk akun anda</p>
+                        <h2 class='fw-600'>Reset Kata Sandi</h2>
+                        <p class='fs-sm text-gray'>Reset kata sandi untuk akun anda</p>
                     </div>
 
-                    <form method="POST" action="/auth/register/mC3EtY3yxkqyyAqRnjKeDguCf/{{$token}}">
+                    <form method="POST" action="/auth/reset-password/X35k5FaLl/{{$token}}">
                         @csrf
-                        @method('put')
 
                         <div class="mt-4 pt-2 ">
 
@@ -30,6 +29,8 @@
                             </div>
 
                             <div class="mb-3">
+                                <input type="hidden" name="token" id="" class="form-control" value="{{request()->token}}">
+                                <input type="hidden" name="email" id="" class="form-control" value="{{request()->email}}">
                                 <label class="mb-2 fs-sm opacity-75">Password</label>
                                 <input type="password" name="password" required placeholder="Password" class='form-control text-gray' />
                                 @error('password')<p class="mb-0 fs-s-sm text-danger mt-2">{{$message}}</p>@enderror
@@ -55,5 +56,6 @@
 </div>
 
 @endsection
+
 
 
