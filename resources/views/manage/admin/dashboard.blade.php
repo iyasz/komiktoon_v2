@@ -1,7 +1,7 @@
 @extends('layout.main')
 
 @section('content')
-    <div class="">
+    <div id="app">
         <div class="row flex-nowrap overflow-auto">
 
             <div class="col-lg-4 col-12 p-3">
@@ -147,13 +147,16 @@
                         </thead>
                         <tbody>
 
-                            <tr>
+                            <tr v-for="data in 3">
                                 <td>1</td>
-                                <td class="d-flex ">
-                                    <img src="https://i.pinimg.com/564x/e7/e8/2f/e7e82f89118bf7e0fe231205874092f0.jpg" width="60px" height="60px" class="rounded-1" alt="">
-                                    <div class="ms-4">
-                                        <a href="" class="mb-0 fw-500 text-dark text-decoration-none">Seseorang yang keren</a>
-                                        <p class="mb-0 fs-s-sm opacity-75">Young jin park</p>
+                                <td>
+                                    <div class="d-flex">
+
+                                        <img src="https://i.pinimg.com/564x/e7/e8/2f/e7e82f89118bf7e0fe231205874092f0.jpg" width="60px" height="60px" class="rounded-1" alt="">
+                                        <div class="ms-4">
+                                            <a href="" class="mb-0 fw-500 text-dark text-decoration-none">Seseorang yang keren</a>
+                                            <p class="mb-0 fs-s-sm opacity-75">Young jin park</p>
+                                        </div>
                                     </div>
                                 </td>
                                 <td>
@@ -163,58 +166,7 @@
                                 </td>
                                 <td>Toei Animation</td>
                                 <td>Queen Elsa</td>
-                                <td>
-                                    <a href="" class="btn btn-primary btn-sm border-0 rounded-1">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
-                                            <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
-                                            <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
-                                          </svg>
-                                    </a>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>2</td>
-                                <td class="d-flex ">
-                                    <img src="https://i.pinimg.com/564x/e7/e8/2f/e7e82f89118bf7e0fe231205874092f0.jpg" width="60px" height="60px" class="rounded-1" alt="">
-                                    <div class="ms-4">
-                                        <a href="" class="mb-0 fw-500 text-dark text-decoration-none">Seseorang yang keren</a>
-                                        <p class="mb-0 fs-s-sm opacity-75">Young jin park</p>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="badge badge-danger">
-                                        Manhwa
-                                    </div>
-                                </td>
-                                <td>Toei Animation</td>
-                                <td>Queen Elsa</td>
-                                <td>
-                                    <a href="" class="btn btn-primary btn-sm border-0 rounded-1">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
-                                            <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
-                                            <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
-                                          </svg>
-                                    </a>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>3</td>
-                                <td class="d-flex ">
-                                    <img src="https://i.pinimg.com/564x/e7/e8/2f/e7e82f89118bf7e0fe231205874092f0.jpg" width="60px" height="60px" class="rounded-1" alt="">
-                                    <div class="ms-4">
-                                        <a href="" class="mb-0 fw-500 text-dark text-decoration-none">Seseorang yang keren</a>
-                                        <p class="mb-0 fs-s-sm opacity-75">Young jin park</p>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="badge badge-confirmed">
-                                        Manhwa
-                                    </div>
-                                </td>
-                                <td>Toei Animation</td>
-                                <td>Queen Elsa</td>
+                             
                                 <td>
                                     <a href="" class="btn btn-primary btn-sm border-0 rounded-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
@@ -236,6 +188,20 @@
 
 @push('javascript')
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+    <script>
+        
+        const app = {
+            data(){
+                return{
+                    nama : 'iyasz'
+                }
+            },
+        }
+
+        Vue.createApp(app).mount('#app')
+
+    </script>
 
     <script>
 

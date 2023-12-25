@@ -6,11 +6,8 @@
 
 .collapseSearchLarge {
     z-index: 5;
-    /* width: 300px; */
     top: -5px;
-    /* left: 30px; */
     right: 40px;
-    /* bottom: -120px; */
 }
 
 .__modal-search-content__ {

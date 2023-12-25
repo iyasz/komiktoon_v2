@@ -1,7 +1,43 @@
 @extends('layout.auth')
 @section('title', 'Reset Password')
 
+@push('css')
+    <style>
+        .alert.alert-danger{
+            transform: translateY(-110%);
+            justify-content: center;
+            animation: slideInDown 5s ease-in-out;
+        }
+
+        @keyframes slideInDown {
+            0% {
+                transform: translateY(-100%);
+            }
+            20% {
+                transform: translateY(0);
+            }
+            80% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-100%);
+            }
+        }
+
+    </style>
+@endpush
+
 @section('content')
+
+@error('error_messages')
+<div class="alert alert-danger w-100 position-fixed top-0 left-0 right-0 shadow-sm justify-content-center">
+    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+        <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"/>
+    </svg>
+    <p class="mb-0 ms-3 fs-sm">{{ $message }}</p>
+</div>
+@enderror
 
 <div class='container-fluid'>
     <div class="row justify-content-center">
@@ -56,6 +92,15 @@
 </div>
 
 @endsection
+
+@push('javascript')
+    <script>
+        $('form').on('submit', function(){
+            $('.btn.btn-primary').addClass('disabled')
+        })
+
+    </script>
+@endpush
 
 
 

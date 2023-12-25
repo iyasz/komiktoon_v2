@@ -47,7 +47,7 @@
                                         <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"/>
                                     </svg>
                                     @foreach ($errors->keys() as $key)
-                                        <p class="d-flex mb-0 ms-4 fs-sm">{{ $errors->first($key) }}</p>
+                                        <p class="mb-0 ms-4 fs-sm">{{ $errors->first($key) }}</p>
                                     @endforeach
                                 </div>
                             @endif

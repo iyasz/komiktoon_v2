@@ -15,6 +15,7 @@ use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 class AuthController extends Controller
 {
@@ -81,7 +82,21 @@ class AuthController extends Controller
 
             if(!$user){
                 $user = new User();
-                $user->photo = $userGoogle->avatar;
+
+                if($userGoogle->avatar){
+
+                // Ambil gambar dari URL
+                $avatarUrl = $userGoogle->avatar;
+                $image = file_get_contents($avatarUrl);
+
+                // Simpan gambar ke penyimpanan lokal Laravel
+                $filename = 'img/' . uniqid() . '.jpg';
+                Storage::disk('public')->put($filename, $image);
+
+                // Simpan path gambar ke model User
+                $user->photo = $filename;
+                }
+
                 $user->name = $userGoogle->name;
                 $user->email = $userGoogle->email;
                 $user->role_id = 2;
@@ -212,9 +227,17 @@ class AuthController extends Controller
             $request->only('email')
         );
 
+
+        $messageError = "Coba lagi sesaat ..";
+        if(__($status) == "We can't find a user with that email address."){
+            $messageError = "Email tidak dapat ditemukan!";
+        }elseif(__($status) == "Please wait before retrying."){
+            $messageError = "Silakan tunggu sebentar sebelum mencoba lagi";
+        }
+
         return $status === Password::RESET_LINK_SENT
                 ? back()->with(['success' => 'Email berhasil terkirim!'])
-                : back()->withErrors(['email' => __($status)]);
+                : back()->withErrors(['email' => $messageError]);
     }
 
     public function showResetPassword($token) {
@@ -266,6 +289,7 @@ class AuthController extends Controller
             }
         );
 
+        
         if($status === Password::PASSWORD_RESET){
             $userForget = User::where('email', $request->email)->first();
             if($userForget->register_token != NULL){
@@ -274,9 +298,11 @@ class AuthController extends Controller
             }
         }
 
+        // dd([__($status)]);
+
         return $status === Password::PASSWORD_RESET
-                ? redirect()->route('login')->with('success', __($status))
-                : back()->withErrors(['email' => [__($status)]]);       
+                ? redirect()->route('login')->with('success', 'Password berhasil direset!')
+                : back()->withErrors(['error_messages' => 'Token tidak valid!']);       
 
     }
 

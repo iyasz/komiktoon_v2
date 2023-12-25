@@ -54,15 +54,6 @@
 
 @endsection
 
-@push('javascript')
-    <script>
-        
-        $('form').on('submit', function(){
-            $('.btn.btn-primary').addClass('disabled')
-        })
-
-    </script>
-@endpush
 
 
 

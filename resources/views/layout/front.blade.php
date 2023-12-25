@@ -80,7 +80,7 @@
 
                 <ul class="navbar-nav ms-lg-4 ms-2">
                         <div class="d-lg-none d-flex align-items-center align-content-center">
-                            <img src="{{ Auth::user() && Auth::user()->photo ? asset('/storage/img/'.Auth::user()->photo) : asset('/img/face.png') }}" class="rounded-circle me-2 profile-img" width="60" height="60" alt="">
+                            {{-- <img src="{{ Auth::user()->photo ? Storage::url(Auth::user()->photo) : 'https://th.bing.com/th/id/OIP.Nen6j3vBZdl8g8kzNfoEHQAAAA?pid=ImgDet&rs=1'}}" class="rounded-circle me-2 profile-img" width="60" height="60" alt=""> --}}
                             <div class="ms-2">
                                 <p class="mb-0 fw-bold text-dark">@if(Auth::user()){{Auth::user()->first_name}} {{Auth::user()->last_name}}@else Guest @endif</p>
                                 {{-- <a href="{{Auth::user() ? route('profile') : route('login')}}" class="btn btn-primary btn-sm border-0 ">{{ Auth::user() ? 'My Profile' : 'Sign In' }}</a> --}}
@@ -132,10 +132,32 @@
                         </li>
 
                         <div class="me-3 d-lg-block d-none my-auto opacity-25">|</div>
+
+                        @if (Auth::user())   
+                        <li class="nav-item dropdown my-auto">
+                            <a style="white-space: nowrap" class="nav-link fs-sm py-0" href="/anime" role="button" data-bs-toggle="dropdown"  aria-expanded="false">
+                                <div class="d-flex align-items-center"><img src="{{ Auth::user()->photo ? Storage::url(Auth::user()->photo) : 'https://th.bing.com/th/id/OIP.Nen6j3vBZdl8g8kzNfoEHQAAAA?pid=ImgDet&rs=1'}}" class="rounded-circle me-2 profile-img" width="35" height="35" alt=""><span class="mt-2">{{ Auth::user()->name}} </span></div>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end border-1 shadow-sm position-absolute w-100 mt-2">
+                                {{-- <li><a class="dropdown-item fs-sm" href="{{route('profile')}}"><i class="bi bi-person me-2"></i> My Profile</a></li> --}}
+                                <li><a class="dropdown-item fs-sm" href="/bookmark/list"><i class="bi bi-bookmark me-2"></i> Bookmark </a></li>
+                                {{-- @if(Auth::user()->role->name == 2)
+                                <li><a class="dropdown-item fs-sm" href="/content/create"><i class="bi bi-plus me-2"></i> Add Content</a></li>
+                                <li><a class="dropdown-item fs-sm" href="/content/story"><i class="bi bi-card-text me-2"></i> My Content</a></li>
+                                @endif --}}
+                                <li>
+                                    <hr class="my-2">
+                                </li>
+                                <li><a class="dropdown-item fs-sm" href="{{route('logout')}}"><i class="bi bi-box-arrow-right me-2"></i> Log Out</a></li>
+                            </ul>
+                        </li>
+
+                        @else
                         <li class="nav-item my-auto auth-btn-group">
                             <a href="{{route('login')}}" class="btn btn-primary bg-transparent border-primary text-primary   fs-sm py-2 px-3 rounded-2 fw-500 me-2">Masuk</a>
                             <a href="{{route('register')}}" class="btn btn-primary fs-sm border-0 py-2 px-3 rounded-2 fw-500">Daftar</a>
                         </li>
+                        @endif
                     </ul>
                     {{-- <ul class="navbar-nav right-content ms-auto d-lg-flex d-none">
                         <li class="nav-item me-3 my-auto position-relative">

@@ -34,7 +34,7 @@ width: 100% !important;
     <div class="container my-3 h-100 mt-lg-3 mt-md-5 mt-3">
         <div class="row h-100 align-items-center align-content-center justify-content-center ">
             <div class="col-lg-8 col-md-9 col-12">
-                <div class="card rounded-1">
+                <div class="card rounded-1 border-0">
                     <div class="card-body">
                         {{ Illuminate\Mail\Markdown::parse($slot) }}    
                         

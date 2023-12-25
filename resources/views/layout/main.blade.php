@@ -3,12 +3,14 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Penjualan Buku</title>
+    <title>Komiktoon | Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
     {{-- @stack('dragImg') --}}
 
@@ -21,7 +23,7 @@
       <div class='container-fluid'>
         <div class="">
           <div class='ps-0 offcanvas panel_left' tabindex="-1" id="sidebarPanel" data-bs-toggle="sidebarPanel" >
-            <div class="wrapper-content">
+            <div class="wrapper-content vh-100">
                 <div class="header_siderbar d-flex justify-content-center">
                   <svg xmlns="http://www.w3.org/2000/svg" width="85%" version="1.1" viewBox="0.00 0.00 1440.00 296.00">
                     <path fill="#ef6864" d="   M 112.92 92.65   Q 143.72 52.96 174.42 13.13   C 177.44 9.20 181.15 7.68 186.30 7.70   Q 212.28 7.78 237.13 7.76   Q 238.50 7.76 239.96 8.03   Q 242.56 8.51 241.29 10.83   C 239.78 13.58 238.18 16.32 236.28 18.83   Q 204.23 61.13 173.40 101.68   A 2.90 2.89 -43.2 0 0 173.29 105.05   Q 209.04 158.83 246.89 215.84   Q 248.34 218.03 249.00 220.49   A 1.93 1.93 0.0 0 1 247.16 222.92   Q 219.32 223.19 191.25 222.99   Q 187.95 222.97 185.28 220.23   C 183.06 217.95 180.97 215.64 179.14 212.98   Q 162.12 188.38 146.74 163.53   Q 139.49 151.81 131.41 139.80   A 0.77 0.77 0.0 0 0 130.19 139.72   L 113.74 158.62   Q 113.12 159.34 113.07 160.29   C 112.79 166.95 112.39 173.83 112.42 180.37   Q 112.57 206.38 112.24 217.06   C 112.17 219.40 110.72 222.02 108.20 222.53   Q 106.17 222.95 104.14 222.96   Q 85.39 223.10 64.19 223.01   Q 61.14 222.99 58.35 221.57   Q 57.92 221.35 57.69 220.91   Q 56.25 218.09 56.25 214.87   Q 56.25 115.19 56.27 14.88   Q 56.27 10.54 59.81 8.77   Q 61.48 7.94 65.01 7.93   Q 92.70 7.81 104.26 8.02   Q 112.39 8.17 112.41 16.19   Q 112.50 52.38 112.40 92.48   A 0.29 0.29 0.0 0 0 112.92 92.65   Z"/>
@@ -122,12 +124,10 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
                           <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6"/>
                         </svg>
-                        <span class="position-absolute top-75 start-75 translate-middle p-1 bg-danger border border-light rounded-circle">
-                          <span class="visually-hidden">New alerts</span>
-                        </span>
-
+                        <span class="position-absolute top-75 start-75 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end border-0 position-absolute w-100">
+                            <h6 class="ms-3">Notification</h6>
                             <hr class="my-2">
                             <li><a href="/wishlist" class="dropdown-item py-2 opacity-75 fs-s-sm"><i class="bi bi-heart mx-3"></i> Notification</a></li>
                             <li><a href="/cart" class="dropdown-item py-2 opacity-75 fs-s-sm"><i class="bi bi-cart mx-3"></i> My Cart</a></li>
@@ -176,18 +176,6 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <script src="{{asset('js/main.js')}}"></script>
-
-    {{-- @if(SESSION('success'))
-    <script>
-      Swal.fire({
-        title: 'Berhasil!',
-        text: '{{SESSION('success')}}', 
-        icon: "success"
-      });
-    </script>
-
-    
-    @endif --}}
 
     @stack('javascript')
 
