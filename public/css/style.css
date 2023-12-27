@@ -103,6 +103,10 @@ th {
     letter-spacing: 0.2px;
 }
 
+.bg-primary {
+    background: var(--var-primary) !important;
+}
+
 .text-gray {
     color: var(--var-black-50) !important;
 }
@@ -136,6 +140,23 @@ th {
     transform: translateY(-110%);
     justify-content: center;
     animation: slideInDown 5s ease-in-out;
+}
+
+.dropdown-menu {
+    min-width: 15rem !important;
+    box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.08);
+}
+
+.ellipsis-text {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 12ch; 
+}
+
+.dropdown-item:active {
+    background: var(--var-primary);
 }
 
 @keyframes slideInDown {

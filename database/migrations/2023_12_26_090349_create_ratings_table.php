@@ -11,8 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('likes', function (Blueprint $table) {
+        Schema::create('ratings', function (Blueprint $table) {
             $table->id();
+            $table->uuid('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->uuid('content_id')->nullable();
+            $table->foreign('content_id')->references('id')->on('contents');
+            $table->string('rate')->nullable();
+
             $table->timestamps();
         });
     }
@@ -22,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('likes');
+        Schema::dropIfExists('ratings');
     }
 };

@@ -68,7 +68,7 @@ class AuthController extends Controller
         ->with(['prompt' => 'select_account'])
         ->redirect();
         // return Socialite::driver('google')->redirect();
-    }
+    }   
     
     public function handleCallbackGoogle() {
         $userGoogle = Socialite::driver('google')->user();
@@ -76,7 +76,7 @@ class AuthController extends Controller
         $user = User::where('email', $userGoogle->email)->first();
         if($user && $user->password != NULL){
 
-            Auth::login($user);
+            Auth::login($user); 
             return redirect('/');
         }else{
 
@@ -104,19 +104,16 @@ class AuthController extends Controller
                 $user->save();
             }
             return redirect('/auth/register/mC3EtY3yxkqyyAqRnjKeDguCf/'.$user->register_token);
-            // return view('auth.registerGoogle');
         }
         
     }
 
     public function registerGoogleView(Request $request, $token) {
-        // dd($user);
         $user = User::where('register_token', $token)->first();
         if(!$user){
             abort(404);
         }
 
-        // dd($user);
         return view('auth.registerGoogle', compact('user', 'token'));
 
     }
@@ -207,37 +204,13 @@ class AuthController extends Controller
             'email.email' => 'Harus menggunakan email!',
         ]);
 
-        // $tokenRand = Str::random(64);
-        // $token = $tokenRand;
-
-        // $insertPasswordToken = new PasswordResetToken();    
-        // $insertPasswordToken->email = $request->email;
-        // $insertPasswordToken->token = $token;   
-        // $insertPasswordToken->created_at = Carbon::now();   
-        // $insertPasswordToken->save();
-
-        // Mail::send("emails.forget-password", ['token' => $token], function($message) use ($request){
-        //     $message->to($request->email);
-        //     $message->subject("Reset Password");
-        // });
-
-        // return redirect('/auth/forgot-password')->with('success', 'Email berhasil dikirim!');
-
         $status = Password::sendResetLink(
             $request->only('email')
         );
 
-
-        $messageError = "Coba lagi sesaat ..";
-        if(__($status) == "We can't find a user with that email address."){
-            $messageError = "Email tidak dapat ditemukan!";
-        }elseif(__($status) == "Please wait before retrying."){
-            $messageError = "Silakan tunggu sebentar sebelum mencoba lagi";
-        }
-
         return $status === Password::RESET_LINK_SENT
-                ? back()->with(['success' => 'Email berhasil terkirim!'])
-                : back()->withErrors(['email' => $messageError]);
+                ? back()->with(['success' => __($status)])
+                : back()->withErrors(['email' => [__($status)]]);
     }
 
     public function showResetPassword($token) {
@@ -298,11 +271,10 @@ class AuthController extends Controller
             }
         }
 
-        // dd([__($status)]);
-
         return $status === Password::PASSWORD_RESET
-                ? redirect()->route('login')->with('success', 'Password berhasil direset!')
-                : back()->withErrors(['error_messages' => 'Token tidak valid!']);       
+        
+                ? redirect()->route('login')->with('success', __($status))
+                : back()->withErrors(['error_messages' => __($status)]);       
 
     }
 

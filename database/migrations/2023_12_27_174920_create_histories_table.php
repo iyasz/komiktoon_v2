@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('social_media', function (Blueprint $table) {
-            $table->id();
+        Schema::create('histories', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->uuid('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->uuid('content_id')->nullable();
-            $table->foreign('content_id')->references('id')->on('contents');
-
-            $table->string('facebook')->nullable();
-            $table->string('instagram')->nullable();
-            $table->string('twitter')->nullable();
+            $table->foreign('content_id')->references('id')->on('chapters');
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('social_media');
+        Schema::dropIfExists('histories');
     }
 };

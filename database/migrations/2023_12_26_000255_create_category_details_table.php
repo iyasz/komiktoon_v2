@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('views', function (Blueprint $table) {
+        Schema::create('category_details', function (Blueprint $table) {
             $table->id();
+            $table->uuid('content_id')->nullable();
+            $table->foreign('content_id')->references('id')->on('contents');
+            $table->uuid('category_id')->nullable();
+            $table->foreign('category_id')->references('id')->on('categories');
             $table->timestamps();
         });
     }
@@ -22,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('views');
+        Schema::dropIfExists('category_details');
     }
 };

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('auth_banners', function (Blueprint $table) {
             $table->id();
+            $table->string('photo')->nullable();
             $table->timestamps();
         });
     }

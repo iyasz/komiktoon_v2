@@ -53,8 +53,22 @@
 
         <div class="position-relative d-lg-none d-block">
             <button class="btn btn-primary border-0 bg-transparent p-0" id="mobileSearchContent">
-                <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 24 24" fill="#ef6864"><path d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 20">
+                    <path fill="#ef6864" d="M20.258 18.98l-4.967-4.86a8.388 8.388 0 0 0 2.14-5.592C17.43 3.823 13.518 0 8.714 0 3.907 0 0 3.827 0 8.528c0 4.7 3.911 8.527 8.715 8.527 2.184 0 4.183-.789 5.715-2.093l4.967 4.86a.623.623 0 0 0 .43.178.604.604 0 0 0 .431-.177.59.59 0 0 0 0-.843zM1.219 8.528c0-4.045 3.363-7.33 7.492-7.33 4.133 0 7.49 3.29 7.49 7.33s-3.357 7.335-7.49 7.335c-4.13 0-7.492-3.29-7.492-7.335z"/>
+                </svg>
             </button>
+            <a href="/favorit" class="btn btn-primary border-0 bg-transparent p-0 mx-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="20" viewBox="0 0 22 20">
+                    <path fill="none" fill-rule="evenodd" stroke="#ef6864" d="M10.976 4.294C12.324 2.098 13.905 1 15.718 1c2.72 0 4.521 2.248 4.891 3.294.37 1.046.99 3.818-.998 7.717-1.987 3.9-7.166 6.989-8.635 6.989-1.468 0-6.897-3.504-8.662-6.989-1.765-3.484-1.42-6.51-.865-7.717C2.003 3.087 3.583 1 6.183 1c1.733 0 3.33 1.098 4.793 3.294z"/>
+                </svg>
+            </a>
+            <a href="/history" class="btn btn-primary border-0 bg-transparent p-0">                
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#ef6864" width="21" height="21" viewBox="0 0 18 18">
+                    <path d="M1.653 8.65c-.003.074-.044 1.32.291 2.662l-1.092-.674a.55.55 0 0 0-.775.217.62.62 0 0 0 .204.82l2.558 1.579c.043.022.071.033.1.044.02.007.04.015.06.02.024.006.049.008.074.01.062.008.071.004.081.003.042 0 .054-.006.068-.009a.555.555 0 0 0 .144-.048.53.53 0 0 0 .125-.085.584.584 0 0 0 .1-.119c.03-.042.03-.053.034-.062.007-.016.02-.03.026-.048l1.017-2.668a.613.613 0 0 0-.312-.781.557.557 0 0 0-.738.332l-.523 1.37c-.349-1.235-.309-2.504-.308-2.54 0-4.068 3.127-7.378 6.97-7.378 3.842 0 6.968 3.31 6.968 7.379 0 4.068-3.126 7.379-6.969 7.379-.313 0-.567.268-.567.6 0 .331.254.6.567.6 4.469 0 8.104-3.848 8.104-8.58 0-4.73-3.636-8.58-8.104-8.58-4.468 0-8.103 3.85-8.103 8.556z" stroke-width="0.8"/>
+                    <path d="M11.096 9.767c.01-.008.023-.012.032-.02a.534.534 0 0 0 .108-.165c.008-.016.012-.035.018-.052a.565.565 0 0 0 .027-.157c0-.012.007-.022.006-.035l-.147-5.154a.625.625 0 0 0-.6-.6.545.545 0 0 0-.567.567l.136 4.762-2.997 1.156a.556.556 0 0 0-.297.753c.13.301.475.454.77.34l3.355-1.294c.06-.024.11-.06.156-.1" stroke-width="0.2"/>
+                </svg>
+                
+            </a>
         </div>
 
           <div class="offcanvas offcanvas-start" tabindex="-1" id="SidebarPage" aria-labelledby="SidebarPageLabel">
@@ -73,39 +87,40 @@
                 <path fill="#ef6864" d="   M 1012.81 271.72   Q 985.60 256.20 969.21 228.74   C 962.50 217.51 971.45 203.84 984.50 206.16   Q 991.11 207.33 995.53 214.49   C 1031.11 272.06 1114.22 271.71 1149.43 214.19   C 1153.17 208.08 1157.98 204.14 1165.28 204.81   C 1170.08 205.24 1174.80 208.17 1176.86 212.48   Q 1180.56 220.21 1176.39 227.46   C 1143.67 284.39 1070.53 304.64 1012.81 271.72   Z"/>
                 </svg>
               </h5>
-              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+              <button type="button" class="btn-close fs-sm " data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
 
             <div class="offcanvas-body">
 
                 <ul class="navbar-nav ms-lg-4 ms-2">
                         <div class="d-lg-none d-flex align-items-center align-content-center">
-                            {{-- <img src="{{ Auth::user()->photo ? Storage::url(Auth::user()->photo) : 'https://th.bing.com/th/id/OIP.Nen6j3vBZdl8g8kzNfoEHQAAAA?pid=ImgDet&rs=1'}}" class="rounded-circle me-2 profile-img" width="60" height="60" alt=""> --}}
-                            <div class="ms-2">
-                                <p class="mb-0 fw-bold text-dark">@if(Auth::user()){{Auth::user()->first_name}} {{Auth::user()->last_name}}@else Guest @endif</p>
-                                {{-- <a href="{{Auth::user() ? route('profile') : route('login')}}" class="btn btn-primary btn-sm border-0 ">{{ Auth::user() ? 'My Profile' : 'Sign In' }}</a> --}}
+                            <img src="{{ Auth::user()->photo ? Storage::url(Auth::user()->photo) : asset('img/maskot/face.png')}}" class="rounded-circle me-3 profile-img" width="50" height="50" alt="">
+                            <div>
+                                <span class="fw-500 ellipsis-text">{{Auth::user()->name}}</span>
+                                <p class="mb-0 fs-s-sm text-gray">Member</p>
                             </div>
+                       
                         </div>                        
                         <hr class="d-lg-none d-block">    
                         <li class="nav-item mx-lg-2 mx-0">
-                            <a href="" class="nav-link top fw-500 d-inline-flex"><i class="bi bi-house me-3 d-lg-none d-inline"></i> Beranda</a>
+                            <a href="" class="nav-link fw-500 d-inline-flex"><i class="bi bi-house me-3 d-lg-none d-inline"></i> Beranda</a>
                         </li>
                         <hr class="d-lg-none d-block">    
                         <li class="nav-item mx-lg-2 mx-0">
-                            <a href="" class="nav-link top fw-500 d-inline-flex"><i class="bi bi-star me-3 d-lg-none d-inline"></i> Populer</a>
+                            <a href="" class="nav-link fw-500 d-inline-flex"><i class="bi bi-star me-3 d-lg-none d-inline"></i> Populer</a>
                         </li>
                         <hr class="d-lg-none d-block">    
                         <li class="nav-item mx-lg-2 mx-0 ">
-                            <a href="" class="nav-link top fw-500 d-inline-flex"><i class="bi bi-grid me-3 d-lg-none d-inline"></i> Genre</a>
+                            <a href="" class="nav-link fw-500 d-inline-flex"><i class="bi bi-grid me-3 d-lg-none d-inline"></i> Genre</a>
                         </li>
                         <hr class="d-lg-none d-block">    
                         <li class="nav-item mx-lg-2 mx-0 ">
-                            <a href="" class="nav-link top fw-500 d-inline-flex"><i class="bi bi-megaphone me-3 d-lg-none d-inline"></i> Event</a>
+                            <a href="" class="nav-link fw-500 d-inline-flex"><i class="bi bi-megaphone me-3 d-lg-none d-inline"></i> Event</a>
                         </li>
                         <hr class="d-lg-none d-block">
                         @if(Auth::user())
-                        <li class="nav-item mx-lg-2 mx-0 d-lg-none d-block ">
-                            <a href="{{route('logout')}}" class="nav-link top fw-500 d-inline-flex"><i class="bi bi-box-arrow-right me-3 d-lg-none d-inline"></i> Logout</a>
+                        <li class="nav-item mx-lg-2 mx-0 d-lg-none d-block">
+                            <a href="{{route('logout')}}" class="nav-link fw-500 d-inline-flex"><i class="bi bi-box-arrow-right me-3 d-lg-none d-inline"></i> Logout</a>
                         </li>
                         <hr class="d-lg-none d-block">
                         @endif
@@ -134,76 +149,34 @@
                         <div class="me-3 d-lg-block d-none my-auto opacity-25">|</div>
 
                         @if (Auth::user())   
-                        <li class="nav-item dropdown my-auto">
-                            <a style="white-space: nowrap" class="nav-link fs-sm py-0" href="/anime" role="button" data-bs-toggle="dropdown"  aria-expanded="false">
-                                <div class="d-flex align-items-center"><img src="{{ Auth::user()->photo ? Storage::url(Auth::user()->photo) : 'https://th.bing.com/th/id/OIP.Nen6j3vBZdl8g8kzNfoEHQAAAA?pid=ImgDet&rs=1'}}" class="rounded-circle me-2 profile-img" width="35" height="35" alt=""><span class="mt-2">{{ Auth::user()->name}} </span></div>
+                        <li class="nav-item dropdown my-auto d-lg-block d-none">
+                            <a class="nav-link fs-sm py-0 text-gray" href="/anime" role="button" data-bs-toggle="dropdown"  aria-expanded="false">
+                                <div class="d-flex align-items-center"><img src="{{ Auth::user()->photo ? Storage::url(Auth::user()->photo) : asset('img/maskot/face.png')}}" class="rounded-circle me-3" width="35" height="35" alt=""><span class="mt-2 ellipsis-text">{{ Auth::user()->name}} </span></div>
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end border-1 shadow-sm position-absolute w-100 mt-2">
-                                {{-- <li><a class="dropdown-item fs-sm" href="{{route('profile')}}"><i class="bi bi-person me-2"></i> My Profile</a></li> --}}
-                                <li><a class="dropdown-item fs-sm" href="/bookmark/list"><i class="bi bi-bookmark me-2"></i> Bookmark </a></li>
-                                {{-- @if(Auth::user()->role->name == 2)
-                                <li><a class="dropdown-item fs-sm" href="/content/create"><i class="bi bi-plus me-2"></i> Add Content</a></li>
-                                <li><a class="dropdown-item fs-sm" href="/content/story"><i class="bi bi-card-text me-2"></i> My Content</a></li>
-                                @endif --}}
-                                <li>
-                                    <hr class="my-2">
-                                </li>
-                                <li><a class="dropdown-item fs-sm" href="{{route('logout')}}"><i class="bi bi-box-arrow-right me-2"></i> Log Out</a></li>
+                              <ul class="dropdown-menu dropdown-menu-end border-0 position-absolute w-100 mt-3">
+                                  <li class=" py-2 d-flex ms-4">
+                                    <img src="{{asset('img/maskot/face.png')}}" class="me-3" width="34px" height="34px" alt=""> 
+                                    <div>
+                                      <span class="fs-sm fw-500 ellipsis-text">{{Auth::user()->name}}</span>
+                                      <p class="mb-0 fs-s-sm text-gray">Member</p>
+                                    </div>
+                                  </li>
+                                  <hr class="my-2">
+                                  <li><a href="/cart" class="dropdown-item py-2 opacity-75 fs-s-sm"><i class="bi bi-person mx-3"></i> Akun Saya</a></li>
+                                  <li><a href="/wishlist" class="dropdown-item py-2 opacity-75 fs-s-sm"><i class="bi bi-heart mx-3"></i> Favorit</a></li>
+                                  <li><a href="/order" class="dropdown-item py-2 opacity-75 fs-s-sm"><i class="bi bi-clock-history mx-3"></i> Riwayat Baca</a></li>
+                                  <hr class="my-2">
+                                  <li><a href="/logout" class="dropdown-item py-2 opacity-75 fs-s-sm"><i class="bi bi-box-arrow-right mx-3"></i> Logout</a></li>
                             </ul>
                         </li>
 
                         @else
-                        <li class="nav-item my-auto auth-btn-group">
+                        <li class="nav-item my-auto auth-btn-group d-lg-block d-none">
                             <a href="{{route('login')}}" class="btn btn-primary bg-transparent border-primary text-primary   fs-sm py-2 px-3 rounded-2 fw-500 me-2">Masuk</a>
                             <a href="{{route('register')}}" class="btn btn-primary fs-sm border-0 py-2 px-3 rounded-2 fw-500">Daftar</a>
                         </li>
                         @endif
                     </ul>
-                    {{-- <ul class="navbar-nav right-content ms-auto d-lg-flex d-none">
-                        <li class="nav-item me-3 my-auto position-relative">
-                            <button class="btn btn-primary rounded-circle py-1 px-2 py-auto color-primary" data-bs-toggle="collapse" data-bs-target="#collapseSearchLarge" aria-expanded="false" aria-controls="collapseSearchLarge">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                                </svg>
-                            </button>
-                            <div class="position-absolute collapseSearchLarge">
-                                <div style="min-height: 120px;">
-                                    <div class="collapse collapse-horizontal" id="collapseSearchLarge">
-                                        <div class="" style="width: 300px;">
-                                            <form class="d-flex input-group border-2 border rounded-pill w-100" action="/search" method="get" role="search">
-                                                <input class="form-control fs-sm border-0 rounded-pill" name="q" autocomplete="off" type="search" placeholder="Lagi mau baca apa hari ini?">
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <div class="bar me-3 d-lg-block d-none my-auto">|</div>
-                        @if(Auth::user())
-                        <li class="nav-item dropdown my-auto">
-                            <a style="white-space: nowrap" class="nav-link fs-sm py-0" href="/anime" role="button" data-bs-toggle="dropdown"  aria-expanded="false">
-                                <div class="d-flex align-items-center"><img src="{{ Auth::user()->photo ? '/storage/img/'.Auth::user()->photo : 'https://th.bing.com/th/id/OIP.Nen6j3vBZdl8g8kzNfoEHQAAAA?pid=ImgDet&rs=1'}}" class="rounded-circle me-2 profile-img" width="35" height="35" alt=""><span class="mt-2">{{ Auth::user()->last_name}} </span></div>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end border-1 shadow-sm position-absolute w-100 mt-2">
-                                <li><a class="dropdown-item fs-sm" href="{{route('profile')}}"><i class="bi bi-person me-2"></i> My Profile</a></li>
-                                <li><a class="dropdown-item fs-sm" href="/bookmark/list"><i class="bi bi-bookmark me-2"></i> Bookmark </a></li>
-                                @if(Auth::user()->role->name == 2)
-                                <li><a class="dropdown-item fs-sm" href="/content/create"><i class="bi bi-plus me-2"></i> Add Content</a></li>
-                                <li><a class="dropdown-item fs-sm" href="/content/story"><i class="bi bi-card-text me-2"></i> My Content</a></li>
-                                @endif
-                                <li>
-                                    <hr class="my-2">
-                                </li>
-                                <li><a class="dropdown-item fs-sm" href="{{route('logout')}}"><i class="bi bi-box-arrow-right me-2"></i> Log Out</a></li>
-                            </ul>
-                        </li>
-                        @else
-                        <li class="nav-item my-auto auth-btn-group">
-                            <a href="{{route('login')}}" class="btn btn-primary bg-transparent fw-regular fs-sm py-2 px-3 rounded-3 fw-bold me-2">Masuk</a>
-                            <a href="{{route('register')}}" class="btn btn-primary fs-sm border-0 py-2 px-3 rounded-3 fw-bold">Daftar</a>
-                        </li>
-                        @endif
-                    </ul> --}}
 
             </div>
 
