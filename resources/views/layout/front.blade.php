@@ -3,7 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Komiktoon | Tempat membaca komik setiap hari di sini! Temukan kisah-kisah seru yang siap menghiburmu.</title>
+    <title>Komiktoon | Tempat membaca komik setiap hari</title>
+    <link rel="icon" type="image/x-icon" href="{{asset('img/maskot/fav-icon.png')}}">
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -63,11 +65,11 @@
                 </svg>
             </a>
             <a href="/history" class="btn btn-primary border-0 bg-transparent p-0">                
-                <svg xmlns="http://www.w3.org/2000/svg" fill="#ef6864" width="21" height="21" viewBox="0 0 18 18">
-                    <path d="M1.653 8.65c-.003.074-.044 1.32.291 2.662l-1.092-.674a.55.55 0 0 0-.775.217.62.62 0 0 0 .204.82l2.558 1.579c.043.022.071.033.1.044.02.007.04.015.06.02.024.006.049.008.074.01.062.008.071.004.081.003.042 0 .054-.006.068-.009a.555.555 0 0 0 .144-.048.53.53 0 0 0 .125-.085.584.584 0 0 0 .1-.119c.03-.042.03-.053.034-.062.007-.016.02-.03.026-.048l1.017-2.668a.613.613 0 0 0-.312-.781.557.557 0 0 0-.738.332l-.523 1.37c-.349-1.235-.309-2.504-.308-2.54 0-4.068 3.127-7.378 6.97-7.378 3.842 0 6.968 3.31 6.968 7.379 0 4.068-3.126 7.379-6.969 7.379-.313 0-.567.268-.567.6 0 .331.254.6.567.6 4.469 0 8.104-3.848 8.104-8.58 0-4.73-3.636-8.58-8.104-8.58-4.468 0-8.103 3.85-8.103 8.556z" stroke-width="0.8"/>
-                    <path d="M11.096 9.767c.01-.008.023-.012.032-.02a.534.534 0 0 0 .108-.165c.008-.016.012-.035.018-.052a.565.565 0 0 0 .027-.157c0-.012.007-.022.006-.035l-.147-5.154a.625.625 0 0 0-.6-.6.545.545 0 0 0-.567.567l.136 4.762-2.997 1.156a.556.556 0 0 0-.297.753c.13.301.475.454.77.34l3.355-1.294c.06-.024.11-.06.156-.1" stroke-width="0.2"/>
+                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="#ef6864" class="bi bi-clock-history" viewBox="0 0 16 16">
+                    <path d="M8.515 1.019A7 7 0 0 0 8 1V0a8 8 0 0 1 .589.022zm2.004.45a7.003 7.003 0 0 0-.985-.299l.219-.976c.383.086.76.2 1.126.342zm1.37.71a7.01 7.01 0 0 0-.439-.27l.493-.87a8.025 8.025 0 0 1 .979.654l-.615.789a6.996 6.996 0 0 0-.418-.302zm1.834 1.79a6.99 6.99 0 0 0-.653-.796l.724-.69c.27.285.52.59.747.91l-.818.576zm.744 1.352a7.08 7.08 0 0 0-.214-.468l.893-.45a7.976 7.976 0 0 1 .45 1.088l-.95.313a7.023 7.023 0 0 0-.179-.483m.53 2.507a6.991 6.991 0 0 0-.1-1.025l.985-.17c.067.386.106.778.116 1.17l-1 .025zm-.131 1.538c.033-.17.06-.339.081-.51l.993.123a7.957 7.957 0 0 1-.23 1.155l-.964-.267c.046-.165.086-.332.12-.501zm-.952 2.379c.184-.29.346-.594.486-.908l.914.405c-.16.36-.345.706-.555 1.038l-.845-.535m-.964 1.205c.122-.122.239-.248.35-.378l.758.653a8.073 8.073 0 0 1-.401.432l-.707-.707z"/>
+                    <path d="M8 1a7 7 0 1 0 4.95 11.95l.707.707A8.001 8.001 0 1 1 8 0z"/>
+                    <path d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5"/>
                 </svg>
-                
             </a>
         </div>
 
@@ -94,11 +96,23 @@
 
                 <ul class="navbar-nav ms-lg-4 ms-2">
                         <div class="d-lg-none d-flex align-items-center align-content-center">
-                            <img src="{{ Auth::user()->photo ? Storage::url(Auth::user()->photo) : asset('img/maskot/face.png')}}" class="rounded-circle me-3 profile-img" width="50" height="50" alt="">
+                            <img src="{{ Auth::user() && Auth::user()->photo ? Storage::url(Auth::user()->photo) : asset('img/maskot/face.png')}}" class="rounded-circle me-3 profile-img" width="50" height="50" alt="">
                             <div>
-                                <span class="fw-500 ellipsis-text">{{Auth::user()->name}}</span>
-                                <p class="mb-0 fs-s-sm text-gray">Member</p>
+                                <span class="fw-500 ellipsis-text text-gray">{{ Auth::user() ? Auth::user()->name : 'Guest' }}</span>
+                                @if(Auth::user())
+                                    <p class="mb-0 fs-s-sm text-gray">Member</p>
+                                @else
+                                    <a href="{{Route('login')}}" class="btn btn-primary btn-sm fs-s-sm border-0 rounded-1">Masuk</a>
+                                @endif
                             </div>
+                            @if(Auth::user())
+                            <a class="ms-auto me-3" href="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="26" fill="#ef6864" class="bi bi-gear" viewBox="0 0 16 16">
+                                    <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
+                                    <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
+                                </svg>
+                            </a>
+                            @endif
                        
                         </div>                        
                         <hr class="d-lg-none d-block">    
@@ -155,7 +169,7 @@
                             </a>
                               <ul class="dropdown-menu dropdown-menu-end border-0 position-absolute w-100 mt-3">
                                   <li class=" py-2 d-flex ms-4">
-                                    <img src="{{asset('img/maskot/face.png')}}" class="me-3" width="34px" height="34px" alt=""> 
+                                    <img src="{{asset('img/maskot/face.png')}}" class="me-3" width="40px" height="40px" alt=""> 
                                     <div>
                                       <span class="fs-sm fw-500 ellipsis-text">{{Auth::user()->name}}</span>
                                       <p class="mb-0 fs-s-sm text-gray">Member</p>

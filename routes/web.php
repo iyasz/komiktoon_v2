@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\auth\AuthController;
 use App\Http\Controllers\manage\admin\IndexController;
+use App\Http\Controllers\manage\content\ContributeController;
 use App\Models\PasswordReset;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
@@ -22,6 +23,10 @@ Route::get('/', function () {
 });
 
 Route::get('/panel/admin/dashboard', [IndexController::class, 'index']);
+
+// Content manage 
+Route::get('/contribute/dashboard', [ContributeController::class, 'index']);
+
 
 // authectication 
 Route::get('/auth/login', [AuthController::class, 'handleSubmitLogin'])->name('login');
