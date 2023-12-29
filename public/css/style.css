@@ -64,11 +64,19 @@ th {
 }
 
 .btn.btn-primary {
-    background: var(--var-primary);
+    background: var(--var-primary) !important;
 }
 
 .btn.btn-primary:focus {
-    background: var(--var-primary);
+    background: var(--var-primary) !important;
+}
+
+.border-bottom-white {
+    border-bottom: 1px solid white !important;
+}
+
+.w-90 {
+    width: 90%;
 }
 
 .navbar-toggler:focus, .btn-close:focus {
@@ -153,6 +161,15 @@ th {
     overflow: hidden;
     text-overflow: ellipsis;
     width: 12ch; 
+}
+
+.two-line-text {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    text-overflow: ellipsis;
+    text-decoration: none;  
 }
 
 .dropdown-item:active {

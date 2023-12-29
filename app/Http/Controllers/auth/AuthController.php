@@ -67,7 +67,6 @@ class AuthController extends Controller
         return Socialite::driver('google')
         ->with(['prompt' => 'select_account'])
         ->redirect();
-        // return Socialite::driver('google')->redirect();
     }   
     
     public function handleCallbackGoogle() {
@@ -77,7 +76,7 @@ class AuthController extends Controller
         if($user && $user->password != NULL){
 
             Auth::login($user); 
-            return redirect('/');
+            return redirect()->intended('/');
         }else{
 
             if(!$user){
@@ -143,7 +142,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect('/');
+        return redirect()->intended('/');
     }
     
     public function handleSubmitRegister(Request $request) {

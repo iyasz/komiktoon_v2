@@ -122,7 +122,7 @@
                                     <div class="table-responsive">
                                         <table class="table border-top">
                                             <tbody>
-                                                <tr v-for="index in 3">
+                                                <tr>
                                                     <td><img src="https://i.pinimg.com/originals/73/7a/47/737a47db82a662e28a44253d58162c1f.jpg" width="130px" class="object-fit-cover" height="130px" alt=""></td>
                                                     <td class="ps-3">
                                                         <p class="mb-1 text-gray fs-s-sm">Fantasy, Kerajaan, Action</p>
@@ -156,23 +156,5 @@
     </div>
 @endsection
 
-@push('javascript')
-
-    <script>
-        
-        const app = {
-            data(){
-                return{
-                    nama : 'iyasz'
-                }
-            },
-        }
-
-        Vue.createApp(app).mount('#app')
-
-    </script>
-
-
-@endpush
 
 

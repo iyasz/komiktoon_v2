@@ -7,6 +7,7 @@
     <link rel="icon" type="image/x-icon" href="{{asset('img/maskot/fav-icon.png')}}">
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,15 +15,13 @@
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
-    {{-- @stack('dragImg') --}}
-
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
-    <link rel="stylesheet" href="{{asset('css/admin.css')}}">
+    <link rel="stylesheet" href="{{asset('css/contribute.css')}}">
   </head>
   <body>  
     
     
-      <div class='container-fluid'>
+      <div class='container-fluid' >
         <div class="">
           <div class='ps-0 offcanvas panel_left' tabindex="-1" id="sidebarPanel" data-bs-toggle="sidebarPanel" >
             <div class="wrapper-content vh-100">
@@ -41,73 +40,45 @@
                     </svg>
                 </div>
                 <div class="menuList">
-                  <ul class='p-0'>
-                    <p class='titleMenu fs-sm mb-2'>Dashboard</p>
-                    <li class='d-flex w-100 justify-content-center'>
-                      <a href="/panel/admin/dashboard" class="navMenuButton">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-grid" viewBox="0 0 16 16">
-                      <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zM2.5 2a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zM1 10.5A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"/>
-                      </svg> <span class='ms-2 fs-sm'>Dashboard</span></a>
+                  <div class="text-center">
+                    <a href="/contribute/content/create" class="btn btn-primary w-90 border-0 rounded-1 py-3 fs-sm fw-600">
+                      <i class="bi bi-plus-lg"></i> <span class="ms-2">Buat Karya</span></a>
+                  </div>
+                  
+                  <ul class='p-0 mt-3'>
+                    <li class='d-flex justify-content-center'>
+                      <a href="/contribute/dashboard" class="navMenuButton">
+                        <i class="bi bi-grid me-1"></i> <span class='ms-2 fs-sm'>Dashboard</span></a>
                     </li>
-                  </ul> 
-            
-                  <ul class='p-0'>
-                    <p class='titleMenu fs-sm mb-2'>Main Menu</p>
-                    <li class='d-flex w-100 justify-content-center mt-1'>
-                      <a class="navMenuButton" data-bs-toggle="collapse" href="#collapseBook">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-book" viewBox="0 0 16 16">
-                          <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
-                        </svg> <span class='ms-2 fs-sm'>Book</span></a>
-
-                        
-                      </li>
-
-                      <div class="collapse justify-content-center text-center" id="collapseBook">
-                        <div class="text-start">
-                            <a href="/keren" class="text-decoration-none opacity-75 fs-sm text-gray me-4 d-block py-2 mt-1">Group</a>
-                            <a href="/mantap" class="text-decoration-none opacity-75 fs-sm text-gray me-4 d-block py-2 mt-1">Category</a>
-                            <a href="/mantap" class="text-decoration-none opacity-75 fs-sm text-gray me-4 d-block py-2 mt-1">Discount</a>
-                            <a href="/mantap" class="text-decoration-none opacity-75 fs-sm text-gray me-4 d-block py-2 mt-1">Author</a>
-                        </div>
-                      </div>
-
-                    <li class='d-flex w-100 justify-content-center mt-1'>
-                      <a href="/admin/discount" class="navMenuButton">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-ticket-perforated" viewBox="0 0 16 16">
-                          <path d="M4 4.85v.9h1v-.9H4Zm7 0v.9h1v-.9h-1Zm-7 1.8v.9h1v-.9H4Zm7 0v.9h1v-.9h-1Zm-7 1.8v.9h1v-.9H4Zm7 0v.9h1v-.9h-1Zm-7 1.8v.9h1v-.9H4Zm7 0v.9h1v-.9h-1Z"/>
-                          <path d="M1.5 3A1.5 1.5 0 0 0 0 4.5V6a.5.5 0 0 0 .5.5 1.5 1.5 0 1 1 0 3 .5.5 0 0 0-.5.5v1.5A1.5 1.5 0 0 0 1.5 13h13a1.5 1.5 0 0 0 1.5-1.5V10a.5.5 0 0 0-.5-.5 1.5 1.5 0 0 1 0-3A.5.5 0 0 0 16 6V4.5A1.5 1.5 0 0 0 14.5 3h-13ZM1 4.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v1.05a2.5 2.5 0 0 0 0 4.9v1.05a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-1.05a2.5 2.5 0 0 0 0-4.9V4.5Z"/>
-                        </svg> <span class='ms-2 fs-sm'>Discount</span></a>
+                    <li class='d-flex justify-content-center mt-1'>
+                      <a href="/contribute/content" class="navMenuButton ">
+                        <i class="bi bi-feather me-1"></i> <span class='ms-2 fs-sm'> Karyaku</span></a>
                     </li>
-                    <li class='d-flex w-100 justify-content-center mt-1'>
+                    <li class='d-flex justify-content-center mt-1'>
                       <a href="/admin/transaction" class="navMenuButton ">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-graph-up-arrow" viewBox="0 0 16 16">
-                          <path fill-rule="evenodd" d="M0 0h1v15h15v1H0V0Zm10 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4.9l-3.613 4.417a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61L13.445 4H10.5a.5.5 0 0 1-.5-.5Z"/>
-                        </svg> <span class='ms-2 fs-sm'>Transaction</span></a>
+                        <i class="bi bi-graph-up-arrow me-1"></i> <span class='ms-2 fs-sm'> Penarikan</span></a>
                     </li>
-                    <li class='d-flex w-100 justify-content-center'>
+                    <li class='d-flex justify-content-center'>
                       <a href="/admin/report" class="navMenuButton">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-clipboard-pulse" viewBox="0 0 16 16">
-                          <path fill-rule="evenodd" d="M10 1.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-1Zm-5 0A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5v1A1.5 1.5 0 0 1 9.5 4h-3A1.5 1.5 0 0 1 5 2.5v-1Zm-2 0h1v1H3a1 1 0 0 0-1 1V14a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V3.5a1 1 0 0 0-1-1h-1v-1h1a2 2 0 0 1 2 2V14a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2Zm6.979 3.856a.5.5 0 0 0-.968.04L7.92 10.49l-.94-3.135a.5.5 0 0 0-.895-.133L4.232 10H3.5a.5.5 0 0 0 0 1h1a.5.5 0 0 0 .416-.223l1.41-2.115 1.195 3.982a.5.5 0 0 0 .968-.04L9.58 7.51l.94 3.135A.5.5 0 0 0 11 11h1.5a.5.5 0 0 0 0-1h-1.128L9.979 5.356Z"/>
-                        </svg> <span class='ms-2 fs-sm'> Report</span></a>
+                        <i class="bi bi-clipboard-pulse me-1"></i> <span class='ms-2 fs-sm'> Laporan</span></a>
+                      </li>
+                      <li class='d-flex justify-content-center'>
+                        <a href="/admin/report" class="navMenuButton">
+                          <i class="bi bi-exclamation-triangle me-1"></i> <span class='ms-2 fs-sm'> Peringatan</span></a>
+                      </li>
+                    <li class='d-flex justify-content-center'>
+                      <a href="/admin/report" class="navMenuButton">
+                        <i class="bi bi-check2-square me-1"></i> <span class='ms-2 fs-sm'> Kontrak</span></a>
                     </li>
                   </ul> 
-            
-                  <ul class='p-0'>
-                    <p class=' fs-sm mb-2 titleMenu'>Account</p>
-                    <li class='d-flex w-100 justify-content-center'>
-                      <a href="/admin/account" class="navMenuButton">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-                          <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
-                        </svg> <span class='ms-2 fs-sm'>My Account</span></a>
+
+                  <div class="position-absolute w-100 left-0" style="bottom: 10px;">
+                    <li class='d-flex justify-content-center'>
+                      <a href="/" class="navMenuButton">
+                        <i class="bi bi-chevron-left me-1"></i> <span class='ms-2 fs-sm'>Kembali</span>
+                      </a>
                     </li>
-                    <li class='d-flex w-100 justify-content-center mt-1'>
-                      <a href="/logout" class="navMenuButton">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
-                          <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
-                          <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
-                        </svg> <span class='ms-2 fs-sm'>Log Out</span></a>
-                    </li>
-                  </ul> 
+                  </div>
             
                 </div>
               </div>
@@ -120,27 +91,7 @@
                     <span class="navbar-toggler-icon fs-sm"></span>
                   </button>
 
-                    <ul class="navbar-nav ms-auto me-lg-1 me-md-1 me-3">
-                      <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle notification text-dark position-relative" href="#" role="button" data-bs-toggle="dropdown">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
-                          <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6"/>
-                        </svg>
-                        <span class="position-absolute top-75 start-75 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end border-0 position-absolute w-100">
-                            <h6 class="ms-3">Notification</h6>
-                            <hr class="my-2">
-                            <li><a href="/wishlist" class="dropdown-item py-2 opacity-75 fs-s-sm"><i class="bi bi-heart mx-3"></i> Notification</a></li>
-                            <li><a href="/cart" class="dropdown-item py-2 opacity-75 fs-s-sm"><i class="bi bi-cart mx-3"></i> My Cart</a></li>
-                            <li><a href="/order" class="dropdown-item py-2 opacity-75 fs-s-sm"><i class="bi bi-clock-history mx-3"></i> Order History</a></li>
-                            <hr class="my-2">
-                            <li><a href="/logout" class="dropdown-item py-2 opacity-75 fs-s-sm"><i class="bi bi-box-arrow-right mx-3"></i> Logout</a></li>
-                        </ul>
-                      </li>
-                    </ul>
-
-                    <ul class="navbar-nav me-2 mt-1">
+                    <ul class="navbar-nav ms-auto me-2 mt-1">
                       <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle fs-sm text-dark" href="#" role="button" data-bs-toggle="dropdown">
                           Yasz Avellia
@@ -149,16 +100,16 @@
                             <li class=" py-2 d-flex ms-4">
                               <img src="{{asset('img/maskot/face.png')}}" class="me-3" width="34px" height="34px" alt=""> 
                               <div class="">
-                                <span class="fs-sm">{{Auth::user()->name}}</span>
-                                <p class="mb-0 fs-s-sm text-gray">2 Hours Ago</p>
+                                <span class="fs-sm ellipsis-text">{{Auth::user()->name}}</span>
+                                <p class="mb-0 fs-s-sm text-gray">Member</p>
                               </div>
                             </li>
                             <hr class="my-2">
-                            <li><a href="/wishlist" class="dropdown-item py-2 opacity-75 fs-s-sm"><i class="bi bi-heart mx-3"></i> My Wishlist</a></li>
-                            <li><a href="/cart" class="dropdown-item py-2 opacity-75 fs-s-sm"><i class="bi bi-cart mx-3"></i> My Account</a></li>
-                            <li><a href="/order" class="dropdown-item py-2 opacity-75 fs-s-sm"><i class="bi bi-clock-history mx-3"></i> Order History</a></li>
+                            <li><a href="/cart" class="dropdown-item py-2 opacity-75 fs-s-sm">
+                              <i class="bi bi-person mx-3"></i> Akun Saya</a></li>
                             <hr class="my-2">
-                            <li><a href="/logout" class="dropdown-item py-2 opacity-75 fs-s-sm"><i class="bi bi-box-arrow-right mx-3"></i> Logout</a></li>
+                            <li><a href="/logout" class="dropdown-item py-2 opacity-75 fs-s-sm">
+                              <i class="bi bi-box-arrow-right mx-3"></i> Logout</a></li>
                           </ul>
                       </li>
                     </ul>
