@@ -121,6 +121,22 @@ body {
 
 /* END DASHBOARD SECTION  */
 
+
+/* CHAPTER SECTION  */
+
+.bar-chapter::before {
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 2px;
+    background: #efefef;
+    top: 50%;
+    right: -30px;
+}
+
+/* END CHAPTER SECTION  */
+
+
 @media only screen and (max-width: 991px) {
 
     td {

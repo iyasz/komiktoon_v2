@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\auth\AuthController;
 use App\Http\Controllers\manage\admin\IndexController;
+use App\Http\Controllers\manage\content\contribute\ChapterController;
 use App\Http\Controllers\manage\content\contribute\ContentController;
 use App\Http\Controllers\manage\content\contribute\ContributeController;
 use App\Models\PasswordReset;
@@ -28,6 +29,13 @@ Route::get('/panel/admin/dashboard', [IndexController::class, 'index']);
 // Content manage 
 Route::get('/contribute/dashboard', [ContributeController::class, 'index']);
 Route::get('/contribute/content', [ContentController::class, 'index']);
+Route::get('/contribute/content/create', [ContentController::class, 'create']);
+Route::get('/contribute/chapter/{slug}', [ChapterController::class, 'create']);
+Route::get('/contribute/chapter/create/{slug}', [ChapterController::class, 'create']);
+
+Route::get('/contribute/report', [ContributeController::class, 'report']);
+Route::get('/contribute/warning', [ContributeController::class, 'warning']);
+Route::get('/contribute/contract', [ContributeController::class, 'contract']);
 
 // authectication 
 Route::get('/auth/login', [AuthController::class, 'handleSubmitLogin'])->name('login');

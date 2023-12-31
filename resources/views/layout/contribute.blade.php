@@ -59,15 +59,15 @@
                         <i class="bi bi-graph-up-arrow me-1"></i> <span class='ms-2 fs-sm'> Penarikan</span></a>
                     </li>
                     <li class='d-flex justify-content-center'>
-                      <a href="/admin/report" class="navMenuButton">
+                      <a href="/contribute/report" class="navMenuButton">
                         <i class="bi bi-clipboard-pulse me-1"></i> <span class='ms-2 fs-sm'> Laporan</span></a>
                       </li>
                       <li class='d-flex justify-content-center'>
-                        <a href="/admin/report" class="navMenuButton">
+                        <a href="/contribute/warning" class="navMenuButton">
                           <i class="bi bi-exclamation-triangle me-1"></i> <span class='ms-2 fs-sm'> Peringatan</span></a>
                       </li>
                     <li class='d-flex justify-content-center'>
-                      <a href="/admin/report" class="navMenuButton">
+                      <a href="/contribute/contract" class="navMenuButton">
                         <i class="bi bi-check2-square me-1"></i> <span class='ms-2 fs-sm'> Kontrak</span></a>
                     </li>
                   </ul> 
