@@ -6,7 +6,7 @@ body {
     --var-gray: #565656; 
     --var-primary: #ef6864; 
     --var-soft-primary: #f49a97; 
-    --var-dark-primary: #1b46e3; 
+    --var-dark-primary: #df5954; 
     --var-dark: #3b3f58;
     --var-black-75: #333333;
     --var-black-50: #5f5f5f;
@@ -60,6 +60,10 @@ th {
     font-weight: 500 !important;
 }
 
+.max-content {
+    width: max-content !important;
+}
+
 .stepper {
     background: var(--var-black-50);
     border-radius: 1500px;
@@ -73,7 +77,7 @@ th {
 }
 
 .bg-semi-gray {
-    background: #efefef !important;
+    background: #f4f4f4 !important;
 }
 
 .text-primary {
@@ -106,6 +110,7 @@ th {
 }
 
 .max-input-text {
+    z-index: 10;
     position: absolute;
     top: 45px;
     right: 20px;
@@ -167,7 +172,13 @@ th {
 input[type="checkbox"]:checked {
     border-color: var(--var-soft-primary) !important;
     background-color: var(--var-primary); 
-  }
+}
+
+.form-check-input:checked[type=radio] {
+    border-color: var(--var-soft-primary) !important;
+    background-color: var(--var-dark-primary) ; 
+    
+}
 
 .form-control, .form-select {
     padding: 11px 17px;
@@ -194,7 +205,7 @@ input[type="checkbox"]:checked {
 
 .dropdown-menu {
     min-width: 15rem !important;
-    box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.08);
+    box-shadow: 0 0.2rem 1rem #00000014;
 }
 
 .ellipsis-text {
@@ -203,6 +214,15 @@ input[type="checkbox"]:checked {
     overflow: hidden;
     text-overflow: ellipsis;
     width: 12ch; 
+}
+
+.one-line-text {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    text-overflow: ellipsis;
+    text-decoration: none;  
 }
 
 .two-line-text {

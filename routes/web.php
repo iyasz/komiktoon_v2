@@ -30,7 +30,7 @@ Route::get('/panel/admin/dashboard', [IndexController::class, 'index']);
 Route::get('/contribute/dashboard', [ContributeController::class, 'index']);
 Route::get('/contribute/content', [ContentController::class, 'index']);
 Route::get('/contribute/content/create', [ContentController::class, 'create']);
-Route::get('/contribute/chapter/{slug}', [ChapterController::class, 'create']);
+Route::get('/contribute/chapter/{slug}', [ChapterController::class, 'index']);
 Route::get('/contribute/chapter/create/{slug}', [ChapterController::class, 'create']);
 
 Route::get('/contribute/report', [ContributeController::class, 'report']);

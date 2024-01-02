@@ -14,7 +14,7 @@
                                     <div class="stepper active d-md-block d-none">
                                         <h4 class="mb-0">1</h4>
                                     </div>
-                                    <p class="ms-3 fw-400 mt-3 fs-6 text-primary">SERIAL</p>
+                                    <p class="ms-md-3 ms-0 fw-400 mt-3 fs-6 text-primary">SERIAL</p>
                                 </div>
                                 <div class="position-relative d-md-block d-none">
                                     <div class="bar-chapter"></div>
@@ -24,7 +24,7 @@
                                     <div class="stepper d-md-block d-none">
                                         <h4 class="mb-0">2</h4>
                                     </div>
-                                    <p class="ms-3 fw-400 mt-3 fs-6">CHAPTER</p>
+                                    <p class="ms-md-3 ms-0 fw-400 mt-3 fs-6">CHAPTER</p>
                                 </div>
 
                             </div>
@@ -34,21 +34,21 @@
                             <div class="col-lg-8 col-12 order-lg-0 order-1">
                                 <div class="mb-4 position-relative">
                                     <p class="text-gray mb-2 fw-500">Nama Author</p>
-                                    <input type="text" name="" value="{{Auth::user()->name}}" placeholder="Kurang dari 50 huruf" class="form-control fs-sm pe-10">
-                                    <div class="text-gray max-input-text fs-sm">
+                                    <input type="text" name="" required value="{{Auth::user()->name}}" placeholder="Kurang dari 50 huruf" class="form-control fs-sm pe-10">
+                                    <div class="text-gray max-input-text fs-sm d-md-block d-none">
                                         <span class="fw-500">50</span>
                                         <span>/ 50</span>
                                     </div>
                                 </div>
                                 <div class="mb-4 position-relative">
                                     <p class="text-gray mb-2 fw-500">Judul Serial</p>
-                                    <input type="text" name="" placeholder="Kurang dari 50 huruf" class="form-control fs-sm pe-10">
-                                    <div class="text-gray max-input-text fs-sm">
+                                    <input type="text" name="" required placeholder="Kurang dari 50 huruf" class="form-control fs-sm pe-10">
+                                    <div class="text-gray max-input-text fs-sm d-md-block d-none">
                                         <span class="fw-500">50</span>
                                         <span>/ 50</span>
                                     </div>
                                 </div>
-                                <div class="mb-4 position-relative">
+                                <div class="mb-4">
                                     <p class="text-gray mb-2 fw-500">Genre</p>
                                     <div class="row">
                                         @for($i = 0 ; $i < 11 ; $i++)
@@ -66,8 +66,8 @@
                                 
                                 <div class="mb-4 position-relative">
                                     <p class="text-gray mb-2 fw-500">Sinopsis</p>
-                                    <textarea name="" id="" cols="10" rows="8" class="form-control fs-sm pe-10" placeholder="Kurang dari 500 huruf"></textarea>
-                                    <div class="text-gray max-input-text fs-sm">
+                                    <textarea name="" id="" cols="10" rows="8" required class="form-control fs-sm pe-10" placeholder="Kurang dari 500 huruf"></textarea>
+                                    <div class="text-gray max-input-text fs-sm d-md-block d-none">
                                         <span class="fw-500">500</span>
                                         <span>/ 500</span>
                                     </div>
@@ -77,7 +77,7 @@
                                 <div class="mb-3">
                                     <p class="fw-500 mb-2">Thumbnail Persegi </p>
                                     <input type="file" name="" id="square_thumbnail" class="d-none" >
-                                    <div class="square_thumbnail_show m-lg-0 m-auto">
+                                    <div class="square_thumbnail_show">
                                         <div class="text-center">
                                             <i class="bi bi-cloud-arrow-up fs-1 opacity-50"></i>
                                             <p class="fs-sm">Pilih gambar untuk diunggah <br> Seret gambar dan taruh <br> disini.</p>
@@ -90,15 +90,15 @@
                         <div class="row">
                             <div class="col-12 mb-3">
                                 <div class="form-check">
-                                    <input class="form-check-input" value="Horror" type="checkbox" name="" id="radi">
-                                    <label class=" fs-sm text-gray" for="radi">
+                                    <input class="form-check-input" value="Horror" type="checkbox" name="" id="yes_confirm_copyright">
+                                    <label class=" fs-sm text-gray" for="yes_confirm_copyright">
                                         Saya mengkonfirmasi bahwa Komikku ini adalah <span class="text-primary">ciptaan saya</span> dan <span class="text-primary">milik saya.</span>
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" value="Horror" type="checkbox" name="" id="radia">
-                                    <label class=" fs-sm text-gray" for="radia">
-                                        Saya setuju dengan <a href="" class="text-primary">kebijakan kontrak</a> dari Komiktoon.
+                                    <input class="form-check-input" value="Horror" type="checkbox" name="" id="yes_confirm_contract">
+                                    <label class=" fs-sm text-gray" for="yes_confirm_contract">
+                                        Saya setuju dengan <a href="/contribute/contract" class="text-primary">kebijakan kontrak</a> dari Komiktoon.
                                     </label>
                                 </div>
                             </div>

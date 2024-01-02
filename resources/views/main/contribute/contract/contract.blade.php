@@ -16,7 +16,7 @@
     
                             <div class="row">
                                 <div class="col-12 mb-3 text-end">
-                                    <a href="" class="btn btn-primary border-0 rounded-1 btn-sm fs-s-sm py-2 px-3">Pembagian Hasil</a>
+                                    <a href="" class="btn btn-primary border-0 rounded-1 btn-sm fs-s-sm py-2 px-3">Alur Pembuatan Content</a>
                                 </div>
                             </div>
                             <div class="border p-3">

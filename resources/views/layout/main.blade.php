@@ -114,7 +114,7 @@
             </div>
             <div class='panel_right'>
 
-              <nav class="navbar navbar-expand-md shadow-sm">
+              <nav class="navbar navbar-expand-lg shadow-sm">
                 <div class="container-fluid ">
                   <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarPanel">
                     <span class="navbar-toggler-icon fs-sm"></span>

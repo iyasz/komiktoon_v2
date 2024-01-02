@@ -16,7 +16,7 @@ return new class extends Migration
             $table->uuid('content_id')->nullable();
             $table->foreign('content_id')->references('id')->on('contents');
 
-            $table->enum('is_extra_episode', ['1', '2'])->nullable();
+            $table->enum('is_extra_chapter', ['1', '2'])->nullable();
             $table->string('slug')->nullable();
             $table->string('thumbnail')->nullable();
             $table->string('title')->nullable();
