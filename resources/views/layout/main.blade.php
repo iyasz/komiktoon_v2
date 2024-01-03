@@ -7,6 +7,7 @@
     <link rel="icon" type="image/x-icon" href="{{asset('img/maskot/fav-icon.png')}}">
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,7 +15,7 @@
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
-    {{-- @stack('dragImg') --}}
+    @stack('css')
 
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
     <link rel="stylesheet" href="{{asset('css/admin.css')}}">
@@ -54,30 +55,22 @@
                   <ul class='p-0'>
                     <p class='titleMenu fs-sm mb-2'>Main Menu</p>
                     <li class='d-flex w-100 justify-content-center mt-1'>
-                      <a class="navMenuButton" data-bs-toggle="collapse" href="#collapseBook">
+                      <a class="navMenuButton" data-bs-toggle="collapse" href="#collapseContent">
                         <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-book" viewBox="0 0 16 16">
                           <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
-                        </svg> <span class='ms-2 fs-sm'>Book</span></a>
+                        </svg> <span class='ms-2 fs-sm'>Content</span></a>
 
                         
                       </li>
 
-                      <div class="collapse justify-content-center text-center" id="collapseBook">
+                      <div class="collapse justify-content-center text-center" id="collapseContent">
                         <div class="text-start">
-                            <a href="/keren" class="text-decoration-none opacity-75 fs-sm text-gray me-4 d-block py-2 mt-1">Group</a>
-                            <a href="/mantap" class="text-decoration-none opacity-75 fs-sm text-gray me-4 d-block py-2 mt-1">Category</a>
-                            <a href="/mantap" class="text-decoration-none opacity-75 fs-sm text-gray me-4 d-block py-2 mt-1">Discount</a>
-                            <a href="/mantap" class="text-decoration-none opacity-75 fs-sm text-gray me-4 d-block py-2 mt-1">Author</a>
+                            <a href="/panel/category" class="text-decoration-none opacity-75 fs-sm text-gray me-4 d-block py-2 mt-1">Category</a>
+                            <a href="/keren" class="text-decoration-none opacity-75 fs-sm text-gray me-4 d-block py-2 mt-1">Serial</a>
+                            <a href="/mantap" class="text-decoration-none opacity-75 fs-sm text-gray me-4 d-block py-2 mt-1">Chapter</a>
                         </div>
                       </div>
 
-                    <li class='d-flex w-100 justify-content-center mt-1'>
-                      <a href="/admin/discount" class="navMenuButton">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-ticket-perforated" viewBox="0 0 16 16">
-                          <path d="M4 4.85v.9h1v-.9H4Zm7 0v.9h1v-.9h-1Zm-7 1.8v.9h1v-.9H4Zm7 0v.9h1v-.9h-1Zm-7 1.8v.9h1v-.9H4Zm7 0v.9h1v-.9h-1Zm-7 1.8v.9h1v-.9H4Zm7 0v.9h1v-.9h-1Z"/>
-                          <path d="M1.5 3A1.5 1.5 0 0 0 0 4.5V6a.5.5 0 0 0 .5.5 1.5 1.5 0 1 1 0 3 .5.5 0 0 0-.5.5v1.5A1.5 1.5 0 0 0 1.5 13h13a1.5 1.5 0 0 0 1.5-1.5V10a.5.5 0 0 0-.5-.5 1.5 1.5 0 0 1 0-3A.5.5 0 0 0 16 6V4.5A1.5 1.5 0 0 0 14.5 3h-13ZM1 4.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v1.05a2.5 2.5 0 0 0 0 4.9v1.05a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-1.05a2.5 2.5 0 0 0 0-4.9V4.5Z"/>
-                        </svg> <span class='ms-2 fs-sm'>Discount</span></a>
-                    </li>
                     <li class='d-flex w-100 justify-content-center mt-1'>
                       <a href="/admin/transaction" class="navMenuButton ">
                         <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-graph-up-arrow" viewBox="0 0 16 16">
@@ -90,6 +83,27 @@
                           <path fill-rule="evenodd" d="M10 1.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-1Zm-5 0A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5v1A1.5 1.5 0 0 1 9.5 4h-3A1.5 1.5 0 0 1 5 2.5v-1Zm-2 0h1v1H3a1 1 0 0 0-1 1V14a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V3.5a1 1 0 0 0-1-1h-1v-1h1a2 2 0 0 1 2 2V14a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2Zm6.979 3.856a.5.5 0 0 0-.968.04L7.92 10.49l-.94-3.135a.5.5 0 0 0-.895-.133L4.232 10H3.5a.5.5 0 0 0 0 1h1a.5.5 0 0 0 .416-.223l1.41-2.115 1.195 3.982a.5.5 0 0 0 .968-.04L9.58 7.51l.94 3.135A.5.5 0 0 0 11 11h1.5a.5.5 0 0 0 0-1h-1.128L9.979 5.356Z"/>
                         </svg> <span class='ms-2 fs-sm'> Report</span></a>
                     </li>
+                    <li class='d-flex w-100 justify-content-center mt-1'>
+                      <a href="/admin/discount" class="navMenuButton">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-exclamation-triangle" viewBox="0 0 16 16">
+                          <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
+                          <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"/>
+                        </svg> <span class='ms-2 fs-sm'>Warning</span></a>
+                    </li>
+
+                    <li class='d-flex w-100 justify-content-center mt-1'>
+                      <a class="navMenuButton" data-bs-toggle="collapse" href="#collapseOther">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                          <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
+                        </svg> <span class='ms-2 fs-sm'>Other</span></a>
+                      </li>
+
+                      <div class="collapse justify-content-center text-center" id="collapseOther">
+                        <div class="text-start">
+                            <a href="/keren" class="text-decoration-none opacity-75 fs-sm text-gray me-4 d-block py-2 mt-1">Auth Banner</a>
+                        </div>
+                      </div>
+
                   </ul> 
             
                   <ul class='p-0'>

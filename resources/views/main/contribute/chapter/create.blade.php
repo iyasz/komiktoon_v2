@@ -2,6 +2,20 @@
 
 @push('css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+    <style>
+
+        .flatpickr-monthDropdown-months {
+            -webkit-appearance: none !important;
+            -moz-appearance: none !important;
+            appearance: none !important;
+        }
+
+        .flatpickr-day.selected {
+            background: #f49a97 !important;
+            border-color: #f49a97 !important;
+        }
+    </style>
 @endpush
 
 @section('content')
@@ -77,13 +91,13 @@
 
                                     <div class="upload_file_image rounded-2 bg-semi-gray">
                                         <div id="sortable" class="">
-                                            @for($i = 0; $i < 14; $i++)
+                                            @for($i = 1; $i < 14; $i++)
                                             <div id="draggable1" class="ui-state-default">
                                                 <div class="item bg-white">
                                                     <div class="img">
                                                         <img src="https://asetto.nawalakarsa.id/imeji/20230220004102/5-Fakta-Menarik-yang-Perlu-Kamu-Ketahui-Tentang-Anime-Majo-no-Tabitabi-Header.jpg" width="100%" height="150px" class="object-fit-cover" alt="">
                                                     </div>
-                                                    <p class="fs-s-sm m-2  one-line-text"><span class="me-1 fw-500">1.</span>Elainakanjutbener.png</p>
+                                                    <p class="fs-s-sm m-2  one-line-text"><span class="number-file-increment me-1 fw-500">{{$i}}.</span>Elainakanjutbener.png</p>
                                                 </div>
                                                 <button class="btn bg-white fs-s-sm rounded-circle border-0"><i class="bi bi-x"></i></button>
                                             </div>
@@ -110,20 +124,35 @@
                                     </div>
                                 </div>
 
-                                <div class="mb-4 position-relative">
+                                <div class=" position-relative">
                                     <p class="text-gray mb-2 fw-500">Jadwal Terbit</p>
                                     <div class="bg-semi-gray max-content">
                                         <p class="fs-s-sm p-2 mx-2 text-gray">Chapter yang dijadwalkan : <span class="fw-600 text-primary">0</span></p>
                                     </div>
                                     <div class="fs-4 mt-2">
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="schedule_chapter" id="now_option" value="">
+                                            <input class="form-check-input" type="radio" checked name="schedule_chapter" id="now_option" value="">
                                             <label class="form-check-label fs-6 text-gray" for="now_option">Sekarang</label>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="schedule_chapter" id="later_option" value="">
-                                            <label class="form-check-label fs-6 text-gray" for="later_option">Terbitkan nanti</label>
+                                            <label class="form-check-label fs-6 text-gray" for="later_option">Jadwalkan</label>
                                         </div>
+                                    </div>
+                                    <div class="row calender_schedule mt-3 align-items-center">
+                                        <div class="col-md-7 col-12">
+                                            <input type="text" id="dateRelease" placeholder="" name="" class="form-control text-center text-gray">
+                                        </div>
+                                        <div class="col-md-2 col-6 mt-md-0 mt-2 pe-md-0 pe-1">
+                                            <input type="text" name="" class="form-control text-center text-gray" value="{{ \Carbon\Carbon::now()->format('H')}}" id="timeRelease">
+                                        </div>
+                                        <div class="col-md-1 d-md-block d-none px-0 text-center">
+                                            <p class="mb-0">:</p>
+                                        </div>
+                                        <div class="col-md-2 col-6 mt-md-0 mt-2 ps-md-0 ps-1">
+                                            <input type="text" name="" class="form-control text-center text-gray" value="{{ \Carbon\Carbon::now()->format('i')}}" id="timeRelease">
+                                        </div>
+                                        <hr class="my-5">
                                     </div>
                                 </div>
                                 
@@ -176,15 +205,42 @@
 @push('javascript')
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
+    <script>
+        flatpickr("#dateRelease", {
+            minDate: "today",
+            defaultDate: "today",
+            maxDate: new Date().fp_incr(364)
+        });
+
+    </script>
+
+
     <script type="text/javascript">
-        $(function() {  
+         $(document).ready(function() {
             $("#sortable").sortable({
-                revert: true
-            }); 
+                revert: true,
+                update: function(event, ui) {
+                    updateOrder();
+                },
+            });
+
+            function updateOrder() {
+                $("#sortable .ui-state-default").each(function(index) {
+                    var orderNumber = index + 1;
+                    $(this).find('.number-file-increment').text(orderNumber + '.');
+                });
+            }
+
         });
 
         $('#sortable .ui-state-default button').on('click', function(){
             $(this).closest('#sortable .ui-state-default').remove();
+
+            $("#sortable .ui-state-default").each(function(index) {
+                    var orderNumber = index + 1;
+                    $(this).find('.number-file-increment').text(orderNumber + '.');
+            });
+            
         })
 
         $('#resetUploadsButton').on('click', function(){

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\auth\AuthController;
+use App\Http\Controllers\manage\admin\category\CategoryController;
 use App\Http\Controllers\manage\admin\IndexController;
 use App\Http\Controllers\manage\content\contribute\ChapterController;
 use App\Http\Controllers\manage\content\contribute\ContentController;
@@ -24,7 +25,9 @@ Route::get('/', function () {
     return view('main.index');
 });
 
+// Admin Panel 
 Route::get('/panel/admin/dashboard', [IndexController::class, 'index']);
+Route::resource('/panel/category', CategoryController::class);
 
 // Content manage 
 Route::get('/contribute/dashboard', [ContributeController::class, 'index']);

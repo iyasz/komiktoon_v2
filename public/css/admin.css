@@ -2,6 +2,25 @@ body {
     background: #f6f6f6;
 }
 
+/* ======= COSTUM CONTENT =======  */
+
+.table {
+    border-collapse: separate;
+    border-spacing: 0 7px;
+}
+
+.table th {
+    text-align: center;
+    background-color: transparent;
+}
+
+td {
+    text-align: center;
+}
+
+/* ======= END COSTUM CONTENT =======  */
+
+
 /* ======= SIDERBAR CONTENT =======  */
  
 .panel_left {
@@ -118,10 +137,6 @@ body {
 
 @media only screen and (max-width: 991px) {
 
-    body {
-        /* background: #fff; */
-    }
-
     td {
         white-space: nowrap;
     }
@@ -140,25 +155,6 @@ body {
         overflow-x: auto !important;
     }
 
-    .row.dashboard .col-3 .card {
-        /* margin: 100px; */
-        /* margin-right: 50px; */
-        /* width: 300px; */
-    }
-
-}
-
-@media only screen and (min-width: 768px) {
-
-    .panel_left {
-        visibility: visible !important;
-        transform: translateX(0) !important;
-    }
-
-}
-
-@media only screen and (max-width: 767px) {
-
     .panel_right {
         width: 100% !important;
         margin-left: 0 !important;
@@ -168,6 +164,19 @@ body {
     .panel_right .navbar {
         width: 100% !important;
         left: 0;
+    }
+
+    .pe-10 {
+        padding-right: 17px !important;
+    }
+
+}
+
+@media only screen and (min-width: 992px) {
+
+    .panel_left {
+        visibility: visible !important;
+        transform: translateX(0) !important;
     }
 
 }
