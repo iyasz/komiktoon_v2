@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\manage\admin\category;
 
-use App\Http\Controllers\Controller;
+use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
 {
@@ -12,15 +14,18 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('manage.admin.category.index');
+        $category = Category::all();
+        
+        return view('manage.admin.category.index', compact('category'));
     }
-
+    
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        $categoryCount = Category::count();
+        return view('manage.admin.category.create', compact('categoryCount'));
     }
 
     /**
@@ -28,7 +33,21 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:25|string',
+            'name' => 'required|max:25|string',
+        ],[
+            'name.required' => 'Judul tidak boleh kosong!',
+            'name.max' => 'Judul terlalu panjang!',
+        ]);
+
+        $category = new Category();
+        $category->name = strtolower($request->name);
+        $category->slug = Str::slug($request->name);
+        $category->save();
+
+        return redirect('/panel/category')->with('success', 'Data berhasil dibuat!');
+
     }
 
     /**
@@ -58,8 +77,11 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $slug)
     {
-        //
+        $category = Category::where('slug', $slug)->first();
+
+        $category->delete();
+        return redirect('/panel/category')->with('success', 'Data berhasil dihapus!');
     }
 }

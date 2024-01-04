@@ -37,28 +37,25 @@
                             </tr>
                         </thead>
                         <tbody>
+
+                            @foreach ($category as $data)
                             <tr>
-                                <td>1</td>
+                                <td>{{$loop->iteration}}</td>
                                 <td>Lorem ipsum dolor sit.</td>
-                                <td>Lorem ipsum dolor sit.</td>
+                                <td>{{$data->name}}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
                                         <a href="" class="btn btn-primary border-0 rounded-1 fs-s-sm mx-1"><i class="bi bi-pencil"></i></a>
-                                        <a href="" class="btn btn-primary border-0 rounded-1 fs-s-sm mx-1"><i class="bi bi-trash3"></i></a>
+                                        <form action="/panel/category/{{$data->slug}}" method="POST">
+                                            @csrf
+                                            @method('delete')
+                                            <button class="btn btn-primary border-0 rounded-1 fs-s-sm mx-1"><i class="bi bi-trash3"></i></button>
+                                        </form>
                                     </div> 
                                 </td>
                             </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Lorem ipsum dolor sit.</td>
-                                <td>Lorem ipsum dolor sit.</td>
-                                <td>
-                                    <div class="d-flex justify-content-center">
-                                        <a href="" class="btn btn-primary border-0 rounded-1 fs-s-sm mx-1"><i class="bi bi-pencil"></i></a>
-                                        <a href="" class="btn btn-primary border-0 rounded-1 fs-s-sm mx-1"><i class="bi bi-trash3"></i></a>
-                                    </div> 
-                                </td>
-                            </tr>
+                            @endforeach
+                            
                         </tbody>
                     </table>
                 </div>

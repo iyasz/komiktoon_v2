@@ -107,6 +107,19 @@ th {
     align-items: center;
     justify-content: center;
     background: #f4f4f4;
+    position: relative;
+}
+
+.square_thumbnail_show .imagePreview {
+    width: 230px;   
+    height: 230px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    object-fit: cover;
+    background-position: center;
 }
 
 .max-input-text {
