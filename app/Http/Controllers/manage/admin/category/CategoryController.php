@@ -36,7 +36,7 @@ class CategoryController extends Controller
     {   
         $request->validate([
             'name' => 'required|max:25|string|unique:categories,name',
-            'photo' => 'required|max:1024|mimes:jpeg,png,jpg',
+            'photo' => 'required|max:1024|mimes:jpeg,png,jpg|image',
         ],[
             'name.required' => 'Judul tidak boleh kosong!',
             'name.max' => 'Judul terlalu panjang!',

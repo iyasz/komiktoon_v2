@@ -5,6 +5,7 @@ namespace App\Http\Controllers\manage\content\contribute;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ContentController extends Controller
 {
@@ -21,27 +22,27 @@ class ContentController extends Controller
         $file = $request->file('file');
         if($file){
 
-            $allowedFileExtensions = ['png', 'jpg', 'jpeg'];
-            $unallowedFileExtensions = ['video/mp4', 'video/mpeg', 'video/quicktime'];    
-            if(!in_array($file->getClientOriginalExtension(), $allowedFileExtensions) || in_array($file->getClientMimeType(), $unallowedFileExtensions)){
-                return response()->json(['error' => 'Format file salah. <br> Format file yang bisa dipakai adalah JPG, JPEG, dan PNG.']);
-            }else{
-                $imageWidth = getimagesize($request->file)[0];
-                $imageHeight = getimagesize($request->file)[1];
+            $validator = Validator::make($request->all(), [
+                'file' => 'max:500|required|image|mimes:jpg,png,jpeg'
+            ],[
+                'file.required' => 'File gambar tidak boleh kosong!',
+                'file.max' => 'Tidak dapat mengunggah file lebih dari 500KB',
+                'file.mimes' => 'Format file salah. <br> Format file yang bisa dipakai adalah JPG, JPEG, dan PNG',
+                'file.image' => 'Format file salah. <br> Format file yang bisa dipakai adalah JPG, JPEG, dan PNG',
+            ]);
 
-                if($imageHeight >= 1080 && $imageWidth >= 1080){
-
-                    $size = round($file->getSize() / 1024, 2);
-                    if ($size > 512) {
-                        return response()->json(['error' => 'Tidak dapat mengunggah file lebih dari 500KB!']);
-                    } else {
-                        return response()->json(['success' => 'Ini berhasil!']);
-                    }
-                    
-                }else{
-                    return response()->json(['error' => 'Gambar harus lebih dari 1080x1080 pixel!']);
-                }
+            if($validator->fails()){
+                return response()->json(['error' => $validator->errors()->first()]);
             }
+            
+            $imageWidth = getimagesize($request->file)[0];
+            $imageHeight = getimagesize($request->file)[1];
+
+            if($imageHeight <= 1080 && $imageWidth <= 1080){
+                return response()->json(['error' => 'Gambar harus lebih dari 1080x1080 pixel!']);
+            }
+
+            return response()->json(['success' => 'Ini berhasil!']);
 
         }
 

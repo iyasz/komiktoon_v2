@@ -149,33 +149,42 @@
 
         $('#square_thumbnail').on('change', function () {
 
-            let data = new FormData();
-            data.append('file', document.getElementById('square_thumbnail').files[0]);
+            let fileInput = document.getElementById('square_thumbnail');
+            let file = fileInput.files[0];
 
-            axios.post('/contribute/content/create',data).then(function (response) {
-                if(response.data.error){
-                    $('#confirmDeleteFIles').modal('show')
-                    $('#confirmDeleteFIles .modal-content p').html(response.data.error)
-                }else{
-                    const input = document.getElementById('square_thumbnail');
-                    const preview = $('.square_thumbnail_show .imagePreview');
-                    const file = input.files[0];
-        
-                    if (file) {
-                        const reader = new FileReader();
-        
-                        preview.removeClass('d-none');
-        
-                        reader.onload = function (e) {
-                            preview.attr('src', e.target.result);
-                        };
-        
-                        reader.readAsDataURL(file);
-                    } else {
-                        return;
+            if (file && file.size > (500 * 1024)) { 
+                $('#confirmDeleteFIles').modal('show')
+                $('#confirmDeleteFIles .modal-content p').html('Tidak dapat mengunggah file lebih dari 500KB')
+                fileInput.value = '';
+            }else {
+                let data = new FormData();
+                data.append('file', file);
+
+                axios.post('/contribute/content/create',data).then(function (response) {
+                    if(response.data.error){
+                        $('#confirmDeleteFIles').modal('show')
+                        $('#confirmDeleteFIles .modal-content p').html(response.data.error)
+                    }else{
+                        const input = document.getElementById('square_thumbnail');
+                        const preview = $('.square_thumbnail_show .imagePreview');
+                        const file = input.files[0];
+            
+                        if (file) {
+                            const reader = new FileReader();
+            
+                            preview.removeClass('d-none');
+                            reader.onload = function (e) {
+                                preview.attr('src', e.target.result);
+                            };
+            
+                            reader.readAsDataURL(file);
+                        } else {
+                            return;
+                        }
                     }
-                }
-            });
+                });
+
+            }
 
         });
 
