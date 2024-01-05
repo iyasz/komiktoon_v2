@@ -33,6 +33,8 @@ Route::resource('/panel/category', CategoryController::class);
 Route::get('/contribute/dashboard', [ContributeController::class, 'index']);
 Route::get('/contribute/content', [ContentController::class, 'index']);
 Route::get('/contribute/content/create', [ContentController::class, 'create']);
+Route::post('/contribute/content/create', [ContentController::class, 'getValidationImage']);
+
 Route::get('/contribute/chapter/{slug}', [ChapterController::class, 'index']);
 Route::get('/contribute/chapter/create/{slug}', [ChapterController::class, 'create']);
 

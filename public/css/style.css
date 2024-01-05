@@ -172,6 +172,14 @@ th {
     background: var(--var-primary) !important;
 }
 
+.bg-dark {
+    background-color: var(--var-black-75) !important;
+}
+
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.5) !important; 
+}
+
 .text-gray {
     color: var(--var-black-50) !important;
 }

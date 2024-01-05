@@ -19,7 +19,7 @@
 @endpush
 
 @section('content')
-    <div id="app" class="mb-3">
+    <div id="app">
         <div class="row">
 
             <div class="col-lg-12 col-12 p-3">
@@ -159,7 +159,7 @@
                             </div>
                             <div class="col-lg-4 col-12 order-lg-1 order-0">
                                 <div class="mb-3">
-                                    <p class="fw-500 mb-2">Thumbnail Persegi </p>
+                                    <p class="text-gray fw-500 mb-2">Thumbnail Persegi </p>
                                     <input type="file" name="" id="square_thumbnail" class="d-none" >
                                     <div class="square_thumbnail_show">
                                         <div class="text-center">
