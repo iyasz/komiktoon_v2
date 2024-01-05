@@ -108,12 +108,15 @@ th {
     justify-content: center;
     background: #f4f4f4;
     position: relative;
+    border-radius: 4px;
 }
 
 .square_thumbnail_show .imagePreview {
     width: 230px;   
     height: 230px;
     position: absolute;
+    border-radius: 4px;
+    z-index: 3;
     top: 0;
     right: 0;
     left: 0;

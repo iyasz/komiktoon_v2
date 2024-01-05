@@ -10,7 +10,7 @@
                             <div class="col-md-4 col-9 pe-0">
                                 <div class="input-group">
                                     <span class="input-group-text bg-primary d-md-flex d-none px-3"><i class="bi bi-search text-white"></i></span>
-                                    <input type="text" class="form-control fs-sm text-gray" placeholder="Cari disini .." >
+                                    <input type="text" id="searchTableData" class="form-control fs-sm text-gray" placeholder="Cari disini .." >
                                 </div>
                             </div>
                             <div class="col-md-2 col-3">
@@ -36,16 +36,16 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tableData">
 
                             @foreach ($category as $data)
                             <tr>
                                 <td>{{$loop->iteration}}</td>
-                                <td>Lorem ipsum dolor sit.</td>
+                                <td><img src="{{Storage::url($data->photo)}}" alt="photo" width="80px" height="80px" class="object-fit-cover"></td>
                                 <td>{{$data->name}}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
-                                        <a href="" class="btn btn-primary border-0 rounded-1 fs-s-sm mx-1"><i class="bi bi-pencil"></i></a>
+                                        <a href="/panel/category/{{$data->slug}}/edit" class="btn btn-primary border-0 rounded-1 fs-s-sm mx-1"><i class="bi bi-pencil"></i></a>
                                         <form action="/panel/category/{{$data->slug}}" method="POST">
                                             @csrf
                                             @method('delete')
@@ -64,5 +64,18 @@
           
     </div>
 @endsection
+
+@push('javascript')
+    <script>
+        $(document).ready(function(){
+            $("#searchTableData").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#tableData tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+@endpush
 
 

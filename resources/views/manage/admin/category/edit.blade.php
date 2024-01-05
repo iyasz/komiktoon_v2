@@ -21,8 +21,9 @@
             </div>
         </div>
 
-        <form action="/panel/category" method="post" enctype="multipart/form-data">
+        <form action="/panel/category/{{$category->id}}" method="post" enctype="multipart/form-data">
             @csrf
+            @method('put')
 
             <div class="row">
                 <div class="col-md-8 col-12 ps-3 pe-md-0 pe-3 order-md-0 order-1 mt-md-0 mt-3">
@@ -31,9 +32,10 @@
                         <div class="card-body">
                             <div class="mb-4 position-relative">
                                 <p class="text-gray mb-2 fw-500">Judul Category <span class="fs-s-sm opacity-50">(Genre)</span></p>
-                                <input type="text" class="form-control fs-sm" name="name" value="{{old('name')}}" required placeholder="Kurang dari 25 huruf">
+                                <input type="text" class="form-control fs-sm" name="name" value="{{$category->name}}" required placeholder="Kurang dari 25 huruf">
                                 @error('name')<p class="fs-s-sm text-danger mt-2 mb-0">{{$message}}</p>@enderror
                             </div>
+
                             <div class="text-end">
                                 <button class="btn btn-primary rounded-1 px-3 py-2 border-0 fs-sm ">Submit</button>
                             </div>
@@ -48,9 +50,9 @@
                         <div class="card-body">
                             <div class="position-relative">
                                 <p class="text-gray mb-2 fw-500">Banner</p>
-                                <input type="file" name="photo" id="square_thumbnail" class="d-none" >
+                                <input type="file" name="photo" id="square_thumbnail" class="d-none">
                                 <div class="square_thumbnail_show">
-                                    <img src="" alt="banner" class="imagePreview d-none">
+                                    <img src="{{Storage::url($category->photo)}}" alt="banner" class="imagePreview">
                                     <div class="text-center">
                                         <i class="bi bi-cloud-arrow-up fs-1 opacity-50"></i>
                                         <p class="fs-sm text-gray">Pilih gambar untuk diunggah disini.</p>
@@ -85,8 +87,6 @@
 
             if (file) {
                 const reader = new FileReader();
-
-                preview.removeClass('d-none');
 
                 reader.onload = function (e) {
                     preview.attr('src', e.target.result);
