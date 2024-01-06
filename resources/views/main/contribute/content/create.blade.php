@@ -33,30 +33,30 @@
                         <form action="" method="post" enctype="multipart/form-data">
                             <div class="row mt-5">
                                 <div class="col-lg-8 col-12 order-lg-0 order-1">
-                                    <div class="mb-4 position-relative">
+                                    <div class="mb-4 position-relative max-input-group">
                                         <p class="text-gray mb-2 fw-500">Nama Author</p>
-                                        <input type="text" name="" required value="{{Auth::user()->name}}" placeholder="Kurang dari 50 huruf" class="form-control 50 fs-sm pe-10">
+                                        <input type="text" id="author-name" name="author" data-max-num="50" required value="{{Auth::user()->name}}" placeholder="Kurang dari 50 huruf" class="form-control fs-sm pe-10">
                                         <div class="text-gray max-input-text fs-sm d-md-block d-none">
-                                            <span class="fw-500" id="charCount">0</span>
+                                            <span class="fw-500 current-text-count">0</span>
                                             <span>/ 50</span>
                                         </div>
                                     </div>
-                                    <div class="mb-4 position-relative">
+                                    <div class="mb-4 position-relative max-input-group">
                                         <p class="text-gray mb-2 fw-500">Judul Serial</p>
-                                        <input type="text" name="" required placeholder="Kurang dari 50 huruf" class="form-control 50 fs-sm pe-10">
+                                        <input type="text" id="serial-title" name="title" data-max-num="50" required placeholder="Kurang dari 50 huruf" class="form-control fs-sm pe-10">
                                         <div class="text-gray max-input-text fs-sm d-md-block d-none">
-                                            <span class="fw-500">50</span>
+                                            <span class="fw-500 current-text-count">0</span>
                                             <span>/ 50</span>
                                         </div>
                                     </div>
                                     <div class="mb-4">
-                                        <p class="text-gray mb-2 fw-500">Genre</p>
+                                        <p class="text-gray mb-2 fw-500">Genre <span class="fs-s-sm opacity-50">(3 Pilihan)</span></p>
                                         <div class="row">
                                             @foreach($genre as $data)
                                             <div class="col-auto mb-2">
-                                                <div class="form-check category">
-                                                    <input class="form-check-input category" value="Horror" type="checkbox" name="radioCategory[]" id="radio-category{{$loop->iteration}}">
-                                                    <label class="fs-sm text-gray" for="radio-category{{$loop->iteration}}">
+                                                <div class="form-check genre">
+                                                    <input class="form-check-input genre" value="{{$data->id}}" type="checkbox" name="radioGenre[]" id="radio-genre{{$loop->iteration}}">
+                                                    <label class="fs-sm text-gray" for="radio-genre{{$loop->iteration}}">
                                                         {{ucfirst($data->name)}}
                                                     </label>
                                                 </div>
@@ -65,11 +65,11 @@
                                         </div>
                                     </div>
                                     
-                                    <div class="mb-4 position-relative">
+                                    <div class="mb-4 position-relative max-input-group">
                                         <p class="text-gray mb-2 fw-500">Sinopsis</p>
-                                        <textarea name="" id="" cols="10" rows="8" required class="form-control fs-sm pe-10" placeholder="Kurang dari 500 huruf"></textarea>
+                                        <textarea name="synopsis" data-max-num="500" id="serial-synopsys" cols="10" rows="8" required class="form-control fs-sm pe-10" placeholder="Kurang dari 500 huruf"></textarea>
                                         <div class="text-gray max-input-text fs-sm d-md-block d-none">
-                                            <span class="fw-500">500</span>
+                                            <span class="fw-500 current-text-count">0</span>
                                             <span>/ 500</span>
                                         </div>
                                     </div>
@@ -80,7 +80,7 @@
                                             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
                                             <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286m1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94"/>
                                         </svg></p>
-                                        <input type="file" name="" id="square_thumbnail" class="d-none" >
+                                        <input type="file" name="thumbnail" id="square_thumbnail" class="d-none" >
                                         <div class="square_thumbnail_show">
                                             <img src="" alt="banner" class="imagePreview d-none">
                                             <div class="text-center">
@@ -108,7 +108,7 @@
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <button class="btn btn-primary border-0 rounded-1 px-4 py-3">Buat Draft <i class="bi bi-chevron-right"></i></button>
+                                    <button class="btn btn-primary border-0 rounded-1 px-4 py-3 disabled">Buat Draft <i class="bi bi-chevron-right"></i></button>
                                 </div>
                             </div>
                         </form>
@@ -162,6 +162,7 @@
 
                 axios.post('/contribute/content/create',data).then(function (response) {
                     if(response.data.error){
+                        fileInput.value = '';
                         $('#confirmDeleteFIles').modal('show')
                         $('#confirmDeleteFIles .modal-content p').html(response.data.error)
                     }else{
@@ -190,23 +191,37 @@
 
         // end image 
 
+        // genre max
+        
+        $('.form-check-input.genre').on('change', function(e) {
+            if ($('input.form-check-input:checked').length > 3) {
+                this.checked = false;
+            }
+        });
+        
+        // end genre max 
+
         // max word 
-
         $(document).ready(function () {
-            var maxChars = 49;
+            
+            $('#author-name, #serial-title, #serial-synopsys').on('input', function () {
+                var maxDataNumber = $(this).attr('data-max-num');
+                var inputText = $(this).val();
 
-            $('.form-control.50').on('input', function () {
-                    var inputText = $(this).val();
+                if (inputText.length > maxDataNumber) {
+                    var trimmedText = inputText.substring(0, maxDataNumber);
+                    $(this).val(trimmedText);
+                }
 
-                    if (inputText.length >= maxChars) {
-                        // Jika melebihi batas, potong teks menjadi 50 huruf pertama
-                        var trimmedText = inputText.substring(0, maxChars);
-                        $(this).val(trimmedText);
-                    }
+                $(this).closest('.max-input-group').find('.current-text-count').text($(this).val().length);
+            });
 
-                    // Update jumlah huruf
-                    $('#charCount').text(inputText.length);
-                });
+            $('#author-name, #serial-title, #serial-synopsys').each(function () {
+                var maxDataNumber = $(this).attr('data-max-num');
+                var inputText = $(this).val();
+                $(this).closest('.max-input-group').find('.current-text-count').text(inputText.length);
+            });
+
         });
 
         // end max word 

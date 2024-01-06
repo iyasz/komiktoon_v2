@@ -198,10 +198,14 @@ input[type="checkbox"]:checked {
     background-color: var(--var-primary); 
 }
 
-.form-check-input:checked[type=radio] {
-    border-color: var(--var-soft-primary) !important;
-    background-color: var(--var-dark-primary) ; 
-    
+.form-check-inp {
+    width: 1em;
+    height: 1em;
+    margin-top: .25em;
+    float: left;
+    margin-left: -1.5em;
+    vertical-align: top;
+    accent-color: var(--var-primary) !important;
 }
 
 .form-control, .form-select {
@@ -284,7 +288,7 @@ input[type="checkbox"]:checked {
 
 /* BOOK SECTION  */
 
-.form-check.category {
+.form-check.genre {
     width: 100px !important;
 }
 

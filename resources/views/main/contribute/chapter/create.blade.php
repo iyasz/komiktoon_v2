@@ -68,11 +68,11 @@
                                     <span class="fs-s-sm opacity-50">Total Extra Chapter : 0</span>
                                     <div class="fs-4 mt-2">
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="is_extra_chapter" id="yes_option" value="">
+                                            <input class="form-check-inp" type="radio" name="is_extra_chapter" id="yes_option" value="">
                                             <label class="form-check-label fs-6 text-gray" for="yes_option">Ya</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="is_extra_chapter" id="no_option" value="">
+                                            <input class="form-check-inp" type="radio" name="is_extra_chapter" id="no_option" value="">
                                             <label class="form-check-label fs-6 text-gray" for="no_option">Bukan</label>
                                         </div>
                                     </div>
@@ -131,15 +131,15 @@
                                     </div>
                                     <div class="fs-4 mt-2">
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" checked name="schedule_chapter" id="now_option" value="">
+                                            <input class="form-check-inp" type="radio" checked name="schedule_chapter" id="now_option" value="">
                                             <label class="form-check-label fs-6 text-gray" for="now_option">Sekarang</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="schedule_chapter" id="later_option" value="">
+                                            <input class="form-check-inp" type="radio" name="schedule_chapter" id="later_option" value="">
                                             <label class="form-check-label fs-6 text-gray" for="later_option">Jadwalkan</label>
                                         </div>
                                     </div>
-                                    <div class="row calender_schedule mt-3 align-items-center">
+                                    <div class="row calender_schedule mt-4 align-items-center">
                                         <div class="col-md-7 col-12">
                                             <input type="text" id="dateRelease" placeholder="" name="" class="form-control text-center text-gray">
                                         </div>
