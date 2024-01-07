@@ -136,7 +136,7 @@ class CategoryController extends Controller
         // remove genre detail  
         $categoryDetail = CategoryDetail::where('category_id', $category->id)->get();
 
-        if ($categoryDetail->isNotEmpty()) {
+        if ($categoryDetail) {
             $categoryDetail->each->delete();
         }        
 

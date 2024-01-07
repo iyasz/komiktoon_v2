@@ -80,6 +80,10 @@ th {
     background: #f4f4f4 !important;
 }
 
+.form-control:disabled {
+    background-color: #fcfcfc !important;
+}
+
 .text-primary {
     color: var(--var-primary) !important;
 }

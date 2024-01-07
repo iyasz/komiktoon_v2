@@ -34,9 +34,11 @@ Route::get('/contribute/dashboard', [ContributeController::class, 'index']);
 Route::get('/contribute/content', [ContentController::class, 'index']);
 Route::get('/contribute/content/create', [ContentController::class, 'create']);
 Route::post('/contribute/content/create', [ContentController::class, 'getValidationImage']);
+Route::post('/contribute/content', [ContentController::class, 'store']);
 
 Route::get('/contribute/chapter/{slug}', [ChapterController::class, 'index']);
 Route::get('/contribute/chapter/create/{slug}', [ChapterController::class, 'create']);
+Route::post('/contribute/chapter/create/{slug}', [ChapterController::class, 'getValidationImage']);
 
 Route::get('/contribute/report', [ContributeController::class, 'report']);
 Route::get('/contribute/warning', [ContributeController::class, 'warning']);
