@@ -10,4 +10,14 @@ class Category extends Model
 {
     use HasFactory, HasUuids;
 
+    function getIncrementing()
+    {
+     return false;   
+    }
+
+    function getKeyType()
+    {
+        return 'string';
+    }
+
 }

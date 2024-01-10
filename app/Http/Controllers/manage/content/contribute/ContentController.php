@@ -8,13 +8,23 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\CategoryDetail;
 use App\Http\Controllers\Controller;
+use App\Models\Like;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class ContentController extends Controller
 {
     public function index() {
-        return view('main.contribute.content.index');
+        $contentTerbit = Content::where('status', 2)->get();
+        
+
+        $contentTolak = Content::where('status', 3)->get();
+        
+        
+        $contentDraft = Content::where('status', 1)->get();
+        $likeDraft = Like::count();
+        
+        return view('main.contribute.content.index', compact('contentTerbit', 'contentTolak', 'contentDraft'));
     }
     
     public function create() {

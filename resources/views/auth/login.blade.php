@@ -53,7 +53,7 @@
                             @endif
                             <div class="mb-4">
                                 <label class="mb-2 fs-sm opacity-75">Email</label>
-                                <input type="email" name="email" @if($user != NULL) value="{{$user->email}}" @endif required placeholder="Email" class='form-control text-gray' />
+                                <input type="email" name="email" required placeholder="Email" class='form-control text-gray' />
                             </div>
                             <div class="mb-3">
                                 <label class="mb-2 fs-sm opacity-75">Password</label>
@@ -63,7 +63,7 @@
                         <div class="d-flex justify-content-between">
                             <div class="">
                                 <div class="form-check d-flex align-content-center">
-                                    <input class="form-check-input" type="checkbox" @if($user != NULL) checked @endif name="remember" id="rememberMe"/>
+                                    <input class="form-check-input" type="checkbox" name="remember" id="rememberMe"/>
                                     <label class="form-check-label fs-sm mt-1 ms-2 text-gray" for="rememberMe">
                                         Ingat Saya
                                     </label>

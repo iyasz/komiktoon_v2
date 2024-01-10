@@ -22,8 +22,7 @@ class AuthController extends Controller
     public function handleSubmitLogin(Request $request) {
 
         if($request->isMethod('get')){
-            $user = User::where('remember_token', '!=', NULL)->first();
-            return view('auth.login', compact('user'));
+            return view('auth.login');
         }
         
         if($request->isMethod('post')){

@@ -9,4 +9,19 @@ use Illuminate\Database\Eloquent\Model;
 class Content extends Model
 {
     use HasFactory, HasUuids;
+
+    function getIncrementing()
+    {
+     return false;   
+    }
+
+    function getKeyType()
+    {
+        return 'string';
+    }
+
+    public function genreDetail()
+    {
+        return $this->hasMany(CategoryDetail::class);
+    }
 }

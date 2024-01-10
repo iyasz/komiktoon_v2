@@ -10,4 +10,9 @@ class CategoryDetail extends Model
     use HasFactory;
 
     protected $table = 'category_details';
+
+    public function genre()
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
 }

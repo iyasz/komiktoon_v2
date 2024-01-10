@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\auth\AuthController;
+use App\Http\Controllers\front\IndexController as FrontIndexController;
 use App\Http\Controllers\manage\admin\category\CategoryController;
 use App\Http\Controllers\manage\admin\IndexController;
 use App\Http\Controllers\manage\content\contribute\ChapterController;
@@ -21,9 +22,9 @@ use Laravel\Socialite\Facades\Socialite;
 |
 */
 
-Route::get('/', function () {
-    return view('main.index');
-});
+// front 
+Route::get('/', [FrontIndexController::class, 'index']);
+Route::get('/search', [FrontIndexController::class, 'search']);
 
 // Admin Panel 
 Route::get('/panel/admin/dashboard', [IndexController::class, 'index']);
