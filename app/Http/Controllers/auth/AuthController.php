@@ -45,8 +45,6 @@ class AuthController extends Controller
             if(Auth::attempt(['email' => $request->email, 'password' => $request->password], $request->remember)){
                 $request->session()->regenerate();
 
-                // setcookie("email", $request->email, time() + (365 * 24 * 60 * 60));
-                
                 $user = Auth::user()->role_id;
 
                 if($user == 1){

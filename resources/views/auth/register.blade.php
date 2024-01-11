@@ -46,7 +46,7 @@
                             </div>
                             <div class="mb-3">
                                 <label class="mb-2 fs-sm opacity-75">Nama</label>
-                                <input type="text" name="name" required placeholder="Nama" value="{{old('name')}}" class='form-control text-gray' />
+                                <input type="text" name="name" required placeholder="example@gmail.com" value="{{old('name')}}" class='form-control text-gray' />
                                 @error('name')<p class="mb-0 fs-s-sm text-danger mt-2">{{$message}}</p>@enderror
                             </div>
                             <div class="mb-3">

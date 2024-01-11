@@ -158,7 +158,7 @@ body {
 #sortable .ui-state-default {
     position: relative;
     cursor: move;
-    width: 115px;
+    width: 120px;
     height: 185px;
     margin: 8px;
     border: solid 1px #cbcbcb;

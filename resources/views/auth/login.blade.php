@@ -53,7 +53,7 @@
                             @endif
                             <div class="mb-4">
                                 <label class="mb-2 fs-sm opacity-75">Email</label>
-                                <input type="email" name="email" required placeholder="Email" class='form-control text-gray' />
+                                <input type="email" name="email" required placeholder="example@gmail.com" class='form-control text-gray' />
                             </div>
                             <div class="mb-3">
                                 <label class="mb-2 fs-sm opacity-75">Password</label>

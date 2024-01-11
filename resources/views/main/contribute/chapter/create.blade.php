@@ -98,7 +98,7 @@
 
                                             <div class="upload_file_image rounded-2 bg-semi-gray">
                                                 <div id="sortable" class="">
-                                                    @for($i = 1; $i < 14; $i++)
+                                                    @for($i = 1; $i < 4; $i++)
                                                     <div id="draggable1" class="ui-state-default">
                                                         <div class="item bg-white">
                                                             <div class="img">

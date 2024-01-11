@@ -206,12 +206,12 @@
             <div class="row pt-4 pb-3">
                 <div class="col-lg-5 col-12 mb-md-0 mb-4">
                     <h3 class="fw-600">Baca komik gratis</h3>
-                    <p class="fs-sm text-gray mb-2">Komiktoon merupakan website membaca komik <br> gratis di indonesia.</p>
+                    <p class="fs-sm text-gray mb-2">Komiktoon merupakan website membaca komik gratis di indonesia.</p>
                     <p class="fs-sm text-gray mb-0">Kalian juga bisa untuk berkontribusi untuk membuat sebuah karya sendiri dan mendapatkan keuntungannya!</p>
                 </div>
                 <div class="col-lg-3 col-12 mb-md-0 mb-4">
                     <h5>Terms of Service</h5>
-                    <a href="" class="fs-sm text-gray d-block mb-1 text-decoration-none hover-text-decoration">Kebijakan Privasi</a>
+                    <a href="/kebijakan-privasi" class="fs-sm text-gray d-block mb-1 text-decoration-none hover-text-decoration">Kebijakan Privasi</a>
                     <a href="" class="fs-sm text-gray d-block text-decoration-none hover-text-decoration">Hak Cipta</a>
                 </div>
                 <div class="col-lg-4 col-12 mb-md-0 mb-4">
@@ -242,7 +242,7 @@
                     </div>
                 </div>
             </div>
-            <hr>
+            <hr class="mt-lg-auto mt-0">
             <div class="row justify-content-center mx-3 mb-3 mt-4">
                 <div class="col-lg-2 col-md-4 col-8 ">
                     <div class="menu d-flex justify-content-between">
@@ -326,7 +326,6 @@
         $("#mobileSearchContent").click(function () {
             $(".__modal-search-content__").removeClass('d-none');
             $("body").css("overflow", "hidden");
-            $("body").css("padding-right", "15px");
             
             setTimeout(() => {
                 $(".__modal-search-content__").css("opacity", "1");

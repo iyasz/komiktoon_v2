@@ -16,4 +16,8 @@ class IndexController extends Controller
         $genre = Category::take(6)->inRandomOrder()->distinct()->get();
         return view('main.front.search', compact('genre'));
     }
+    
+    public function policyPrivacy() {
+        return view('main.front.privacypolicy');
+    }
 }
