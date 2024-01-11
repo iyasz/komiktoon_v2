@@ -259,8 +259,35 @@
             noCalendar: true,
             defaultDate: new Date(),
             dateFormat: "H : i",
+            minTime: '14:00',
+            maxTime: '14:00',
             time_24hr: true
         });
+
+//         {
+//   "awdawd.png",  "awdawd.png",  "awdawd.png"
+// },
+// {
+// 0 {
+//   photo: "awdawd.png",
+//   size: 200,
+//   ext: "png"
+// },
+// 1 {
+//   photo: "awdawd.png",
+//   size: 200,
+//   ext: "jpg"
+// }
+// }
+
+// $gambars = [];
+
+
+
+// json_encode($gambars)
+
+
+// $gambars = json_decode($chapter->images, true);
 
 
     </script>

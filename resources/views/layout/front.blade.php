@@ -204,17 +204,17 @@
     <footer>
         <div class="container">
             <div class="row pt-4 pb-3">
-                <div class="col-lg-5 col-12 mb-md-0 mb-4">
+                <div class="col-lg-5 col-12 mb-lg-0 mb-4">
                     <h3 class="fw-600">Baca komik gratis</h3>
                     <p class="fs-sm text-gray mb-2">Komiktoon merupakan website membaca komik gratis di indonesia.</p>
                     <p class="fs-sm text-gray mb-0">Kalian juga bisa untuk berkontribusi untuk membuat sebuah karya sendiri dan mendapatkan keuntungannya!</p>
                 </div>
-                <div class="col-lg-3 col-12 mb-md-0 mb-4">
+                <div class="col-lg-3 col-12 mb-lg-0 mb-4">
                     <h5>Terms of Service</h5>
-                    <a href="/kebijakan-privasi" class="fs-sm text-gray d-block mb-1 text-decoration-none hover-text-decoration">Kebijakan Privasi</a>
-                    <a href="" class="fs-sm text-gray d-block text-decoration-none hover-text-decoration">Hak Cipta</a>
+                    <a href="/privacy-policy" class="fs-sm text-gray d-block mb-1 text-decoration-none hover-text-decoration">Kebijakan Privasi</a>
+                    <a href="/terms-of-use" class="fs-sm text-gray d-block text-decoration-none hover-text-decoration">Syarat Penggunan</a>
                 </div>
-                <div class="col-lg-4 col-12 mb-md-0 mb-4">
+                <div class="col-lg-4 col-12 mb-lg-0 mb-4">
                     <h5>Interact With <span class="text-primary fw-600">Komiktoon</span></h5>
                     <p class="fs-sm text-gray">Hubungi kami ketika ingin memberikan <br> suatu saran atau informasi.</p>
                     <div class="">
@@ -359,9 +359,11 @@
 
         $('.__modal-search-content__ .header .container .row form, #collapseSearchLarge form, .search-input-main form').on('submit', function(e) {
             
-            if(formDataArray.length >= 7){
-                formDataArray.shift();
-                localStorage.setItem('formData', JSON.stringify(formDataArray));
+            if(formDataArray){
+                if(formDataArray.length >= 7){
+                    formDataArray.shift();
+                    localStorage.setItem('formData', JSON.stringify(formDataArray));
+                }
             }
 
             const formData = new FormData(e.target);
@@ -371,11 +373,15 @@
                 formDataObject[key] = value;
             });
             
-            let existingData = localStorage.getItem('formData');
-            existingData = existingData ? JSON.parse(existingData) : [];
-            
-            existingData.push(formDataObject);
-            localStorage.setItem('formData', JSON.stringify(existingData));
+            console.log(formDataObject.q)
+
+            if(formDataObject.q !== ""){
+                let existingData = localStorage.getItem('formData');
+                existingData = existingData ? JSON.parse(existingData) : [];
+                
+                existingData.push(formDataObject);
+                localStorage.setItem('formData', JSON.stringify(existingData));
+            }
 
         });
 

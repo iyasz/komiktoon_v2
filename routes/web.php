@@ -25,7 +25,8 @@ use Laravel\Socialite\Facades\Socialite;
 // front 
 Route::get('/', [FrontIndexController::class, 'index']);
 Route::get('/search', [FrontIndexController::class, 'search']);
-Route::get('/kebijakan-privasi', [FrontIndexController::class, 'policyPrivacy']);
+Route::get('/privacy-policy', [FrontIndexController::class, 'policyPrivacy']);
+Route::get('/terms-of-use', [FrontIndexController::class, 'termsOfUse']);
 
 // Admin Panel 
 Route::get('/panel/admin/dashboard', [IndexController::class, 'index']);

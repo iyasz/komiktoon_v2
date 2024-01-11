@@ -20,4 +20,8 @@ class IndexController extends Controller
     public function policyPrivacy() {
         return view('main.front.privacypolicy');
     }
+    
+    public function termsOfUse() {
+        return view('main.front.termsofuse');
+    }
 }
