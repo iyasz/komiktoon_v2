@@ -16,10 +16,15 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasUuids, CanResetPassword;
 
-    // public function sendPasswordResetNotification($token)
-    // {
-    //     $this->notify(new NewResetPasswordNotification($token));
-    // }
+    function getIncrementing()
+    {
+     return false;   
+    }
+
+    function getKeyType()
+    {
+        return 'string';
+    }
 
     /**
      * The attributes that are mass assignable.

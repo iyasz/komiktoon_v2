@@ -8,7 +8,31 @@
     --var-black-50: #5f5f5f;
 }
 
+.contentContainer{
+    display: block;
+    width: 210px;
+    background-position: center;
+    background-size: cover;
+    text-decoration: none;
+}
+
+.contentContainer .title-mid {
+    height: 37px;
+}
+
+.contentContainer .title-mid > h6 {
+    line-height: 1.2;
+    font-size: 14px;
+    color: var(--var-black-75);
+    font-weight: 500;
+}
+
+.contentContainer .title-mid > h6:hover {
+    text-decoration: underline !important;
+}
+
 .front-title-header{
+    font-size: 22px;
     position: relative;
     padding-left: 17px;
 }
@@ -100,7 +124,7 @@
     height: 170px;
     background-position: center;
     background-size: cover;
-    /* background-color: #565656; */
+    border-radius: 3px;
 }
 
 /* ===== END SEARCH SECTION ===== */

@@ -35,11 +35,12 @@ Route::resource('/panel/category', CategoryController::class);
 // Content manage 
 Route::get('/contribute/dashboard', [ContributeController::class, 'index']);
 Route::get('/contribute/content', [ContentController::class, 'index']);
+Route::post('/contribute/content', [ContentController::class, 'store']);
 Route::get('/contribute/content/create', [ContentController::class, 'create']);
 Route::post('/contribute/content/create', [ContentController::class, 'getValidationImage']);
-Route::post('/contribute/content', [ContentController::class, 'store']);
 
 Route::get('/contribute/chapter/{slug}', [ChapterController::class, 'index']);
+Route::post('/contribute/chapter/{slug}', [ChapterController::class, 'insertFileContent']);
 Route::get('/contribute/chapter/create/{slug}', [ChapterController::class, 'create']);
 Route::post('/contribute/chapter/create/{slug}', [ChapterController::class, 'getValidationImage']);
 

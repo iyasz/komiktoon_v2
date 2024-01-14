@@ -2,6 +2,8 @@
 
 @push('css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js"></script>
+    <link href="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone.css" rel="stylesheet" type="text/css" />
     
 
     <style>
@@ -89,16 +91,17 @@
                                         <div class="mb-4 ">
                                             <p class="text-gray fw-500">Upload File</p>
                                             <div class="mb-3 d-flex align-items-center">
-                                                <a class="btn btn-primary fs-s-sm border-0 rounded-1 me-2 ">Pilih file</a>
+                                                {{-- <input type="hidden" name="" id="_selectFileInput" multiple> --}}
+                                                <a class="btn btn-primary fs-s-sm border-0 rounded-1 me-2" id="inpSelectFile">Pilih file</a>
                                                 <a class="btn btn-danger fs-s-sm border-0 rounded-1 " data-bs-toggle="modal" data-bs-target="#confirmDeleteFIles" id="resetUploadsModal">Hapus semua</a>
                                                 <div class="ms-auto">
                                                     <p class="fs-sm mb-0"><span class="fw-600">12MB</span> / 20MB</p>
                                                 </div>
                                             </div>
 
-                                            <div class="upload_file_image rounded-2 bg-semi-gray">
-                                                <div id="sortable" class="">
-                                                    @for($i = 1; $i < 4; $i++)
+                                            <div class="upload_file_image rounded-2 bg-semi-gray" >
+                                                <div id="sortable">
+                                                    {{-- @for($i = 1; $i < 4; $i++)
                                                     <div id="draggable1" class="ui-state-default">
                                                         <div class="item bg-white">
                                                             <div class="img">
@@ -108,7 +111,7 @@
                                                         </div>
                                                         <button class="btn bg-white fs-s-sm rounded-circle border-0"><i class="bi bi-x"></i></button>
                                                     </div>
-                                                    @endfor
+                                                    @endfor --}}
 
                                                 </div>
                                             </div>
@@ -121,6 +124,7 @@
 
                                         </div>
                                         <hr class="my-5">
+                                        {{-- <div id="upload_file_image" class="dropzone"></div> --}}
                                         
                                         <div class="mb-4 position-relative max-input-group">
                                             <p class="text-gray mb-2 fw-500">Catatan Kreator <span class="fs-s-sm opacity-50">(Optional)</span></p>
@@ -199,6 +203,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-12">
+                                        <form action="/file-upload" class="dropzone" id="my-awesome-dropzone"></form>
                                         <button class="btn btn-primary border-0 rounded-1 px-4 py-3">Simpan Chapter <i class="bi bi-chevron-right"></i></button>
                                     </div>
                                 </div>
@@ -264,31 +269,74 @@
             time_24hr: true
         });
 
-//         {
-//   "awdawd.png",  "awdawd.png",  "awdawd.png"
-// },
-// {
-// 0 {
-//   photo: "awdawd.png",
-//   size: 200,
-//   ext: "png"
-// },
-// 1 {
-//   photo: "awdawd.png",
-//   size: 200,
-//   ext: "jpg"
-// }
-// }
-
-// $gambars = [];
 
 
 
-// json_encode($gambars)
+    </script>
 
+    <script>
 
-// $gambars = json_decode($chapter->images, true);
+        // Content file 
 
+        $('#inpSelectFile').click(function() {
+            $('#sortable').click(); 
+        });
+
+        $(document).ready(function(){
+
+            Dropzone.autoDiscover = false; 
+            
+            var slug = location.pathname.split("/")[4];
+            var index = 0;
+            var fileContent = new Dropzone("#sortable", {
+                url: "/contribute/chapter/"+slug, 
+                previewTemplate: 
+                    `
+                        <div id="draggable" class="ui-state-default">
+                            <div class="item bg-white">
+                                <div class="img dz-image">
+                                    <img data-dz-thumbnail width="100%" height="150px" class="object-fit-cover" alt="">
+                                </div>
+                                <p class="fs-s-sm m-2 one-line-text"><span class="number-file-increment me-1 fw-500">${index}</span><span data-dz-name></span></p>
+                            </div>
+                            <button class="btn bg-white fs-s-sm rounded-circle border-0 dz-remove" data-dz-remove><i class="bi bi-x"></i></button>
+                        </div>
+                    `
+               ,
+                paramName: "file", 
+                maxFilesize: 5, 
+                maxFiles: 5, // Jumlah maksimum file yang diizinkan diunggah
+                acceptedFiles: "image/*", // Jenis file yang diizinkan (misalnya, hanya gambar)
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                init: function() {
+                    this.on("addedfile", function (file) {
+                        index++;
+                        file.previewElement.querySelector(".number-file-increment").textContent = index + '.';
+                    });
+
+                    this.on("removedfile", function(file) {
+                        $("#sortable .ui-state-default").each(function(index) {
+                            var orderNumber = index + 1;
+                            $(this).find('.number-file-increment').text(orderNumber + '.');
+                        });
+                    });
+
+                    this.on("success", function(file, response) {
+                        console.log("File uploaded successfully:", file);
+                        console.log("Server response:", response);
+                    });
+
+                    this.on("error", function(file, errorMessage) {
+                        console.error("Error uploading file:", file);
+                        console.error("Error message:", errorMessage);
+                    });
+                }
+            });
+        })
+
+        // End Content file 
 
     </script>
 
@@ -330,16 +378,6 @@
             }
 
         });
-
-        $('#sortable .ui-state-default button').on('click', function(){
-            $(this).closest('#sortable .ui-state-default').remove();
-
-            $("#sortable .ui-state-default").each(function(index) {
-                    var orderNumber = index + 1;
-                    $(this).find('.number-file-increment').text(orderNumber + '.');
-            });
-            
-        })
 
         $('#resetUploadsButton').on('click', function(){
             $('.upload_file_image #sortable').html('')
@@ -440,7 +478,35 @@
 
         // end submit validasi 
 
+
+        //         {
+//   "awdawd.png",  "awdawd.png",  "awdawd.png"
+// },
+// {
+// 0 {
+//   photo: "awdawd.png",
+//   size: 200,
+//   ext: "png"
+// },
+// 1 {
+//   photo: "awdawd.png",
+//   size: 200,
+//   ext: "jpg"
+// }
+// }
+
+// $gambars = [];
+
+
+
+// json_encode($gambars)
+
+
+// $gambars = json_decode($chapter->images, true);
+
     </script>
+
+    
 @endpush
 
 

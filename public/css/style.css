@@ -202,6 +202,19 @@ input[type="checkbox"]:checked {
     background-color: var(--var-primary); 
 }
 
+.scrollbar-thin::-webkit-scrollbar {
+    height: 6px !important; 
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+    background-color: #f4f4f4;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+    border-radius: 20px !important;
+    background-color: var(--var-primary); 
+}
+
 .form-check-inp {
     width: 1em;
     height: 1em;

@@ -50,6 +50,9 @@ class ChapterController extends Controller
 
         }
 
-        return;
+    }
+
+    public function insertFileContent(Request $request) {
+        return true;
     }
 }
