@@ -93,9 +93,9 @@
                                             <div class="mb-3 d-flex align-items-center">
                                                 {{-- <input type="hidden" name="" id="_selectFileInput" multiple> --}}
                                                 <a class="btn btn-primary fs-s-sm border-0 rounded-1 me-2" id="inpSelectFile">Pilih file</a>
-                                                <a class="btn btn-danger fs-s-sm border-0 rounded-1 " data-bs-toggle="modal" data-bs-target="#confirmDeleteFIles" id="resetUploadsModal">Hapus semua</a>
+                                                <a class="btn btn-danger fs-s-sm border-0 rounded-1" id="resetUploadsModal">Hapus semua</a>
                                                 <div class="ms-auto">
-                                                    <p class="fs-sm mb-0"><span class="fw-600">12MB</span> / 20MB</p>
+                                                    <p class="fs-sm mb-0"><span class="fw-600" id="sizeFileContent">0KB</span> / 20MB</p>
                                                 </div>
                                             </div>
 
@@ -288,6 +288,8 @@
             
             var slug = location.pathname.split("/")[4];
             var index = 0;
+            var totalSize = 0;
+            
             var fileContent = new Dropzone("#sortable", {
                 url: "/contribute/chapter/"+slug, 
                 previewTemplate: 
@@ -304,23 +306,64 @@
                     `
                ,
                 paramName: "file", 
-                maxFilesize: 5, 
-                maxFiles: 5, // Jumlah maksimum file yang diizinkan diunggah
-                acceptedFiles: "image/*", // Jenis file yang diizinkan (misalnya, hanya gambar)
+                acceptedFiles: 'image/png, image/jpg, image/jpeg',
+                dictInvalidFileType: "Tipe file ini tidak diizinkan",
+                dictResponseError: "Terjadi kesalahan saat mengunggah file.",
                 headers: {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
                 init: function() {
                     this.on("addedfile", function (file) {
-                        index++;
-                        file.previewElement.querySelector(".number-file-increment").textContent = index + '.';
-                    });
 
-                    this.on("removedfile", function(file) {
+                        // cek type 
+                        if (file.type != "image/jpeg" && file.type != "image/png" && file.type != "image/png") {
+                            this.removeFile(file);
+                            return false;
+                        }
+                        // end cek type 
+                        
+                        // menambah size 
+                        
+                        var size = file.size / 1024;
+                        totalSize += size;
+                        var calcSize = totalSize / 1024;
+                        
+                        if(Math.round(totalSize) < 1024){
+                            $('#sizeFileContent').text(Math.round(totalSize)+'KB');
+                        }else{
+                            $('#sizeFileContent').text(Math.round(calcSize) +'MB');
+                        }
+                        // end menambah size 
+                        
+                        // menghitung index 
                         $("#sortable .ui-state-default").each(function(index) {
                             var orderNumber = index + 1;
                             $(this).find('.number-file-increment').text(orderNumber + '.');
                         });
+                        // end menghitung index 
+
+                    });
+
+                    this.on("removedfile", function(file) {
+
+                        // decrement file size 
+                        var removedSize = file.size / 1024;
+                        
+                        totalSize -= removedSize; 
+                        var calcSize = totalSize / 1024;
+                        
+                        if(Math.round(totalSize) < 1024){
+                            $('#sizeFileContent').text(Math.round(totalSize)+'KB');
+                        }else{
+                            $('#sizeFileContent').text(Math.round(calcSize) +'MB');
+                        }
+                        // end decrement file size 
+
+                        $("#sortable .ui-state-default").each(function(index) {
+                            var orderNumber = index + 1;
+                            $(this).find('.number-file-increment').text(orderNumber + '.');
+                        });
+
                     });
 
                     this.on("success", function(file, response) {
@@ -329,9 +372,17 @@
                     });
 
                     this.on("error", function(file, errorMessage) {
-                        console.error("Error uploading file:", file);
-                        console.error("Error message:", errorMessage);
+                        $('#alertModal').modal('show')
+                        $('#alertModal .modal-content p').html(errorMessage)
+                        console.log("Error uploading file:", file);
+                        console.log("Error message:", errorMessage);
                     });
+
+                    this.on("canceled", function (file) {
+                        $('#alertModal').modal('show')
+                        $('#alertModal .modal-content p').html("Upload gambar dibatalkan")
+                    });
+                    
                 }
             });
         })
@@ -378,11 +429,25 @@
             }
 
         });
+        // console.log($('.upload_file_image #sortable').children().length === 0)
+        
 
-        $('#resetUploadsButton').on('click', function(){
-            $('.upload_file_image #sortable').html('')
-            $('#confirmDeleteFIles').modal('hide')
-        })
+        $('#resetUploadsModal').on('click', function () {
+            if (fileContent.getQueuedFiles().length === 0 && fileContent.getUploadingFiles().length === 0) {
+                // No files in the queue or currently uploading
+                $('#alertModal').modal('show');
+                $('#alertModal .modal-content p').html('Tidak dapat dihapus: Tidak ada file untuk dihapus');
+            } else {
+                // Show confirmation modal
+                $('#confirmDeleteFiles').modal('show');
+            }
+        });
+
+        $('#resetUploadsButton').on('click', function () {
+            // Remove all files from Dropzone
+            fileContent.removeAllFiles();
+            $('#confirmDeleteFiles').modal('hide');
+        });
     </script>
 
     <script>
