@@ -1,4 +1,5 @@
 @extends('layout.contribute')
+@section('content-active', 'text-primary')
 
 @section('content')
     <div id="app">
@@ -158,9 +159,11 @@
             let file = fileInput.files[0];
 
             if (file && file.size > (500 * 1024)) { 
+                fileInput.value = '';
+                preview.addClass('d-none')
+                preview.attr('src', '');
                 $('#alertModal').modal('show')
                 $('#alertModal .modal-content p').html('Tidak dapat mengunggah file lebih dari 500KB')
-                fileInput.value = '';
             }else {
                 let data = new FormData();
                 data.append('file', file);
@@ -168,11 +171,12 @@
                 axios.post('/contribute/content/create',data).then(function (response) {
                     if(response.data.error){
                         fileInput.value = '';
+                        preview.addClass('d-none')
+                        preview.attr('src', '');
                         $('#alertModal').modal('show')
                         $('#alertModal .modal-content p').html(response.data.error)
                     }else{
                         const input = document.getElementById('square_thumbnail');
-                        const preview = $('.square_thumbnail_show .imagePreview');
                         const file = input.files[0];
             
                         if (file) {
@@ -185,7 +189,8 @@
             
                             reader.readAsDataURL(file);
                         } else {
-                            return;
+                            preview.addClass('d-none')
+                            preview.attr('src', '');
                         }
                     }
                 });

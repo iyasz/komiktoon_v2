@@ -33,9 +33,8 @@ class ChapterController extends Controller
         if($file){
 
             $validator = Validator::make($request->all(), [
-                'file' => 'max:500|required|image|mimes:jpg,png,jpeg|dimensions:min_width=160,min_height=160'
+                'file' => 'max:500|image|mimes:jpg,png,jpeg|dimensions:min_width=160,min_height=160'
             ],[
-                'file.required' => 'File gambar tidak boleh kosong!',
                 'file.max' => 'Tidak dapat mengunggah file lebih dari 500KB',
                 'file.mimes' => 'Format file salah. <br> Format file yang bisa dipakai adalah JPG, JPEG, dan PNG',
                 'file.image' => 'Format file salah. <br> Format file yang bisa dipakai adalah JPG, JPEG, dan PNG',
@@ -53,6 +52,6 @@ class ChapterController extends Controller
     }
 
     public function insertFileContent(Request $request) {
-        return true;
+        return response()->json(['kanjut' => 'kanjut loe']);
     }
 }

@@ -15,13 +15,13 @@ use Illuminate\Support\Facades\Validator;
 class ContentController extends Controller
 {
     public function index() {
-        $contentTerbit = Content::where('status', 2)->get();
+        $contentTerbit = Content::where('status', 2)->where('user_id', Auth::user()->id)->get();
         
 
-        $contentTolak = Content::where('status', 3)->get();
+        $contentTolak = Content::where('status', 3)->where('user_id', Auth::user()->id)->get();
         
         
-        $contentDraft = Content::where('status', 1)->get();
+        $contentDraft = Content::where('status', 1)->where('user_id', Auth::user()->id)->get();
         $likeDraft = Like::count();
         
         return view('main.contribute.content.index', compact('contentTerbit', 'contentTolak', 'contentDraft'));

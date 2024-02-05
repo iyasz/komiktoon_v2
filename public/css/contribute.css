@@ -3,7 +3,7 @@ body {
 }
 
 /* ======= SIDERBAR CONTENT =======  */
- 
+
 .panel_left {
     background: #fff;
     width: 260px !important;
@@ -60,9 +60,13 @@ body {
     border-radius: 5px;
 }
 
-.navMenuButton:hover{
+.navMenuButton:hover {
     background: var(--var-primary);
-    color: #fff;
+}
+
+.navMenuButton:hover .bi.bi,
+.navMenuButton:hover span {
+    color: #fff !important;
 }
 
 /* ======= END SIDERBAR CONTENT =======  */
@@ -105,11 +109,11 @@ body {
     padding: 0;
 }
 
-.nav.nav-pills .nav-item a:hover{
+.nav.nav-pills .nav-item a:hover {
     color: var(--var-primary) !important;
 }
 
-.nav.nav-pills .nav-item .nav-link.active{
+.nav.nav-pills .nav-item .nav-link.active {
     color: var(--var-primary) !important;
     border-bottom: 1px solid var(--var-primary) !important;
 }
@@ -144,15 +148,15 @@ body {
     overflow-y: auto;
 }
 
-#sortable { 
+#sortable {
     width: 100%;
     height: 100%;
     padding: 5px;
- }
+}
 
-#sortable > div { 
+#sortable>div {
     float: left;
- }
+}
 
 #sortable .ui-state-default {
     position: relative;
@@ -162,7 +166,8 @@ body {
     margin: 8px;
     border: solid 1px #cbcbcb;
 }
-#sortable .ui-state-default > button {
+
+#sortable .ui-state-default>button {
     position: absolute;
     z-index: 4;
     top: -10px;
@@ -190,7 +195,7 @@ body {
         left: 0;
         bottom: 0;
         transform: translateX(-100%);
-        transition: transform 0.3s ease-in-out !important; 
+        transition: transform 0.3s ease-in-out !important;
         border-right: solid #f2f2f2 1px;
     }
 
@@ -210,6 +215,9 @@ body {
         left: 0;
     }
 
+}
+
+@media only screen and (max-width: 767px) {
     .pe-10 {
         padding-right: 17px !important;
     }
@@ -224,4 +232,3 @@ body {
     }
 
 }
-

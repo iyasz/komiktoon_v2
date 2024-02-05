@@ -180,6 +180,10 @@ th {
     background-color: var(--var-black-75) !important;
 }
 
+.progress-bar {
+    background-color: var(--var-primary) !important;
+}
+
 .modal-backdrop {
     background-color: rgba(0, 0, 0, 0.5) !important; 
 }

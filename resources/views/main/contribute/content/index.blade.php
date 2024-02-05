@@ -1,4 +1,5 @@
 @extends('layout.contribute')
+@section('content-active', 'text-primary')
 
 @section('content')
     <div id="app" class="mb-3">
@@ -139,7 +140,7 @@
                                                         <p class="fs-s-sm text-gray my-2 two-line-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo illum minima fugiat aut neque. Sapiente fugit pariatur corrupti obcaecati vero? Ipsam a harum ipsa! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Non dicta, sint consequatur velit recusandae alias libero at dolor repudiandae fugit ab rem magni.</p>
                                                         <div class="d-flex">
                                                             <a href="" class="btn bg-semi-gray text-gray border-0 me-2 rounded-0 py-2 mt-2 fs-s-sm">Edit Chapter</a>
-                                                            <a href="" class="btn bg-semi-gray text-gray border-0 rounded-0 py-2 mt-2 fs-s-sm">
+                                                            <a href="/contribute/chapter/create/{{$data->slug}}" class="btn bg-semi-gray text-gray border-0 rounded-0 py-2 mt-2 fs-s-sm">
                                                                 <i class="bi bi-plus-lg"></i> <span class="ms-2">Tambah Chapter</span>
                                                             </a>
                                                         </div>
@@ -190,7 +191,7 @@
                                                         <p class="fs-s-sm text-gray my-2 two-line-text">{{$data->synopsis}}</p>
                                                         <div class="d-flex">
                                                             <a href="" class="btn bg-semi-gray text-gray border-0 me-2 rounded-0 py-2 mt-2 fs-s-sm">Edit Chapter</a>
-                                                            <a href="" class="btn bg-semi-gray text-gray border-0 rounded-0 py-2 mt-2 fs-s-sm">
+                                                            <a href="/contribute/chapter/create/{{$data->slug}}" class="btn bg-semi-gray text-gray border-0 rounded-0 py-2 mt-2 fs-s-sm">
                                                                 <i class="bi bi-plus-lg"></i> <span class="ms-2">Tambah Chapter</span>
                                                             </a>
                                                         </div>
@@ -239,7 +240,7 @@
                                                         <p class="fs-s-sm text-gray my-2 two-line-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo illum minima fugiat aut neque. Sapiente fugit pariatur corrupti obcaecati vero? Ipsam a harum ipsa! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Non dicta, sint consequatur velit recusandae alias libero at dolor repudiandae fugit ab rem magni.</p>
                                                         <div class="d-flex">
                                                             <a href="" class="btn bg-semi-gray text-gray border-0 me-2 rounded-0 py-2 mt-2 fs-s-sm">Edit Chapter</a>
-                                                            <a href="" class="btn bg-semi-gray text-gray border-0 rounded-0 py-2 mt-2 fs-s-sm">
+                                                            <a href="/contribute/chapter/create/{{$data->slug}}" class="btn bg-semi-gray text-gray border-0 rounded-0 py-2 mt-2 fs-s-sm">
                                                                 <i class="bi bi-plus-lg"></i> <span class="ms-2">Tambah Chapter</span>
                                                             </a>
                                                         </div>

@@ -50,27 +50,27 @@
                   <ul class='p-0 mt-3'>
                     <li class='d-flex justify-content-center'>
                       <a href="/contribute/dashboard" class="navMenuButton">
-                        <i class="bi bi-grid me-1"></i> <span class='ms-2 fs-sm'>Dashboard</span></a>
+                        <i class="bi bi-grid me-1 @yield('dashboard-active')"></i> <span class='ms-2 fs-sm @yield('dashboard-active')'>Dashboard</span></a>
                     </li>
                     <li class='d-flex justify-content-center mt-1'>
                       <a href="/contribute/content" class="navMenuButton ">
-                        <i class="bi bi-feather me-1"></i> <span class='ms-2 fs-sm'> Karyaku</span></a>
+                        <i class="bi bi-feather me-1 @yield('content-active')"></i> <span class='ms-2 fs-sm @yield('content-active')'> Karyaku</span></a>
                     </li>
                     <li class='d-flex justify-content-center mt-1'>
                       <a href="/admin/transaction" class="navMenuButton ">
-                        <i class="bi bi-graph-up-arrow me-1"></i> <span class='ms-2 fs-sm'> Penarikan</span></a>
+                        <i class="bi bi-graph-up-arrow me-1 @yield('transaction-active')"></i> <span class='ms-2 fs-sm @yield('transaction-active')'> Penarikan</span></a>
                     </li>
                     <li class='d-flex justify-content-center'>
                       <a href="/contribute/report" class="navMenuButton">
-                        <i class="bi bi-clipboard-pulse me-1"></i> <span class='ms-2 fs-sm'> Laporan</span></a>
+                        <i class="bi bi-clipboard-pulse me-1 @yield('report-active')"></i> <span class='ms-2 fs-sm @yield('report-active')'> Laporan</span></a>
                       </li>
                       <li class='d-flex justify-content-center'>
                         <a href="/contribute/warning" class="navMenuButton">
-                          <i class="bi bi-exclamation-triangle me-1"></i> <span class='ms-2 fs-sm'> Peringatan</span></a>
+                          <i class="bi bi-exclamation-triangle me-1 @yield('warning-active')"></i> <span class='ms-2 fs-sm @yield('warning-active')'> Peringatan</span></a>
                       </li>
                     <li class='d-flex justify-content-center'>
                       <a href="/contribute/contract" class="navMenuButton">
-                        <i class="bi bi-check2-square me-1"></i> <span class='ms-2 fs-sm'> Kontrak</span></a>
+                        <i class="bi bi-check2-square me-1 @yield('contract-active')"></i> <span class='ms-2 fs-sm @yield('contract-active')'> Kontrak</span></a>
                     </li>
                   </ul> 
 
