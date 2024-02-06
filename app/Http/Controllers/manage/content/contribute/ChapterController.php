@@ -4,9 +4,11 @@ namespace App\Http\Controllers\manage\content\contribute;
 
 use App\Models\Chapter;
 use App\Models\Content;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ChapterController extends Controller
@@ -22,8 +24,8 @@ class ChapterController extends Controller
             abort(404);
         }
 
-        $chapterCount = Chapter::where('content_id', $content)->where('is_extra_chapter', 2)->count() + 1;
-        $chapterExtraCount = Chapter::where('content_id', $content)->where('is_extra_chapter', 1)->count();
+        $chapterCount = Chapter::where('content_id', $content->id)->where('is_extra_chapter', 2)->count() + 1;
+        $chapterExtraCount = Chapter::where('content_id', $content->id)->where('is_extra_chapter', 1)->count();
 
         return view('main.contribute.chapter.create', compact('content', 'chapterExtraCount', 'chapterCount'));
     }
@@ -51,7 +53,79 @@ class ChapterController extends Controller
 
     }
 
-    public function insertFileContent(Request $request) {
-        return response()->json(['kanjut' => 'kanjut loe']);
+    public function getValidationChaptersImage() {
+        return true;
     }
+
+    public function handleInsertChapter(Request $request, $slug) {
+        $content = Content::where('slug', $slug)->first();
+
+        $chapterCount = Chapter::where('content_id', $content->id)->where('is_extra_chapter', 2)->count() + 1;
+        $chapterExtraCount = Chapter::where('content_id', $content->id)->where('is_extra_chapter', 1)->count() + 1;
+    
+        if (!$content) {
+            abort(404);
+        }
+
+        $title = '';
+
+        if($request->input('is_extra_chapter') == 2){
+
+            $title = 'CHAPTER '.$chapterCount;
+    
+            if($request->input('title') != ''){
+                $title = 'CHAPTER '.$chapterCount.' - '.strtoupper($request->input('title'));
+            }
+            
+        }else{
+
+            if($request->input('title') != ''){
+                $title = 'EXTRA CHAPTER - '.strtoupper($request->input('title'));
+            }else{
+                $title = 'EXTRA CHAPTER - '.$chapterExtraCount;
+            }
+            
+        }
+
+    
+        $chapter = new Chapter();
+        $chapter->content_id = $content->id;
+        $chapter->is_extra_chapter = $request->input('is_extra_chapter');
+        $chapter->title = $title;
+        $slug = $chapter->slug = Str::slug($title);
+
+        $imagesData = [];
+
+        if ($request->has('gambar')) {
+            foreach ($request->gambar as $base64Data) {
+  
+                $imagePath = 'chapters/'.$content->slug.'/'.$slug.'/'.uniqid().'.png';
+                Storage::disk('public')->put($imagePath, base64_decode($base64Data)); 
+                
+                $imagesData[] = [
+                    'photo' => $imagePath,
+                    // 'size' => Storage::size($imagePath), 
+                    'ext' => pathinfo($imagePath, PATHINFO_EXTENSION), 
+                ];
+            }
+        }
+    
+        $chapter->images = json_encode($imagesData);
+        
+        // $base64Data = $request->input('gambar');
+        // $imagePath = 'chapters/'.$content->slug.'/'.$slug.'/'.uniqid().'.png';
+        // Storage::disk('public')->put($imagePath, base64_decode($base64Data));
+
+        // $chapter->images = $imagePath;
+
+        // $chapter->images = $request->input('gambar')->store('chapters/'.$content->slug.'/'.$slug, 'public');
+
+        $chapter->thumbnail = $request->file('thumbnail')->store('chapters/'.$content->slug.'/'.$slug, 'public');
+        $chapter->note = $request->input('note');
+        $chapter->schedule = $request->input('schedule');
+        $chapter->save();
+    
+        return response()->json(['res' => 'Data berhasil dibuat!']);
+    }
+
 }

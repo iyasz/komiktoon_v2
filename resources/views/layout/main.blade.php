@@ -100,8 +100,9 @@
 
                       <div class="collapse justify-content-center text-center" id="collapseOther">
                         <div class="text-start">
-                            <a href="/keren" class="text-decoration-none opacity-75 fs-sm text-gray me-4 d-block py-2 mt-1">Auth Banner</a>
-                        </div>
+                            <a href="/panel/background/auth" class="text-decoration-none opacity-75 fs-sm text-gray me-4 d-block py-2 mt-1">Auth Banner</a>
+                            <a href="/panel/background/dashboard" class="text-decoration-none opacity-75 fs-sm text-gray me-4 d-block py-2 mt-1">Page BG</a>
+                        </div>  
                       </div>
 
                   </ul> 

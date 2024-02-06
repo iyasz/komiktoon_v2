@@ -95,7 +95,9 @@
 
 #hero-content-section {
     height: 500px;
-    background: var(--var-dark-primary);
+    background-size: cover;
+    background-position: center;
+    /* background: var(--var-dark-primary); */
 }
 
 /* ===== END HERO SECTION ===== */

@@ -26,7 +26,7 @@ return new class extends Migration
             $table->enum('update_day', ['0', '1', '2', '3', '4', '5', '6'])->nullable();
             $table->enum('update_day_2', ['0', '1', '2', '3', '4', '5', '6'])->nullable();
 
-            $table->string('thumbnail')->nullable();
+            $table->text('thumbnail')->nullable();
             $table->string('long_thumbnail')->nullable();
             $table->string('banner')->nullable();
             $table->string('bg_banner')->nullable();

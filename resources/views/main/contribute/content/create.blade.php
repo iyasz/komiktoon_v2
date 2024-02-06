@@ -157,6 +157,7 @@
 
             let fileInput = document.getElementById('square_thumbnail');
             let file = fileInput.files[0];
+            const preview = $('.square_thumbnail_show .imagePreview');
 
             if (file && file.size > (500 * 1024)) { 
                 fileInput.value = '';

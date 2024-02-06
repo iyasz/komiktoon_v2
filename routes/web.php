@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\auth\AuthController;
 use App\Http\Controllers\front\IndexController as FrontIndexController;
+use App\Http\Controllers\manage\admin\banner\BannerController;
 use App\Http\Controllers\manage\admin\category\CategoryController;
 use App\Http\Controllers\manage\admin\IndexController;
 use App\Http\Controllers\manage\content\contribute\ChapterController;
@@ -32,6 +33,8 @@ Route::get('/terms-of-use', [FrontIndexController::class, 'termsOfUse']);
 Route::get('/panel/admin/dashboard', [IndexController::class, 'index']);
 Route::resource('/panel/category', CategoryController::class);
 
+Route::get('/panel/background/dashboard', [BannerController::class, 'dashboardBannerView']);
+
 // Content manage 
 Route::get('/contribute/dashboard', [ContributeController::class, 'index']);
 Route::get('/contribute/content', [ContentController::class, 'index']);
@@ -40,9 +43,11 @@ Route::get('/contribute/content/create', [ContentController::class, 'create']);
 Route::post('/contribute/content/create', [ContentController::class, 'getValidationImage']);
 
 Route::get('/contribute/chapter/{slug}', [ChapterController::class, 'index']);
-Route::post('/contribute/chapter/{slug}', [ChapterController::class, 'insertFileContent']);
+Route::post('/contribute/chapter/{slug}', [ChapterController::class, 'getValidationChaptersImage']);
 Route::get('/contribute/chapter/create/{slug}', [ChapterController::class, 'create']);
 Route::post('/contribute/chapter/create/{slug}', [ChapterController::class, 'getValidationImage']);
+
+Route::post('/contribute/chapter/store/{slug}', [ChapterController::class, 'handleInsertChapter']);
 
 Route::get('/contribute/report', [ContributeController::class, 'report']);
 Route::get('/contribute/warning', [ContributeController::class, 'warning']);

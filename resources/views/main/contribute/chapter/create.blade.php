@@ -78,13 +78,15 @@
                                     <span class="fs-s-sm opacity-50">Total Extra Chapter : {{ $chapterExtraCount }}</span>
                                     <div class="fs-4 mt-2">
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-inp" {{ old('title') == 1 ? 'checked' : '' }}
-                                                type="radio" name="is_extra_chapter" id="yes_option" value="1">
+                                            <input class="form-check-inp is_extra_chapter"
+                                                {{ old('title') == 1 ? 'checked' : '' }} type="radio"
+                                                name="is_extra_chapter" id="yes_option" value="1">
                                             <label class="form-check-label fs-6 text-gray" for="yes_option">Ya</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-inp" {{ old('title') == 2 ? 'checked' : '' }}
-                                                type="radio" name="is_extra_chapter" id="no_option" value="2">
+                                            <input class="form-check-inp is_extra_chapter"
+                                                {{ old('title') == 2 ? 'checked' : '' }} type="radio"
+                                                name="is_extra_chapter" id="no_option" value="2">
                                             <label class="form-check-label fs-6 text-gray" for="no_option">Bukan</label>
                                         </div>
                                     </div>
@@ -131,7 +133,6 @@
 
                                 </div>
                                 <hr class="my-5">
-                                {{-- <div id="upload_file_image" class="dropzone"></div> --}}
 
                                 <div class="mb-4 position-relative max-input-group">
                                     <p class="text-gray mb-2 fw-500">Catatan Kreator <span
@@ -656,6 +657,7 @@
         // simpan data 
 
         $('#saveDataChapter').on('click', function() {
+
             if ($('input[name="is_extra_chapter"]:checked').length === 0) {
                 $('#alertModal').modal('show')
                 $('#alertModal .modal-content p').html('Extra chapter harus dipilih!')
@@ -668,23 +670,52 @@
                 return false;
             }
 
-            let data = 'kanjut';
-            // data.append('file', 'kanjut');
+            if ($('.ui-state-default').length < 5) {
+                $('#alertModal').modal('show')
+                $('#alertModal .modal-content p').html('File chapter minimal 5 gambar!')
+                return false;
+            }
+
+            $(this).addClass('disabled')
+
+            let data = new FormData();
+
+            let fileInput = document.getElementById('square_thumbnail');
+            let thumbnail = fileInput.files[0];
+
+            data.append('is_extra_chapter', $('.form-check-inp.is_extra_chapter:checked').val());
+            data.append('title', $('#chapter-title').val());
+            data.append('thumbnail', thumbnail);
+            data.append('note', $('#creator-note').val());
+            data.append('schedule', $('#dateRelease').val());
+            let base64Images = [];
+
+            // Mengambil data base64 dari setiap gambar dan menyimpannya dalam array
+            $('.img.dz-image img').each(function() {
+                let base64Data = $(this).attr('src').split(',')[1];
+                base64Images.push(base64Data);
+            });
+
+            // Menambahkan array base64Images ke FormData
+            base64Images.forEach(function(base64Data) {
+                data.append('gambar[]', base64Data);
+            });
+
 
             var slug = location.pathname.split("/")[4];
-            axios.post('/contribute/chapter/' + slug, data).then(function(response) {
 
-                console.log(response)
+            axios.post('/contribute/chapter/store/' + slug, data).then(function(response) {
+                console.log(response);
+            }).catch(function(error) {
+                console.error(error);
+            });
 
-            })
         })
 
         // end simpan data 
 
 
-
-
-        //         {
+        // {
         //   "awdawd.png",  "awdawd.png",  "awdawd.png"
         // },
         // {
@@ -694,10 +725,10 @@
         //   ext: "png"
         // },
         // 1 {
-        //   photo: "awdawd.png",
-        //   size: 200,
-        //   ext: "jpg"
-        // }
+        //       photo: "awdawd.png",
+        //       size: 200,
+        //       ext: "jpg"
+        //     }
         // }
 
         // $gambars = [];
