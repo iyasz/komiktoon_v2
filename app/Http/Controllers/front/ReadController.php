@@ -16,4 +16,13 @@ class ReadController extends Controller
         }
         return view('main.front.list.index', compact('content'));
     }
+
+    public function chapter($slugContent, $slugChapter) {
+        $content = Content::where('slug', $slugContent)->first();
+
+        if(!$content){
+            abort(404);
+        }
+        return view('main.front.list.index', compact('content'));
+    }
 }
