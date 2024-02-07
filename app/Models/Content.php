@@ -24,4 +24,9 @@ class Content extends Model
     {
         return $this->hasMany(CategoryDetail::class);
     }
+
+    public function chapters()
+    {
+        return $this->hasMany(Chapter::class);
+    }
 }

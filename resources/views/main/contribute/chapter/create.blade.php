@@ -696,7 +696,6 @@
                 base64Images.push(base64Data);
             });
 
-            // Menambahkan array base64Images ke FormData
             base64Images.forEach(function(base64Data) {
                 data.append('gambar[]', base64Data);
             });

@@ -95,7 +95,7 @@ class ContentController extends Controller
         $content->synopsis = $request->synopsis;
         $content->type = 1;
         $content->status = 1;
-        $content->thumbnail = $request->thumbnail->store('contents/'.$slug, 'public');
+        $content->thumbnail = $request->thumbnail->store('contents/thumbnail', 'public');
         $content->save();
 
         $contentId = $content->id;

@@ -97,9 +97,9 @@ class ChapterController extends Controller
         $imagesData = [];
 
         if ($request->has('gambar')) {
-            foreach ($request->gambar as $base64Data) {
+            foreach ($request->gambar as $index => $base64Data) {
   
-                $imagePath = 'chapters/'.$content->slug.'/'.$slug.'/'.uniqid().'.png';
+                $imagePath = 'chapters/'.$content->slug.'/'.$slug.'/'.($index + 1).'.png';
                 Storage::disk('public')->put($imagePath, base64_decode($base64Data)); 
                 
                 $imagesData[] = [
@@ -120,7 +120,7 @@ class ChapterController extends Controller
 
         // $chapter->images = $request->input('gambar')->store('chapters/'.$content->slug.'/'.$slug, 'public');
 
-        $chapter->thumbnail = $request->file('thumbnail')->store('chapters/'.$content->slug.'/'.$slug, 'public');
+        $chapter->thumbnail = $request->file('thumbnail')->store('chapters/thumbnail', 'public');
         $chapter->note = $request->input('note');
         $chapter->schedule = $request->input('schedule');
         $chapter->save();

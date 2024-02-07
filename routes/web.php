@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\auth\AuthController;
 use App\Http\Controllers\front\IndexController as FrontIndexController;
+use App\Http\Controllers\front\ReadController;
 use App\Http\Controllers\manage\admin\banner\BannerController;
 use App\Http\Controllers\manage\admin\category\CategoryController;
 use App\Http\Controllers\manage\admin\IndexController;
@@ -28,6 +29,8 @@ Route::get('/', [FrontIndexController::class, 'index']);
 Route::get('/search', [FrontIndexController::class, 'search']);
 Route::get('/privacy-policy', [FrontIndexController::class, 'policyPrivacy']);
 Route::get('/terms-of-use', [FrontIndexController::class, 'termsOfUse']);
+
+Route::get('/komik/{slug}/list', [ReadController::class, 'index']);
 
 // Admin Panel 
 Route::get('/panel/admin/dashboard', [IndexController::class, 'index']);

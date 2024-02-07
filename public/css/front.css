@@ -238,6 +238,114 @@
 /* ===== END SEARCH SECTION ===== */
 
 
+/* ===== KOMIK SECTION ===== */
+
+.wrapper-banner-content {
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 320px;
+
+    >.detail_content {
+        margin: 0 100px;
+        height: 250px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        >.info .title {
+            mix-blend-mode: difference;
+            font-size: 45px;
+            font-weight: 400;
+            width: 600px;
+            line-height: 1;
+        }
+
+        >.info .genre {
+            mix-blend-mode: difference;
+            color: var(--var-dark-primary);
+            font-size: 18px;
+            font-weight: 400;
+        }
+
+        >.info .creator {
+            font-weight: 300;
+            font-size: 17px;
+            mix-blend-mode: difference;
+        }
+
+    }
+
+}
+
+.detail_content .thumb {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+.detail_list_content {
+    width: 100%;
+}
+
+.left-content-list .list .favorit button:hover {
+    background: var(--var-dark-primary);
+    color: white;
+    border-color: var(--var-dark-primary) !important;
+}
+
+.left-content-list .list .favorit button:hover>img {
+    filter: brightness(0) invert(1);
+}
+
+.left-content-list .list .favorit button img {
+    filter: brightness(0) invert(0.4);
+}
+
+.detail_list_content .content {
+    width: 100%;
+    position: relative;
+    background: #fff;
+    border-radius: 8px;
+    min-height: 839px;
+    top: -70px;
+}
+
+.detail_list_content .content .row .left-content-list {
+    height: 100%;
+}
+
+.detail_list_content .content .row .left-content-list .line {
+    width: 100%;
+    background: #dfdfdf;
+    margin-top: 20px;
+    height: 1px;
+}
+
+.detail_list_content .content .row .left-content-list .list .list-content ul li {
+    padding: auto 20px;
+    background-color: white;
+}
+
+.detail_list_content .content .row .left-content-list .list .list-content ul li:hover {
+    background-color: #fcfcfc;
+}
+
+.detail_list_content .content .row .left-content-list .list .list-content ul a {
+    text-decoration: none;
+}
+
+.detail_list_content .content .row .right-content-list {
+    border-left: 1px solid #dfdfdf;
+    min-height: 839px;
+}
+
+
+
+/* ===== END KOMIK SECTION ===== */
+
+
 /* ===== FOOTER SECTION ===== */
 
 footer {
