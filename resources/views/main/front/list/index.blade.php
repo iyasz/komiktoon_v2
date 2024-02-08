@@ -63,7 +63,7 @@
             <div class="modal-content border-0">
                 <div class="modal-body p-5">
                     <div class="text-center">
-                        <h1 id="ratingValue">5</h1>
+                        <h1 id="ratingValue">{{$ratingStar->rate}}</h1>
                         <p class="fw-300">Klik untuk menentukan rating</p>
                     </div>
                     <div class="text-center">
@@ -158,7 +158,15 @@
                                 <div class="list-content">
                                     <ul class="px-3">
                                         <hr class="mb-0">
+                                        @php
+                                         $likeCountAll = 0;
+                                         $viewCountAll = 0;
+                                         @endphp
                                         @foreach ($content->chapters->sortByDesc('created_at') as $data)
+                                        @php
+                                         $likeCountAll += $data->likes->count();
+                                         $viewCountAll += $data->views->count();
+                                        @endphp
                                             <a class="text-dark" href="/{{ $content->slug }}/{{ $data->slug }}/view">
                                                 <li class="d-flex align-items-center">
                                                     <img src="{{ Storage::url($data->thumbnail) }}" alt="" width="85px" height="85px">
@@ -180,19 +188,19 @@
                         <div class="col-4 px-0 right-content-list" style="width: 30.00000000% !important;">
                             <div class="p-4">
                                 <ul class="d-flex ps-0">
-                                    <li class="view fs-sm">
-                                        <i class="bi bi-eye-fill text-primary"></i> <span class="fw-300 ms-1">{{ number_format(2030) }}</span>
+                                    <li class="view">
+                                        <i class="bi bi-eye-fill text-primary"></i> <span class="fw-300 ms-1">{{ number_format($viewCountAll) }}</span>
                                     </li>
-                                    <li class="view fs-sm ms-4">
-                                        <i class="bi bi-heart-fill text-primary"></i> <span class="fw-300 ms-1">{{ number_format(2030) }}</span>
+                                    <li class="view ms-4">
+                                        <i class="bi bi-heart-fill text-primary"></i> <span class="fw-300 ms-1">{{ number_format($likeCountAll) }}</span>
                                     </li>
-                                    <li class="rate ms-4 fs-sm">
+                                    <li class="rate ms-4">
                                         <div class="d-flex align-items-center">
                                             <i class="bi bi-star-fill text-primary"></i> <span class="fw-300 ms-1" id="ratigNumber">{{number_format($totalRating, 1)}}</span>
                                         </div>
                                     </li>
-                                    <button {{ Auth::user() ? 'data-bs-toggle=modal data-bs-target=#ratingModal' : "onclick=window.location.href='/auth/login'" }} class="btn p-0 border-0 fs-sm ms-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                                    <button {{ Auth::user() ? 'data-bs-toggle=modal data-bs-target=#ratingModal' : "onclick=window.location.href='/auth/login'" }} class="btn p-0 border-0 ms-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-pencil mb-1" viewBox="0 0 16 16">
                                             <path
                                                 d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325" />
                                         </svg>

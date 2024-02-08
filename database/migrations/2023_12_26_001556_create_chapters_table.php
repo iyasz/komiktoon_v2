@@ -24,7 +24,6 @@ return new class extends Migration
             $table->longText('images')->nullable();
             
             $table->text('note')->nullable();
-            $table->timestamp('schedule')->nullable();
             
             $table->timestamps();
         });

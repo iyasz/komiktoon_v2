@@ -7,7 +7,9 @@ use App\Models\Bookmark;
 use App\Models\Chapter;
 use App\Models\Comment;
 use App\Models\Content;
+use App\Models\Like;
 use App\Models\Rating;
+use App\Models\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,7 +25,7 @@ class ReadController extends Controller
 
         $commentCount = Comment::where('user_id', $content->user_id)->where('content_id', $content->id)->count();
         $ratingStar = Rating::where('user_id', Auth::user()->id)->where('content_id', $content->id)->select("rate")->first();
-
+        
         $totalRatings = Rating::where('content_id', $content->id)->count();
         $totalRatingSum = Rating::where('content_id', $content->id)->sum('rate');
         $totalRating = $totalRatingSum / $totalRatings * 2;
@@ -60,18 +62,23 @@ class ReadController extends Controller
     }
     
     public function chapter($slugContent, $slugChapter) {
+        
+        
         $content = Content::where('slug', $slugContent)->first();
-
+        
         if(!$content){
             abort(404);
         }
-
+        
         $chapter = Chapter::where('content_id', $content->id)->where('slug', $slugChapter)->first();
         
         if(!$chapter){
             abort(404);
         }
-
+        
+        $view = new View();
+        $view->chapter_id = $chapter->id;
+        $view->save();
         
         $indexOfCreated = Chapter::where('content_id', $content->id)
         ->where('created_at', '<=', $chapter->created_at) 
