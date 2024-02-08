@@ -504,8 +504,7 @@
                     this.on("error", function(file, errorMessage) {
 
                         $('#alertModal').modal('show')
-                        $('#alertModal .modal-content p').html("Type file \"" + file.name +
-                            "\" harus berupa JPEG, JPG, atau PNG")
+                        $('#alertModal .modal-content p').html("Type file \"" + file.name + "\" harus berupa JPEG, JPG, atau PNG")
                         this.removeFile(file);
 
                     });
@@ -713,30 +712,5 @@
 
         // end simpan data 
 
-
-        // {
-        //   "awdawd.png",  "awdawd.png",  "awdawd.png"
-        // },
-        // {
-        // 0 {
-        //   photo: "awdawd.png",
-        //   size: 200,
-        //   ext: "png"
-        // },
-        // 1 {
-        //       photo: "awdawd.png",
-        //       size: 200,
-        //       ext: "jpg"
-        //     }
-        // }
-
-        // $gambars = [];
-
-
-
-        // json_encode($gambars)
-
-
-        // $gambars = json_decode($chapter->images, true);
     </script>
 @endpush

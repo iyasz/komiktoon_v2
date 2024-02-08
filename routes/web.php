@@ -31,6 +31,8 @@ Route::get('/privacy-policy', [FrontIndexController::class, 'policyPrivacy']);
 Route::get('/terms-of-use', [FrontIndexController::class, 'termsOfUse']);
 
 Route::get('/komik/{slug}/list', [ReadController::class, 'index']);
+Route::post('/komik/{slug}/list', [ReadController::class, 'handleFavoritContent']);
+
 Route::get('/{slugContent}/{slugChapter}/view', [ReadController::class, 'chapter']);
 
 // Admin Panel 

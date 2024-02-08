@@ -303,6 +303,14 @@
     filter: brightness(0) invert(0.4);
 }
 
+.left-content-list .list .favorit .btn-favorit.active img {
+    filter: none;
+}
+
+.left-content-list .list .favorit .btn-favorit.active:hover img {
+    filter: brightness(0) invert(1);
+}
+
 .detail_list_content .content {
     width: 100%;
     position: relative;
@@ -342,8 +350,63 @@
 }
 
 
-
 /* ===== END KOMIK SECTION ===== */
+
+/* ===== READ VIEW SECTION ===== */
+
+.navbar-control-page {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background-color: #333333;
+    transition: 0.8s;
+    z-index: 90;
+    opacity: 1;
+}
+
+.navbar-control-page.hide {
+    opacity: 0;
+    transition: 0.8s;
+}
+
+.navbar-control-page .nav-control {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.navbar-control-page .nav-control .left button,
+.navbar-control-page .nav-control .right button {
+    border: 1px solid #141414;
+}
+
+.navbar-control-page .nav-control .left button:hover,
+.navbar-control-page .nav-control .right button:hover {
+    background-color: #212529 !important;
+}
+
+.wrapper-img-content .img-content {
+    text-align: center;
+    user-select: none;
+}
+
+.wrapper-img-content .img-content img {
+    width: 800px;
+    height: 100%;
+    user-select: none;
+    object-fit: cover;
+}
+
+.footer-content-chapter {
+    margin-top: 180px;
+    margin-bottom: 50px;
+}
+
+
+/* ===== END READ VIEW SECTION ===== */
 
 
 /* ===== FOOTER SECTION ===== */
@@ -368,6 +431,10 @@ footer {
     .search-genre-wrapper {
         width: 110px;
         height: 110px;
+    }
+
+    .wrapper-img-content .img-content img {
+        width: 100% !important;
     }
 
 
