@@ -29,8 +29,7 @@
                     <div class="d-flex align-items-center h-100 position-relative ">
                         <div class="d-flex align-items-center">
                             <a href="/" class="d-block">
-                                <img src="{{ asset('img/maskot/ch_icon.png') }}" width="28px" height="28px"
-                                    alt="">
+                                <img src="{{ asset('img/maskot/ch_icon.png') }}" width="28px" height="28px" alt="">
                             </a>
                             <a href="/komik/{{ $content->slug }}/list"
                                 class="text-decoration-none text-white ms-3">{{ $content->title }}</a>
@@ -56,10 +55,7 @@
                             </div>
                             <div class="right">
                                 <button class="btn btn-dark px-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
-                                        fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
-                                        <path
-                                            d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16"> <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
                                     </svg>
                                 </button>
                             </div>

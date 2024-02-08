@@ -19,4 +19,9 @@ class Chapter extends Model
     {
         return 'string';
     }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
 }

@@ -278,6 +278,13 @@
 
 }
 
+.title-chapter-limit {
+    width: 330px; 
+    white-space: nowrap;
+    overflow: hidden; 
+    text-overflow: ellipsis;
+}
+
 .detail_content .thumb {
     position: absolute;
     bottom: 0;
@@ -315,7 +322,6 @@
     width: 100%;
     position: relative;
     background: #fff;
-    border-radius: 8px;
     min-height: 839px;
     top: -70px;
 }

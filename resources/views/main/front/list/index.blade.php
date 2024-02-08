@@ -14,6 +14,12 @@
         .nav-pills .nav-link {
             color: #c6c6c6;
         }
+
+        @media (min-width: 1200px){
+            .container.detail_list_content, .container.detail_list_content .container.wrapper{
+                max-width: 1200px;
+            }
+        }
     </style>
 @endpush
 
@@ -45,38 +51,65 @@
                         <p class="text-gray"></p>
                     </div>
                     <div class="d-flex justify-content-center mt-4 mx-3">
-                        <button class="btn bg-dark text-white py-3 px-5 border-0 rounded-pill"
-                            data-bs-dismiss="modal">YA</button>
+                        <button class="btn bg-dark text-white py-3 px-5 border-0 rounded-pill" data-bs-dismiss="modal">YA</button>
                     </div>
                 </div>
             </div>
         </div>
-    </div
+    </div>
+
+    <div class="modal" id="ratingModal" aria-hidden="true" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0">
+                <div class="modal-body p-5">
+                    <div class="text-center">
+                        <h1 id="ratingValue">5</h1>
+                        <p class="fw-300">Klik untuk menentukan rating</p>
+                    </div>
+                    <div class="text-center">
+                        <a class="text-decoration-none cursor-pointer fs-1 mx-1">
+                            <i id="str_1" class="bi bi-star-fill rate" style="color: {{$ratingStar->rate >= 1 ? '#ef6864' : '#565656'}};"></i>
+                        </a>
+                        <a class="text-decoration-none cursor-pointer fs-1 mx-1">
+                            <i id="str_2" class="bi bi-star-fill rate" style="color: {{$ratingStar->rate >= 2 ? '#ef6864' : '#565656'}};"></i>
+                        </a>
+                        <a class="text-decoration-none cursor-pointer fs-1 mx-1">
+                            <i id="str_3" class="bi bi-star-fill rate" style="color: {{$ratingStar->rate >= 3 ? '#ef6864' : '#565656'}};"></i>
+                        </a>
+                        <a class="text-decoration-none cursor-pointer fs-1 mx-1">
+                            <i id="str_4" class="bi bi-star-fill rate" style="color: {{$ratingStar->rate >= 4 ? '#ef6864' : '#565656'}};"></i>
+                        </a>
+                        <a class="text-decoration-none cursor-pointer fs-1 mx-1">
+                            <i id="str_5" class="bi bi-star-fill rate" style="color: {{$ratingStar->rate == 5 ? '#ef6864' : '#565656'}};"></i>
+                        </a>
+                    </div>
+                    <div class="d-flex justify-content-center mt-4 mx-3">
+                        <button class="btn bg-dark text-white py-3 px-5 border-0 rounded-pill" id="confirmRatingContent" data-bs-dismiss="modal">YA</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div id="app">
-        <div class="wrapper-banner-content" style="background-image: url('{{ asset('img/detail_bg.png') }}');">
+        <div class="wrapper-banner-content" style="background-image: url('{{ asset('img/bg-detail.png') }}');">
             <div class="detail_content position-relative">
                 <div class="thumb">
-                    <img src="{{ asset('img/banertes.png') }}" alt="" width="100%">
+                    <img src="{{ asset('img/people.png') }}" alt="" width="100%" height="250">
                 </div>
                 <div class="info text-center">
                     <p class="genre mb-0">
                         {{ $content->genreDetail->pluck('genre.name')->implode(', ') }}
                     </p>
                     <h1 class="title text-white">{{ $content->title }}</h1>
-                    <p class="creator mb-0 text-white">{{ $content->author }} <a data-bs-toggle="modal"
-                            data-bs-target="#modalInfo" href="" class="text-white ms-1"><svg
-                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-info-circle-fill" viewBox="0 0 16 16">
-                                <path
-                                    d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2" />
-                            </svg></a></p>
+                    <p class="creator mb-0 text-white">{{ $content->author }} <a data-bs-toggle="modal" data-bs-target="#modalInfo" class="text-white ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+                                <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2" /> </svg></a></p>
                 </div>
             </div>
         </div>
-        <div class="container px-0 detail_list_content">
+        <div class="container detail_list_content px-0 ">
             <div class="content">
-                <div class="container mx-0">
+                <div class="container wrapper mx-0">
                     <div class="row">
                         <div class="col-8 px-0 left-content-list" style="width: 70.00000000% !important;">
                             <div class="line"></div>
@@ -91,10 +124,7 @@
                                         </li>
                                         <li class="mx-3 text-gray">/</li>
                                         <li class="nav-item" role="presentation">
-                                            <button class="nav-link p-0" id="pills-profile-tab" data-bs-toggle="pill"
-                                                data-bs-target="#pills-profile" type="button" role="tab"
-                                                aria-controls="pills-profile" aria-selected="false">Komentar <span
-                                                    class="ms-2 fs-s-sm">({{ number_format(12939) }})</span></button>
+                                            <button class="nav-link p-0" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Komentar <span class="ms-2 fs-s-sm">({{ number_format($commentCount) }})</span></button>
                                         </li>
                                     </ul>
 
@@ -105,21 +135,9 @@
                                             </button>
                                         @else 
                                         <button onclick="window.location.href='/auth/login'" class="btn bg-none rounded-pill border fs-sm px-4 py-2">
-                                                <img src="{{ asset('img/maskot/wishlist.svg') }}" width="20px" height="20px" class="me-1" alt=""> Favorit
-                                            </button> @endif
-
-                                        {{-- @if (Auth::user())
-                                            <button id="wishlistBtn"
-                                                class="btn btn-danger text-black w-100 rounded-1 bg-transparent py-2 wishlist @if ($hasFavorit > 0) active @endif "><img
-                                                    src="{{ asset('assets/img/maskot/' . ($hasFavorit > 0 ? 'wishlist_active.svg' : 'wishlist.svg')) }}"
-                                                    id="imgWishlist" width="25px" class="me-1 " alt=""> Wishlist
-                                            </button>
-                                        @else
-                                            <button id="productAuth"
-                                                class="btn btn-danger text-black w-100 rounded-1 bg-transparent wishlist py-2"><img
-                                                    src="{{ asset('assets/img/maskot/wishlist.svg') }}" width="25px"
-                                                    class="me-1 " alt=""> Wishlist</button>
-                                        @endif --}}
+                                            <img src="{{ asset('img/maskot/wishlist.svg') }}" width="20px" height="20px" class="me-1" alt=""> Favorit
+                                        </button> 
+                                        @endif
                                     </div>
 
                                     {{-- <div class="text-center">
@@ -143,12 +161,11 @@
                                         @foreach ($content->chapters->sortByDesc('created_at') as $data)
                                             <a class="text-dark" href="/{{ $content->slug }}/{{ $data->slug }}/view">
                                                 <li class="d-flex align-items-center">
-                                                    <img src="{{ Storage::url($data->thumbnail) }}" alt=""
-                                                        width="85px" height="85px">
-                                                    <p class="mb-0 d-inline ms-3 text-gray">{{ $data->title }}</p>
-                                                    <div class="ms-auto me-5">
-                                                        <p class="mb-0 opacity-50 fs-s-sm">
-                                                            {{ $data->created_at->format('d M y') }}</p>
+                                                    <img src="{{ Storage::url($data->thumbnail) }}" alt="" width="85px" height="85px">
+                                                    <p class="mb-0 d-inline ms-3 text-gray title-chapter-limit">{{ $data->title }}</p>
+                                                    <div class="ms-auto me-5 d-flex align-items-center">
+                                                        <p class="mb-0 opacity-50 fs-s-sm me-5">{{ $data->created_at->format('d M y') }}</p>
+                                                        <p class="mb-0 opacity-50 fs-s-sm"><i class="bi bi-heart me-1"></i> {{ number_format($data->likes->count()) }}</p>
                                                     </div>
                                                     <p class="mb-0 me-2">#{{ $loop->count - $loop->iteration + 1 }}</p>
                                                 </li>
@@ -164,22 +181,18 @@
                             <div class="p-4">
                                 <ul class="d-flex ps-0">
                                     <li class="view fs-sm">
-                                        <i class="bi bi-eye-fill text-primary"></i> <span
-                                            class="fw-300 ms-1">{{ number_format(2030) }}</span>
+                                        <i class="bi bi-eye-fill text-primary"></i> <span class="fw-300 ms-1">{{ number_format(2030) }}</span>
                                     </li>
                                     <li class="view fs-sm ms-4">
-                                        <i class="bi bi-heart-fill text-primary"></i> <span
-                                            class="fw-300 ms-1">{{ number_format(2030) }}</span>
+                                        <i class="bi bi-heart-fill text-primary"></i> <span class="fw-300 ms-1">{{ number_format(2030) }}</span>
                                     </li>
                                     <li class="rate ms-4 fs-sm">
                                         <div class="d-flex align-items-center">
-                                            <i class="bi bi-star-fill text-primary"></i> <span
-                                                class="fw-300 ms-1">9,5</span>
+                                            <i class="bi bi-star-fill text-primary"></i> <span class="fw-300 ms-1" id="ratigNumber">{{number_format($totalRating, 1)}}</span>
                                         </div>
                                     </li>
-                                    <button class="btn p-0 border-0 fs-sm ms-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"
-                                            fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                                    <button {{ Auth::user() ? 'data-bs-toggle=modal data-bs-target=#ratingModal' : "onclick=window.location.href='/auth/login'" }} class="btn p-0 border-0 fs-sm ms-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
                                             <path
                                                 d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325" />
                                         </svg>
@@ -194,8 +207,7 @@
                                     <p class="mb-0 fs-sm opacity-75">{{ $content->synopsis }}</p>
                                 </div>
                                 <div class="action mt-5">
-                                    <a href=""
-                                        class="btn btn-dark fs-sm w-100 rounded-pill border-0 py-3 d-flex justify-content-between align-items-center">
+                                    <a href="/{{$content->slug}}/{{$firstChapter->slug}}/view" class="btn btn-dark fs-sm w-100 rounded-pill border-0 py-3 d-flex justify-content-between align-items-center">
                                         <span class="mx-auto">Ch. Pertama</span>
                                         <span><i class="bi bi-chevron-right "></i></span>
                                     </a>
@@ -212,6 +224,42 @@
 @endsection
 
 @push('javascript')
+
+    <script>
+        $(document).ready(function() {
+          $("#str_1").click(function() {
+              $(".bi-star-fill.rate").css("color", "#565656");
+              $("#str_1").css("color", "#ef6864");
+              $('#ratingValue').text('1')
+              
+            });
+            $("#str_2").click(function() {
+                $(".bi-star-fill.rate").css("color", "#565656");
+                $("#str_1, #str_2").css("color", "#ef6864");
+                $('#ratingValue').text('2')
+                
+            });
+            $("#str_3").click(function() {
+                $(".bi-star-fill.rate").css("color", "#565656")
+                $("#str_1, #str_2, #str_3").css("color", "#ef6864");
+                $('#ratingValue').text('3')
+                
+            });
+            $("#str_4").click(function() {
+                $(".bi-star-fill.rate").css("color", "#565656");
+                $("#str_1, #str_2, #str_3, #str_4").css("color", "#ef6864");
+                $('#ratingValue').text('4')
+                
+            });
+            $("#str_5").click(function() {
+                $(".bi-star-fill.rate").css("color", "#565656");
+                $("#str_1, #str_2, #str_3, #str_4, #str_5").css("color", "#ef6864");
+                $('#ratingValue').text('5')
+
+          });
+        });
+    </script>
+
     <script>
         $('#favoritAddBtn').on('click', function() {
             var url = window.location.pathname;
@@ -221,16 +269,27 @@
                 var domain = window.location.host;
                 var protocol = window.location.protocol;
                 if(response.data.res == "create"){
-                    $('#alertModal').modal('show')
-                    $('#alertModal .modal-content p').html("Favorit berhasil ditambahkan!")
-                    $("#favoritAddBtn").addClass('active')
                     $('#imgFavoritContent').attr('src', protocol+'//'+domain+'/img/maskot/wishlist_active.svg');
-                }else{
+                    $('#alertModal .modal-content p').html("Favorit berhasil ditambahkan!")
                     $('#alertModal').modal('show')
-                    $('#alertModal .modal-content p').html("Favorit berhasil dihapus!")
+                    $("#favoritAddBtn").addClass('active')
+                }else{
                     $("#favoritAddBtn").removeClass('active')
                     $('#imgFavoritContent').attr('src', protocol+'//'+domain+'/img/maskot/wishlist.svg');
+                    $('#alertModal').modal('show')
+                    $('#alertModal .modal-content p').html("Favorit berhasil dihapus!")
                 }
+            }).catch(function(error) {
+                console.error(error);
+            });
+        })
+
+        $('#confirmRatingContent').on('click', function() {
+            var url = window.location.pathname;
+            var rate = $('#ratingValue').text();
+
+            axios.put(url, { rate: rate }).then(function(response) {
+                $('#ratigNumber').text(response.data.data.toFixed(1))
             }).catch(function(error) {
                 console.error(error);
             });

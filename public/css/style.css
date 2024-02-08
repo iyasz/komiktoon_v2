@@ -64,6 +64,10 @@ th {
     width: max-content !important;
 }
 
+.cursor-pointer {
+    cursor: pointer;
+}
+
 .stepper {
     background: var(--var-black-50);
     border-radius: 1500px;
