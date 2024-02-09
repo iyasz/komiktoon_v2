@@ -272,6 +272,7 @@
             font-weight: 300;
             font-size: 17px;
             mix-blend-mode: difference;
+            letter-spacing: 0.7px;
         }
 
     }
@@ -417,14 +418,16 @@
 
 .wrapper-img-content .img-content img {
     width: 800px;
-    height: 100%;
     user-select: none;
-    object-fit: cover;
 }
 
 .footer-content-chapter {
-    margin-top: 180px;
+    margin-top: 160px;
     margin-bottom: 50px;
+}
+
+.report-value {
+    accent-color: var(--var-primary) !important;
 }
 
 

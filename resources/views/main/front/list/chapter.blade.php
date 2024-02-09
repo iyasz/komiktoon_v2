@@ -18,19 +18,19 @@
                     <div class="row">
                         <div class="col-md-6 col-12">
                             <div class="form-check mb-3">
-                                <input class="form-check-input report-value" value="1" type="radio" name="report-reason" id="kts">
+                                <input class="form-check-inp report-value" value="1" type="radio" name="report-reason" id="kts">
                                 <label class="form-check-label text-gray ms-1 fw-300" for="kts">
                                   Konten tidak sesuai
                                 </label>
                             </div>
                             <div class="form-check mb-3">
-                                <input class="form-check-input report-value" value="2" type="radio" name="report-reason" id="pk">
+                                <input class="form-check-inp report-value" value="2" type="radio" name="report-reason" id="pk">
                                 <label class="form-check-label text-gray ms-1 fw-300" for="pk">
                                   Penyebaran kebencian
                                 </label>
                             </div>
                             <div class="form-check mb-3">
-                                <input class="form-check-input report-value" value="3" type="radio" name="report-reason" id="phc">
+                                <input class="form-check-inp report-value" value="3" type="radio" name="report-reason" id="phc">
                                 <label class="form-check-label text-gray ms-1 fw-300" for="phc">
                                   Pelanggaran hak cipta
                                 </label>
@@ -38,19 +38,19 @@
                         </div>
                         <div class="col-md-6 col-12">
                             <div class="form-check mb-3">
-                                <input class="form-check-input report-value" value="4" type="radio" name="report-reason" id="mks">
+                                <input class="form-check-inp report-value" value="4" type="radio" name="report-reason" id="mks">
                                 <label class="form-check-label text-gray ms-1 fw-300" for="mks">
                                   Mengandung konten seksual
                                 </label>
                             </div>
                             <div class="form-check mb-3">
-                                <input class="form-check-input report-value" value="5" type="radio" name="report-reason" id="pp">
+                                <input class="form-check-inp report-value" value="5" type="radio" name="report-reason" id="pp">
                                 <label class="form-check-label text-gray ms-1 fw-300" for="pp">
                                   Pelanggaran privasi
                                 </label>
                             </div>
                             <div class="form-check mb-3">
-                                <input class="form-check-input report-value" value="6" type="radio" name="report-reason" id="l">
+                                <input class="form-check-inp report-value" value="6" type="radio" name="report-reason" id="l">
                                 <label class="form-check-label text-gray ms-1 fw-300" for="l">
                                   Lainnya
                                 </label>
@@ -59,7 +59,7 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-center mt-4 mx-3 mt-5">
-                        <button class="btn bg-dark text-white py-3 px-5 border-0 rounded-pill" id="btnConfirmReport" data-bs-dismiss="modal">Laporkan</button>
+                        <button class="btn bg-dark disabled text-white py-3 px-5 border-0 rounded-pill" id="btnConfirmReport" data-bs-dismiss="modal">Laporkan</button>
                     </div>
                 </div>
             </div>
@@ -97,7 +97,18 @@
                 <div class="col-12 text-center">
                     <div class="update d-flex align-items-center justify-content-center">
                         <img src="{{ asset('img/maskot/end_content.png') }}" width="40px" height="40px" alt="">
-                        <p class="mb-0 ms-2">Update KAMIS</p>
+                        @php
+                            $days = [
+                                0 => 'SENIN',
+                                1 => 'SELASA',
+                                2 => 'RABU',
+                                3 => 'KAMIS',
+                                4 => 'JUMAT',
+                                5 => 'SABTU',
+                                6 => 'MINGGU',
+                            ];
+                        @endphp 
+                        <p class="mb-0 ms-2">Update @if($content->update_day_2 == null) {{$days[$content->update_day]}} @else {{substr($days[$content->update_day], 0, 3)}}, {{substr($days[$content->update_day_2], 0, 3)}} @endif</p>
                     </div>
                     <div class="mt-3">
                         <p class="fs-sm">Support komik ini <br> dengan memberikan like dan komentar positif!</p>
@@ -191,6 +202,14 @@
                 });
 
             })
+
+            $('.report-value').on('change', function() {
+                if ($(this).prop('checked')) {
+                    if ($('#btnConfirmReport').hasClass('disabled')) {
+                        $('#btnConfirmReport').removeClass('disabled');
+                    }
+                }
+            });
 
             $('#btnConfirmReport').click(function(){
                 var url = window.location.pathname;

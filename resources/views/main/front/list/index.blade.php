@@ -6,6 +6,51 @@
             background-color: #f0f0f0 !important;
         }
 
+        .col-lg-4 {
+            width: 30.00000000%;
+        }
+
+        .col-lg-8 {
+            width: 70.00000000%;
+        }
+
+        @media only screen and (max-width: 991px) {
+
+            .col-lg-4 {
+                width: 100% !important;
+            }
+
+            .col-lg-8 {
+                width: 100% !important;
+            }
+
+            .detail_list_content .content .row .right-content-list {
+                min-height: 400px !important;
+            }
+
+            .wrapper-banner-content .detail_content .info .title {
+                width: 500px !important;
+            }
+
+        }
+
+        @media only screen and (max-width: 575px) {
+
+            .wrapper-banner-content .detail_content .info .title {
+                font-size: 38px !important;
+                width: 300px !important;
+            }
+
+            .wrapper-banner-content .detail_content .info .genre {
+                font-size: 14px !important;
+            }
+
+            .wrapper-banner-content .detail_content .info .creator {
+                font-size: 14px !important;
+            }
+
+        }
+
         .nav-pills .nav-link.active {
             background-color: transparent;
             color: #818181;
@@ -41,11 +86,6 @@
             background: transparent;;
         }
 
-        @media (min-width: 1200px){
-            .container.detail_list_content, .container.detail_list_content .container.wrapper{
-                max-width: 1200px;
-            }
-        }
     </style>
 @endpush
 
@@ -121,15 +161,14 @@
         <div class="wrapper-banner-content" style="background-image: url('{{ asset('img/bg-detail.png') }}');">
             <div class="detail_content position-relative">
                 <div class="thumb">
-                    <img src="{{ asset('img/people.png') }}" alt="" width="100%" height="250">
+                    <img src="{{ asset('img/people.png') }}" alt="" class="d-lg-block d-none" width="100%" height="250">
                 </div>
                 <div class="info text-center">
                     <p class="genre mb-0">
                         {{ $content->genreDetail->pluck('genre.name')->implode(', ') }}
                     </p>
                     <h1 class="title text-white">{{ $content->title }}</h1>
-                    <p class="creator mb-0 text-white">{{ $content->author }} <a data-bs-toggle="modal" data-bs-target="#modalInfo" class="text-white ms-1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
-                                <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2" /> </svg></a></p>
+                    <p class="creator mb-0 text-white">{{ $content->author }} <a data-bs-toggle="modal" data-bs-target="#modalInfo" class="text-white ms-1 d-md-inline d-none"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16"> <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2" /> </svg></a></p>
                 </div>
             </div>
         </div>
@@ -137,7 +176,7 @@
             <div class="content">
                 <div class="container wrapper mx-0">
                     <div class="row">
-                        <div class="col-8 px-0 left-content-list" style="width: 70.00000000% !important;">
+                        <div class="col-lg-8 col-12 order-lg-0 order-1 px-0 left-content-list">
                             <div class="line"></div>
                             <div class="list">
                                 <div class="ms-3 mt-2 d-flex align-items-center">
@@ -145,22 +184,19 @@
                                         <li class="nav-item mx-3" role="presentation">
                                             <button class="nav-link {{ !session('status') ? 'active' : '' }} rounded-0 bg-transparent py-3 px-0 fw-400" data-bs-toggle="pill" data-bs-target="#pills-chapter" type="button" role="tab" aria-controls="pills-chapter" aria-selected="true">Chapter</button>
                                         </li>
-                                        <li class="nav-item mx-3 text-primary my-auto">/</li>
+                                        <li class="nav-item mx-md-3 mx-0 text-primary my-auto">/</li>
                                         <li class="nav-item mx-3" role="presentation">
                                             <button class="nav-link {{ session('status') ? 'active' : '' }} rounded-0 bg-transparent py-3 px-0 fw-400" data-bs-toggle="pill" data-bs-target="#pills-comment" type="button" role="tab" aria-controls="pills-comment" aria-selected="false">Komentar <span class="ms-1 fs-s-sm">({{ number_format($commentCount) }})</span></button>
                                         </li>
                                     </ul>
                                     
-                                    
-
                                     <div class="favorit me-3 ms-auto">
                                         @if (Auth::user())
-                                            <button class="btn btn-favorit @if($hasFavorit > 0)active @endif bg-none rounded-pill border fs-sm px-4 py-2" id="favoritAddBtn">
-                                                <img id="imgFavoritContent" src="{{ asset('img/maskot/' . ($hasFavorit > 0 ? 'wishlist_active.svg' : 'wishlist.svg')) }}" width="20px" height="20px" class="me-1" alt=""> Favorit
+                                            <button class="btn btn-favorit @if($hasFavorit > 0 ) active @endif bg-none rounded-pill border fs-sm px-md-4 px-2 py-2" id="favoritAddBtn"><img id="imgFavoritContent" src="{{ asset('img/maskot/' . ($hasFavorit > 0 ? 'wishlist_active.svg' : 'wishlist.svg')) }}" width="20px" height="20px" class="me-md-1 me-0" alt=""> <span class="d-md-inline d-none">Favorit</span>
                                             </button>
                                         @else 
-                                        <button onclick="window.location.href='/auth/login'" class="btn bg-none rounded-pill border fs-sm px-4 py-2">
-                                            <img src="{{ asset('img/maskot/wishlist.svg') }}" width="20px" height="20px" class="me-1" alt=""> Favorit
+                                        <button onclick="window.location.href='/auth/login'" class="btn bg-none rounded-pill border fs-sm px-md-4 px-2 py-2">
+                                            <img src="{{ asset('img/maskot/wishlist.svg') }}" width="20px" height="20px" class="me-md-1 me-0" alt=""> <span class="d-md-inline d-none">Favorit</span>
                                         </button> 
                                         @endif
                                     </div>
@@ -193,8 +229,8 @@
                                                         <img src="{{ Storage::url($data->thumbnail) }}" alt="" width="85px" height="85px">
                                                         <p class="mb-0 d-inline ms-3 text-gray title-chapter-limit">{{ $data->title }}</p>
                                                         <div class="ms-auto me-5 d-flex align-items-center">
-                                                            <p class="mb-0 opacity-50 fs-s-sm me-5">{{ $data->created_at->format('d M y') }}</p>
-                                                            <p class="mb-0 opacity-50 fs-s-sm"><i class="bi bi-heart me-1"></i> {{ number_format($data->likes->count()) }}</p>
+                                                            <p class="mb-0 opacity-50 fs-s-sm me-lg-5 me-2 d-md-block d-none">{{ $data->created_at->format('d M y') }}</p>
+                                                            <p class="mb-0 opacity-50 fs-s-sm d-lg-block d-none"><i class="bi bi-heart me-1"></i> {{ number_format($data->likes->count()) }}</p>
                                                         </div>
                                                         <p class="mb-0 me-2">#{{ $initialNumber  }}</p>
                                                     </li>
@@ -254,9 +290,9 @@
 
                             </div>
                         </div>
-                        <div class="col-4 px-0 right-content-list" style="width: 30.00000000% !important;">
+                        <div class="col-lg-4 col-12 order-lg-1 order-0 px-0 right-content-list">
                             <div class="p-4">
-                                <ul class="d-flex ps-0">
+                                <ul class="d-flex justify-content-lg-start justify-content-center ps-0">
                                     <li class="view">
                                         <i class="bi bi-eye-fill text-primary"></i> <span class="fw-300 ms-1">{{ number_format($viewCountAll) }}</span>
                                     </li>
@@ -274,9 +310,19 @@
                                     </button>
                                 </ul>
                                 <div class="update mt-3 d-flex align-items-center">
-                                    <img src="{{ asset('img/maskot/upd_content.png') }}" width="40px" height="40px"
-                                        alt="">
-                                    <p class="mb-0 fw-500 ms-2">Update KAMIS</p>
+                                    <img src="{{ asset('img/maskot/upd_content.png') }}" width="40px" height="40px" alt=""> 
+                                    @php
+                                        $days = [
+                                            0 => 'SENIN',
+                                            1 => 'SELASA',
+                                            2 => 'RABU',
+                                            3 => 'KAMIS',
+                                            4 => 'JUMAT',
+                                            5 => 'SABTU',
+                                            6 => 'MINGGU',
+                                        ];
+                                    @endphp 
+                                    <p class="mb-0 fw-500 ms-2">Update @if($content->update_day_2 == null) {{$days[$content->update_day]}} @else {{substr($days[$content->update_day], 0, 3)}}, {{substr($days[$content->update_day_2], 0, 3)}} @endif</p>
                                 </div>
                                 <div class="desc mt-4">
                                     <p class="mb-0 fs-sm opacity-75">{{ $content->synopsis }}</p>
