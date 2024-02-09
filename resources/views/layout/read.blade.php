@@ -28,12 +28,16 @@
                 <div class="col-12">
                     <div class="d-flex align-items-center h-100 position-relative ">
                         <div class="d-flex align-items-center">
-                            <a href="/" class="d-block">
+                            <a href="/" class="d-md-block d-none">
                                 <img src="{{ asset('img/maskot/ch_icon.png') }}" width="28px" height="28px" alt="">
                             </a>
-                            <a href="/komik/{{ $content->slug }}/list"
-                                class="text-decoration-none text-white ms-3">{{ $content->title }}</a>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="mx-3" width="14" height="14"
+                            <a href="/komik/{{ $content->slug }}/list" class="d-md-none d-block">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fff" class="bi bi-list-ul me-3" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2m0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2m0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+                                  </svg>
+                            </a>
+                            <a href="/komik/{{ $content->slug }}/list" class="text-decoration-none text-white ms-3 d-md-block d-none">{{ $content->title }}</a>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="mx-3 d-md-block d-none" width="14" height="14"
                                 fill="#fff" class="bi bi-chevron-right" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd"
                                     d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708" />
@@ -42,7 +46,7 @@
                                 $parts = explode(" - ", $chapter->title);
                                 $chapterDetailNumber = $parts[0];
                             @endphp
-                            <p class="mb-0 text-white">{{$chapterDetailNumber}}</p>
+                            <p class="mb-0 text-white d-md-block d-none ">{{$chapterDetailNumber}}</p>
                         </div>
                         <div class="nav-control d-flex align-items-center">
                             <div class="left">

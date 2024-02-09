@@ -126,8 +126,8 @@
                     </div>
                     
                     <div class="d-flex justify-content-center">
-                        <a @if($chapterPrevious != null) href="/{{$content->slug}}/{{$chapterPrevious->slug}}/view"@endif class="btn btn-primary {{$chapterPrevious == NULL ? 'disabled' : ''}} rounded-pill border-0 mx-3 fs-sm px-3">Previous Chapter</a>
-                        <a @if($chapterNext != NULL) href="/{{$content->slug}}/{{$chapterNext->slug}}/view"@endif class="btn btn-primary {{$chapterNext == NULL ? 'disabled' : ''}} rounded-pill border-0 mx-3 fs-sm px-3">Next Chapter</a>
+                        <a @if($chapterPrevious != null) href="/{{$content->slug}}/{{$chapterPrevious->slug}}/view"@endif class="btn btn-primary {{$chapterPrevious == NULL ? 'disabled' : ''}} rounded-pill border-0 mx-3 fs-sm px-3">Previous <span class=" d-md-inline d-none">Chapter</span></a>
+                        <a @if($chapterNext != NULL) href="/{{$content->slug}}/{{$chapterNext->slug}}/view"@endif class="btn btn-primary {{$chapterNext == NULL ? 'disabled' : ''}} rounded-pill border-0 mx-3 fs-sm px-3">Next <span class=" d-md-inline d-none"> Chapter</span></a>
                     </div>
                 </div>
             </div>

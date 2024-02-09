@@ -3,7 +3,7 @@
 @push('css')
     <style>
         body {
-            background-color: rgb(240, 240, 240) !important;
+            background-color: #f0f0f0 !important;
         }
 
         .nav-pills .nav-link.active {
@@ -13,6 +13,32 @@
 
         .nav-pills .nav-link {
             color: #c6c6c6;
+        }
+
+        .pagination .page-item {
+            margin: auto 4px;
+            background-color: transparent !important;
+        }
+
+        .pagination .page-item.active > .page-link {
+            background: #ef6864 !important;
+            color: white;
+        }
+
+        .pagination .page-item .page-link {
+            border-radius: 50%;
+            padding: 5px 15px !important;
+            border: none;
+            color: black;
+        }
+
+        .pagination .page-item .page-link:focus {
+            background: transparent;
+            box-shadow: none;
+        }
+
+        .pagination .page-item .page-link:hover {
+            background: transparent;;
         }
 
         @media (min-width: 1200px){
@@ -142,33 +168,48 @@
                                     
                                 </div>
                                 <div class="tab-content" id="pills-tabContent">
-                                    <div class="tab-pane fade {{ !session('status') ? 'show active' : '' }} " id="pills-chapter" role="tabpanel" aria-labelledby="pills-tab-chapter" tabindex="0">
+                                    <div class="tab-pane fade {{ !session('status') ? 'show active' : '' }} pills-tab-chapter" id="pills-chapter" role="tabpanel" aria-labelledby="pills-tab-chapter" tabindex="0">
                                         <div class="list-content">
                                             <ul class="px-3">
                                                 <hr class="mb-0 mt-2">
                                                 @php
-                                                 $likeCountAll = 0;
-                                                 $viewCountAll = 0;
-                                                 @endphp
-                                                @foreach ($content->chapters->sortByDesc('created_at') as $data)
-                                                @php
-                                                 $likeCountAll += $data->likes->count();
-                                                 $viewCountAll += $data->views->count();
+                                                    $likeCountAll = $content->chapters->sum(function ($chapter) {
+                                                        return $chapter->likes->count();
+                                                    });
+
+                                                    $viewCountAll = $content->chapters->sum(function ($chapter) {
+                                                        return $chapter->views->count();
+                                                    });
+
+                                                    $currentPage = $content->chapters()->orderBy('created_at', 'desc')->paginate(7);
+                                                    $totalItems = $currentPage->total();
+                                                    $perPage = 7;
+                                                    $initialNumber = $totalItems - ($currentPage->currentPage() - 1) * $perPage;
+
                                                 @endphp
-                                                    <a class="text-dark" href="/{{ $content->slug }}/{{ $data->slug }}/view">
-                                                        <li class="d-flex align-items-center">
-                                                            <img src="{{ Storage::url($data->thumbnail) }}" alt="" width="85px" height="85px">
-                                                            <p class="mb-0 d-inline ms-3 text-gray title-chapter-limit">{{ $data->title }}</p>
-                                                            <div class="ms-auto me-5 d-flex align-items-center">
-                                                                <p class="mb-0 opacity-50 fs-s-sm me-5">{{ $data->created_at->format('d M y') }}</p>
-                                                                <p class="mb-0 opacity-50 fs-s-sm"><i class="bi bi-heart me-1"></i> {{ number_format($data->likes->count()) }}</p>
-                                                            </div>
-                                                            <p class="mb-0 me-2">#{{ $loop->count - $loop->iteration + 1 }}</p>
-                                                        </li>
-                                                    </a>
-                                                    <hr class="my-0">
+                                                @foreach ($content->chapters()->orderBy('created_at', 'desc')->paginate(7) as $data)
+                                                <a class="text-dark" href="/{{ $content->slug }}/{{ $data->slug }}/view">
+                                                    <li class="d-flex align-items-center">
+                                                        <img src="{{ Storage::url($data->thumbnail) }}" alt="" width="85px" height="85px">
+                                                        <p class="mb-0 d-inline ms-3 text-gray title-chapter-limit">{{ $data->title }}</p>
+                                                        <div class="ms-auto me-5 d-flex align-items-center">
+                                                            <p class="mb-0 opacity-50 fs-s-sm me-5">{{ $data->created_at->format('d M y') }}</p>
+                                                            <p class="mb-0 opacity-50 fs-s-sm"><i class="bi bi-heart me-1"></i> {{ number_format($data->likes->count()) }}</p>
+                                                        </div>
+                                                        <p class="mb-0 me-2">#{{ $initialNumber  }}</p>
+                                                    </li>
+                                                </a>
+                                                <hr class="my-0">
+                                                @php
+                                                    $initialNumber--;
+                                                @endphp
                                                 @endforeach
-                                            </ul>
+                                            </ul>    
+                                            
+                                        </div>
+                                        <div class="pagination-wrapper">
+                                            {{-- {{ $content->chapters()->orderBy('created_at', 'desc')->paginate(1)->withQueryString()->onEachSide(3)->links() }} --}}
+                                            {{ $content->chapters()->orderBy('created_at', 'desc')->paginate(7)->onEachSide(1)->withQueryString()->links() }}
                                         </div>
                                     </div>
                                     <div class="tab-pane fade {{ !session('status') ? '' : 'show active' }}" id="pills-comment" role="tabpanel" aria-labelledby="pills-tab-comment" tabindex="0">

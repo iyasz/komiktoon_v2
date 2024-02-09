@@ -334,8 +334,16 @@
     top: -70px;
 }
 
+.pills-tab-chapter .pagination-wrapper {
+    position: absolute;
+    right: 50%;
+    bottom: 30px;
+    transform: translateX(50%);
+}
+
 .detail_list_content .content .row .left-content-list {
-    height: 100%;
+    min-height: 839px;
+    position: relative;
 }
 
 .detail_list_content .content .row .left-content-list .line {

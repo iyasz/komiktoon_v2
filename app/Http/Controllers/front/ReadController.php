@@ -34,7 +34,6 @@ class ReadController extends Controller
         
         $hasFavorit = 0;
         $ratingStar = 0;
-        
         if(Auth::user()){
             $ratingStar = Rating::where('user_id', Auth::user()->id)->where('content_id', $content->id)->value("rate");
             $hasFavorit = Bookmark::where('user_id', Auth::user()->id)->where('content_id', $content->id)->count();
