@@ -278,6 +278,14 @@
 
 }
 
+.nav.nav-pills.list .nav-item a:hover {
+    color: var(--var-primary) !important;
+}
+
+.nav.nav-pills.list .nav-item .nav-link.active {
+    color: var(--var-primary) !important;
+}
+
 .title-chapter-limit {
     width: 330px; 
     white-space: nowrap;
@@ -384,13 +392,13 @@
     transform: translateX(-50%);
 }
 
-.navbar-control-page .nav-control .left button,
-.navbar-control-page .nav-control .right button {
+.navbar-control-page .nav-control .left a,
+.navbar-control-page .nav-control .right a {
     border: 1px solid #141414;
 }
 
-.navbar-control-page .nav-control .left button:hover,
-.navbar-control-page .nav-control .right button:hover {
+.navbar-control-page .nav-control .left a:hover,
+.navbar-control-page .nav-control .right a:hover {
     background-color: #212529 !important;
 }
 

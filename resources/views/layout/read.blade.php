@@ -38,34 +38,37 @@
                                 <path fill-rule="evenodd"
                                     d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708" />
                             </svg>
-                            <p class="mb-0 text-white">CHAPTER 88</p>
+                            @php
+                                $parts = explode(" - ", $chapter->title);
+                                $chapterDetailNumber = $parts[0];
+                            @endphp
+                            <p class="mb-0 text-white">{{$chapterDetailNumber}}</p>
                         </div>
                         <div class="nav-control d-flex align-items-center">
                             <div class="left">
-                                <button class="btn btn-dark px-2">
+                                <a @if($chapterPrevious != null) href="/{{$content->slug}}/{{$chapterPrevious->slug}}/view" @endif class="btn btn-dark {{$chapterPrevious == NULL ? 'disabled' : ''}} px-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
                                         fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
                                         <path
                                             d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
                                     </svg>
-                                </button>
+                                </a>
                             </div>
                             <div class="eps mx-3">
                                 <p class="text-white mb-0">#{{ $indexOfCreated }}</p>
                             </div>
                             <div class="right">
-                                <button class="btn btn-dark px-2">
+                                <a @if($chapterNext != NULL) href="/{{$content->slug}}/{{$chapterNext->slug}}/view"@endif class="btn btn-dark {{$chapterNext == NULL ? 'disabled' : ''}} px-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16"> <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
                                     </svg>
-                                </button>
+                                </a>
                             </div>
                         </div>
                         <div class="ms-auto">
                             <button class="btn rounded-circle bg-transparent" id="fullScreenBtn">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff"
                                     class="bi bi-fullscreen" viewBox="0 0 16 16">
-                                    <path
-                                        d="M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5M.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5" />
+                                    <path d="M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5M.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5" />
                                 </svg>
                             </button>
                         </div>
@@ -121,6 +124,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </body>
 
 </html>

@@ -33,8 +33,11 @@ Route::get('/terms-of-use', [FrontIndexController::class, 'termsOfUse']);
 Route::get('/komik/{slug}/list', [ReadController::class, 'index']);
 Route::post('/komik/{slug}/list', [ReadController::class, 'handleFavoritContent']);
 Route::put('/komik/{slug}/list', [ReadController::class, 'handleRatingContent']);
+Route::patch('/komik/{slug}/list', [ReadController::class, 'handleCommentContent']);
+Route::delete('/komik/{slug}/list/{id}', [ReadController::class, 'handleDeleteComment']);
 
 Route::get('/{slugContent}/{slugChapter}/view', [ReadController::class, 'chapter']);
+Route::post('/{slugContent}/{slugChapter}/view', [ReadController::class, 'handleLikeChapter']);
 
 // Admin Panel 
 Route::get('/panel/admin/dashboard', [IndexController::class, 'index']);

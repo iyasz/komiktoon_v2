@@ -63,24 +63,24 @@
             <div class="modal-content border-0">
                 <div class="modal-body p-5">
                     <div class="text-center">
-                        <h1 id="ratingValue">{{$ratingStar->rate}}</h1>
+                        <h1 id="ratingValue">{{$ratingStar}}</h1>
                         <p class="fw-300">Klik untuk menentukan rating</p>
                     </div>
                     <div class="text-center">
                         <a class="text-decoration-none cursor-pointer fs-1 mx-1">
-                            <i id="str_1" class="bi bi-star-fill rate" style="color: {{$ratingStar->rate >= 1 ? '#ef6864' : '#565656'}};"></i>
+                            <i id="str_1" class="bi bi-star-fill rate" style="color: {{$ratingStar >= 1 ? '#ef6864' : '#565656'}};"></i>
                         </a>
                         <a class="text-decoration-none cursor-pointer fs-1 mx-1">
-                            <i id="str_2" class="bi bi-star-fill rate" style="color: {{$ratingStar->rate >= 2 ? '#ef6864' : '#565656'}};"></i>
+                            <i id="str_2" class="bi bi-star-fill rate" style="color: {{$ratingStar >= 2 ? '#ef6864' : '#565656'}};"></i>
                         </a>
                         <a class="text-decoration-none cursor-pointer fs-1 mx-1">
-                            <i id="str_3" class="bi bi-star-fill rate" style="color: {{$ratingStar->rate >= 3 ? '#ef6864' : '#565656'}};"></i>
+                            <i id="str_3" class="bi bi-star-fill rate" style="color: {{$ratingStar >= 3 ? '#ef6864' : '#565656'}};"></i>
                         </a>
                         <a class="text-decoration-none cursor-pointer fs-1 mx-1">
-                            <i id="str_4" class="bi bi-star-fill rate" style="color: {{$ratingStar->rate >= 4 ? '#ef6864' : '#565656'}};"></i>
+                            <i id="str_4" class="bi bi-star-fill rate" style="color: {{$ratingStar >= 4 ? '#ef6864' : '#565656'}};"></i>
                         </a>
                         <a class="text-decoration-none cursor-pointer fs-1 mx-1">
-                            <i id="str_5" class="bi bi-star-fill rate" style="color: {{$ratingStar->rate == 5 ? '#ef6864' : '#565656'}};"></i>
+                            <i id="str_5" class="bi bi-star-fill rate" style="color: {{$ratingStar == 5 ? '#ef6864' : '#565656'}};"></i>
                         </a>
                     </div>
                     <div class="d-flex justify-content-center mt-4 mx-3">
@@ -116,19 +116,29 @@
                             <div class="list">
                                 <div class="ms-3 mt-2 d-flex align-items-center">
 
-                                    <ul class="nav nav-pills mt-3 mb-2" id="pills-tab" role="tablist">
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link p-0 active" id="pills-home-tab" data-bs-toggle="pill"
-                                                data-bs-target="#pills-home" type="button" role="tab"
-                                                aria-controls="pills-home" aria-selected="true">Chapter List</button>
+                                    {{-- <ul class="nav nav-pills list" id="pills-tab" role="tablist">
+                                        <li class="nav-item mx-3" role="presentation">
+                                            <button class="nav-link {{ session('status') ? '' : 'active' }} rounded-0 bg-transparent py-3 px-0 fw-400" data-bs-toggle="pill" data-bs-target="#pills-chapter" type="button" role="tab" aria-controls="pills-chapter" aria-selected="true">Chapter</button>
                                         </li>
-                                        <li class="mx-3 text-gray">/</li>
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link p-0" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Komentar <span class="ms-2 fs-s-sm">({{ number_format($commentCount) }})</span></button>
+                                        <li class="nav-item mx-3 text-primary my-auto">/</li>
+                                        <li class="nav-item mx-3" role="presentation">
+                                            <button class="nav-link {{ session('status') ?? '' }} rounded-0 bg-transparent py-3 px-0 fw-400" data-bs-toggle="pill" data-bs-target="#pills-comment" type="button" role="tab" aria-controls="pills-comment" aria-selected="false">Komentar <span class="ms-1 fs-s-sm">({{ number_format($commentCount) }})</span></button>
+                                        </li>
+                                    </ul> --}}
+
+                                    <ul class="nav nav-pills list" id="pills-tab" role="tablist">
+                                        <li class="nav-item mx-3" role="presentation">
+                                            <button class="nav-link {{ !session('status') ? 'active' : '' }} rounded-0 bg-transparent py-3 px-0 fw-400" data-bs-toggle="pill" data-bs-target="#pills-chapter" type="button" role="tab" aria-controls="pills-chapter" aria-selected="true">Chapter</button>
+                                        </li>
+                                        <li class="nav-item mx-3 text-primary my-auto">/</li>
+                                        <li class="nav-item mx-3" role="presentation">
+                                            <button class="nav-link {{ session('status') ? 'active' : '' }} rounded-0 bg-transparent py-3 px-0 fw-400" data-bs-toggle="pill" data-bs-target="#pills-comment" type="button" role="tab" aria-controls="pills-comment" aria-selected="false">Komentar <span class="ms-1 fs-s-sm">({{ number_format($commentCount) }})</span></button>
                                         </li>
                                     </ul>
+                                    
+                                    
 
-                                    <div class="favorit me-3 ms-auto mt-1">
+                                    <div class="favorit me-3 ms-auto">
                                         @if (Auth::user())
                                             <button class="btn btn-favorit @if($hasFavorit > 0)active @endif bg-none rounded-pill border fs-sm px-4 py-2" id="favoritAddBtn">
                                                 <img id="imgFavoritContent" src="{{ asset('img/maskot/' . ($hasFavorit > 0 ? 'wishlist_active.svg' : 'wishlist.svg')) }}" width="20px" height="20px" class="me-1" alt=""> Favorit
@@ -140,47 +150,76 @@
                                         @endif
                                     </div>
 
-                                    {{-- <div class="text-center">
-                                            <p class="m-0 fs-sm fw-500">Setelah baca langsung like yuk!</p>
-                                            <p class="mb-0 fs-sm ">Setelah membaca <span class="text-primary">Komik</span>
-                                                ini,
-                                                hargai dengan like dan dukungan dikomentar!</p>
-                                        </div> --}}
-
-                                    {{-- <div class="tab-content" id="pills-tabContent">
-                                            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">...</div>
-                                            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">...</div>
-                                            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">...</div>
-                                            <div class="tab-pane fade" id="pills-disabled" role="tabpanel" aria-labelledby="pills-disabled-tab" tabindex="0">...</div>
-                                          </div> --}}
-
+                                    
                                 </div>
-                                <div class="list-content">
-                                    <ul class="px-3">
-                                        <hr class="mb-0">
-                                        @php
-                                         $likeCountAll = 0;
-                                         $viewCountAll = 0;
-                                         @endphp
-                                        @foreach ($content->chapters->sortByDesc('created_at') as $data)
-                                        @php
-                                         $likeCountAll += $data->likes->count();
-                                         $viewCountAll += $data->views->count();
-                                        @endphp
-                                            <a class="text-dark" href="/{{ $content->slug }}/{{ $data->slug }}/view">
-                                                <li class="d-flex align-items-center">
-                                                    <img src="{{ Storage::url($data->thumbnail) }}" alt="" width="85px" height="85px">
-                                                    <p class="mb-0 d-inline ms-3 text-gray title-chapter-limit">{{ $data->title }}</p>
-                                                    <div class="ms-auto me-5 d-flex align-items-center">
-                                                        <p class="mb-0 opacity-50 fs-s-sm me-5">{{ $data->created_at->format('d M y') }}</p>
-                                                        <p class="mb-0 opacity-50 fs-s-sm"><i class="bi bi-heart me-1"></i> {{ number_format($data->likes->count()) }}</p>
+                                <div class="tab-content" id="pills-tabContent">
+                                    <div class="tab-pane fade {{ !session('status') ? 'show active' : '' }} " id="pills-chapter" role="tabpanel" aria-labelledby="pills-tab-chapter" tabindex="0">
+                                        <div class="list-content">
+                                            <ul class="px-3">
+                                                <hr class="mb-0 mt-2">
+                                                @php
+                                                 $likeCountAll = 0;
+                                                 $viewCountAll = 0;
+                                                 @endphp
+                                                @foreach ($content->chapters->sortByDesc('created_at') as $data)
+                                                @php
+                                                 $likeCountAll += $data->likes->count();
+                                                 $viewCountAll += $data->views->count();
+                                                @endphp
+                                                    <a class="text-dark" href="/{{ $content->slug }}/{{ $data->slug }}/view">
+                                                        <li class="d-flex align-items-center">
+                                                            <img src="{{ Storage::url($data->thumbnail) }}" alt="" width="85px" height="85px">
+                                                            <p class="mb-0 d-inline ms-3 text-gray title-chapter-limit">{{ $data->title }}</p>
+                                                            <div class="ms-auto me-5 d-flex align-items-center">
+                                                                <p class="mb-0 opacity-50 fs-s-sm me-5">{{ $data->created_at->format('d M y') }}</p>
+                                                                <p class="mb-0 opacity-50 fs-s-sm"><i class="bi bi-heart me-1"></i> {{ number_format($data->likes->count()) }}</p>
+                                                            </div>
+                                                            <p class="mb-0 me-2">#{{ $loop->count - $loop->iteration + 1 }}</p>
+                                                        </li>
+                                                    </a>
+                                                    <hr class="my-0">
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade {{ !session('status') ? '' : 'show active' }}" id="pills-comment" role="tabpanel" aria-labelledby="pills-tab-comment" tabindex="0">
+                                        <div class="px-3 mt-2">
+                                            @if (Auth::user())
+                                                <div class="">
+                                                    <textarea id="text-area-comment" placeholder="Harap gunakan kolom komentar dengan baik." rows="3" class="form-control rounded-1 fw-300 fs-sm text-gray"></textarea>
+                                                    <div class="text-end mb-3">
+                                                        <button class="btn btn-dark border-0 rounded-1 fs-s-sm mt-2" id="btnHandleComment">Posting</button>
                                                     </div>
-                                                    <p class="mb-0 me-2">#{{ $loop->count - $loop->iteration + 1 }}</p>
-                                                </li>
-                                            </a>
-                                            <hr class="my-0">
-                                        @endforeach
-                                    </ul>
+                                                </div>
+                                            @endif
+                                            <hr class="mb-0 mt-2">
+                                            @foreach($getAllComment as $data)
+                                            <div class="wrapper-comment my-3">
+                                                <div class="d-flex">
+                                                    <div class="me-4">
+                                                        <img src="{{ $data->user->photo != NULL ? Storage::url($data->user->photo) : asset('img/maskot/pp_default.png')}}" class="rounded-circle object-fit-coover" width="50" height="50" alt="">
+                                                    </div>
+                                                    <div class="">
+                                                        <h6 class="name mb-2 fw-400">{{$data->user->name}}</h6>
+                                                        <p class="fs-sm fw-300">{{$data->body}}</p>
+                                                        <div class="d-flex">
+                                                            <p class="mb-0 fs-s-sm text-gray fw-300">{{$data->created_at->format('d M Y')}}</p>
+                                                            @if (Auth::user() && $data->user->id == Auth::user()->id)
+                                                            <p class="mb-0 fs-s-sm text-gray fw-300 mx-3">|</p>
+                                                            <form action="/{{ request()->path() }}/{{$data->id}}" method="post" class="d-flex">
+                                                                @csrf
+                                                                @method('delete')
+                                                                <button onclick="return confirm('Apakah kamu ingin menghapus komentar ini?')" class="border-0 bg-transparent p-0 fs-s-sm text-gray fw-300"><i class="bi bi-trash"></i></button> 
+                                                            </form>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr class="mb-0 mt-2">
+                                            @endforeach
+                                        </div>
+                                    </div>
                                 </div>
 
                             </div>
@@ -200,9 +239,7 @@
                                         </div>
                                     </li>
                                     <button {{ Auth::user() ? 'data-bs-toggle=modal data-bs-target=#ratingModal' : "onclick=window.location.href='/auth/login'" }} class="btn p-0 border-0 ms-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-pencil mb-1" viewBox="0 0 16 16">
-                                            <path
-                                                d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325" />
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-pencil mb-1" viewBox="0 0 16 16"><path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325" />
                                         </svg>
                                     </button>
                                 </ul>
@@ -298,6 +335,29 @@
 
             axios.put(url, { rate: rate }).then(function(response) {
                 $('#ratigNumber').text(response.data.data.toFixed(1))
+            }).catch(function(error) {
+                console.error(error);
+            });
+        })
+
+        $('#btnHandleComment').on('click', function() {
+            if($('#text-area-comment').val() < 1){
+                $('#alertModal').modal('show')
+                $('#alertModal .modal-content p').html("Komentar tidak boleh kosong!")
+                return false;
+            }
+
+            if($('#text-area-comment').val().length > 200){
+                $('#alertModal').modal('show')
+                $('#alertModal .modal-content p').html("Komentar terlalu panjang!")
+                return false;
+            }
+            
+            var url = window.location.pathname;
+            var comment = $('#text-area-comment').val();
+            
+            axios.patch(url, { comment: comment }).then(function(response) {
+                window.location.reload()
             }).catch(function(error) {
                 console.error(error);
             });

@@ -24,29 +24,31 @@ class ReadController extends Controller
         }
 
         $commentCount = Comment::where('user_id', $content->user_id)->where('content_id', $content->id)->count();
-        $ratingStar = Rating::where('user_id', Auth::user()->id)->where('content_id', $content->id)->select("rate")->first();
+        $getAllComment = Comment::where('content_id', $content->id)->orderBy('created_at', 'desc')->get();
         
         $totalRatings = Rating::where('content_id', $content->id)->count();
         $totalRatingSum = Rating::where('content_id', $content->id)->sum('rate');
         $totalRating = $totalRatingSum / $totalRatings * 2;
         
         $hasFavorit = 0;
-
+        $ratingStar = 0;
+        
         if(Auth::user()){
+            $ratingStar = Rating::where('user_id', Auth::user()->id)->where('content_id', $content->id)->value("rate");
             $hasFavorit = Bookmark::where('user_id', Auth::user()->id)->where('content_id', $content->id)->count();
         }
 
-        return view('main.front.list.index', compact('content', 'hasFavorit', 'firstChapter', 'commentCount', 'totalRating', 'ratingStar'));
+        return view('main.front.list.index', compact('content', 'hasFavorit', 'firstChapter', 'commentCount', 'totalRating', 'ratingStar', 'getAllComment'));
     }
 
     public function handleFavoritContent(Request $request) {
         $content = Content::where('slug', $request->slug)->first();
-
-
+        
+        
         $checkFavorit = Bookmark::where('user_id', Auth::user()->id)->where('content_id', $content->id)->count();
         $favorit = Bookmark::where('user_id', Auth::user()->id)->where('content_id', $content->id)->first();
         $message = '';
-
+        
         if($checkFavorit == NULL || $checkFavorit == 0){
             $bookmark = new Bookmark();
             $bookmark->user_id = Auth::user()->id;
@@ -57,8 +59,40 @@ class ReadController extends Controller
             $favorit->delete();
             $message = "delete";
         }
-
+        
         return response()->json(['res' => $message]);
+    }
+    
+    public function handleCommentContent(Request $request, $slugContent) {
+        $content = Content::where('slug', $slugContent)->first();
+
+        if(!$content){
+            abort(404);
+        }
+        
+        $comment = new Comment();
+        $comment->user_id = Auth::user()->id;
+        $comment->content_id = $content->id;
+        $comment->body = $request->comment;
+        $comment->save();
+        
+        return response()->json(['res' => 'success']);
+    }
+    
+    public function handleDeleteComment(Request $request, $slugContent, $idComment) {
+        $content = Content::where('slug', $slugContent)->first();
+    
+        if(!$content){
+            abort(404);
+        }
+
+        $hasComment = Comment::where('content_id', $content->id)->where('user_id', Auth::user()->id)->where('id', $idComment)->first();
+        if(!$hasComment){
+            abort(404);
+        }
+
+        $hasComment->delete();
+        return redirect('/komik/'.$content->slug.'/list')->with('status', 'active');
     }
     
     public function chapter($slugContent, $slugChapter) {
@@ -83,11 +117,49 @@ class ReadController extends Controller
         $indexOfCreated = Chapter::where('content_id', $content->id)
         ->where('created_at', '<=', $chapter->created_at) 
         ->count();
-    
+        
         $decodeDataChapters = json_decode($chapter->images, true);
 
-        // dd($chapter);
-        return view('main.front.list.chapter', compact('decodeDataChapters', 'content', 'indexOfCreated'));
+        // cek like 
+        $isLike = 0;
+        $chapterLikeCount = Like::where('chapter_id', $chapter->id)->count();
+
+        if(Auth::user()){
+            $isLike = Like::where('user_id', Auth::user()->id)->where('chapter_id', $chapter->id)->count();
+        }
+
+        // next and previous 
+        $chapterNext = Chapter::where('content_id', $content->id)->where('created_at', '>', $chapter->created_at)->first();
+        $chapterPrevious = Chapter::where('content_id', $content->id)->where('created_at', '<', $chapter->created_at)->first();
+        // dd($chapterPrevious);
+    
+        return view('main.front.list.chapter', compact('chapter','decodeDataChapters', 'content', 'indexOfCreated', 'chapterNext', 'chapterPrevious', 'isLike', 'chapterLikeCount'));
+    }
+
+    public function handleLikeChapter(Request $request, $slugContent, $slugChapter) {
+        $chapter = Chapter::where('slug', $slugChapter)->first();
+
+        if(!$chapter || !Auth::user()){
+            abort(404);
+        }
+
+        $hasLike = Like::where('user_id', Auth::user()->id)->where('chapter_id', $chapter->id)->first();
+        $message = '';
+        
+        if(!$hasLike){
+            $newLike = new Like();
+            $newLike->user_id  = Auth::user()->id;
+            $newLike->chapter_id  = $chapter->id;
+            $newLike->save();
+            $message = 'create';
+        }else{
+            $hasLike->delete();
+            $message = 'delete';
+        }
+
+        $chapterLikeCount = Like::where('chapter_id', $chapter->id)->count();
+
+        return response()->json(['like' => $chapterLikeCount, 'status' => $message]);
     }
 
     public function handleRatingContent(Request $request, $slugContent) {
