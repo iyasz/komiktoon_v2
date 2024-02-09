@@ -38,6 +38,7 @@ Route::delete('/komik/{slug}/list/{id}', [ReadController::class, 'handleDeleteCo
 
 Route::get('/{slugContent}/{slugChapter}/view', [ReadController::class, 'chapter']);
 Route::post('/{slugContent}/{slugChapter}/view', [ReadController::class, 'handleLikeChapter']);
+Route::post('/{slugContent}/{slugChapter}/view/report', [ReadController::class, 'handleReportContent']);
 
 // Admin Panel 
 Route::get('/panel/admin/dashboard', [IndexController::class, 'index']);

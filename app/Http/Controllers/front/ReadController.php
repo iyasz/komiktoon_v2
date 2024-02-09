@@ -9,7 +9,9 @@ use App\Models\Comment;
 use App\Models\Content;
 use App\Models\Like;
 use App\Models\Rating;
+use App\Models\Report;
 use App\Models\View;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -160,6 +162,29 @@ class ReadController extends Controller
         $chapterLikeCount = Like::where('chapter_id', $chapter->id)->count();
 
         return response()->json(['like' => $chapterLikeCount, 'status' => $message]);
+    }
+
+    public function handleReportContent(Request $request, $slugContent, $slugChapter) {
+        $content = Content::where('slug', $slugContent)->first();
+        if(!$content){
+            abort(404);
+        }
+
+        $hasReport = Report::where('user_id', Auth::user()->id)->where('content_id', $content->id)->where('created_at', '>=', Carbon::now()->subDay())->count();
+
+        $message = '';
+        if($hasReport == 2){
+            $message = "fail";
+        }else{   
+            $report = new Report();
+            $report->user_id = Auth::user()->id;
+            $report->content_id = $content->id;
+            $report->reason = $request->value;
+            $report->save();
+            $message = 'success';
+        }
+
+        return response()->json(['message' => $message]);
     }
 
     public function handleRatingContent(Request $request, $slugContent) {

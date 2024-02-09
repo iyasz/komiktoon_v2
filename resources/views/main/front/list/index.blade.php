@@ -115,17 +115,6 @@
                             <div class="line"></div>
                             <div class="list">
                                 <div class="ms-3 mt-2 d-flex align-items-center">
-
-                                    {{-- <ul class="nav nav-pills list" id="pills-tab" role="tablist">
-                                        <li class="nav-item mx-3" role="presentation">
-                                            <button class="nav-link {{ session('status') ? '' : 'active' }} rounded-0 bg-transparent py-3 px-0 fw-400" data-bs-toggle="pill" data-bs-target="#pills-chapter" type="button" role="tab" aria-controls="pills-chapter" aria-selected="true">Chapter</button>
-                                        </li>
-                                        <li class="nav-item mx-3 text-primary my-auto">/</li>
-                                        <li class="nav-item mx-3" role="presentation">
-                                            <button class="nav-link {{ session('status') ?? '' }} rounded-0 bg-transparent py-3 px-0 fw-400" data-bs-toggle="pill" data-bs-target="#pills-comment" type="button" role="tab" aria-controls="pills-comment" aria-selected="false">Komentar <span class="ms-1 fs-s-sm">({{ number_format($commentCount) }})</span></button>
-                                        </li>
-                                    </ul> --}}
-
                                     <ul class="nav nav-pills list" id="pills-tab" role="tablist">
                                         <li class="nav-item mx-3" role="presentation">
                                             <button class="nav-link {{ !session('status') ? 'active' : '' }} rounded-0 bg-transparent py-3 px-0 fw-400" data-bs-toggle="pill" data-bs-target="#pills-chapter" type="button" role="tab" aria-controls="pills-chapter" aria-selected="true">Chapter</button>

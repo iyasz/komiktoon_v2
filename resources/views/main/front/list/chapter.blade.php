@@ -7,6 +7,80 @@
 </style>
 
 @section('content')
+
+    <div class="modal" id="reportModal" aria-hidden="true" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content border-0">
+                <div class="modal-body p-5">
+                    <div class="text-center mb-4">
+                        <p class="">Pilih alasan anda melaporkan komik ini</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-12">
+                            <div class="form-check mb-3">
+                                <input class="form-check-input report-value" value="1" type="radio" name="report-reason" id="kts">
+                                <label class="form-check-label text-gray ms-1 fw-300" for="kts">
+                                  Konten tidak sesuai
+                                </label>
+                            </div>
+                            <div class="form-check mb-3">
+                                <input class="form-check-input report-value" value="2" type="radio" name="report-reason" id="pk">
+                                <label class="form-check-label text-gray ms-1 fw-300" for="pk">
+                                  Penyebaran kebencian
+                                </label>
+                            </div>
+                            <div class="form-check mb-3">
+                                <input class="form-check-input report-value" value="3" type="radio" name="report-reason" id="phc">
+                                <label class="form-check-label text-gray ms-1 fw-300" for="phc">
+                                  Pelanggaran hak cipta
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <div class="form-check mb-3">
+                                <input class="form-check-input report-value" value="4" type="radio" name="report-reason" id="mks">
+                                <label class="form-check-label text-gray ms-1 fw-300" for="mks">
+                                  Mengandung konten seksual
+                                </label>
+                            </div>
+                            <div class="form-check mb-3">
+                                <input class="form-check-input report-value" value="5" type="radio" name="report-reason" id="pp">
+                                <label class="form-check-label text-gray ms-1 fw-300" for="pp">
+                                  Pelanggaran privasi
+                                </label>
+                            </div>
+                            <div class="form-check mb-3">
+                                <input class="form-check-input report-value" value="6" type="radio" name="report-reason" id="l">
+                                <label class="form-check-label text-gray ms-1 fw-300" for="l">
+                                  Lainnya
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center mt-4 mx-3 mt-5">
+                        <button class="btn bg-dark text-white py-3 px-5 border-0 rounded-pill" id="btnConfirmReport" data-bs-dismiss="modal">Laporkan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="alertModal" aria-hidden="true" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0">
+                <div class="modal-body p-5">
+                    <div class="text-center">
+                        <p class="text-gray"></p>
+                    </div>
+                    <div class="d-flex justify-content-center mt-4 mx-3">
+                        <button class="btn bg-dark text-white py-3 px-5 border-0 rounded-pill" data-bs-dismiss="modal">YA</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="app">
         <div class="wrapper-img-content">
             @foreach ($decodeDataChapters as $data)
@@ -118,29 +192,24 @@
 
             })
 
-            $('#btnReportContent').click(function(){
+            $('#btnConfirmReport').click(function(){
                 var url = window.location.pathname;
-                console.log('kanjut')
-                // axios.post(url).then(function(response) {
-                //     if(response.data.status == 'create'){
-                //         $('#btnLikeChapter .svg').html(`
-                //         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
-                //             <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
-                //             </svg>
-                //         `)
-                //     }else{
-                //         $('#btnLikeChapter .svg').html(`
-                //             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                //                 <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
-                //             </svg> 
-                //         `)
-                //     }
+                var value = $('.report-value:checked').val();
 
-                //     $('#chapterLikeTotal').text(new Intl.NumberFormat('en-US').format(response.data.like))
-                // }).catch(function(error) {
-                //     console.error(error);
-                // });
+                axios.post(url+'/report', {value: value}).then(function(response) {
+                    console.log(response);
+                    if(response.data.message == 'fail'){
+                        $('#alertModal').modal('show')
+                        $('#alertModal .modal-content p').html("Terlalu banyak report!, coba lagi besok ..")
+                    }
+                }).catch(function(error) {
+                    console.error(error);
+                });
 
+            })
+
+            $('#btnReportContent').click(function(){
+                $('#reportModal').modal('show')
             })
 
 
