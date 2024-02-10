@@ -2,7 +2,7 @@
 @section('content-active', 'text-primary')
 
 @push('css')
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"> --}}
     <script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js"></script>
     <link href="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone.css" rel="stylesheet" type="text/css" />
 
@@ -101,17 +101,17 @@
                                             file</a>
                                         <a class="btn btn-danger fs-s-sm border-0 rounded-1" id="resetUploadsModal">Hapus
                                             semua</a>
-                                        <div class="ms-auto">
+                                        {{-- <div class="ms-auto">
                                             <p class="fs-sm mb-0"><span class="fw-600" id="sizeFileContent">0KB</span> /
                                                 20MB</p>
-                                        </div>
+                                        </div> --}}
                                     </div>
 
                                     <div class="upload_file_image rounded-2 bg-semi-gray">
                                         <div id="sortable"></div>
                                     </div>
                                     <p class="fs-sm opacity-75 fw-300 mt-3">Sistem akan otomatis memotong dan mengurangi
-                                        ukuran gambarmu untuk memenuhi dimensi gambar maksimal, yaitu 800px x 1280 px. <br>
+                                        ukuran gambarmu untuk memenuhi dimensi gambar maksimal, yaitu 800px x 1000 px. <br>
                                         Gambar yang melebihi dimensi maksimal mungkin dioptimisasi dengan beberapa cara.
                                         Gambar dapat dipotong menjadi beberapa gambar, kualitas gambar mungkin menurun,
                                         dimensi gambar mungkin dikurangi, dan/atau ukuran dokumen serta format mungkin
@@ -145,75 +145,10 @@
                                     </div>
                                 </div>
 
-                                <div class=" position-relative">
-                                    <p class="text-gray mb-2 fw-500">Jadwal Terbit</p>
-                                    <div class="bg-semi-gray max-content">
-                                        <p class="fs-s-sm p-2 mx-2 text-gray">Chapter yang dijadwalkan : <span
-                                                class="fw-600 text-primary">0</span></p>
-                                    </div>
-                                    <div class="fs-4 mt-2">
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-inp" type="radio" checked name="schedule_chapter"
-                                                required id="now_option" value="1">
-                                            <label class="form-check-label fs-6 text-gray"
-                                                for="now_option">Sekarang</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-inp" type="radio" name="schedule_chapter"
-                                                {{ old('schedule_chapter') == 2 ? 'checked' : '' }} required
-                                                id="later_option" value="2">
-                                            <label class="form-check-label fs-6 text-gray"
-                                                for="later_option">Jadwalkan</label>
-                                        </div>
-                                    </div>
-                                    <div class="row calender_schedule mt-4 align-items-center">
-                                        <div class="col-md-7 col-12 d-flex align-items-center">
-                                            <input type="text" id="dateRelease" name=""
-                                                class="form-control text-center text-gray">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                                fill="#5f5f5f" class="bi bi-question-circle ms-3" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
-                                                <path
-                                                    d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286m1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94" />
-                                            </svg>
-                                        </div>
-                                        {{-- <div class="col-md-2 col-6 mt-md-0 mt-2 pe-md-0 pe-1">
-                                                    <select name="" id="timeReleaseHour" class="form-control text-gray text-center">
-                                                        @for ($i = 1; $i < 25; $i++)
-                                                            <option {{$i == \Carbon\Carbon::now()->format('H') ? 'selected' : ''}} value="{{$i}}">{{$i}}</option>
-                                                        @endfor
-                                                    </select>
-                                                    <input type="text" name="" class="form-control text-center text-gray" value="{{ \Carbon\Carbon::now()->format('H')}}" id="timeReleaseHour">
-                                                </div>
-                                                <div class="col-md-1 d-md-block d-none px-0 text-center">
-                                                    <p class="mb-0">:</p>
-                                                </div>
-                                                <div class="col-md-2 col-6 mt-md-0 mt-2 ps-md-0 ps-1">
-                                                    <select name="" id="timeReleaseMinute" class="form-control text-gray text-center">
-                                                        @for ($i = 1; $i < 60; $i++)
-                                                            @if ($i % 10 != 0)
-                                                                @continue
-                                                            @endif
-                                                            <option {{$i == \Carbon\Carbon::now()->format('H') ? 'selected' : ''}} value="{{$i}}">{{$i}}</option>
-                                                        @endfor
-                                                    </select>
-                                                    <input type="text" name="" class="form-control text-center text-gray" value="{{ \Carbon\Carbon::now()->format('i')}}" id="timeReleaseMinute">
-                                                </div> --}}
-                                        <hr class="my-5">
-                                    </div>
-                                </div>
-
                             </div>
                             <div class="col-lg-4 col-12 order-lg-1 order-0">
                                 <div class="mb-3">
-                                    <p class="fw-500 mb-2 text-gray">Thumbnail Persegi <svg
-                                            xmlns="http://www.w3.org/2000/svg" width="13" height="13"
-                                            fill="currentColor" class="bi bi-question-circle ms-2" viewBox="0 0 16 16">
-                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
-                                            <path
-                                                d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286m1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94" />
-                                        </svg></p>
+                                    <p class="fw-500 mb-2 text-gray">Thumbnail Persegi </p>
                                     <input type="file" name="thumbnail" id="square_thumbnail" class="d-none">
                                     <div class="square_thumbnail_show">
                                         <img src="" alt="banner" class="imagePreview d-none">
@@ -227,14 +162,13 @@
                                 </div>
                                 <p class="fs-sm text-gray">Gambar harus lebih besar dari <br> 160x160 pixel dan berukuran
                                     <br> kurang dari 500kb. Hanya file <br> JPG, JPEG, dan PNG yang berlaku. <br> (Boleh
-                                    Menggunakan Gambar <br> Salah Satu Scene)
+                                    Menggunakan Potongan <br> Gambar Salah Satu Scene)
                                 </p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-12">
-                                <button class="btn btn-primary border-0 rounded-1 px-4 py-3" id="saveDataChapter">Simpan
-                                    Chapter <i class="bi bi-chevron-right"></i></button>
+                                <button class="btn btn-primary border-0 rounded-1 px-4 py-3" id="saveDataChapter">Simpan Chapter <i class="bi bi-chevron-right"></i></button>
                             </div>
                         </div>
 
@@ -307,19 +241,19 @@
 @endsection
 
 @push('javascript')
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script> --}}
 
     <script>
-        flatpickr("#dateRelease", {
-            minDate: "today",
-            maxDate: new Date().fp_incr(364),
-            defaultDate: "today"
-        });
+        // flatpickr("#dateRelease", {
+        //     minDate: "today",
+        //     maxDate: new Date().fp_incr(364),
+        //     defaultDate: "today"
+        // });
 
-        $('#now_option').on('click', function() {
-            var todayDate = new Date();
-            flatpickr("#dateRelease").setDate(todayDate, true);
-        });
+        // $('#now_option').on('click', function() {
+        //     var todayDate = new Date();
+        //     flatpickr("#dateRelease").setDate(todayDate, true);
+        // });
 
         $(document).ready(function() {
             function updateElements() {
@@ -376,38 +310,15 @@
                 maxThumbnailFilesize: 20,
                 thumbnailMethod: "crop",
                 thumbnailWidth: 800,
-                thumbnailHeight: 1280,
-                // maxFilesize: 2, 
-                // dictFileTooBig: "Ukuran file terlalu besar. Maksimum 3 MB.",
+                thumbnailHeight: 1000,
                 dictInvalidFileType: "Tipe file ini tidak diizinkan",
                 dictResponseError: "Terjadi kesalahan saat mengunggah file.",
                 headers: {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
                 init: function() {
-                    // 20 mb 
-                    var maxSizeFiles = 20 * 1024 * 1024;
 
                     this.on("addedfile", function(file) {
-
-                        var totalSizeFiles = 0;
-                        // this.files.forEach(function(existingFile) {
-
-                        //     var totalSizeCalc = totalSizeFiles / 1024 / 1024
-                        //     if (Math.round(totalSizeCalc) < 20 && Math.round(totalSizeCalc)) {
-                        //         totalSizeFiles += existingFile.size;
-                        //         console.log(totalSizeCalc)
-                        //     }else{
-                        //         // this.removeFile(file);
-                        //         console.log(totalSizeCalc)
-                        //         return false
-                        //     }
-
-                        // });
-
-                        // console.log(maxSizeFiles)   
-                        // console.log(Math.round(totalSizeCalc))
-                        // console.log(totalSizeCalc)
 
                         // cek type 
                         if (file.type != "image/jpeg" && file.type != "image/png" && file
@@ -442,16 +353,16 @@
                         }
 
                         // decrement file size 
-                        var removedSize = file.size / 1024;
+                        // var removedSize = file.size / 1024;
 
-                        totalSize -= removedSize;
-                        var calcSize = totalSize / 1024;
+                        // totalSize -= removedSize;
+                        // var calcSize = totalSize / 1024;
 
-                        if (Math.round(totalSize) < 1024) {
-                            $('#sizeFileContent').text(Math.round(totalSize) + 'KB');
-                        } else {
-                            $('#sizeFileContent').text(Math.round(calcSize) + 'MB');
-                        }
+                        // if (Math.round(totalSize) < 1024) {
+                        //     $('#sizeFileContent').text(Math.round(totalSize) + 'KB');
+                        // } else {
+                        //     $('#sizeFileContent').text(Math.round(calcSize) + 'MB');
+                        // }
                         // end decrement file size 
 
                         // cek index 
@@ -478,15 +389,15 @@
 
                         // menambah size 
 
-                        var size = file.size / 1024;
-                        totalSize += size;
-                        var calcSize = totalSize / 1024;
+                        // var size = file.size / 1024;
+                        // totalSize += size;
+                        // var calcSize = totalSize / 1024;
 
-                        if (Math.round(totalSize) < 1024) {
-                            $('#sizeFileContent').text(Math.round(totalSize) + 'KB');
-                        } else {
-                            $('#sizeFileContent').text(Math.round(calcSize) + 'MB');
-                        }
+                        // if (Math.round(totalSize) < 1024) {
+                        //     $('#sizeFileContent').text(Math.round(totalSize) + 'KB');
+                        // } else {
+                        //     $('#sizeFileContent').text(Math.round(calcSize) + 'MB');
+                        // }
                         // end menambah size 
 
                         uploadprogressCount++
@@ -686,7 +597,6 @@
             data.append('title', $('#chapter-title').val());
             data.append('thumbnail', thumbnail);
             data.append('note', $('#creator-note').val());
-            data.append('schedule', $('#dateRelease').val());
             let base64Images = [];
 
             // Mengambil data base64 dari setiap gambar dan menyimpannya dalam array
@@ -703,7 +613,7 @@
             var slug = location.pathname.split("/")[4];
 
             axios.post('/contribute/chapter/store/' + slug, data).then(function(response) {
-                console.log(response);
+                window.location.href="/contribute/content"
             }).catch(function(error) {
                 console.error(error);
             });

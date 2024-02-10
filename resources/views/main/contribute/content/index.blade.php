@@ -10,7 +10,7 @@
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-7">
-                                <p class="mb-0 fs-sm">Diterbitkan</p>
+                                <p class="mb-0 fs-sm">Total Komik</p>
                             </div>
 
                         </div>
@@ -23,8 +23,8 @@
                                 </svg>    
                             </div>
                             <div class="ms-3 mt-3">
-                                <p class="mb-0 fw-600">{{number_format(2400)}}</p>
-                                <p class="fs-s-sm">Jumlah Seluruh Like</p>
+                                <p class="mb-0 fw-600">{{number_format($contentCount)}}</p>
+                                <p class="fs-s-sm">Jumlah Komik</p>
                             </div>
 
                         </div>
@@ -37,7 +37,7 @@
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-7">
-                                <p class="mb-0 fs-sm">Draft</p>
+                                <p class="mb-0 fs-sm">Perlu diupdate</p>
                             </div>
 
                         </div>
@@ -50,8 +50,8 @@
                                 </svg>    
                             </div>
                             <div class="ms-3 mt-3">
-                                <p class="mb-0 fw-600">{{number_format(2400)}}</p>
-                                <p class="fs-s-sm">Jumlah Buku Dibuat</p>
+                                <p class="mb-0 fw-600">{{number_format($contentConfirmedCount)}}</p>
+                                <p class="fs-s-sm">Perlu Diperbaharui</p>
                             </div>
 
                         </div>
@@ -64,7 +64,7 @@
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-7">
-                                <p class="mb-0 fs-sm">Ditolak</p>
+                                <p class="mb-0 fs-sm">Komik Terbit</p>
                             </div>
 
                         </div>
@@ -77,8 +77,8 @@
                                 </svg>    
                             </div>
                             <div class="ms-3 mt-3">
-                                <p class="mb-0 fw-600">{{number_format(2400)}}</p>
-                                <p class="fs-s-sm">Jumlah Buku Dibuat</p>
+                                <p class="mb-0 fw-600">{{number_format($contentTerbitCount)}}</p>
+                                <p class="fs-s-sm">Telah Diterbitkan</p>
                             </div>
 
                         </div>
@@ -96,10 +96,13 @@
                         <div class="border rounded-2">
                             <ul class="nav nav-pills border-bottom mb-3 mx-lg-4 mx-auto" id="pills-tab" role="tablist">
                                 <li class="nav-item" role="presentation">
-                                    <a class="nav-link border-bottom-white rounded-0 bg-transparent py-3 text-gray fw-400 active" data-bs-toggle="pill" data-bs-target="#pills-terbit" type="button" role="tab" aria-controls="pills-terbit" aria-selected="true">Diterbitkan</a>
+                                    <a class="nav-link border-bottom-white rounded-0 bg-transparent py-3 text-gray fw-400 active" data-bs-toggle="pill" data-bs-target="#pills-draftku" type="button" role="tab" aria-controls="pills-draftku" aria-selected="false">Draft</a>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <a class="nav-link border-bottom-white rounded-0 bg-transparent py-3 text-gray fw-400" data-bs-toggle="pill" data-bs-target="#pills-draftku" type="button" role="tab" aria-controls="pills-draftku" aria-selected="false">Draft</a>
+                                    <a class="nav-link border-bottom-white rounded-0 bg-transparent py-3 text-gray fw-400" data-bs-toggle="pill" data-bs-target="#pills-confirmed" type="button" role="tab" aria-controls="pills-confirmed" aria-selected="false">Confirmed</a>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link border-bottom-white rounded-0 bg-transparent py-3 text-gray fw-400" data-bs-toggle="pill" data-bs-target="#pills-terbit" type="button" role="tab" aria-controls="pills-terbit" aria-selected="true">Diterbitkan</a>
                                 </li>
                                 <li class="nav-item" role="presentation">
                                     <a class="nav-link border-bottom-white rounded-0 bg-transparent py-3 text-gray fw-400" data-bs-toggle="pill" data-bs-target="#pills-tolak" type="button" role="tab" aria-controls="pills-tolak" aria-selected="false">Ditolak</a>
@@ -107,66 +110,18 @@
                             </ul>
 
                             <div class="tab-content mx-lg-4 mx-2" id="pills-tabContent">
-                                <div class="tab-pane fade show active" id="pills-terbit" role="tabpanel" tabindex="0">
+                                <div class="tab-pane height fade show active" id="pills-draftku" role="tabpanel" tabindex="0">
                                     <div class="table-responsive">
                                         <table class="table border-top">
                                             <tbody>
-                                                @foreach ($contentDraft as $data)
-                                                <tr>
-                                                    <td><img src="https://i.pinimg.com/originals/73/7a/47/737a47db82a662e28a44253d58162c1f.jpg" width="170px" class="object-fit-cover" height="170px" alt=""></td>
-                                                    <td class="ps-3">
-                                                        <div class="d-flex">
-                                                            <p class="mb-1 text-gray fs-s-sm">Fantasy, Kerajaan, Action</p>
-                                                            <div class="ms-auto text-decoration-none">
-                                                                <a href="" class="text-gray text-decoration-none">
-                                                                    <i class="bi bi-pencil"></i>
-                                                                </a>
-                                                                <a href="" class="text-gray text-decoration-none mx-2">
-                                                                    <i class="bi bi-three-dots"></i>
-                                                                </a>
-                                                                <a href="" class="text-gray text-decoration-none">
-                                                                    <i class="bi bi-trash3"></i>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                        <a href="" class="fs-6 text-primary">Ranker's Who Return Back To School</a>
-                                                        
-                                                        <div class="mt-1">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="#ef6864" class="bi bi-heart-fill" viewBox="0 0 16 16">
-                                                                <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
-                                                            </svg>
-                                                            <span class="fs-s-sm ms-1 text-primary">123</span>
-                                                        </div>
-                                                        <p class="fs-s-sm text-gray my-2 two-line-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo illum minima fugiat aut neque. Sapiente fugit pariatur corrupti obcaecati vero? Ipsam a harum ipsa! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Non dicta, sint consequatur velit recusandae alias libero at dolor repudiandae fugit ab rem magni.</p>
-                                                        <div class="d-flex">
-                                                            <a href="" class="btn bg-semi-gray text-gray border-0 me-2 rounded-0 py-2 mt-2 fs-s-sm">Edit Chapter</a>
-                                                            <a href="/contribute/chapter/create/{{$data->slug}}" class="btn bg-semi-gray text-gray border-0 rounded-0 py-2 mt-2 fs-s-sm">
-                                                                <i class="bi bi-plus-lg"></i> <span class="ms-2">Tambah Chapter</span>
-                                                            </a>
-                                                        </div>
-
-                                                    </td>
-                                                </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    
-                                </div>
-                                
-                                <div class="tab-pane height fade" id="pills-draftku" role="tabpanel" tabindex="0">
-                                    <div class="table-responsive">
-                                        <table class="table border-top">
-                                            <tbody>
-                                                @foreach ($contentDraft as $data)
+                                                @if ($draftContent->count() != 0)                                      
+                                                @foreach ($draftContent as $data)
                                                 <tr>
                                                     <td><img src="{{Storage::url($data->thumbnail)}}" width="170px" class="object-fit-cover" height="170px" alt=""></td>
                                                     <td class="ps-3">
                                                         <div class="d-flex">
                                                             <p class="mb-1 text-gray fs-s-sm">
-                                                                @foreach ($data->genreDetail as $item)
-                                                                    {{$item->genre->name}}
-                                                                @endforeach
+                                                                {{$data->genreDetail->pluck('genre.name')->implode(', ')}}
                                                             </p>
                                                             <div class="ms-auto text-decoration-none">
                                                                 <a href="" class="text-gray text-decoration-none">
@@ -180,15 +135,9 @@
                                                                 </a>
                                                             </div>
                                                         </div>
-                                                        <a href="" class="fs-6 text-primary">{{$data->title}}</a>
+                                                        <a href="" class="fs-6 text-primary text-decoration-none fw-500">{{$data->title}}</a>
                                                         
-                                                        <div class="mt-1">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="#ef6864" class="bi bi-heart-fill" viewBox="0 0 16 16">
-                                                                <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
-                                                            </svg>
-                                                            <span class="fs-s-sm ms-1 text-primary">123</span>
-                                                        </div>
-                                                        <p class="fs-s-sm text-gray my-2 two-line-text">{{$data->synopsis}}</p>
+                                                        <p class="fs-s-sm text-gray my-2 two-line-text">{!! nl2br(e($data->synopsis)) !!}</p>
                                                         <div class="d-flex">
                                                             <a href="" class="btn bg-semi-gray text-gray border-0 me-2 rounded-0 py-2 mt-2 fs-s-sm">Edit Chapter</a>
                                                             <a href="/contribute/chapter/create/{{$data->slug}}" class="btn bg-semi-gray text-gray border-0 rounded-0 py-2 mt-2 fs-s-sm">
@@ -199,24 +148,66 @@
                                                     </td>
                                                 </tr>
                                                 @endforeach
+                                                @else
+                                                <div class="text-center">
+                                                    <img src="{{asset('img/maskot/SearchNotFound.gif')}}" alt="" width="70%" >
+                                                    <h6>WADUH, BELUM ADA KARYA DI DRAFT NIH ! ... BUAT YUK !</h6>
+                                                </div>
+                                                @endif
                                             </tbody>
                                         </table>
                                     </div>
-                                    {{-- <div class="text-center">
-                                        <h4>WADUH, BELUM ADA KARYA DI DRAFT NIH ! ... BUAT YUK !</h4>
-                                    </div> --}}
+                                    
                                 </div>
-
-                                <div class="tab-pane height fade" id="pills-tolak" role="tabpanel" tabindex="0">
+                                <div class="tab-pane height fade" id="pills-confirmed" role="tabpanel" tabindex="0">
                                     <div class="table-responsive">
                                         <table class="table border-top">
                                             <tbody>
-                                                @foreach ($contentDraft as $data)
+                                                @if ($confirmedContent->count() != 0)                                      
+                                                @foreach ($confirmedContent as $data)
                                                 <tr>
-                                                    <td><img src="https://i.pinimg.com/originals/73/7a/47/737a47db82a662e28a44253d58162c1f.jpg" width="170px" class="object-fit-cover" height="170px" alt=""></td>
+                                                    <td><img src="{{Storage::url($data->thumbnail)}}" width="170px" class="object-fit-cover" height="170px" alt=""></td>
                                                     <td class="ps-3">
                                                         <div class="d-flex">
-                                                            <p class="mb-1 text-gray fs-s-sm">Fantasy, Kerajaan, Action</p>
+                                                            <p class="mb-1 text-gray fs-s-sm">
+                                                                {{$data->genreDetail->pluck('genre.name')->implode(', ')}}
+                                                            </p>
+                                                        </div>
+                                                        <a href="" class="fs-6 text-primary text-decoration-none fw-500">{{$data->title}}</a>
+                                                        
+                                                        <p class="fs-s-sm text-gray my-2 two-line-text">{!! nl2br(e($data->synopsis)) !!}</p>
+                                                        <div class="d-flex">
+                                                            <a href="/contribute/content/update/{{$data->slug}}" class="btn bg-semi-gray text-gray border-0 me-2 rounded-0 py-2 mt-2 fs-s-sm">Update</a>
+                                                        </div>
+
+                                                    </td>
+                                                </tr>
+                                                @endforeach
+                                                @else
+                                                <div class="text-center">
+                                                    <img src="{{asset('img/maskot/SearchNotFound.gif')}}" alt="" width="70%" >
+                                                    <h6>WADUH, BELUM ADA KARYA DI CONFIRM NIH ! ... BUAT YUK !</h6>
+                                                </div>
+                                                @endif
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    
+                                </div>
+                                
+                                <div class="tab-pane height fade" id="pills-terbit" role="tabpanel" tabindex="0">
+                                    <div class="table-responsive">
+                                        <table class="table border-top">
+                                            <tbody>
+                                                @if ($terbitContent->count() != 0)                                      
+                                                @foreach ($terbitContent as $data)
+                                                <tr>
+                                                    <td><img src="{{Storage::url($data->thumbnail)}}" width="170px" class="object-fit-cover" height="170px" alt=""></td>
+                                                    <td class="ps-3">
+                                                        <div class="d-flex">
+                                                            <p class="mb-1 text-gray fs-s-sm">
+                                                                {{$data->genreDetail->pluck('genre.name')->implode(', ')}}
+                                                            </p>
                                                             <div class="ms-auto text-decoration-none">
                                                                 <a href="" class="text-gray text-decoration-none">
                                                                     <i class="bi bi-pencil"></i>
@@ -229,15 +220,9 @@
                                                                 </a>
                                                             </div>
                                                         </div>
-                                                        <a href="" class="fs-6 text-primary">Ranker's Who Return Back To School</a>
+                                                        <a href="" class="fs-6 text-primary text-decoration-none fw-500">{{$data->title}}</a>
                                                         
-                                                        <div class="mt-1">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="#ef6864" class="bi bi-heart-fill" viewBox="0 0 16 16">
-                                                                <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
-                                                            </svg>
-                                                            <span class="fs-s-sm ms-1 text-primary">123</span>
-                                                        </div>
-                                                        <p class="fs-s-sm text-gray my-2 two-line-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo illum minima fugiat aut neque. Sapiente fugit pariatur corrupti obcaecati vero? Ipsam a harum ipsa! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Non dicta, sint consequatur velit recusandae alias libero at dolor repudiandae fugit ab rem magni.</p>
+                                                        <p class="fs-s-sm text-gray my-2 two-line-text">{!! nl2br(e($data->synopsis)) !!}</p>
                                                         <div class="d-flex">
                                                             <a href="" class="btn bg-semi-gray text-gray border-0 me-2 rounded-0 py-2 mt-2 fs-s-sm">Edit Chapter</a>
                                                             <a href="/contribute/chapter/create/{{$data->slug}}" class="btn bg-semi-gray text-gray border-0 rounded-0 py-2 mt-2 fs-s-sm">
@@ -248,12 +233,50 @@
                                                     </td>
                                                 </tr>
                                                 @endforeach
+                                                @else
+                                                <div class="text-center">
+                                                    <img src="{{asset('img/maskot/SearchNotFound.gif')}}" alt="" width="70%" >
+                                                    <h6>WADUH, BELUM ADA KARYA DI TERBITKAN NIH ! ... BUAT YUK !</h6>
+                                                </div>
+                                                @endif
                                             </tbody>
                                         </table>
                                     </div>
-                                    {{-- <div class="text-center">
-                                        <h4>WADUH, BELUM ADA KARYA DI TOLAK NIH ! ... BUAT YUK !</h4>
-                                    </div> --}}
+                                </div>
+
+                                <div class="tab-pane height fade" id="pills-tolak" role="tabpanel" tabindex="0">
+                                    <div class="table-responsive">
+                                        <table class="table border-top">
+                                            <tbody>
+                                                @if ($rejectedContent->count() != 0)                                      
+                                                @foreach ($rejectedContent as $data)
+                                                <tr>
+                                                    <td><img src="{{Storage::url($data->thumbnail)}}" width="170px" class="object-fit-cover" height="170px" alt=""></td>
+                                                    <td class="ps-3">
+                                                        <div class="d-flex">
+                                                            <p class="mb-1 text-gray fs-s-sm">
+                                                                {{$data->genreDetail->pluck('genre.name')->implode(', ')}}
+                                                            </p>
+                                                        </div>
+                                                        <a href="" class="fs-6 text-primary text-decoration-none fw-500">{{$data->title}}</a>
+                                                        
+                                                        <p class="fs-s-sm text-gray my-2 two-line-text">{!! nl2br(e($data->synopsis)) !!}</p>
+                                                        <div class="d-flex">
+                                                            <a href="" class="btn bg-semi-gray text-gray border-0 me-2 rounded-0 py-2 mt-2 fs-s-sm">Lihat Alasan</a>
+                                                        </div>
+
+                                                    </td>
+                                                </tr>
+                                                @endforeach
+                                                @else
+                                                <div class="text-center">
+                                                    <img src="{{asset('img/maskot/SearchNotFound.gif')}}" alt="" width="70%" >
+                                                    <h6>WADUH, BELUM ADA KARYA DI TOLAK NIH ! ... BUAT YUK !</h6>
+                                                </div>
+                                                @endif
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
 
                             </div>

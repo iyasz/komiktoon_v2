@@ -64,10 +64,6 @@
                       <a href="/contribute/report" class="navMenuButton">
                         <i class="bi bi-clipboard-pulse me-1 @yield('report-active')"></i> <span class='ms-2 fs-sm @yield('report-active')'> Laporan</span></a>
                       </li>
-                      <li class='d-flex justify-content-center'>
-                        <a href="/contribute/warning" class="navMenuButton">
-                          <i class="bi bi-exclamation-triangle me-1 @yield('warning-active')"></i> <span class='ms-2 fs-sm @yield('warning-active')'> Peringatan</span></a>
-                      </li>
                     <li class='d-flex justify-content-center'>
                       <a href="/contribute/contract" class="navMenuButton">
                         <i class="bi bi-check2-square me-1 @yield('contract-active')"></i> <span class='ms-2 fs-sm @yield('contract-active')'> Kontrak</span></a>

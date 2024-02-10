@@ -242,15 +242,11 @@
                                         </div>
                                     </li>
                                     <hr class="my-2">
-                                    <li><a href="/cart" class="dropdown-item py-2 opacity-75 fs-s-sm"><i
-                                                class="bi bi-person mx-3"></i> Akun Saya</a></li>
-                                    <li><a href="/wishlist" class="dropdown-item py-2 opacity-75 fs-s-sm"><i
-                                                class="bi bi-heart mx-3"></i> Favorit</a></li>
-                                    <li><a href="/order" class="dropdown-item py-2 opacity-75 fs-s-sm"><i
-                                                class="bi bi-clock-history mx-3"></i> Riwayat Baca</a></li>
+                                    <li><a href="/my-accout" class="dropdown-item py-2 opacity-75 fs-s-sm"><i class="bi bi-person mx-3"></i> Akun Saya</a></li>
+                                    <li><a href="/favorit" class="dropdown-item py-2 opacity-75 fs-s-sm"><i class="bi bi-heart mx-3"></i> Favorit</a></li>
+                                    <li><a href="/history" class="dropdown-item py-2 opacity-75 fs-s-sm"><i class="bi bi-clock-history mx-3"></i> Riwayat Baca</a></li>
                                     <hr class="my-2">
-                                    <li><a href="/logout" class="dropdown-item py-2 opacity-75 fs-s-sm"><i
-                                                class="bi bi-box-arrow-right mx-3"></i> Logout</a></li>
+                                    <li><a href="/logout" class="dropdown-item py-2 opacity-75 fs-s-sm"><i class="bi bi-box-arrow-right mx-3"></i> Logout</a></li>
                                 </ul>
                             </li>
                         @else

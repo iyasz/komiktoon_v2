@@ -30,7 +30,13 @@ class ReadController extends Controller
         
         $totalRatings = Rating::where('content_id', $content->id)->count();
         $totalRatingSum = Rating::where('content_id', $content->id)->sum('rate');
-        $totalRating = $totalRatingSum / $totalRatings * 2;
+        
+        if ($totalRatings > 0) {
+            $totalRating = $totalRatingSum / $totalRatings * 2;
+        } else {
+            $totalRating = 0; 
+        }
+        
         
         $hasFavorit = 0;
         $ratingStar = 0;
@@ -131,8 +137,7 @@ class ReadController extends Controller
 
         // next and previous 
         $chapterNext = Chapter::where('content_id', $content->id)->where('created_at', '>', $chapter->created_at)->first();
-        $chapterPrevious = Chapter::where('content_id', $content->id)->where('created_at', '<', $chapter->created_at)->first();
-        // dd($chapterPrevious);
+        $chapterPrevious = Chapter::where('content_id', $content->id)->where('created_at', '<', $chapter->created_at)->orderBy('created_at', 'desc')->first();
     
         return view('main.front.list.chapter', compact('chapter','decodeDataChapters', 'content', 'indexOfCreated', 'chapterNext', 'chapterPrevious', 'isLike', 'chapterLikeCount'));
     }

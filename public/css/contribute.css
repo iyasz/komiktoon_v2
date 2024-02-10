@@ -119,7 +119,7 @@ body {
 }
 
 .tab-pane.height {
-    height: 450px;
+    min-height: 450px;
 }
 
 /* END DASHBOARD SECTION  */
@@ -182,6 +182,24 @@ body {
 
 
 /* END CHAPTER SECTION  */
+
+/* ===== CONFIRM UPDATE SECTION ===== */
+
+.header-input-bg-banner{
+    background-size: cover;
+    height: 290px;
+}
+
+.body_confirm_detail {
+    position: relative;
+    top: -70px;
+    width: 100%;
+    height: 400px;
+    background-color: white;
+    border: 1px #dfdfdf solid;
+}
+
+/* ===== END CONFIRM UPDATE SECTION ===== */
 
 
 @media only screen and (max-width: 991px) {

@@ -20,14 +20,12 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->string('slug')->nullable();
             $table->text('synopsis')->nullable();
-            $table->enum('type', ['1', '2', '3'])->nullable();
             $table->enum('is_ongoing', ['1', '2'])->nullable();
-            $table->enum('status', ['1', '2', '3'])->nullable();
+            $table->enum('status', ['1', '2', '3', '4'])->nullable();
             $table->enum('update_day', ['0', '1', '2', '3', '4', '5', '6'])->nullable();
             $table->enum('update_day_2', ['0', '1', '2', '3', '4', '5', '6'])->nullable();
 
             $table->text('thumbnail')->nullable();
-            $table->string('long_thumbnail')->nullable();
             $table->string('banner')->nullable();
             $table->string('bg_banner')->nullable();
 

@@ -122,7 +122,6 @@ class ChapterController extends Controller
 
         $chapter->thumbnail = $request->file('thumbnail')->store('chapters/thumbnail', 'public');
         $chapter->note = $request->input('note');
-        $chapter->schedule = $request->input('schedule');
         $chapter->save();
     
         return response()->json(['res' => 'Data berhasil dibuat!']);

@@ -14,6 +14,14 @@
             width: 70.00000000%;
         }
 
+        @media only screen and (min-width: 1200px) {
+
+            .container {
+                max-width: 1200px;
+            }
+
+        }
+
         @media only screen and (max-width: 991px) {
 
             .col-lg-4 {
@@ -226,7 +234,7 @@
                                                 @foreach ($content->chapters()->orderBy('created_at', 'desc')->paginate(7) as $data)
                                                 <a class="text-dark" href="/{{ $content->slug }}/{{ $data->slug }}/view">
                                                     <li class="d-flex align-items-center">
-                                                        <img src="{{ Storage::url($data->thumbnail) }}" alt="" width="85px" height="85px">
+                                                        <img src="{{ Storage::url($data->thumbnail) }}" alt="" width="85px" height="85px" class="object-fit-cover">
                                                         <p class="mb-0 d-inline ms-3 text-gray title-chapter-limit">{{ $data->title }}</p>
                                                         <div class="ms-auto me-5 d-flex align-items-center">
                                                             <p class="mb-0 opacity-50 fs-s-sm me-lg-5 me-2 d-md-block d-none">{{ $data->created_at->format('d M y') }}</p>
@@ -263,7 +271,7 @@
                                             <div class="wrapper-comment my-3">
                                                 <div class="d-flex">
                                                     <div class="me-4">
-                                                        <img src="{{ $data->user->photo != NULL ? Storage::url($data->user->photo) : asset('img/maskot/pp_default.png')}}" class="rounded-circle object-fit-coover" width="50" height="50" alt="">
+                                                        <img src="{{ $data->user->photo != NULL ? Storage::url($data->user->photo) : asset('img/maskot/pp_default.png')}}" class="rounded-circle object-fit-cover" width="50" height="50" alt="">
                                                     </div>
                                                     <div class="">
                                                         <h6 class="name mb-2 fw-400">{{$data->user->name}}</h6>
@@ -325,7 +333,7 @@
                                     <p class="mb-0 fw-500 ms-2">Update @if($content->update_day_2 == null) {{$days[$content->update_day]}} @else {{substr($days[$content->update_day], 0, 3)}}, {{substr($days[$content->update_day_2], 0, 3)}} @endif</p>
                                 </div>
                                 <div class="desc mt-4">
-                                    <p class="mb-0 fs-sm opacity-75">{{ $content->synopsis }}</p>
+                                    <p class="mb-0 fs-sm opacity-75">{!! nl2br(e($content->synopsis)) !!}</p>
                                 </div>
                                 <div class="action mt-5">
                                     <a href="/{{$content->slug}}/{{$firstChapter->slug}}/view" class="btn btn-dark fs-sm w-100 rounded-pill border-0 py-3 d-flex justify-content-between align-items-center">

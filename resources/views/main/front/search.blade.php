@@ -33,11 +33,10 @@
             </div>
             <div class="row">
                 @for ($i = 0; $i < 9; $i++)
-                    <div class="col-auto mb-3 pe-1">
+                    <div class="col-auto mb-3 pe-md-1 pe-0">
                         <a href="/komik/this-slug/list" class="contentContainer">
                             <div class="card_front">
-                                <img src="{{ asset('img/30.jpg') }}" class="object-fit-cover" width="210" height="210"
-                                    alt="">
+                                <img src="{{ asset('img/30.jpg') }}" class="object-fit-cover"  alt="">
                                 <div class="info">
                                     <p class="subj">The dragon's king bride</p>
                                     <div class="grade-area">

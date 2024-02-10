@@ -5,6 +5,7 @@ use App\Http\Controllers\front\IndexController as FrontIndexController;
 use App\Http\Controllers\front\ReadController;
 use App\Http\Controllers\manage\admin\banner\BannerController;
 use App\Http\Controllers\manage\admin\category\CategoryController;
+use App\Http\Controllers\manage\admin\confirmation\ConfirmationController;
 use App\Http\Controllers\manage\admin\IndexController;
 use App\Http\Controllers\manage\content\contribute\ChapterController;
 use App\Http\Controllers\manage\content\contribute\ContentController;
@@ -30,6 +31,8 @@ Route::get('/search', [FrontIndexController::class, 'search']);
 Route::get('/privacy-policy', [FrontIndexController::class, 'policyPrivacy']);
 Route::get('/terms-of-use', [FrontIndexController::class, 'termsOfUse']);
 
+Route::get('/favorit', [FrontIndexController::class, 'favorit']);
+
 Route::get('/komik/{slug}/list', [ReadController::class, 'index']);
 Route::post('/komik/{slug}/list', [ReadController::class, 'handleFavoritContent']);
 Route::put('/komik/{slug}/list', [ReadController::class, 'handleRatingContent']);
@@ -44,6 +47,11 @@ Route::post('/{slugContent}/{slugChapter}/view/report', [ReadController::class, 
 Route::get('/panel/admin/dashboard', [IndexController::class, 'index']);
 Route::resource('/panel/category', CategoryController::class);
 
+Route::get('/panel/confirmation/content', [ConfirmationController::class, 'index']);
+Route::get('/panel/confirmation/content/{slug}/detail', [ConfirmationController::class, 'detail']);
+Route::post('/panel/confirmation/content/{slug}', [ConfirmationController::class, 'confirm']);
+Route::put('/panel/confirmation/content/{slug}', [ConfirmationController::class, 'rejected']);
+
 Route::get('/panel/background/dashboard', [BannerController::class, 'dashboardBannerView']);
 
 // Content manage 
@@ -52,6 +60,7 @@ Route::get('/contribute/content', [ContentController::class, 'index']);
 Route::post('/contribute/content', [ContentController::class, 'store']);
 Route::get('/contribute/content/create', [ContentController::class, 'create']);
 Route::post('/contribute/content/create', [ContentController::class, 'getValidationImage']);
+Route::get('/contribute/content/update/{slug}', [ContentController::class, 'handleUpdateConfirmed']);
 
 Route::get('/contribute/chapter/{slug}', [ChapterController::class, 'index']);
 Route::post('/contribute/chapter/{slug}', [ChapterController::class, 'getValidationChaptersImage']);
@@ -61,7 +70,6 @@ Route::post('/contribute/chapter/create/{slug}', [ChapterController::class, 'get
 Route::post('/contribute/chapter/store/{slug}', [ChapterController::class, 'handleInsertChapter']);
 
 Route::get('/contribute/report', [ContributeController::class, 'report']);
-Route::get('/contribute/warning', [ContributeController::class, 'warning']);
 Route::get('/contribute/contract', [ContributeController::class, 'contract']);
 
 // authectication 

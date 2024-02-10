@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\CategoryDetail;
 use App\Http\Controllers\Controller;
+use App\Models\Chapter;
 use App\Models\Like;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -15,16 +16,16 @@ use Illuminate\Support\Facades\Validator;
 class ContentController extends Controller
 {
     public function index() {
-        $contentTerbit = Content::where('status', 2)->where('user_id', Auth::user()->id)->get();
-        
+        $draftContent = Content::where('status', 1)->where('user_id', Auth::user()->id)->get();
+        $confirmedContent = Content::where('status', 2)->where('user_id', Auth::user()->id)->get();
+        $terbitContent = Content::where('status', 3)->where('user_id', Auth::user()->id)->get();
+        $rejectedContent = Content::where('status', 4)->where('user_id', Auth::user()->id)->get();
 
-        $contentTolak = Content::where('status', 3)->where('user_id', Auth::user()->id)->get();
-        
-        
-        $contentDraft = Content::where('status', 1)->where('user_id', Auth::user()->id)->get();
-        $likeDraft = Like::count();
-        
-        return view('main.contribute.content.index', compact('contentTerbit', 'contentTolak', 'contentDraft'));
+        $contentCount = Content::where('user_id', Auth::user()->id)->count();
+        $contentConfirmedCount = Content::where('status', 2)->where('user_id', Auth::user()->id)->count();
+        $contentTerbitCount = Content::where('status', 3)->where('user_id', Auth::user()->id)->count();
+
+        return view('main.contribute.content.index', compact('draftContent', 'confirmedContent', 'terbitContent', 'rejectedContent', 'contentCount', 'contentConfirmedCount', 'contentTerbitCount'));
     }
     
     public function create() {
@@ -37,13 +38,13 @@ class ContentController extends Controller
         if($file){
 
             $validator = Validator::make($request->all(), [
-                'file' => 'max:500|required|image|mimes:jpg,png,jpeg|dimensions:min_width=1080,min_height=1080'
+                'file' => 'max:500|required|image|mimes:jpg,png,jpeg|dimensions:min_width=840,min_height=840'
             ],[
                 'file.required' => 'File gambar tidak boleh kosong!',
                 'file.max' => 'Tidak dapat mengunggah file lebih dari 500KB',
                 'file.mimes' => 'Format file salah. <br> Format file yang bisa dipakai adalah JPG, JPEG, dan PNG',
                 'file.image' => 'Format file salah. <br> Format file yang bisa dipakai adalah JPG, JPEG, dan PNG',
-                'file.dimensions' => 'Gambar harus lebih dari 1080x1080 pixel!',
+                'file.dimensions' => 'Gambar harus lebih dari 840x840 pixel!',
             ]);
 
             if($validator->fails()){
@@ -65,7 +66,7 @@ class ContentController extends Controller
             'title' => 'required|max:50|string|unique:contents,title',
             'radioGenre' => ['required', 'array', 'max:3'],
             'synopsis' => 'required|max:500|string',
-            'thumbnail' => 'required|max:500|mimes:jpeg,png,jpg|image|dimensions:min_width=1080,min_height=1080',
+            'thumbnail' => 'required|max:500|mimes:jpeg,png,jpg|image|dimensions:min_width=840,min_height=840',
         ],[
             'author.required' => 'Author tidak boleh kosong!',
             'author.max' => 'Nama author terlalu panjang!',
@@ -83,7 +84,7 @@ class ContentController extends Controller
             'thumbnail.max' => 'Tidak dapat mengunggah file lebih dari 500KB',
             'thumbnail.mimes' => 'Format file harus JPG, JPEG, dan PNG',
             'thumbnail.image' => 'Format file harus JPG, JPEG, dan PNG',
-            'thumbnail.dimensions' => 'Gambar harus lebih dari 1080x1080 pixel!',
+            'thumbnail.dimensions' => 'Gambar harus lebih dari 840x840 pixel!',
         ]);
 
         // content insert 
@@ -93,7 +94,6 @@ class ContentController extends Controller
         $content->title = $request->title;
         $slug = $content->slug = Str::slug($request->title);
         $content->synopsis = $request->synopsis;
-        $content->type = 1;
         $content->status = 1;
         $content->thumbnail = $request->thumbnail->store('contents/thumbnail', 'public');
         $content->save();
@@ -113,6 +113,17 @@ class ContentController extends Controller
 
         return redirect('/contribute/chapter/create/'.$slug)->with('success', 'Serial berhasil dibuat!');
 
+    }
+
+    public function handleUpdateConfirmed(Request $request, $slug) {
+        $content = Content::where('slug', $slug)->where('status', 2)->where('user_id', Auth::user()->id)->first();
+
+        if(!$content){
+            abort(404);
+        }
+
+
+        return view('main.contribute.content.confirm', compact('content'));
     }
 
 }
