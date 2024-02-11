@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Auth;
 class ReadController extends Controller
 {
     public function index($slug) {
-        $content = Content::where('slug', $slug)->first();
+        $content = Content::where('slug', $slug)->where('status', 3)->first();
         $firstChapter = Chapter::orderBy('created_at', 'asc')->first();
         
         if(!$content){
@@ -103,9 +103,7 @@ class ReadController extends Controller
     }
     
     public function chapter($slugContent, $slugChapter) {
-        
-        
-        $content = Content::where('slug', $slugContent)->first();
+        $content = Content::where('slug', $slugContent)->where('status', 3)->first();
         
         if(!$content){
             abort(404);

@@ -92,7 +92,7 @@
                     <ul class="navbar-nav ms-auto me-2 mt-1">
                       <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle fs-sm text-dark" href="#" role="button" data-bs-toggle="dropdown">
-                          Yasz Avellia
+                          {{ Auth::user()->name}}
                         </a>
                           <ul class="dropdown-menu dropdown-menu-end border-0 position-absolute w-100">
                             <li class=" py-2 d-flex ms-4">

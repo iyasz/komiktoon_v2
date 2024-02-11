@@ -6,6 +6,7 @@ use App\Http\Controllers\front\ReadController;
 use App\Http\Controllers\manage\admin\banner\BannerController;
 use App\Http\Controllers\manage\admin\category\CategoryController;
 use App\Http\Controllers\manage\admin\confirmation\ConfirmationController;
+use App\Http\Controllers\manage\admin\content\ContentManageController;
 use App\Http\Controllers\manage\admin\IndexController;
 use App\Http\Controllers\manage\content\contribute\ChapterController;
 use App\Http\Controllers\manage\content\contribute\ContentController;
@@ -46,6 +47,9 @@ Route::post('/{slugContent}/{slugChapter}/view/report', [ReadController::class, 
 // Admin Panel 
 Route::get('/panel/admin/dashboard', [IndexController::class, 'index']);
 Route::resource('/panel/category', CategoryController::class);
+Route::get('/panel/komik/list', [ContentManageController::class, 'index']);
+
+Route::get('/panel/takedown/content', [ContentManageController::class, 'index']);
 
 Route::get('/panel/confirmation/content', [ConfirmationController::class, 'index']);
 Route::get('/panel/confirmation/content/{slug}/detail', [ConfirmationController::class, 'detail']);
@@ -60,7 +64,11 @@ Route::get('/contribute/content', [ContentController::class, 'index']);
 Route::post('/contribute/content', [ContentController::class, 'store']);
 Route::get('/contribute/content/create', [ContentController::class, 'create']);
 Route::post('/contribute/content/create', [ContentController::class, 'getValidationImage']);
+
 Route::get('/contribute/content/update/{slug}', [ContentController::class, 'handleUpdateConfirmed']);
+Route::post('/contribute/content/update/{slug}', [ContentController::class, 'handleBgBannerValidation']);
+Route::post('/contribute/content/update/{slug}/char', [ContentController::class, 'handleCharImageValidation']);
+Route::post('/contribute/content/update/{slug}/insert', [ContentController::class, 'storeUpdateContent']);
 
 Route::get('/contribute/chapter/{slug}', [ChapterController::class, 'index']);
 Route::post('/contribute/chapter/{slug}', [ChapterController::class, 'getValidationChaptersImage']);

@@ -166,10 +166,10 @@
     </div>
 
     <div id="app">
-        <div class="wrapper-banner-content" style="background-image: url('{{ asset('img/bg-detail.png') }}');">
+        <div class="wrapper-banner-content" style="background-image: url('{{ Storage::url($content->bg_banner) }}');">
             <div class="detail_content position-relative">
                 <div class="thumb">
-                    <img src="{{ asset('img/people.png') }}" alt="" class="d-lg-block d-none" width="100%" height="250">
+                    <img src="{{ Storage::url($content->banner) }}" alt="" class="d-lg-block d-none" width="100%" height="235">
                 </div>
                 <div class="info text-center">
                     <p class="genre mb-0">

@@ -1,6 +1,5 @@
 @extends('layout.main')
-@section('confirmActive', 'text-primary')
-
+    
 @section('content')
 <div class="modal fade" id="reportModal" aria-hidden="true" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
@@ -100,35 +99,6 @@
             });
         });
 
-        $('.valueReasonRejected').on('input', function() {
-            if ($(this).val().trim() !== '') {
-                if ($('#btnConfirmReport').hasClass('disabled')) {
-                    $('#btnConfirmReport').removeClass('disabled');
-                }
-            }else{
-                $('#btnConfirmReport').addClass('disabled');
-            }
-        });
-
-        
-        $('.btn-show-rejected').click(function(){
-            $('.text-title-rejected').text($(this).data('title'))
-            $('.text-title-rejected').attr('data-slug', $(this).data('slug'))
-
-            $('#reportModal').modal('show')
-        })
-
-        $('#btnConfirmReport').click(function(){
-                var slug = $('.text-title-rejected').data('slug')
-                var value = $('.valueReasonRejected').val();
-
-                axios.put('/panel/confirmation/content/'+slug, {value: value}).then(function(response) {
-                    window.location.reload()
-                }).catch(function(error) {  
-                    console.error(error);
-                });
-
-            })
     </script>
 @endpush
 

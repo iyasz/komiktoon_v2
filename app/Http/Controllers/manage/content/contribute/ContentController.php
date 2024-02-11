@@ -126,4 +126,72 @@ class ContentController extends Controller
         return view('main.contribute.content.confirm', compact('content'));
     }
 
+    public function handleBgBannerValidation(Request $request, $slug) {
+        $file = $request->file('file');
+
+        if($file){
+
+            $validator = Validator::make($request->all(), [
+                'file' => 'max:1024|required|image|mimes:jpg,png,jpeg|dimensions:min_width=1920,min_height=320'
+            ],[
+                'file.required' => 'File gambar tidak boleh kosong!',
+                'file.max' => 'Tidak dapat mengunggah file lebih dari 1MB',
+                'file.mimes' => 'Format file salah. <br> Format file yang bisa dipakai adalah JPG, JPEG, dan PNG',
+                'file.image' => 'Format file salah. <br> Format file yang bisa dipakai adalah JPG, JPEG, dan PNG',
+                'file.dimensions' => 'Gambar harus lebih dari 1920x320 pixel!',
+            ]);
+
+            if($validator->fails()){
+                return response()->json(['error' => $validator->errors()->first()]);
+            }
+
+            return response()->json(['success' => 'success!']);
+
+        }
+    }
+
+    public function handleCharImageValidation(Request $request, $slug) {
+        $file = $request->file('file');
+
+        if($file){
+
+            $validator = Validator::make($request->all(), [
+                'file' => 'max:1024|required|image|mimes:png|dimensions:min_width=1200,min_height=240'
+            ],[
+                'file.required' => 'File gambar tidak boleh kosong!',
+                'file.max' => 'Tidak dapat mengunggah file lebih dari 1MB',
+                'file.mimes' => 'Format file salah. <br> Format file yang bisa dipakai adalah PNG',
+                'file.image' => 'Format file salah. <br> Format file yang bisa dipakai adalah PNG',
+                'file.dimensions' => 'Gambar harus lebih dari 1200x240 pixel!',
+            ]);
+
+            if($validator->fails()){
+                return response()->json(['error' => $validator->errors()->first()]);
+            }
+
+            return response()->json(['success' => 'success!']);
+
+        }
+    }
+
+    public function storeUpdateContent(Request $request, $slug) {
+        $content = Content::where('user_id', Auth::user()->id)->where('slug', $slug)->where('status', 2)->first();
+
+        if(!$content){
+            abort(404);
+        }
+
+        $content->status = 3;
+        $content->update_day = $request->update_day;
+        if($request->update_day_2){
+            $content->update_day_2 = $request->update_day_2;
+        }
+        $content->bg_banner = $request->bg_banner->store('banner/contribute', 'public');
+        $content->banner = $request->banner->store('banner/contribute', 'public');
+        $content->update();
+
+        return redirect('/komik/'.$content->slug.'/list');
+    }
+
+
 }

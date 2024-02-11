@@ -65,9 +65,8 @@
 
                       <div class="collapse justify-content-center text-center" id="collapseContent">
                         <div class="text-start">
+                          <a href="/panel/komik/list" class="text-decoration-none opacity-75 fs-sm text-gray me-4 d-block py-2 mt-1">Komik</a>
                             <a href="/panel/category" class="text-decoration-none opacity-75 fs-sm text-gray me-4 d-block py-2 mt-1">Category</a>
-                            <a href="/keren" class="text-decoration-none opacity-75 fs-sm text-gray me-4 d-block py-2 mt-1">Serial</a>
-                            <a href="/mantap" class="text-decoration-none opacity-75 fs-sm text-gray me-4 d-block py-2 mt-1">Chapter</a>
                         </div>
                       </div>
 
@@ -78,6 +77,15 @@
                             <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/>
                           </svg> <span class='ms-2 fs-sm @yield('confirmActive')'> Confirmation</span></a>
                       </li>
+
+                      <li class='d-flex w-100 justify-content-center'>
+                        <a href="/panel/takedown/content" class="navMenuButton">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                          </svg> <span class='ms-2 fs-sm'> Takedown</span></a>
+                      </li>
+
                     <li class='d-flex w-100 justify-content-center mt-1'>
                       <a href="/admin/transaction" class="navMenuButton ">
                         <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-graph-up-arrow" viewBox="0 0 16 16">
@@ -91,7 +99,7 @@
                         </svg> <span class='ms-2 fs-sm'> Report</span></a>
                     </li>
                     <li class='d-flex w-100 justify-content-center mt-1'>
-                      <a href="/admin/discount" class="navMenuButton">
+                      <a href="/panel/warning" class="navMenuButton">
                         <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-exclamation-triangle" viewBox="0 0 16 16">
                           <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
                           <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"/>

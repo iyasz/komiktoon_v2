@@ -348,7 +348,7 @@
 
 .detail_content .thumb {
     position: absolute;
-    bottom: 0;
+    top: 0;
     right: 0;
     left: 0;
 }
@@ -384,7 +384,7 @@
     position: relative;
     background: #fff;
     min-height: 839px;
-    top: -70px;
+    top: -85px;
 }
 
 .pills-tab-chapter .pagination-wrapper {
