@@ -8,6 +8,8 @@ use App\Http\Controllers\manage\admin\category\CategoryController;
 use App\Http\Controllers\manage\admin\confirmation\ConfirmationController;
 use App\Http\Controllers\manage\admin\content\ContentManageController;
 use App\Http\Controllers\manage\admin\IndexController;
+use App\Http\Controllers\manage\admin\takedown\TakedownController;
+use App\Http\Controllers\manage\admin\warning\WarningController;
 use App\Http\Controllers\manage\content\contribute\ChapterController;
 use App\Http\Controllers\manage\content\contribute\ContentController;
 use App\Http\Controllers\manage\content\contribute\ContributeController;
@@ -47,9 +49,15 @@ Route::post('/{slugContent}/{slugChapter}/view/report', [ReadController::class, 
 // Admin Panel 
 Route::get('/panel/admin/dashboard', [IndexController::class, 'index']);
 Route::resource('/panel/category', CategoryController::class);
-Route::get('/panel/komik/list', [ContentManageController::class, 'index']);
 
-Route::get('/panel/takedown/content', [ContentManageController::class, 'index']);
+Route::get('/panel/komik/list', [ContentManageController::class, 'index']);
+Route::put('/panel/komik/{slug}/block', [ContentManageController::class, 'block']);
+Route::get('/panel/komik/{slug}/detail', [ContentManageController::class, 'detail']);
+
+Route::get('/panel/warning/list', [WarningController::class, 'index']);
+
+Route::get('/panel/takedown/content', [TakedownController::class, 'index']);
+Route::put('/panel/takedown/content/{slug}/recovery', [TakedownController::class, 'recovery']);
 
 Route::get('/panel/confirmation/content', [ConfirmationController::class, 'index']);
 Route::get('/panel/confirmation/content/{slug}/detail', [ConfirmationController::class, 'detail']);

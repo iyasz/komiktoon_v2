@@ -15,7 +15,7 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-center mt-4 mx-3 mt-5">
-                    <button class="btn bg-dark disabled text-white py-3 px-5 border-0 rounded-pill" id="btnConfirmReport" data-bs-dismiss="modal">Submit</button>
+                    <button class="btn bg-dark disabled text-white py-3 px-5 border-0 rounded-pill" id="btnConfirmReport" data-bs-dismiss="modal">Tolak</button>
                 </div>
             </div>
         </div>
@@ -49,26 +49,34 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Thumbnail</th>
                                 <th>Judul</th>
-                                <th>Author</th>
+                                <th>Alasan</th>
                                 <th>Tanggal</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody id="tableData">
 
-                            @foreach ($content as $data)
+                            @foreach ($warning as $data)
+                            @php
+                                $reason = [
+                                    1 => 'Konten tidak sesuai',
+                                    2 => 'Penyebaran kebencian',
+                                    3 => 'Pelanggaran hak cipta',
+                                    4 => 'Mengandung konten seksual',
+                                    5 => 'Pelanggaran privasi',
+                                    6 => 'Konten bersifat rasisme',
+                                ];
+                            @endphp
                             <tr>
                                 <td>{{$loop->iteration}}</td>
-                                <td><img src="{{Storage::url($data->thumbnail)}}" alt="photo" width="80px" height="80px" class="object-fit-cover"></td>
-                                <td>{{$data->title}}</td>
-                                <td>{{$data->author}}</td>
+                                <td>{{$data->content->title}}</td>
+                                <td>{{$reason[$data->reason]}}</td>
                                 <td>{{$data->created_at->format('d M Y')}}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
-                                        <a href="/panel/komik/{{$data->slug}}/detail" class="btn btn-primary border-0 rounded-1 fs-s-sm"><i class="bi bi-eye"></i></a>
-                                        <button data-slug="{{$data->slug}}" data-title="{{$data->title}}" class="btn btn-primary ms-1 btn-show-rejected border-0 rounded-1 fs-s-sm"><i class="bi bi-x-lg"></i></button>
+                                        <a href="/panel/komik/{{$data->content->slug}}/detail" class="btn btn-primary border-0 rounded-1 fs-s-sm"><i class="bi bi-eye"></i></a>
+                                        <button data-slug="{{$data->content->slug}}" data-title="{{$data->content->title}}" class="btn btn-primary ms-1 btn-show-rejected border-0 rounded-1 fs-s-sm"><i class="bi bi-x-lg"></i></button>
                                     </div> 
                                 </td>
                             </tr>

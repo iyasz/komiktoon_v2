@@ -86,12 +86,6 @@
                           </svg> <span class='ms-2 fs-sm'> Takedown</span></a>
                       </li>
 
-                    <li class='d-flex w-100 justify-content-center mt-1'>
-                      <a href="/admin/transaction" class="navMenuButton ">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-graph-up-arrow" viewBox="0 0 16 16">
-                          <path fill-rule="evenodd" d="M0 0h1v15h15v1H0V0Zm10 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4.9l-3.613 4.417a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61L13.445 4H10.5a.5.5 0 0 1-.5-.5Z"/>
-                        </svg> <span class='ms-2 fs-sm'>Transaction</span></a>
-                    </li>
                     <li class='d-flex w-100 justify-content-center'>
                       <a href="/admin/report" class="navMenuButton">
                         <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-clipboard-pulse" viewBox="0 0 16 16">
@@ -99,7 +93,7 @@
                         </svg> <span class='ms-2 fs-sm'> Report</span></a>
                     </li>
                     <li class='d-flex w-100 justify-content-center mt-1'>
-                      <a href="/panel/warning" class="navMenuButton">
+                      <a href="/panel/warning/list" class="navMenuButton">
                         <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-exclamation-triangle" viewBox="0 0 16 16">
                           <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
                           <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"/>
@@ -150,27 +144,7 @@
                     <span class="navbar-toggler-icon fs-sm"></span>
                   </button>
 
-                    <ul class="navbar-nav ms-auto me-lg-1 me-md-1 me-3">
-                      <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle notification text-dark position-relative" href="#" role="button" data-bs-toggle="dropdown">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
-                          <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6"/>
-                        </svg>
-                        <span class="position-absolute top-75 start-75 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end border-0 position-absolute w-100">
-                            <h6 class="ms-3">Notification</h6>
-                            <hr class="my-2">
-                            <li><a href="/wishlist" class="dropdown-item py-2 opacity-75 fs-s-sm"><i class="bi bi-heart mx-3"></i> Notification</a></li>
-                            <li><a href="/cart" class="dropdown-item py-2 opacity-75 fs-s-sm"><i class="bi bi-cart mx-3"></i> My Cart</a></li>
-                            <li><a href="/order" class="dropdown-item py-2 opacity-75 fs-s-sm"><i class="bi bi-clock-history mx-3"></i> Order History</a></li>
-                            <hr class="my-2">
-                            <li><a href="/logout" class="dropdown-item py-2 opacity-75 fs-s-sm"><i class="bi bi-box-arrow-right mx-3"></i> Logout</a></li>
-                        </ul>
-                      </li>
-                    </ul>
-
-                    <ul class="navbar-nav me-2 mt-1">
+                    <ul class="navbar-nav ms-auto me-2 mt-1">
                       <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle fs-sm text-dark" href="#" role="button" data-bs-toggle="dropdown">
                           Yasz Avellia

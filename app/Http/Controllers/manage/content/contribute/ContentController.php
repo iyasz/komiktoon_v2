@@ -182,6 +182,7 @@ class ContentController extends Controller
         }
 
         $content->status = 3;
+        $content->is_ongoing = $request->is_ongoing;
         $content->update_day = $request->update_day;
         if($request->update_day_2){
             $content->update_day_2 = $request->update_day_2;

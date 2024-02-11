@@ -318,7 +318,6 @@
                                     </button>
                                 </ul>
                                 <div class="update mt-3 d-flex align-items-center">
-                                    <img src="{{ asset('img/maskot/upd_content.png') }}" width="40px" height="40px" alt=""> 
                                     @php
                                         $days = [
                                             0 => 'SENIN',
@@ -329,8 +328,14 @@
                                             5 => 'SABTU',
                                             6 => 'MINGGU',
                                         ];
-                                    @endphp 
+                                        @endphp 
+                                    @if($content->is_ongoing == 2)
+                                    <img src="{{ asset('img/maskot/upd_content.png') }}" width="40px" height="40px" alt=""> 
                                     <p class="mb-0 fw-500 ms-2">Update @if($content->update_day_2 == null) {{$days[$content->update_day]}} @else {{substr($days[$content->update_day], 0, 3)}}, {{substr($days[$content->update_day_2], 0, 3)}} @endif</p>
+                                    @else
+                                    <img src="{{ asset('img/maskot/end_content.png') }}" width="40px" height="40px" alt=""> 
+                                    <p class="mb-0 fw-500 ms-2">Baca Tiap Hari</p>
+                                    @endif
                                 </div>
                                 <div class="desc mt-4">
                                     <p class="mb-0 fs-sm opacity-75">{!! nl2br(e($content->synopsis)) !!}</p>

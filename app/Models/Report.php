@@ -19,4 +19,9 @@ class Report extends Model
     {
         return 'string';
     }
+
+    public function content()
+    {
+        return $this->belongsTo(Content::class);
+    }
 }

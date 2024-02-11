@@ -19,7 +19,7 @@ class ConfirmationController extends Controller
     }
     
     public function detail($slug) {
-        $content = Content::where('slug', $slug)->first();
+        $content = Content::where('slug', $slug)->where('status', 1)->first();
         if(!$content){
             abort(404);
         }

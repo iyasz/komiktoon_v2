@@ -29,4 +29,14 @@ class Content extends Model
     {
         return $this->hasMany(Chapter::class);
     }
+
+    public function rejected()
+    {
+        return $this->hasMany(Rejected::class, 'content_id', 'id');
+    }
+
+    public function takedown() {
+        return $this->hasMany(Takedown::class);
+    }
+
 }

@@ -120,7 +120,7 @@
                                                     <td><img src="{{Storage::url($data->thumbnail)}}" width="170px" class="object-fit-cover" height="170px" alt=""></td>
                                                     <td class="ps-3">
                                                         <div class="d-flex">
-                                                            <p class="mb-1 text-gray fs-s-sm">
+                                                            <p class="mb-1 text-gray fs-s-sm ">
                                                                 {{$data->genreDetail->pluck('genre.name')->implode(', ')}}
                                                             </p>
                                                             <div class="ms-auto text-decoration-none">
@@ -135,7 +135,7 @@
                                                                 </a>
                                                             </div>
                                                         </div>
-                                                        <a href="" class="fs-6 text-primary text-decoration-none fw-500">{{$data->title}}</a>
+                                                        <a class="fs-6 text-primary text-decoration-none fw-500">{{$data->title}}</a>
                                                         
                                                         <p class="fs-s-sm text-gray my-2 two-line-text">{!! nl2br(e($data->synopsis)) !!}</p>
                                                         <div class="d-flex">
@@ -169,11 +169,11 @@
                                                     <td><img src="{{Storage::url($data->thumbnail)}}" width="170px" class="object-fit-cover" height="170px" alt=""></td>
                                                     <td class="ps-3">
                                                         <div class="d-flex">
-                                                            <p class="mb-1 text-gray fs-s-sm">
+                                                            <p class="mb-1 text-gray fs-s-sm ">
                                                                 {{$data->genreDetail->pluck('genre.name')->implode(', ')}}
                                                             </p>
                                                         </div>
-                                                        <a href="" class="fs-6 text-primary text-decoration-none fw-500">{{$data->title}}</a>
+                                                        <a class="fs-6 text-primary text-decoration-none fw-500">{{$data->title}}</a>
                                                         
                                                         <p class="fs-s-sm text-gray my-2 two-line-text">{!! nl2br(e($data->synopsis)) !!}</p>
                                                         <div class="d-flex">
@@ -205,7 +205,7 @@
                                                     <td><img src="{{Storage::url($data->thumbnail)}}" width="170px" class="object-fit-cover" height="170px" alt=""></td>
                                                     <td class="ps-3">
                                                         <div class="d-flex">
-                                                            <p class="mb-1 text-gray fs-s-sm">
+                                                            <p class="mb-1 text-gray fs-s-sm ">
                                                                 {{$data->genreDetail->pluck('genre.name')->implode(', ')}}
                                                             </p>
                                                             <div class="ms-auto text-decoration-none">
@@ -220,7 +220,7 @@
                                                                 </a>
                                                             </div>
                                                         </div>
-                                                        <a href="" class="fs-6 text-primary text-decoration-none fw-500">{{$data->title}}</a>
+                                                        <a href="/komik/{{$data->slug}}/list" class="fs-6 text-primary text-decoration-none fw-500">{{$data->title}}</a>
                                                         
                                                         <p class="fs-s-sm text-gray my-2 two-line-text">{!! nl2br(e($data->synopsis)) !!}</p>
                                                         <div class="d-flex">
@@ -254,19 +254,39 @@
                                                     <td><img src="{{Storage::url($data->thumbnail)}}" width="170px" class="object-fit-cover" height="170px" alt=""></td>
                                                     <td class="ps-3">
                                                         <div class="d-flex">
-                                                            <p class="mb-1 text-gray fs-s-sm">
+                                                            <p class="mb-1 text-gray fs-s-sm ">
                                                                 {{$data->genreDetail->pluck('genre.name')->implode(', ')}}
                                                             </p>
                                                         </div>
-                                                        <a href="" class="fs-6 text-primary text-decoration-none fw-500">{{$data->title}}</a>
+                                                        <a class="fs-6 text-primary text-decoration-none fw-500">{{$data->title}}</a>
                                                         
                                                         <p class="fs-s-sm text-gray my-2 two-line-text">{!! nl2br(e($data->synopsis)) !!}</p>
                                                         <div class="d-flex">
-                                                            <a href="" class="btn bg-semi-gray text-gray border-0 me-2 rounded-0 py-2 mt-2 fs-s-sm">Lihat Alasan</a>
+                                                            <a data-bs-toggle="modal" data-bs-target="#modalInfo" class="btn bg-semi-gray text-gray border-0 me-2 rounded-0 py-2 mt-2 fs-s-sm">Lihat Alasan</a>
                                                         </div>
 
                                                     </td>
                                                 </tr>
+
+                                                <div class="modal" id="modalInfo" tabindex="-1" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <div class="modal-body">
+                                                                <div class="text-end mb-3">
+                                                                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                                                                </div>
+                                                                <div class="mx-2">
+                                                                    <p class="mb-0 opacity-75">Komik :</p>
+                                                                    <h3 class="opacity-75 mb-5 fw-400">{{ $data->title }}</h3>
+                                            
+                                                                    <p class="mb-0 opacity-75">Alasan :</p>
+                                                                    <p class="opacity-75 mb-5 h5 fw-400">{{ $data->rejected[0]['reason'] }}</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                                 @endforeach
                                                 @else
                                                 <div class="text-center">
@@ -289,7 +309,7 @@
                 <div class="card border-0 rounded-1">
                     <div class="card-body">
                         <div class="">
-                            <input type="text" name="" id="" class="form-control w-100 text-gray mb-3" placeholder="Cari disini ..">
+                            <input type="text" name="" id="searchContent" class="form-control w-100 text-gray mb-3" placeholder="Cari disini ..">
                             <hr>
                             <a href="/contribute/content/create" class="btn btn-primary w-100 border-0 rounded-1 py-3 fs-sm fw-600">
                                 <i class="bi bi-plus-lg"></i> <span class="ms-2">Tambah Serial</span></a>
@@ -301,6 +321,19 @@
 
     </div>
 @endsection
+
+@push('javascript')
+    <script>
+           $(document).ready(function(){
+            $("#searchContent").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $(".tab-pane.height tbody tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+@endpush
 
 
 
