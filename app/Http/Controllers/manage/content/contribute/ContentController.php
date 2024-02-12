@@ -8,9 +8,18 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\CategoryDetail;
 use App\Http\Controllers\Controller;
+use App\Models\Bookmark;
 use App\Models\Chapter;
+use App\Models\Comment;
+use App\Models\Histories;
 use App\Models\Like;
+use App\Models\Rating;
+use App\Models\Rejected;
+use App\Models\Report;
+use App\Models\Takedown;
+use App\Models\View;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ContentController extends Controller
@@ -192,6 +201,102 @@ class ContentController extends Controller
         $content->update();
 
         return redirect('/komik/'.$content->slug.'/list');
+    }
+
+    public function handleDeleteContent(Request $request, $slug) {
+        $content = Content::where('slug', $slug)->where('status','!=', 2)->where('user_id', Auth::user()->id)->first();
+        if(!$content){
+            abort(404);
+        }
+
+        $bookmarks = Bookmark::where('content_id', $content->id)->get();
+        $chapters = Chapter::where('content_id', $content->id)->get();
+        $cateogies = CategoryDetail::where('content_id', $content->id)->get();
+        $histories = Histories::where('content_id', $content->id)->get();
+        $comments = Comment::where('content_id', $content->id)->get();
+        $likes = Like::whereHas('chapter', function ($query) use ($content) {
+            $query->where('content_id', $content->id);
+        })->get();
+        $views = View::whereHas('chapter', function ($query) use ($content) {
+            $query->where('content_id', $content->id);
+        })->get();
+
+        
+        $ratings = Rating::where('content_id', $content->id)->get();
+        $rejectedContent = Rejected::where('content_id', $content->id)->first();
+        $reports = Report::where('content_id', $content->id)->get();
+
+        $exist = Storage::disk('public')->exists($content->thumbnail);
+        if($exist){
+            Storage::disk('public')->delete($content->thumbnail); 
+        }
+
+        if($rejectedContent){
+            $rejectedContent->delete();
+        }
+
+        if($likes->isNotEmpty()){
+            foreach($likes as $data){
+                $data->delete();
+            }
+        }
+
+        if($views->isNotEmpty()){
+            foreach($views as $data){
+                $data->delete();
+            }
+        }
+
+        if($reports->isNotEmpty()){
+            foreach($reports as $data){
+                $data->delete();
+            }
+        }
+
+        if($ratings->isNotEmpty()){
+            foreach($ratings as $data){
+                $data->delete();
+            }
+        }
+
+        if($comments->isNotEmpty()){
+            foreach($comments as $data){
+                $data->delete();
+            }
+        }
+
+        if($bookmarks->isNotEmpty()){
+            foreach($bookmarks as $data){
+                $data->delete();
+            }
+        }
+
+        if($histories->isNotEmpty()){
+            foreach($histories as $dataHistory){
+                $dataHistory->delete();
+            }
+        }
+
+        if($cateogies->isNotEmpty()){
+            foreach($cateogies as $item){
+                $item->delete();
+            }
+        }
+        
+        if($chapters->isNotEmpty()){
+
+            foreach($chapters as $data){
+                Storage::disk('public')->delete($data->thumbnail);   
+                Storage::deleteDirectory('/storage/chapters/'.$content->slug);
+
+                $data->delete();
+            }
+        }
+
+        $content->delete();
+
+        return redirect('/contribute/content');
+
     }
 
 

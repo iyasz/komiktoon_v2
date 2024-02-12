@@ -9,5 +9,9 @@ use Illuminate\Database\Eloquent\Model;
 class Like extends Model
 {
     use HasFactory;
+
+    public function chapter() {
+        return $this->belongsTo(Chapter::class);
+    }
     
 }

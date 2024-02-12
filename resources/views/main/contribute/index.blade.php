@@ -1,4 +1,5 @@
 @extends('layout.contribute')
+@section('dashboard-active', 'text-primary')
 
 @section('content')
     <div id="app" class="mb-3">

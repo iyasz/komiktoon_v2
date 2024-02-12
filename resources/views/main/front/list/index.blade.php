@@ -137,7 +137,7 @@
             <div class="modal-content border-0">
                 <div class="modal-body p-5">
                     <div class="text-center">
-                        <h1 id="ratingValue">{{$ratingStar}}</h1>
+                        <h1 id="ratingValue">{{$ratingStar == 0 ? '0' : $ratingStar}}</h1>
                         <p class="fw-300">Klik untuk menentukan rating</p>
                     </div>
                     <div class="text-center">
@@ -158,13 +158,13 @@
                         </a>
                     </div>
                     <div class="d-flex justify-content-center mt-4 mx-3">
-                        <button class="btn bg-dark text-white py-3 px-5 border-0 rounded-pill" id="confirmRatingContent" data-bs-dismiss="modal">YA</button>
+                        <button class="btn bg-dark {{$ratingStar == 0 ? 'disabled' : ''}} text-white py-3 px-5 border-0 rounded-pill" id="confirmRatingContent" data-bs-dismiss="modal">YA</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
+    
     <div id="app">
         <div class="wrapper-banner-content" style="background-image: url('{{ Storage::url($content->bg_banner) }}');">
             <div class="detail_content position-relative">
@@ -175,7 +175,7 @@
                     <p class="genre mb-0">
                         {{ $content->genreDetail->pluck('genre.name')->implode(', ') }}
                     </p>
-                    <h1 class="title text-white">{{ $content->title }}</h1>
+                    <h1 class="title ">{{ $content->title }}</h1>
                     <p class="creator mb-0 text-white">{{ $content->author }} <a data-bs-toggle="modal" data-bs-target="#modalInfo" class="text-white ms-1 d-md-inline d-none"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16"> <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2" /> </svg></a></p>
                 </div>
             </div>
@@ -329,7 +329,7 @@
                                             6 => 'MINGGU',
                                         ];
                                         @endphp 
-                                    @if($content->is_ongoing == 2)
+                                    @if($content->is_ongoing == 1)
                                     <img src="{{ asset('img/maskot/upd_content.png') }}" width="40px" height="40px" alt=""> 
                                     <p class="mb-0 fw-500 ms-2">Update @if($content->update_day_2 == null) {{$days[$content->update_day]}} @else {{substr($days[$content->update_day], 0, 3)}}, {{substr($days[$content->update_day_2], 0, 3)}} @endif</p>
                                     @else
@@ -359,8 +359,15 @@
 
 @push('javascript')
 
+
     <script>
         $(document).ready(function() {
+            $('#str_1, #str_2, #str_3, #str_4, #str_5').on('click', function(){
+                if($('#confirmRatingContent').hasClass('disabled')){
+                    $('#confirmRatingContent').removeClass('disabled');
+                }
+            })
+
           $("#str_1").click(function() {
               $(".bi-star-fill.rate").css("color", "#565656");
               $("#str_1").css("color", "#ef6864");

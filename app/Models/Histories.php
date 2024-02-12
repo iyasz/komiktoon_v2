@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Chapter extends Model
+class Histories extends Model
 {
     use HasFactory, HasUuids;
-    
+
     function getIncrementing()
     {
      return false;   
@@ -20,13 +20,5 @@ class Chapter extends Model
         return 'string';
     }
 
-    public function views()
-    {
-        return $this->hasMany(View::class);
-    }
-
-    public function likes()
-    {
-        return $this->hasMany(Like::class);
-    }
+    protected $table = 'histories';
 }

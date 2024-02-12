@@ -132,6 +132,7 @@
     position: absolute;
     top: 0;
     left: 0;
+    right: 0;
     opacity: 1;
     z-index: 4;
     height: 100%;
@@ -307,9 +308,13 @@
 
         >.info .title {
             mix-blend-mode: difference;
+            position: relative;
+            z-index: 52;    
             font-size: 45px;
             font-weight: 400;
             width: 600px;
+            margin: 5px auto;
+            color: white;
             line-height: 1;
         }
 

@@ -1,4 +1,5 @@
 @extends('layout.contribute')
+@section('contract-active', 'text-primary')
 
 @section('content')
     <div class="mb-3">

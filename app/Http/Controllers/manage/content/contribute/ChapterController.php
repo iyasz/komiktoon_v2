@@ -127,4 +127,8 @@ class ChapterController extends Controller
         return response()->json(['res' => 'Data berhasil dibuat!']);
     }
 
+    public function handleListChapter(Request $request, $slug) {
+        return view('main.contribute.chapter.list');
+    }
+
 }

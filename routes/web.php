@@ -73,6 +73,10 @@ Route::post('/contribute/content', [ContentController::class, 'store']);
 Route::get('/contribute/content/create', [ContentController::class, 'create']);
 Route::post('/contribute/content/create', [ContentController::class, 'getValidationImage']);
 
+Route::delete('/contribute/content/{slug}/delete', [ContentController::class, 'handleDeleteContent']);
+
+Route::get('/contribute/content/{slug}/chapter', [ChapterController::class, 'handleListChapter']);
+
 Route::get('/contribute/content/update/{slug}', [ContentController::class, 'handleUpdateConfirmed']);
 Route::post('/contribute/content/update/{slug}', [ContentController::class, 'handleBgBannerValidation']);
 Route::post('/contribute/content/update/{slug}/char', [ContentController::class, 'handleCharImageValidation']);

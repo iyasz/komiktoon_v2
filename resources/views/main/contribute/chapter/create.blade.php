@@ -310,7 +310,7 @@
                 maxThumbnailFilesize: 20,
                 thumbnailMethod: "crop",
                 thumbnailWidth: 800,
-                thumbnailHeight: 1000,
+                thumbnailHeight: 1240,
                 dictInvalidFileType: "Tipe file ini tidak diizinkan",
                 dictResponseError: "Terjadi kesalahan saat mengunggah file.",
                 headers: {

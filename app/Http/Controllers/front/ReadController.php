@@ -7,6 +7,7 @@ use App\Models\Bookmark;
 use App\Models\Chapter;
 use App\Models\Comment;
 use App\Models\Content;
+use App\Models\Histories;
 use App\Models\Like;
 use App\Models\Rating;
 use App\Models\Report;
@@ -19,11 +20,12 @@ class ReadController extends Controller
 {
     public function index($slug) {
         $content = Content::where('slug', $slug)->where('status', 3)->first();
-        $firstChapter = Chapter::orderBy('created_at', 'asc')->first();
         
         if(!$content){
             abort(404);
         }
+        
+        $firstChapter = Chapter::orderBy('created_at', 'desc')->where('content_id', $content->id)->first();
 
         $commentCount = Comment::where('user_id', $content->user_id)->where('content_id', $content->id)->count();
         $getAllComment = Comment::where('content_id', $content->id)->orderBy('created_at', 'desc')->get();
@@ -114,6 +116,16 @@ class ReadController extends Controller
         if(!$chapter){
             abort(404);
         }
+
+        // if(Auth::user()){
+        //     $hasHistory = Histories::where('user_id', Auth::user()->id)->where('content_id', $content->id)->first();
+        //     if(!$hasHistory){
+        //         $kanjut = new Histories();
+        //         $kanjut->user_id = Auth::user()->id;
+        //         $kanjut->content_id = $content->id;
+        //         $kanjut->save();
+        //     }
+        // }
         
         $view = new View();
         $view->chapter_id = $chapter->id;

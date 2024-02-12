@@ -39,4 +39,5 @@ class Content extends Model
         return $this->hasMany(Takedown::class);
     }
 
+
 }

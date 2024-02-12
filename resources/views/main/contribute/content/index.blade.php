@@ -123,23 +123,27 @@
                                                             <p class="mb-1 text-gray fs-s-sm ">
                                                                 {{$data->genreDetail->pluck('genre.name')->implode(', ')}}
                                                             </p>
-                                                            <div class="ms-auto text-decoration-none">
+                                                            <div class="ms-auto d-flex text-decoration-none">
                                                                 <a href="" class="text-gray text-decoration-none">
                                                                     <i class="bi bi-pencil"></i>
                                                                 </a>
                                                                 <a href="" class="text-gray text-decoration-none mx-2">
                                                                     <i class="bi bi-three-dots"></i>
                                                                 </a>
-                                                                <a href="" class="text-gray text-decoration-none">
-                                                                    <i class="bi bi-trash3"></i>
-                                                                </a>
+                                                                <form action="/contribute/content/{{$data->slug}}/delete" method="post">
+                                                                    @csrf
+                                                                    @method('delete')
+                                                                    <button onclick="return confirm('Apakah kamu yakin ingin menghapus data ini?')" class="border-0 bg-transparent p-0 text-gray text-decoration-none">
+                                                                        <i class="bi bi-trash3"></i>
+                                                                    </button>
+                                                                </form>
                                                             </div>
                                                         </div>
                                                         <a class="fs-6 text-primary text-decoration-none fw-500">{{$data->title}}</a>
                                                         
                                                         <p class="fs-s-sm text-gray my-2 two-line-text">{!! nl2br(e($data->synopsis)) !!}</p>
                                                         <div class="d-flex">
-                                                            <a href="" class="btn bg-semi-gray text-gray border-0 me-2 rounded-0 py-2 mt-2 fs-s-sm">Edit Chapter</a>
+                                                            <a href="/contribute/content/{{$data->slug}}/chapter" class="btn bg-semi-gray text-gray border-0 me-2 rounded-0 py-2 mt-2 fs-s-sm">Edit Chapter</a>
                                                             <a href="/contribute/chapter/create/{{$data->slug}}" class="btn bg-semi-gray text-gray border-0 rounded-0 py-2 mt-2 fs-s-sm">
                                                                 <i class="bi bi-plus-lg"></i> <span class="ms-2">Tambah Chapter</span>
                                                             </a>
@@ -208,23 +212,27 @@
                                                             <p class="mb-1 text-gray fs-s-sm ">
                                                                 {{$data->genreDetail->pluck('genre.name')->implode(', ')}}
                                                             </p>
-                                                            <div class="ms-auto text-decoration-none">
+                                                            <div class="ms-auto d-flex text-decoration-none">
                                                                 <a href="" class="text-gray text-decoration-none">
                                                                     <i class="bi bi-pencil"></i>
                                                                 </a>
                                                                 <a href="" class="text-gray text-decoration-none mx-2">
                                                                     <i class="bi bi-three-dots"></i>
                                                                 </a>
-                                                                <a href="" class="text-gray text-decoration-none">
-                                                                    <i class="bi bi-trash3"></i>
-                                                                </a>
+                                                                <form action="/contribute/content/{{$data->slug}}/delete" method="post">
+                                                                    @csrf
+                                                                    @method('delete')
+                                                                    <button onclick="return confirm('Apakah kamu yakin ingin menghapus data ini?')" class="border-0 bg-transparent p-0 text-gray text-decoration-none">
+                                                                        <i class="bi bi-trash3"></i>
+                                                                    </button>
+                                                                </form>
                                                             </div>
                                                         </div>
                                                         <a href="/komik/{{$data->slug}}/list" class="fs-6 text-primary text-decoration-none fw-500">{{$data->title}}</a>
                                                         
                                                         <p class="fs-s-sm text-gray my-2 two-line-text">{!! nl2br(e($data->synopsis)) !!}</p>
                                                         <div class="d-flex">
-                                                            <a href="" class="btn bg-semi-gray text-gray border-0 me-2 rounded-0 py-2 mt-2 fs-s-sm">Edit Chapter</a>
+                                                            <a href="/contribute/content/{{$data->slug}}/chapter" class="btn bg-semi-gray text-gray border-0 me-2 rounded-0 py-2 mt-2 fs-s-sm">Edit Chapter</a>
                                                             <a href="/contribute/chapter/create/{{$data->slug}}" class="btn bg-semi-gray text-gray border-0 rounded-0 py-2 mt-2 fs-s-sm">
                                                                 <i class="bi bi-plus-lg"></i> <span class="ms-2">Tambah Chapter</span>
                                                             </a>
@@ -257,6 +265,15 @@
                                                             <p class="mb-1 text-gray fs-s-sm ">
                                                                 {{$data->genreDetail->pluck('genre.name')->implode(', ')}}
                                                             </p>
+                                                            <div class="ms-auto text-decoration-none">
+                                                                <form action="/contribute/content/{{$data->slug}}/delete" method="post">
+                                                                    @csrf
+                                                                    @method('delete')
+                                                                    <button onclick="return confirm('Apakah kamu yakin ingin menghapus data ini?')" class="border-0 bg-transparent p-0 text-gray text-decoration-none">
+                                                                        <i class="bi bi-trash3"></i>
+                                                                    </button>
+                                                                </form>
+                                                            </div>
                                                         </div>
                                                         <a class="fs-6 text-primary text-decoration-none fw-500">{{$data->title}}</a>
                                                         
