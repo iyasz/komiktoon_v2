@@ -1,11 +1,19 @@
 @extends('layout.contribute')
 @section('content-active', 'text-primary')
 
+@push('css')
+    <style>
+        .nav.nav-pills{
+            
+        }
+    </style>
+@endpush
+
 @section('content')
     <div id="app" class="mb-3">
         <div class="row flex-nowrap overflow-auto">
 
-            <div class="col-lg-4 col-12 p-3">
+            <div class="col-lg-4 col-12 p-3 ">
                 <div class="card border-0 rounded-1 h-100">
                     <div class="card-body">
                         <div class="row align-items-center">
@@ -88,13 +96,13 @@
 
         </div>
 
-        <div class="row my-4 my-lg-auto">
+        <div class="row my-4 my-lg-auto ">
             <div class="col-lg-8 col-12 px-3 px-lg-auto ps-lg-3 ps-auto pe-lg-0 pe-auto order-lg-0 order-1">
                 <div class="card border-0 rounded-1">
                     <div class="card-body">
 
                         <div class="border rounded-2">
-                            <ul class="nav nav-pills border-bottom mb-3 mx-lg-4 mx-auto" id="pills-tab" role="tablist">
+                            <ul class="nav nav-pills border-bottom mb-3 mx-lg-4 mx-auto flex-nowrap overflow-auto" id="pills-tab" role="tablist">
                                 <li class="nav-item" role="presentation">
                                     <a class="nav-link border-bottom-white rounded-0 bg-transparent py-3 text-gray fw-400 active" data-bs-toggle="pill" data-bs-target="#pills-draftku" type="button" role="tab" aria-controls="pills-draftku" aria-selected="false">Draft</a>
                                 </li>
@@ -141,7 +149,7 @@
                                                         </div>
                                                         <a class="fs-6 text-primary text-decoration-none fw-500">{{$data->title}}</a>
                                                         
-                                                        <p class="fs-s-sm text-gray my-2 two-line-text">{!! nl2br(e($data->synopsis)) !!}</p>
+                                                        <p class="fs-s-sm description_sinopsis_all text-gray my-2 two-line-text">{!! nl2br(e($data->synopsis)) !!}</p>
                                                         <div class="d-flex">
                                                             <a href="/contribute/content/{{$data->slug}}/chapter" class="btn bg-semi-gray text-gray border-0 me-2 rounded-0 py-2 mt-2 fs-s-sm">Edit Chapter</a>
                                                             <a href="/contribute/chapter/create/{{$data->slug}}" class="btn bg-semi-gray text-gray border-0 rounded-0 py-2 mt-2 fs-s-sm">
@@ -179,7 +187,7 @@
                                                         </div>
                                                         <a class="fs-6 text-primary text-decoration-none fw-500">{{$data->title}}</a>
                                                         
-                                                        <p class="fs-s-sm text-gray my-2 two-line-text">{!! nl2br(e($data->synopsis)) !!}</p>
+                                                        <p class="fs-s-sm description_sinopsis_all text-gray my-2 two-line-text">{!! nl2br(e($data->synopsis)) !!}</p>
                                                         <div class="d-flex">
                                                             <a href="/contribute/content/update/{{$data->slug}}" class="btn bg-semi-gray text-gray border-0 me-2 rounded-0 py-2 mt-2 fs-s-sm">Update</a>
                                                         </div>
@@ -230,7 +238,7 @@
                                                         </div>
                                                         <a href="/komik/{{$data->slug}}/list" class="fs-6 text-primary text-decoration-none fw-500">{{$data->title}}</a>
                                                         
-                                                        <p class="fs-s-sm text-gray my-2 two-line-text">{!! nl2br(e($data->synopsis)) !!}</p>
+                                                        <p class="fs-s-sm description_sinopsis_all text-gray my-2 two-line-text">{!! nl2br(e($data->synopsis)) !!}</p>
                                                         <div class="d-flex">
                                                             <a href="/contribute/content/{{$data->slug}}/chapter" class="btn bg-semi-gray text-gray border-0 me-2 rounded-0 py-2 mt-2 fs-s-sm">Edit Chapter</a>
                                                             <a href="/contribute/chapter/create/{{$data->slug}}" class="btn bg-semi-gray text-gray border-0 rounded-0 py-2 mt-2 fs-s-sm">
@@ -277,7 +285,7 @@
                                                         </div>
                                                         <a class="fs-6 text-primary text-decoration-none fw-500">{{$data->title}}</a>
                                                         
-                                                        <p class="fs-s-sm text-gray my-2 two-line-text">{!! nl2br(e($data->synopsis)) !!}</p>
+                                                        <p class="fs-s-sm description_sinopsis_all text-gray my-2 two-line-text">{!! nl2br(e($data->synopsis)) !!}</p>
                                                         <div class="d-flex">
                                                             <a data-bs-toggle="modal" data-bs-target="#modalInfo" class="btn bg-semi-gray text-gray border-0 me-2 rounded-0 py-2 mt-2 fs-s-sm">Lihat Alasan</a>
                                                         </div>

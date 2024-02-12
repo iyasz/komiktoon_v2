@@ -250,11 +250,20 @@ body {
 
 }
 
+@media only screen and (max-width: 991px) {
+    .description_sinopsis_all {
+        width: 340px;
+        white-space: initial;
+    }
+
+}
+
 @media only screen and (min-width: 992px) {
 
     .panel_left {
         visibility: visible !important;
         transform: translateX(0) !important;
     }
+    
 
 }

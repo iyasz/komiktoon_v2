@@ -141,10 +141,10 @@ class ContentController extends Controller
         if($file){
 
             $validator = Validator::make($request->all(), [
-                'file' => 'max:1024|required|image|mimes:jpg,png,jpeg|dimensions:min_width=1920,min_height=320'
+                'file' => 'max:2048|required|image|mimes:jpg,png,jpeg|dimensions:min_width=1920,min_height=320'
             ],[
                 'file.required' => 'File gambar tidak boleh kosong!',
-                'file.max' => 'Tidak dapat mengunggah file lebih dari 1MB',
+                'file.max' => 'Tidak dapat mengunggah file lebih dari 2MB',
                 'file.mimes' => 'Format file salah. <br> Format file yang bisa dipakai adalah JPG, JPEG, dan PNG',
                 'file.image' => 'Format file salah. <br> Format file yang bisa dipakai adalah JPG, JPEG, dan PNG',
                 'file.dimensions' => 'Gambar harus lebih dari 1920x320 pixel!',
@@ -165,10 +165,10 @@ class ContentController extends Controller
         if($file){
 
             $validator = Validator::make($request->all(), [
-                'file' => 'max:1024|required|image|mimes:png|dimensions:min_width=1200,min_height=240'
+                'file' => 'max:2048|required|image|mimes:png|dimensions:min_width=1200,min_height=240'
             ],[
                 'file.required' => 'File gambar tidak boleh kosong!',
-                'file.max' => 'Tidak dapat mengunggah file lebih dari 1MB',
+                'file.max' => 'Tidak dapat mengunggah file lebih dari 2MB',
                 'file.mimes' => 'Format file salah. <br> Format file yang bisa dipakai adalah PNG',
                 'file.image' => 'Format file salah. <br> Format file yang bisa dipakai adalah PNG',
                 'file.dimensions' => 'Gambar harus lebih dari 1200x240 pixel!',

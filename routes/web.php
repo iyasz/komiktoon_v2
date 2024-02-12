@@ -3,6 +3,7 @@
 use App\Http\Controllers\auth\AuthController;
 use App\Http\Controllers\front\IndexController as FrontIndexController;
 use App\Http\Controllers\front\ReadController;
+use App\Http\Controllers\manage\admin\account\AccountController;
 use App\Http\Controllers\manage\admin\banner\BannerController;
 use App\Http\Controllers\manage\admin\category\CategoryController;
 use App\Http\Controllers\manage\admin\confirmation\ConfirmationController;
@@ -55,6 +56,9 @@ Route::put('/panel/komik/{slug}/block', [ContentManageController::class, 'block'
 Route::get('/panel/komik/{slug}/detail', [ContentManageController::class, 'detail']);
 
 Route::get('/panel/warning/list', [WarningController::class, 'index']);
+
+Route::get('/panel/my-account', [AccountController::class, 'index']);
+Route::put('/panel/my-account', [AccountController::class, 'update']);
 
 Route::get('/panel/takedown/content', [TakedownController::class, 'index']);
 Route::put('/panel/takedown/content/{slug}/recovery', [TakedownController::class, 'recovery']);

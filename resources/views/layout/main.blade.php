@@ -75,7 +75,7 @@
                           <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
                             <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0"/>
                             <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/>
-                          </svg> <span class='ms-2 fs-sm @yield('confirmActive')'> Confirmation</span></a>
+                          </svg> <span class='ms-2 fs-sm '> Confirmation</span></a>
                       </li>
 
                       <li class='d-flex w-100 justify-content-center'>
@@ -119,7 +119,7 @@
                   <ul class='p-0'>
                     <p class=' fs-sm mb-2 titleMenu'>Account</p>
                     <li class='d-flex w-100 justify-content-center'>
-                      <a href="/admin/account" class="navMenuButton">
+                      <a href="/panel/my-account" class="navMenuButton">
                         <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
                           <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
                         </svg> <span class='ms-2 fs-sm'>My Account</span></a>

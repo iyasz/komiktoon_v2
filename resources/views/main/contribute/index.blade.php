@@ -1,6 +1,25 @@
 @extends('layout.contribute')
 @section('dashboard-active', 'text-primary')
 
+@push('css')
+    <style>
+        .table {
+            border-collapse: separate;
+            border-spacing: 0 7px;
+        }
+
+        .table th {
+            text-align: center;
+            background-color: transparent;
+        }
+        
+        td {
+            text-align: center;
+            vertical-align: middle;
+        }
+    </style>
+@endpush
+
 @section('content')
     <div id="app" class="mb-3">
         <div class="row flex-nowrap overflow-auto">
@@ -42,7 +61,7 @@
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-7">
-                                <p class="mb-0 fs-sm">Peringatan</p>
+                                <p class="mb-0 fs-sm">Views</p>
                             </div>
                             <div class="col-5">
                                 <select name="" id="" class="form-control form-control-sm fs-s-sm p-2">
@@ -61,7 +80,7 @@
                             </div>
                             <div class="ms-3 mt-3">
                                 <p class="mb-0 fw-600">{{number_format(2400)}}</p>
-                                <p class="fs-s-sm">Jumlah Buku Dibuat</p>
+                                <p class="fs-s-sm">Jumlah Pembaca</p>
                             </div>
 
                         </div>
@@ -74,7 +93,7 @@
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-7">
-                                <p class="mb-0 fs-sm">Penghasilan</p>
+                                <p class="mb-0 fs-sm">Comments</p>
                             </div>
                             <div class="col-5">
                                 <select name="" id="" class="form-control form-control-sm fs-s-sm p-2">
@@ -93,7 +112,7 @@
                             </div>
                             <div class="ms-3 mt-3">
                                 <p class="mb-0 fw-600">{{number_format(2400)}}</p>
-                                <p class="fs-s-sm">Jumlah Buku Dibuat</p>
+                                <p class="fs-s-sm">Jumlah Total Komentar</p>
                             </div>
 
                         </div>
@@ -107,62 +126,33 @@
             <div class="col-12 px-3 ">
                 <div class="card border-0 rounded-1">
                     <div class="card-body">
+                        <h5 class="fw-600 ">Most Viewed</h5>
+                        <hr>
 
-                        <div class="border rounded-2">
-                            <ul class="nav nav-pills border-bottom mb-3 mx-lg-4 mx-auto" id="pills-tab" role="tablist">
-                                <li class="nav-item" role="presentation">
-                                    <a class="nav-link border-bottom-white rounded-0 bg-transparent py-3 text-gray fw-400 active" data-bs-toggle="pill" data-bs-target="#pills-terbit" type="button" role="tab" aria-controls="pills-terbit" aria-selected="true">Diterbitkan</a>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <a class="nav-link border-bottom-white rounded-0 bg-transparent py-3 text-gray fw-400" data-bs-toggle="pill" data-bs-target="#pills-draftku" type="button" role="tab" aria-controls="pills-draftku" aria-selected="false">Draft</a>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <a class="nav-link border-bottom-white rounded-0 bg-transparent py-3 text-gray fw-400" data-bs-toggle="pill" data-bs-target="#pills-tolak" type="button" role="tab" aria-controls="pills-tolak" aria-selected="false">Ditolak</a>
-                                </li>
-                            </ul>
-
-                            <div class="tab-content mx-lg-4 mx-2" id="pills-tabContent">
-                                <div class="tab-pane fade show active" id="pills-terbit" role="tabpanel" tabindex="0">
-                                    <div class="table-responsive">
-                                        <table class="table border-top">
-                                            <tbody>
-                                                <tr v-for="index in 3">
-                                                    <td><img src="https://i.pinimg.com/originals/73/7a/47/737a47db82a662e28a44253d58162c1f.jpg" width="150px" class="object-fit-cover" height="150px" alt=""></td>
-                                                    <td class="ps-3">
-                                                        <p class="mb-1 text-gray fs-s-sm">Fantasy, Kerajaan, Action</p>
-                                                        <a href="" class="fs-6 text-primary">Ranker's Who Return Back To School</a>
-                                                        <div class="mt-1">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="#ef6864" class="bi bi-heart-fill" viewBox="0 0 16 16">
-                                                                <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
-                                                            </svg>
-                                                            <span class="fs-s-sm ms-2 text-primary">123</span>
-                                                        </div>
-                                                        <p class="fs-s-sm text-gray my-2 two-line-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo illum minima fugiat aut neque. Sapiente fugit pariatur corrupti obcaecati vero? Ipsam a harum ipsa! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Non dicta, sint consequatur velit recusandae alias libero at dolor repudiandae fugit ab rem magni.</p>
-                                                        <div class="badge badge-success fs-s-sm fw-500">
-                                                            Active
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    
-                                </div>
-                                
-                                <div class="tab-pane height fade" id="pills-draftku" role="tabpanel" tabindex="0">
-                                    <div class="text-center">
-                                        <h4>WADUH, BELUM ADA KARYA DI DRAFT NIH ! ... BUAT YUK !</h4>
-                                    </div>
-                                </div>
-                                
-                                <div class="tab-pane height fade" id="pills-tolak" role="tabpanel" tabindex="0">
-                                    <div class="text-center">
-                                        <h4>WADUH, BELUM ADA KARYA DI TOLAK NIH ! ... BUAT YUK !</h4>
-                                    </div>
-                                </div>
-
+                            <div class="table-responsive">
+                                <table class="table table-borderless">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Thumbnail</th>
+                                            <th>Judul</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tableData">
+            
+                                        @foreach ($content as $data)
+                                        <tr class="shadow-sm">
+                                            <td>{{$loop->iteration}}</td>
+                                            <td><img src="{{Storage::url($data->thumbnail)}}" alt="photo" width="80px" height="80px" class="object-fit-cover"></td>
+                                            <td>{{$data->title}}</td>
+                                            <td>{{$data->status == 1 ? 'Berlangsung' : 'Tamat'}}</td>
+                                        </tr>
+                                        @endforeach
+                                        
+                                    </tbody>
+                                </table>
                             </div>
-                        </div>
 
                     </div>
                 </div>

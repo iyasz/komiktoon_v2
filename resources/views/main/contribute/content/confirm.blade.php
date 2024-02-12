@@ -82,12 +82,12 @@
                                                 <div class="mb-4">
                                                     <p class="text-gray mb-2 fw-500">Background Banner</p>
                                                     <input type="file" name="bg_banner" id="bg_banner_select" required class="form-control fs-sm">
-                                                    <p class="mb-0 mt-2 fs-sm text-gray">Gambar harus lebih besar dari 1920x320 pixel dan berukuran kurang dari 1MB. Hanya file JPG, JPEG, dan PNG yang bisa.</p>
+                                                    <p class="mb-0 mt-2 fs-sm text-gray">Gambar harus lebih besar dari 1920x320 pixel dan berukuran kurang dari 2MB. Hanya file JPG, JPEG, dan PNG yang bisa.</p>
                                                 </div>
                                                 <div class="mb-4">
                                                     <p class="text-gray mb-2 fw-500">Character</p>
                                                     <input type="file" name="banner" id="banner_select" required class="form-control fs-sm">
-                                                    <p class="mb-0 mt-2 fs-sm text-gray">Gambar harus lebih besar dari 1200x240 pixel dan berukuran kurang dari 1MB. Hanya file PNG yang bisa.</p>
+                                                    <p class="mb-0 mt-2 fs-sm text-gray">Gambar harus lebih besar dari 1200x240 pixel dan berukuran kurang dari 2MB. Hanya file PNG yang bisa.</p>
                                                 </div>
                                             </div>
                                             <div class="text-end mb-3">
@@ -134,7 +134,7 @@
             let file = fileInput.files[0];
             const preview = $('.header-input-bg-banner');
 
-            if (file && file.size > (1024 * 1024)) {
+            if (file && file.size > (2048 * 1024)) {
                 fileInput.value = '';
                 $('#alertModal').modal('show')
                 $('#alertModal .modal-content p').html('Tidak dapat mengunggah file lebih dari 1MB')

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->uuid('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->uuid('content_id')->nullable();
-            $table->foreign('content_id')->references('id')->on('chapters');
+            $table->foreign('content_id')->references('id')->on('contents');
             $table->timestamps();
         });
     }

@@ -27,7 +27,7 @@ class ReadController extends Controller
         
         $firstChapter = Chapter::orderBy('created_at', 'desc')->where('content_id', $content->id)->first();
 
-        $commentCount = Comment::where('user_id', $content->user_id)->where('content_id', $content->id)->count();
+        $commentCount = Comment::where('content_id', $content->id)->count();
         $getAllComment = Comment::where('content_id', $content->id)->orderBy('created_at', 'desc')->get();
         
         $totalRatings = Rating::where('content_id', $content->id)->count();
@@ -106,28 +106,34 @@ class ReadController extends Controller
     
     public function chapter($slugContent, $slugChapter) {
         $content = Content::where('slug', $slugContent)->where('status', 3)->first();
-        
+
         if(!$content){
             abort(404);
         }
-        
+
         $chapter = Chapter::where('content_id', $content->id)->where('slug', $slugChapter)->first();
         
         if(!$chapter){
             abort(404);
         }
 
-        // if(Auth::user()){
-        //     $hasHistory = Histories::where('user_id', Auth::user()->id)->where('content_id', $content->id)->first();
-        //     if(!$hasHistory){
-        //         $kanjut = new Histories();
-        //         $kanjut->user_id = Auth::user()->id;
-        //         $kanjut->content_id = $content->id;
-        //         $kanjut->save();
-        //     }
-        // }
+        if(Auth::user()){
+            $hasHistory = Histories::where('user_id', Auth::user()->id)->where('content_id', $content->id)->first();
+
+            if(!$hasHistory){
+                $testing = new Histories();
+                $testing->user_id = Auth::user()->id;
+                $testing->content_id = $content->id;
+                $testing->save();
+            }
+
+        }
+
         
         $view = new View();
+        if(Auth::user()){
+            $view->user_id = Auth::user()->id;
+        }
         $view->chapter_id = $chapter->id;
         $view->save();
         

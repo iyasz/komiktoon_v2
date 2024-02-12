@@ -9,7 +9,7 @@
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-7">
-                                <p class="mb-0 fs-sm">New Sales Order</p>
+                                <p class="mb-0 fs-sm">Komik Aktif</p>
                             </div>
                             <div class="col-5">
                                 <select name="" id="" class="form-control form-control-sm fs-s-sm p-2">
@@ -28,7 +28,7 @@
                             </div>
                             <div class="ms-3 mt-3">
                                 <p class="mb-0 fw-600">{{number_format(2400)}}</p>
-                                <p class="fs-s-sm">Jumlah Buku Dibuat</p>
+                                <p class="fs-s-sm">Jumlah Komik Aktif</p>
                             </div>
 
                         </div>
@@ -41,7 +41,7 @@
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-7">
-                                <p class="mb-0 fs-sm">New Sales Order</p>
+                                <p class="mb-0 fs-sm">Takedown</p>
                             </div>
                             <div class="col-5">
                                 <select name="" id="" class="form-control form-control-sm fs-s-sm p-2">
@@ -60,7 +60,7 @@
                             </div>
                             <div class="ms-3 mt-3">
                                 <p class="mb-0 fw-600">{{number_format(2400)}}</p>
-                                <p class="fs-s-sm">Jumlah Buku Dibuat</p>
+                                <p class="fs-s-sm">Jumlah Takedown</p>
                             </div>
 
                         </div>
@@ -73,7 +73,7 @@
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-7">
-                                <p class="mb-0 fs-sm">New Sales Order</p>
+                                <p class="mb-0 fs-sm">Laporan</p>
                             </div>
                             <div class="col-5">
                                 <select name="" id="" class="form-control form-control-sm fs-s-sm p-2">
@@ -92,7 +92,7 @@
                             </div>
                             <div class="ms-3 mt-3">
                                 <p class="mb-0 fw-600">{{number_format(2400)}}</p>
-                                <p class="fs-s-sm">Jumlah Buku Dibuat</p>
+                                <p class="fs-s-sm">Laporan aktif</p>
                             </div>
 
                         </div>
@@ -139,8 +139,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Content</th>
-                                <th>Type</th>
-                                <th>Group</th>
+                                <th>Status</th>
                                 <th>Author</th>
                                 <th></th>
                             </tr>
@@ -164,7 +163,6 @@
                                         Manhwa
                                     </div>
                                 </td>
-                                <td>Toei Animation</td>
                                 <td>Queen Elsa</td>
                              
                                 <td>
