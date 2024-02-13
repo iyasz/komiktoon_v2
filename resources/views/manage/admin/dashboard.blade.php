@@ -1,4 +1,5 @@
 @extends('layout.main')
+@section('active-dashboard', 'text-primary')
 
 @section('content')
     <div id="app">

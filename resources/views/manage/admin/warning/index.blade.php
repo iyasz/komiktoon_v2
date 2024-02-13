@@ -1,4 +1,5 @@
 @extends('layout.main')
+@section('active-warning', 'text-primary')
     
 @section('content')
 

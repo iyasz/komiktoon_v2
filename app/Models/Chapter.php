@@ -29,4 +29,5 @@ class Chapter extends Model
     {
         return $this->hasMany(Like::class);
     }
+    
 }

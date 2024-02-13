@@ -57,6 +57,8 @@ Route::get('/panel/komik/{slug}/detail', [ContentManageController::class, 'detai
 
 Route::get('/panel/warning/list', [WarningController::class, 'index']);
 
+Route::post('/panel/admin/getvalidationimage', [IndexController::class, 'handleValidateImage']);
+
 Route::get('/panel/my-account', [AccountController::class, 'index']);
 Route::put('/panel/my-account', [AccountController::class, 'update']);
 
@@ -80,6 +82,9 @@ Route::post('/contribute/content/create', [ContentController::class, 'getValidat
 Route::delete('/contribute/content/{slug}/delete', [ContentController::class, 'handleDeleteContent']);
 
 Route::get('/contribute/content/{slug}/chapter', [ChapterController::class, 'handleListChapter']);
+Route::get('/contribute/content/{slug}/edit', [ContentController::class, 'handleEditContent']);
+Route::post('/contribute/content/{slug}/edit', [ContentController::class, 'handleUpdateContent']);
+Route::get('/contribute/content/{slugContent}/{slugChapter}/edit', [ChapterController::class, 'handleListChapter']);
 
 Route::get('/contribute/content/update/{slug}', [ContentController::class, 'handleUpdateConfirmed']);
 Route::post('/contribute/content/update/{slug}', [ContentController::class, 'handleBgBannerValidation']);

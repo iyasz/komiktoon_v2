@@ -1,5 +1,6 @@
 @extends('layout.main')
-@section('confirmActive', 'text-primary')
+@section('active-confirmation', 'text-primary')
+
 
 @section('content')
 <div class="modal fade" id="reportModal" aria-hidden="true" tabindex="-1">

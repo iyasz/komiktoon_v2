@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class AccountController extends Controller
 {
@@ -22,6 +23,7 @@ class AccountController extends Controller
         ],[
             'name.required' => 'Nama tidak boleh kosong!',
             'email.required' => 'Nama tidak boleh kosong!',
+            'password.confirmed' => 'Password tidak cocok!',
             
             'photo.max' => 'Size Avatar terlalu besar!',
             'photo.mimes' => 'Avatar harus jpeg, png, jpg!',
@@ -31,6 +33,10 @@ class AccountController extends Controller
 
         $user->name = $request->name;
         $user->email = $request->email;
+        if($request->photo){
+            Storage::disk('public')->delete(Auth::user()->photo);   
+            $user->photo = $request->photo->store('avatar','public');
+        }
         $user->password = password_hash($request->password, PASSWORD_BCRYPT);
         $user->update();
 

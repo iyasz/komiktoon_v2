@@ -88,8 +88,12 @@ td {
 }
 
 .navMenuButton:hover{
-    background: var(--var-primary);
-    color: #fff;
+    background: var(--var-primary) !important;
+    color: #fff !important;
+}
+
+.navMenuButton:hover > svg, .navMenuButton:hover > span{
+    color: #fff !important;
 }
 
 /* ======= END SIDERBAR CONTENT =======  */

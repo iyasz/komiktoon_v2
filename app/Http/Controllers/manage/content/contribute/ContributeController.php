@@ -3,18 +3,57 @@
 namespace App\Http\Controllers\manage\content\contribute;
 
 use App\Http\Controllers\Controller;
+use App\Models\Comment;
 use App\Models\Content;
 use App\Models\Like;
+use App\Models\User;
+use App\Models\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ContributeController extends Controller
 {
     public function index() {
-        $content = Content::get();
-        $like = Content::where('user_id', Auth::user()->id);
 
-        return view('main.contribute.index', compact('content'));
+        $totalContentsWithMostViews = Content::select('contents.*')
+        ->join('chapters', 'contents.id', '=', 'chapters.content_id')
+        ->join('views', 'chapters.id', '=', 'views.chapter_id')
+        ->where('contents.status', 3)
+        ->where('contents.user_id', Auth::user()->id)
+        ->select('contents.*', DB::raw('COUNT(views.id) AS view_count'))
+        ->groupBy('contents.id')
+        ->orderByDesc('view_count')
+        ->take(10)
+        ->get();
+
+        // dd($totalContentsWithMostViews);
+    
+    
+        $contentIds = User::find(Auth::user()->id)->contents()->where('status', 3)->pluck('id');
+
+        $totalLikes = Like::whereIn('chapter_id', function ($query) use ($contentIds) {
+            $query->select('id')
+                  ->from('chapters')
+                  ->whereIn('content_id', $contentIds);
+        })->count();
+
+        $totalViews = View::whereIn('chapter_id', function ($query) use ($contentIds) {
+            $query->select('id')
+                  ->from('chapters')
+                  ->whereIn('content_id', $contentIds);
+        })->count();
+
+        $totalComments = Comment::whereIn('content_id', function($query) {
+            $query->select('id')
+                ->from('contents')
+                ->where('status', 3)
+                ->where('user_id', Auth::user()->id);
+        })
+        ->count();
+
+
+        return view('main.contribute.index', compact('totalLikes', 'totalViews', 'totalComments', 'totalContentsWithMostViews'));
     }
 
     public function report() {

@@ -299,5 +299,72 @@ class ContentController extends Controller
 
     }
 
+    public function handleEditContent($slug) {
+        $content = Content::where('slug', $slug)->whereNot('status', 4)->whereNot('status', 5)->first();
+        $categoryDetails = CategoryDetail::where('content_id', $content->id)->get();
+        
+        $genre = Category::all();
+        return view('main.contribute.content.edit', compact('genre', 'content', 'categoryDetails'));
+    }
+    
+    public function handleUpdateContent(Request $request, $slug) {
+        $content = Content::where('slug', $slug)->whereNot('status', 4)->whereNot('status', 5)->first();
+
+        $request->validate([
+            'author' => 'required|max:50|string',
+            'title' => 'required|max:50|string|unique:contents,title,' . $content->id,
+            'radioGenre' => ['required', 'array', 'max:3'],
+            'synopsis' => 'required|max:500|string',
+            'thumbnail' => 'nullable|max:500|mimes:jpeg,png,jpg|image|dimensions:min_width=840,min_height=840',
+        ],[
+            'author.required' => 'Author tidak boleh kosong!',
+            'author.max' => 'Nama author terlalu panjang!',
+
+            'title.required' => 'Judul serial tidak boleh kosong!',
+            'title.max' => 'Judul serial terlalu panjang!',
+            'title.unique' => 'Judul serial sudah ada!',
+            
+            'radioGenre.required' => 'Genre tidak boleh kosong!',
+            
+            'synopsis.required' => 'Sinopsis tidak boleh kosong!',
+            'synopsis.max' => 'Sinopsis terlalu panjang!',
+
+            'thumbnail.max' => 'Tidak dapat mengunggah file lebih dari 500KB',
+            'thumbnail.mimes' => 'Format file harus JPG, JPEG, dan PNG',
+            'thumbnail.image' => 'Format file harus JPG, JPEG, dan PNG',
+            'thumbnail.dimensions' => 'Gambar harus lebih dari 840x840 pixel!',
+        ]);
+
+        
+        // content update 
+        $content->author = $request->author;
+        $content->title = $request->title;
+        $slug = $content->slug = Str::slug($request->title);
+        $content->synopsis = $request->synopsis;
+
+        if($request->thumbnail){
+            Storage::disk('public')->delete($content->thumbnail);   
+            $content->thumbnail = $request->thumbnail->store('contents/thumbnail', 'public');
+        }
+
+        $contentId = $content->id;
+        
+        // genre detail update 
+        $content->genreDetail()->delete(); 
+        
+        $genreData = $request->radioGenre;
+        
+        foreach($genreData as $data){
+            $genreDetail = new CategoryDetail();
+            $genreDetail->content_id = $content->id;
+            $genreDetail->category_id = $data;
+            $genreDetail->save();
+        }
+
+        $content->update();
+
+        return redirect('/contribute/content/'.$content->slug.'/chapter')->with('success', 'Serial berhasil dibuat!');
+        
+    }
 
 }

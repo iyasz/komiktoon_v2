@@ -47,7 +47,7 @@
                                 </svg>    
                             </div>
                             <div class="ms-3 mt-3">
-                                <p class="mb-0 fw-600">{{number_format(2400)}}</p>
+                                <p class="mb-0 fw-600">{{number_format($totalLikes)}}</p>
                                 <p class="fs-s-sm">Jumlah Seluruh Like</p>
                             </div>
 
@@ -79,7 +79,7 @@
                                 </svg>    
                             </div>
                             <div class="ms-3 mt-3">
-                                <p class="mb-0 fw-600">{{number_format(2400)}}</p>
+                                <p class="mb-0 fw-600">{{number_format($totalViews)}}</p>
                                 <p class="fs-s-sm">Jumlah Pembaca</p>
                             </div>
 
@@ -111,7 +111,7 @@
                                 </svg>    
                             </div>
                             <div class="ms-3 mt-3">
-                                <p class="mb-0 fw-600">{{number_format(2400)}}</p>
+                                <p class="mb-0 fw-600">{{number_format($totalComments)}}</p>
                                 <p class="fs-s-sm">Jumlah Total Komentar</p>
                             </div>
 
@@ -141,7 +141,7 @@
                                     </thead>
                                     <tbody id="tableData">
             
-                                        @foreach ($content as $data)
+                                        @foreach ($totalContentsWithMostViews as $data)
                                         <tr class="shadow-sm">
                                             <td>{{$loop->iteration}}</td>
                                             <td><img src="{{Storage::url($data->thumbnail)}}" alt="photo" width="80px" height="80px" class="object-fit-cover"></td>

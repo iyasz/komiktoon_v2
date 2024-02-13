@@ -128,7 +128,14 @@ class ChapterController extends Controller
     }
 
     public function handleListChapter(Request $request, $slug) {
-        return view('main.contribute.chapter.list');
+        $content = Content::where('user_id', Auth::user()->id)->where('slug', $slug)->whereNot('status', 4)->whereNot('status', 5)->first();
+
+        if(!$content){
+            abort(404);
+        }
+        
+
+        return view('main.contribute.chapter.list', compact('content'));
     }
 
 }

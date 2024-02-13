@@ -1,14 +1,6 @@
 @extends('layout.contribute')
 @section('content-active', 'text-primary')
 
-@push('css')
-    <style>
-        .nav.nav-pills{
-            
-        }
-    </style>
-@endpush
-
 @section('content')
     <div id="app" class="mb-3">
         <div class="row flex-nowrap overflow-auto">
@@ -120,23 +112,20 @@
                             <div class="tab-content mx-lg-4 mx-2" id="pills-tabContent">
                                 <div class="tab-pane height fade show active" id="pills-draftku" role="tabpanel" tabindex="0">
                                     <div class="table-responsive">
-                                        <table class="table border-top">
+                                        <table class="table border-top ">
                                             <tbody>
                                                 @if ($draftContent->count() != 0)                                      
                                                 @foreach ($draftContent as $data)
                                                 <tr>
                                                     <td><img src="{{Storage::url($data->thumbnail)}}" width="170px" class="object-fit-cover" height="170px" alt=""></td>
-                                                    <td class="ps-3">
+                                                    <td class="ps-3 ">
                                                         <div class="d-flex">
                                                             <p class="mb-1 text-gray fs-s-sm ">
                                                                 {{$data->genreDetail->pluck('genre.name')->implode(', ')}}
                                                             </p>
                                                             <div class="ms-auto d-flex text-decoration-none">
-                                                                <a href="" class="text-gray text-decoration-none">
+                                                                <a href="/contribute/content/{{$data->slug}}/edit" class="text-gray text-decoration-none me-3">
                                                                     <i class="bi bi-pencil"></i>
-                                                                </a>
-                                                                <a href="" class="text-gray text-decoration-none mx-2">
-                                                                    <i class="bi bi-three-dots"></i>
                                                                 </a>
                                                                 <form action="/contribute/content/{{$data->slug}}/delete" method="post">
                                                                     @csrf
@@ -173,13 +162,13 @@
                                 </div>
                                 <div class="tab-pane height fade" id="pills-confirmed" role="tabpanel" tabindex="0">
                                     <div class="table-responsive">
-                                        <table class="table border-top">
+                                        <table class="table border-top ">
                                             <tbody>
                                                 @if ($confirmedContent->count() != 0)                                      
                                                 @foreach ($confirmedContent as $data)
                                                 <tr>
                                                     <td><img src="{{Storage::url($data->thumbnail)}}" width="170px" class="object-fit-cover" height="170px" alt=""></td>
-                                                    <td class="ps-3">
+                                                    <td class="ps-3 " style="text-align:left">
                                                         <div class="d-flex">
                                                             <p class="mb-1 text-gray fs-s-sm ">
                                                                 {{$data->genreDetail->pluck('genre.name')->implode(', ')}}
@@ -209,23 +198,20 @@
                                 
                                 <div class="tab-pane height fade" id="pills-terbit" role="tabpanel" tabindex="0">
                                     <div class="table-responsive">
-                                        <table class="table border-top">
+                                        <table class="table border-top ">
                                             <tbody>
                                                 @if ($terbitContent->count() != 0)                                      
                                                 @foreach ($terbitContent as $data)
                                                 <tr>
                                                     <td><img src="{{Storage::url($data->thumbnail)}}" width="170px" class="object-fit-cover" height="170px" alt=""></td>
-                                                    <td class="ps-3">
+                                                    <td class="ps-3 ">
                                                         <div class="d-flex">
                                                             <p class="mb-1 text-gray fs-s-sm ">
                                                                 {{$data->genreDetail->pluck('genre.name')->implode(', ')}}
                                                             </p>
                                                             <div class="ms-auto d-flex text-decoration-none">
-                                                                <a href="" class="text-gray text-decoration-none">
+                                                                <a href="/contribute/content/{{$data->slug}}/edit" class="text-gray text-decoration-none me-3">
                                                                     <i class="bi bi-pencil"></i>
-                                                                </a>
-                                                                <a href="" class="text-gray text-decoration-none mx-2">
-                                                                    <i class="bi bi-three-dots"></i>
                                                                 </a>
                                                                 <form action="/contribute/content/{{$data->slug}}/delete" method="post">
                                                                     @csrf
@@ -262,13 +248,13 @@
 
                                 <div class="tab-pane height fade" id="pills-tolak" role="tabpanel" tabindex="0">
                                     <div class="table-responsive">
-                                        <table class="table border-top">
+                                        <table class="table border-top ">
                                             <tbody>
                                                 @if ($rejectedContent->count() != 0)                                      
                                                 @foreach ($rejectedContent as $data)
                                                 <tr>
                                                     <td><img src="{{Storage::url($data->thumbnail)}}" width="170px" class="object-fit-cover" height="170px" alt=""></td>
-                                                    <td class="ps-3">
+                                                    <td class="ps-3 ">
                                                         <div class="d-flex">
                                                             <p class="mb-1 text-gray fs-s-sm ">
                                                                 {{$data->genreDetail->pluck('genre.name')->implode(', ')}}

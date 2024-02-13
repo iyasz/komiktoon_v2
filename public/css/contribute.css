@@ -210,6 +210,20 @@ body {
 /* ===== END CONFIRM UPDATE SECTION ===== */
 
 
+/* ===== LIST CHAPTER SECTION ===== */
+
+.header_content_view h4 {
+    width: 400px;
+}
+
+.table-left-align {
+    margin-left: 0; 
+    margin-right: auto; 
+}
+
+/* ===== END LIST CHAPTER SECTION ===== */
+
+
 @media only screen and (max-width: 991px) {
 
     td {

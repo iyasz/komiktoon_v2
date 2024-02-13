@@ -1,4 +1,7 @@
 @extends('layout.main')
+@section('active-content', 'text-primary')
+@section('active-content-show', 'show')
+@section('active-content-cateogry', 'text-primary') 
 
 @section('content')
     <div id="app">
@@ -35,7 +38,7 @@
                                 @error('name')<p class="fs-s-sm text-danger mt-2 mb-0">{{$message}}</p>@enderror
                             </div>
                             <div class="text-end">
-                                <button class="btn btn-primary rounded-1 px-3 py-2 border-0 fs-sm ">Submit</button>
+                                <button class="btn btn-primary rounded-1 px-3 py-2 border-0 fs-sm " id="btnSubmitGenre">Submit</button>
                             </div>
                         </div>
                     </div>
@@ -57,7 +60,7 @@
                                     </div>
                                 </div>
                                 @error('photo')<p class="fs-s-sm text-danger mt-2 mb-0">{{$message}}</p>@enderror
-                                <p class="fs-sm text-gray mt-2 mb-0">Gambar harus kurang dari 1 MB. <br> Hanya file JPG, JPEG, dan PNG <br> yang diizinkan.</p>
+                                <p class="fs-sm text-gray mt-2 mb-0">Gambar harus kurang dari 1 MB. <br> Gambar harus atau lebih dari <br> 840x840. Hanya file JPG, JPEG, <br>dan PNG  yang diizinkan.</p>
                             </div>
 
                         </div>
@@ -68,6 +71,21 @@
 
     </div>
 
+    <div class="modal" id="alertModal" aria-hidden="true" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content border-0">
+            <div class="modal-body py-5">
+              <div class="text-center">
+                <p class="text-gray"></p>
+              </div>
+              <div class="d-flex justify-content-center mt-4 mx-3">
+                  <button class="btn bg-dark text-white py-3 px-5 border-0 rounded-pill" data-bs-dismiss="modal">YA</button>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
 @endsection
 
 @push('javascript')
@@ -76,27 +94,69 @@
             $('#square_thumbnail').click()
         })
 
+  
         $('#square_thumbnail').on('change', function () {
 
+        let fileInput = document.getElementById('square_thumbnail');
+        let file = fileInput.files[0];
+        const preview = $('.square_thumbnail_show .imagePreview');
 
-            const input = document.getElementById('square_thumbnail');
-            const preview = $('.square_thumbnail_show .imagePreview');
-            const file = input.files[0];
+        if (file && file.size > (500 * 1024)) { 
+            fileInput.value = '';
+            preview.addClass('d-none')
+            preview.attr('src', '');
+            $('#alertModal').modal('show')
+            $('#alertModal .modal-content p').html('Tidak dapat mengunggah file lebih dari 500KB')
+        }else {
+            let data = new FormData();
+            data.append('file', file);
 
-            if (file) {
-                const reader = new FileReader();
+            axios.post('/panel/admin/getvalidationimage',data).then(function (response) {
+                if(response.data.error){
+                    fileInput.value = '';
+                    preview.addClass('d-none')
+                    preview.attr('src', '');
+                    $('#alertModal').modal('show')
+                    $('#alertModal .modal-content p').html(response.data.error)
+                }else{
+                    const input = document.getElementById('square_thumbnail');
+                    const file = input.files[0];
 
-                preview.removeClass('d-none');
+                    if (file) {
+                        const reader = new FileReader();
 
-                reader.onload = function (e) {
-                    preview.attr('src', e.target.result);
-                };
+                        preview.removeClass('d-none');
+                        reader.onload = function (e) {
+                            preview.attr('src', e.target.result);
+                        };
 
-                reader.readAsDataURL(file);
-            } else {
-                
-            }
+                        reader.readAsDataURL(file);
+                    } else {
+                        preview.addClass('d-none')
+                        preview.attr('src', '');
+                    }
+                }
+            });
+
+        }
+
         });
+
+        $('#btnSubmitGenre').click(function() {
+            var fileInput = $('#square_thumbnail')[0];
+
+            if (fileInput.files.length === 0) {
+                $('#alertModal').modal('show');
+                $('#alertModal .modal-content p').html('File gambar tidak boleh kosong!');
+                return false;
+            }
+
+            $(this).attr('disabled', 'disabled');
+            $(this).closest('form').submit();
+        });
+
+
+// end image 
 
 
     </script>

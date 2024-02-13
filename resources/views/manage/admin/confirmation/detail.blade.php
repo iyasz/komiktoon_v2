@@ -1,5 +1,5 @@
 @extends('layout.main')
-@section('confirmActive', 'text-primary')
+@section('active-confirmation', 'text-primary')
 
 @section('content')
 

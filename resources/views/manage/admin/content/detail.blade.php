@@ -1,4 +1,7 @@
 @extends('layout.main')
+@section('active-content', 'text-primary')
+@section('active-content-show', 'show')
+@section('active-content-komik', 'text-primary')
 
 @section('content')
 

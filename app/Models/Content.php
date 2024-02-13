@@ -30,6 +30,11 @@ class Content extends Model
         return $this->hasMany(Chapter::class);
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function rejected()
     {
         return $this->hasMany(Rejected::class, 'content_id', 'id');

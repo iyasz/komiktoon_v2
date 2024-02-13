@@ -1,4 +1,5 @@
 @extends('layout.main')
+@section('active-takedown', 'text-primary')
     
 @section('content')
 

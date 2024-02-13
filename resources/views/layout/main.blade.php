@@ -46,9 +46,9 @@
                     <p class='titleMenu fs-sm mb-2'>Dashboard</p>
                     <li class='d-flex w-100 justify-content-center'>
                       <a href="/panel/admin/dashboard" class="navMenuButton">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-grid" viewBox="0 0 16 16">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-grid @yield('active-dashboard')" viewBox="0 0 16 16">
                       <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zM2.5 2a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zM1 10.5A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"/>
-                      </svg> <span class='ms-2 fs-sm'>Dashboard</span></a>
+                      </svg> <span class='ms-2 fs-sm @yield('active-dashboard')'>Dashboard</span></a>
                     </li>
                   </ul> 
             
@@ -56,55 +56,55 @@
                     <p class='titleMenu fs-sm mb-2'>Main Menu</p>
                     <li class='d-flex w-100 justify-content-center mt-1'>
                       <a class="navMenuButton" data-bs-toggle="collapse" href="#collapseContent">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-book" viewBox="0 0 16 16">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-book @yield('active-content')" viewBox="0 0 16 16">
                           <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
-                        </svg> <span class='ms-2 fs-sm'>Content</span></a>
+                        </svg> <span class='ms-2 fs-sm @yield('active-content')'>Content</span></a>
 
                         
                       </li>
 
-                      <div class="collapse justify-content-center text-center" id="collapseContent">
+                      <div class="collapse justify-content-center @yield('active-content-show') text-center" id="collapseContent">
                         <div class="text-start">
-                          <a href="/panel/komik/list" class="text-decoration-none opacity-75 fs-sm text-gray me-4 d-block py-2 mt-1">Komik</a>
-                            <a href="/panel/category" class="text-decoration-none opacity-75 fs-sm text-gray me-4 d-block py-2 mt-1">Category</a>
+                          <a href="/panel/komik/list" class="text-decoration-none opacity-75 fs-sm @yield('active-content-komik', 'text-gray')  me-4 d-block py-2 mt-1">Komik</a>
+                            <a href="/panel/category" class="text-decoration-none opacity-75 fs-sm @yield('active-content-cateogry', 'text-gray') me-4 d-block py-2 mt-1">Category</a>
                         </div>
                       </div>
 
                       <li class='d-flex w-100 justify-content-center'>
                         <a href="/panel/confirmation/content" class="navMenuButton">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-check2-circle @yield('active-confirmation')" viewBox="0 0 16 16">
                             <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0"/>
                             <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/>
-                          </svg> <span class='ms-2 fs-sm '> Confirmation</span></a>
+                          </svg> <span class='ms-2 fs-sm @yield('active-confirmation')'> Confirmation</span></a>
                       </li>
 
                       <li class='d-flex w-100 justify-content-center'>
                         <a href="/panel/takedown/content" class="navMenuButton">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-x-circle @yield('active-takedown')" viewBox="0 0 16 16">
                             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
                             <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
-                          </svg> <span class='ms-2 fs-sm'> Takedown</span></a>
+                          </svg> <span class='ms-2 fs-sm @yield('active-takedown')'> Takedown</span></a>
                       </li>
 
-                    <li class='d-flex w-100 justify-content-center'>
+                    {{-- <li class='d-flex w-100 justify-content-center'>
                       <a href="/admin/report" class="navMenuButton">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-clipboard-pulse" viewBox="0 0 16 16">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-clipboard-pulse @yield('active-report')" viewBox="0 0 16 16">
                           <path fill-rule="evenodd" d="M10 1.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-1Zm-5 0A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5v1A1.5 1.5 0 0 1 9.5 4h-3A1.5 1.5 0 0 1 5 2.5v-1Zm-2 0h1v1H3a1 1 0 0 0-1 1V14a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V3.5a1 1 0 0 0-1-1h-1v-1h1a2 2 0 0 1 2 2V14a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2Zm6.979 3.856a.5.5 0 0 0-.968.04L7.92 10.49l-.94-3.135a.5.5 0 0 0-.895-.133L4.232 10H3.5a.5.5 0 0 0 0 1h1a.5.5 0 0 0 .416-.223l1.41-2.115 1.195 3.982a.5.5 0 0 0 .968-.04L9.58 7.51l.94 3.135A.5.5 0 0 0 11 11h1.5a.5.5 0 0 0 0-1h-1.128L9.979 5.356Z"/>
-                        </svg> <span class='ms-2 fs-sm'> Report</span></a>
-                    </li>
+                        </svg> <span class='ms-2 fs-sm @yield('active-report')'> Report</span></a>
+                    </li> --}}
                     <li class='d-flex w-100 justify-content-center mt-1'>
                       <a href="/panel/warning/list" class="navMenuButton">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-exclamation-triangle" viewBox="0 0 16 16">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-exclamation-triangle @yield('active-warning')" viewBox="0 0 16 16">
                           <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
                           <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"/>
-                        </svg> <span class='ms-2 fs-sm'>Warning</span></a>
+                        </svg> <span class='ms-2 fs-sm @yield('active-warning')'>Warning</span></a>
                     </li>
 
                     <li class='d-flex w-100 justify-content-center mt-1'>
                       <a class="navMenuButton" data-bs-toggle="collapse" href="#collapseOther">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-three-dots @yield('active-other')" viewBox="0 0 16 16">
                           <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
-                        </svg> <span class='ms-2 fs-sm'>Other</span></a>
+                        </svg> <span class='ms-2 fs-sm @yield('active-other')'>Other</span></a>
                       </li>
 
                       <div class="collapse justify-content-center text-center" id="collapseOther">
@@ -120,9 +120,9 @@
                     <p class=' fs-sm mb-2 titleMenu'>Account</p>
                     <li class='d-flex w-100 justify-content-center'>
                       <a href="/panel/my-account" class="navMenuButton">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-person @yield('active-account')" viewBox="0 0 16 16">
                           <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
-                        </svg> <span class='ms-2 fs-sm'>My Account</span></a>
+                        </svg> <span class='ms-2 fs-sm @yield('active-account')'>My Account</span></a>
                     </li>
                     <li class='d-flex w-100 justify-content-center mt-1'>
                       <a href="/logout" class="navMenuButton">
@@ -158,9 +158,7 @@
                               </div>
                             </li>
                             <hr class="my-2">
-                            <li><a href="/wishlist" class="dropdown-item py-2 opacity-75 fs-s-sm"><i class="bi bi-heart mx-3"></i> My Wishlist</a></li>
-                            <li><a href="/cart" class="dropdown-item py-2 opacity-75 fs-s-sm"><i class="bi bi-cart mx-3"></i> My Account</a></li>
-                            <li><a href="/order" class="dropdown-item py-2 opacity-75 fs-s-sm"><i class="bi bi-clock-history mx-3"></i> Order History</a></li>
+                            <li><a href="/panel/my-account" class="dropdown-item py-2 opacity-75 fs-s-sm"><i class="bi bi-person mx-3"></i> My Account</a></li>
                             <hr class="my-2">
                             <li><a href="/logout" class="dropdown-item py-2 opacity-75 fs-s-sm"><i class="bi bi-box-arrow-right mx-3"></i> Logout</a></li>
                           </ul>

@@ -26,6 +26,11 @@ class User extends Authenticatable
         return 'string';
     }
 
+    public function contents()
+    {
+        return $this->hasMany(Content::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *
