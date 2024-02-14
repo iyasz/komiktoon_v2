@@ -1,7 +1,7 @@
 @extends('layout.main')
-@section('active-content', 'text-primary')
-@section('active-content-show', 'show')
-@section('active-content-cateogry', 'text-primary') 
+@section('active-other', 'text-primary')
+@section('active-banner-show', 'show')
+@section('active-content-banner', 'text-primary')
 
 @section('content')
     <div id="app" class="mb-3">
@@ -12,8 +12,8 @@
                         <div class="row justify-content-between">
                             <div class="col-md-4 col-9 pe-0">
                                 <div class="d-flex align-items-center">
-                                    <a href="/panel/category" class="btn btn-primary border-0 rounded-1"><i class="bi bi-chevron-left"></i></a>
-                                    <p class="mb-0 fs-5 ms-4 fw-500">Category</p>
+                                    <a href="/panel/background/auth" class="btn btn-primary border-0 rounded-1"><i class="bi bi-chevron-left"></i></a>
+                                    <p class="mb-0 fs-5 ms-4 fw-500">Banner</p>
                                 </div>
                             </div>
 
@@ -28,14 +28,16 @@
             @csrf
 
             <div class="row">
-                <div class="col-md-8 col-12 ps-3 pe-md-0 pe-3 order-md-0 order-1 mt-md-0 mt-3">
+                <div class="col-md-5 col-12 ps-3 pe-md-0 pe-3 order-md-0 order-1 mt-md-0 mt-3">
 
                     <div class="card border-0 rounded-1">
                         <div class="card-body">
                             <div class="mb-4 position-relative">
-                                <p class="text-gray mb-2 fw-500">Judul Category <span class="fs-s-sm opacity-50">(Genre)</span></p>
-                                <input type="text" class="form-control fs-sm" name="name" value="{{old('name')}}" required placeholder="Kurang dari 25 huruf">
-                                @error('name')<p class="fs-s-sm text-danger mt-2 mb-0">{{$message}}</p>@enderror
+                                <p class="text-gray mb-2 fw-500">File Banner</p>
+                                <input type="file" name="photo" id="square_thumbnail" class="form-control" >
+                                {{-- <input type="text" class="form-control fs-sm" name="name" value="{{old('name')}}" required placeholder="Kurang dari 25 huruf"> --}}
+                                <p class="fs-sm text-gray mt-3 mb-0">Gambar harus kurang dari 1 MB.  Gambar harus lebih dari  840x840. Hanya file JPG, JPEG, dan PNG  yang diizinkan.</p>
+                                @error('photo')<p class="fs-s-sm text-danger mt-2 mb-0">{{$message}}</p>@enderror
                             </div>
                             <div class="text-end">
                                 <button class="btn btn-primary rounded-1 px-3 py-2 border-0 fs-sm " id="btnSubmitGenre">Submit</button>
@@ -45,22 +47,17 @@
 
                 </div>
 
-                <div class="col-md-4 col-12 ps-3 pe-3 order-md-1 order-0 ">
+                <div class="col-md-7 col-12 ps-3 pe-3 order-md-1 order-0 ">
 
                     <div class="card border-0 rounded-1">
                         <div class="card-body">
                             <div class="position-relative">
-                                <p class="text-gray mb-2 fw-500">Banner</p>
-                                <input type="file" name="photo" id="square_thumbnail" class="d-none" >
-                                <div class="square_thumbnail_show">
-                                    <img src="" alt="banner" class="imagePreview d-none">
-                                    <div class="text-center">
-                                        <i class="bi bi-cloud-arrow-up fs-1 opacity-50"></i>
-                                        <p class="fs-sm text-gray">Pilih gambar untuk diunggah disini.</p>
-                                    </div>
+                                <p class="text-gray mb-2 fw-500">Preview</p>
+                                <div class="banner_thumbnail_show">
+                                    <img src="" width="100%" height="100%" alt="banner" class="imagePreview d-none">
                                 </div>
                                 @error('photo')<p class="fs-s-sm text-danger mt-2 mb-0">{{$message}}</p>@enderror
-                                <p class="fs-sm text-gray mt-2 mb-0">Gambar harus kurang dari 1 MB. <br> Gambar harus atau lebih dari <br> 840x840. Hanya file JPG, JPEG, <br>dan PNG  yang diizinkan.</p>
+                         
                             </div>
 
                         </div>
@@ -90,16 +87,13 @@
 
 @push('javascript')
     <script>
-        $('.square_thumbnail_show').on('click', function(){
-            $('#square_thumbnail').click()
-        })
 
   
         $('#square_thumbnail').on('change', function () {
 
         let fileInput = document.getElementById('square_thumbnail');
         let file = fileInput.files[0];
-        const preview = $('.square_thumbnail_show .imagePreview');
+        const preview = $('.banner_thumbnail_show .imagePreview');
 
         if (file && file.size > (500 * 1024)) { 
             fileInput.value = '';

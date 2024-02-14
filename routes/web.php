@@ -14,6 +14,8 @@ use App\Http\Controllers\manage\admin\warning\WarningController;
 use App\Http\Controllers\manage\content\contribute\ChapterController;
 use App\Http\Controllers\manage\content\contribute\ContentController;
 use App\Http\Controllers\manage\content\contribute\ContributeController;
+use App\Http\Controllers\manage\content\contribute\ReportController;
+use App\Http\Controllers\manage\content\contribute\UserAccountController;
 use App\Models\PasswordReset;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
@@ -47,6 +49,12 @@ Route::get('/{slugContent}/{slugChapter}/view', [ReadController::class, 'chapter
 Route::post('/{slugContent}/{slugChapter}/view', [ReadController::class, 'handleLikeChapter']);
 Route::post('/{slugContent}/{slugChapter}/view/report', [ReadController::class, 'handleReportContent']);
 
+Route::get('/user/my-account', [UserAccountController::class, 'index']);
+Route::post('/user/my-account', [UserAccountController::class, 'handleValidationImage']);
+Route::put('/user/my-account', [UserAccountController::class, 'updateUserAccount']);
+
+Route::get('/history', [FrontIndexController::class, 'history']);
+
 // Admin Panel 
 Route::get('/panel/admin/dashboard', [IndexController::class, 'index']);
 Route::resource('/panel/category', CategoryController::class);
@@ -70,7 +78,9 @@ Route::get('/panel/confirmation/content/{slug}/detail', [ConfirmationController:
 Route::post('/panel/confirmation/content/{slug}', [ConfirmationController::class, 'confirm']);
 Route::put('/panel/confirmation/content/{slug}', [ConfirmationController::class, 'rejected']);
 
-Route::get('/panel/background/dashboard', [BannerController::class, 'dashboardBannerView']);
+Route::get('/panel/background/auth', [BannerController::class, 'banners']);
+Route::get('/panel/background/auth/create', [BannerController::class, 'create']);
+Route::post('/panel/background/auth/create', [BannerController::class, 'store']);
 
 // Content manage 
 Route::get('/contribute/dashboard', [ContributeController::class, 'index']);
@@ -84,7 +94,8 @@ Route::delete('/contribute/content/{slug}/delete', [ContentController::class, 'h
 Route::get('/contribute/content/{slug}/chapter', [ChapterController::class, 'handleListChapter']);
 Route::get('/contribute/content/{slug}/edit', [ContentController::class, 'handleEditContent']);
 Route::post('/contribute/content/{slug}/edit', [ContentController::class, 'handleUpdateContent']);
-Route::get('/contribute/content/{slugContent}/{slugChapter}/edit', [ChapterController::class, 'handleListChapter']);
+
+Route::get('/contribute/content/{slugContent}/{slugChapter}/edit', [ChapterController::class, 'showEditChapter']);
 
 Route::get('/contribute/content/update/{slug}', [ContentController::class, 'handleUpdateConfirmed']);
 Route::post('/contribute/content/update/{slug}', [ContentController::class, 'handleBgBannerValidation']);
@@ -98,7 +109,7 @@ Route::post('/contribute/chapter/create/{slug}', [ChapterController::class, 'get
 
 Route::post('/contribute/chapter/store/{slug}', [ChapterController::class, 'handleInsertChapter']);
 
-Route::get('/contribute/report', [ContributeController::class, 'report']);
+Route::get('/contribute/report', [ReportController::class, 'index']);
 Route::get('/contribute/contract', [ContributeController::class, 'contract']);
 
 // authectication 

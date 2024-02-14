@@ -15,28 +15,44 @@
             <div class="container">
                 <ul class="nav nav-pills border-bottom mb-3 mx-lg-4 mx-auto flex-nowrap overflow-auto" id="pills-tab" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <a href="/favorit" class="nav-link border-bottom-white rounded-0 bg-transparent py-3 me-3 text-gray fw-400 active" >Favorit</a>
+                        <a href="/favorit" class="nav-link border-bottom-white rounded-0 bg-transparent py-3 me-3 text-gray fw-400 " >Favorit</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a href="/history" class="nav-link border-bottom-white rounded-0 bg-transparent py-3 me-3 text-gray fw-400" >History</a>
+                        <a href="/history" class="nav-link border-bottom-white rounded-0 bg-transparent py-3 me-3 text-gray fw-400 active" >History</a>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
-    <div class="container mt-4">
+    <div class="container">
         <div class="row">
             <div class="col-12">
 
                 <div class="row">
-                    @if($favorit->count() > 0)
-                    @foreach ($favorit as $data)
                         @php
-                        $likeCountAll = $data->content->chapters->sum(function ($chapter) {
-                                                    return $chapter->likes->count();
-                                                });
+                            $prevDate = null;
                         @endphp
-                        <div class="col-auto mb-3 pe-md-1 pe-0">
+                @if($history->count() > 0)
+                    @foreach ($history as $data)
+                        @php
+                            $currentDate = $data->created_at->format('d M Y');
+                        @endphp
+                    
+                        @if ($prevDate !== $currentDate)
+                            <h5 class="mt-4 mb-3 ">{{ $currentDate }}</h5>
+                            @php
+                                $prevDate = $currentDate;
+                            @endphp
+                        @endif
+
+                        @php  
+                            $likeCountAll = $data->content->chapters->sum(function ($chapter) {
+                                                        return $chapter->likes->count();
+                                                    });
+                        @endphp
+
+                        {{-- <h4 class="mb-3">{{$data->created_at->format('d M Y')}}</h4> --}}
+                        <div class="col-auto mb-3 pe-md-1 pe-0 ">
                             <a href="/komik/{{$data->content->slug}}/list" class="contentContainer">
                                 <div class="card_front">
                                     <img src="{{ Storage::url($data->content->thumbnail) }}" class=""  alt="">
@@ -66,8 +82,8 @@
                         @endforeach
                     @else
                     <div class="text-center mt-5">
-                        <h3 class="mb-1 fw-500">Waduh Favorit Kamu Kosong!</h4>
-                        <a class="text-decoration-none text-primary" href="/">Yuk cari Komik yang kamu mau!</a>
+                        <h3 class="mb-1 fw-500">Waduh History Kamu Kosong!</h4>
+                        <a class="text-decoration-none text-primary" href="/">Yuk cari Komik untuk dibaca!</a>
                     </div>
                     @endif
                 </div>

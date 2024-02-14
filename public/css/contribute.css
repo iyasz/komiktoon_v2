@@ -221,7 +221,25 @@ body {
     margin-right: auto; 
 }
 
+.title-chapter-limit {
+    overflow: hidden;
+    display: -webkit-box !important;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    text-overflow: ellipsis;
+    text-decoration: none;
+    width: 300px !important;
+}
+
+
+
 /* ===== END LIST CHAPTER SECTION ===== */
+
+/* @media only screen and (max-width: 575px) {
+    .chapter-section {
+        width: 400px;
+    }
+} */
 
 
 @media only screen and (max-width: 991px) {

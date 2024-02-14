@@ -56,9 +56,6 @@ class ContributeController extends Controller
         return view('main.contribute.index', compact('totalLikes', 'totalViews', 'totalComments', 'totalContentsWithMostViews'));
     }
 
-    public function report() {
-        return view('main.contribute.report.report');
-    }
 
     public function contract() {
         return view('main.contribute.contract.contract');

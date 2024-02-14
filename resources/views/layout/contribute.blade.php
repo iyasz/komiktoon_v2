@@ -56,10 +56,10 @@
                       <a href="/contribute/content" class="navMenuButton ">
                         <i class="bi bi-feather me-1 @yield('content-active')"></i> <span class='ms-2 fs-sm @yield('content-active')'> Karyaku</span></a>
                     </li>
-                    <li class='d-flex justify-content-center mt-1'>
+                    {{-- <li class='d-flex justify-content-center mt-1'>
                       <a href="/admin/transaction" class="navMenuButton ">
                         <i class="bi bi-graph-up-arrow me-1 @yield('transaction-active')"></i> <span class='ms-2 fs-sm @yield('transaction-active')'> Penarikan</span></a>
-                    </li>
+                    </li> --}}
                     <li class='d-flex justify-content-center'>
                       <a href="/contribute/report" class="navMenuButton">
                         <i class="bi bi-clipboard-pulse me-1 @yield('report-active')"></i> <span class='ms-2 fs-sm @yield('report-active')'> Laporan</span></a>
@@ -67,6 +67,10 @@
                     <li class='d-flex justify-content-center'>
                       <a href="/contribute/contract" class="navMenuButton">
                         <i class="bi bi-check2-square me-1 @yield('contract-active')"></i> <span class='ms-2 fs-sm @yield('contract-active')'> Kontrak</span></a>
+                    </li>
+                    <li class='d-flex justify-content-center'>
+                      <a href="/user/my-account" class="navMenuButton">
+                        <i class="bi bi-person me-1 @yield('account-active')"></i> <span class='ms-2 fs-sm @yield('account-active')'> My Account</span></a>
                     </li>
                   </ul> 
 
@@ -103,7 +107,7 @@
                               </div>
                             </li>
                             <hr class="my-2">
-                            <li><a href="/cart" class="dropdown-item py-2 opacity-75 fs-s-sm">
+                            <li><a href="/user/my-account" class="dropdown-item py-2 opacity-75 fs-s-sm">
                               <i class="bi bi-person mx-3"></i> Akun Saya</a></li>
                             <hr class="my-2">
                             <li><a href="/logout" class="dropdown-item py-2 opacity-75 fs-s-sm">

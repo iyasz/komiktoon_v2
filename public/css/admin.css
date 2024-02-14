@@ -140,6 +140,18 @@ td {
 
 /* END DASHBOARD SECTION  */
 
+/*  BANNER SECTION  */
+
+.banner_thumbnail_show {
+    width: 380px;
+    min-height: 380px;
+    background-color: #f3f3f3;
+}
+
+/* END BANNER SECTION  */
+
+
+
 @media only screen and (max-width: 991px) {
 
     td {

@@ -20,5 +20,15 @@ class Histories extends Model
         return 'string';
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function content()
+    {
+        return $this->belongsTo(Content::class);
+    }
+
     protected $table = 'histories';
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Bookmark;
 use App\Models\Category;
 use App\Models\Content;
+use App\Models\Histories;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -32,5 +33,13 @@ class IndexController extends Controller
     public function favorit() {
         $favorit = Bookmark::where('user_id', Auth::user()->id)->get();
         return view('main.front.favorit', compact('favorit'));
+    }
+
+    public function history() {
+        
+        $history = Histories::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->get();
+        
+
+        return view('main.front.history', compact('history'));
     }
 }

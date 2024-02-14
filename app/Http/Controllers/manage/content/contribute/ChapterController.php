@@ -112,13 +112,6 @@ class ChapterController extends Controller
     
         $chapter->images = json_encode($imagesData);
         
-        // $base64Data = $request->input('gambar');
-        // $imagePath = 'chapters/'.$content->slug.'/'.$slug.'/'.uniqid().'.png';
-        // Storage::disk('public')->put($imagePath, base64_decode($base64Data));
-
-        // $chapter->images = $imagePath;
-
-        // $chapter->images = $request->input('gambar')->store('chapters/'.$content->slug.'/'.$slug, 'public');
 
         $chapter->thumbnail = $request->file('thumbnail')->store('chapters/thumbnail', 'public');
         $chapter->note = $request->input('note');
@@ -136,6 +129,24 @@ class ChapterController extends Controller
         
 
         return view('main.contribute.chapter.list', compact('content'));
+    }
+
+    public function showEditChapter($slugContent, $slugChapter) {
+        $content = Content::where('slug', $slugContent)->first();
+        if(!$content || $content->user_id != Auth::user()->id){
+            abort(404);
+        }
+
+        $chapter = Chapter::where('slug', $slugChapter)->where('content_id', $content->id)->first();
+
+        if(!$chapter){
+            abort(404);
+        }
+
+        $chapterCount = Chapter::where('content_id', $content->id)->where('is_extra_chapter', 2)->count() + 1;
+        $chapterExtraCount = Chapter::where('content_id', $content->id)->where('is_extra_chapter', 1)->count();
+
+        return view('main.contribute.chapter.edit', compact('content', 'chapterExtraCount', 'chapterCount', 'chapter'));
     }
 
 }

@@ -4,7 +4,7 @@
 @section('active-content-cateogry', 'text-primary')
 
 @section('content')
-    <div id="app">
+    <div id="app" class="mb-3">
         <div class="row">
             <div class="col-12 p-3">
                 <div class="card border-0 rounded-1">

@@ -120,12 +120,14 @@ class ReadController extends Controller
         if(Auth::user()){
             $hasHistory = Histories::where('user_id', Auth::user()->id)->where('content_id', $content->id)->first();
 
-            if(!$hasHistory){
-                $testing = new Histories();
-                $testing->user_id = Auth::user()->id;
-                $testing->content_id = $content->id;
-                $testing->save();
+            if($hasHistory){
+                $hasHistory->delete();
             }
+
+            $testing = new Histories();
+            $testing->user_id = Auth::user()->id;
+            $testing->content_id = $content->id;
+            $testing->save();
 
         }
 

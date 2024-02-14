@@ -30,10 +30,10 @@
                         <hr class="mx-2 mb-2">
                         <div class="">
                             <div class="row">
-                                <div class="col-md-10 col-10 pe-0">
+                                <div class="col-md-10 col-9 pe-0">
                                     <input type="text" placeholder="Cari Chapter disini .." id="searchChapterData" class="form-control text-gray fs-sm">
                                 </div>
-                                <div class="col-md-2 col-2">
+                                <div class="col-md-2 col-3">
                                     <a href="/contribute/chapter/create/{{$content->slug}}" class="btn btn-primary border-0 rounded-1 w-100 h-100 d-flex align-items-center justify-content-center" ><i class="bi bi-plus-lg"></i> <span class="d-md-inline d-none ms-2">Tambah</span></a>
                                 </div>
                             </div>
@@ -50,7 +50,7 @@
                                     
                                 @endphp
                                 <hr class="mt-2">
-                                    
+                                    <div class="row flex-nowrap overflow-auto">
                                     @foreach ($content->chapters()->orderBy('created_at', 'desc')->paginate(7) as $data)
                                         <li class="align-items-center chapter-section" style="display: flex;">
                                             <img src="{{ Storage::url($data->thumbnail) }}" alt="" width="85px" height="85px" class="object-fit-cover">
@@ -59,26 +59,27 @@
                                                 $chapterDetailNumber = $parts[0];
                                             @endphp
                                             <p class="mb-0 d-inline ms-3 text-gray title-chapter-limit "><span class="d-lg-block d-none">{{ $data->title }}</span><span class="d-lg-none d-block">{{$chapterDetailNumber}}</span> </p>
-                                            <div class="ms-auto me-5 d-flex align-items-center">
+                                            <div class="ms-auto me-md-5 me-2 d-flex align-items-center">
                                                 <p class="mb-0 opacity-50 fs-s-sm me-lg-5 me-2 d-md-block d-none">{{ $data->created_at->format('d M y') }}</p>
                                                 
-                                                <a href="/contribute/content/{{$content->slug}}/{{$data->slug}}" class="mb-0 opacity-50 fs-s-sm d-lg-block d-none text-decoration-none text-dark"><i class="bi bi-trash"></i></a>
-                                                <a href="/contribute/content/{{$content->slug}}/{{$data->slug}}" class="mb-0 opacity-50 fs-s-sm ms-3 d-lg-block d-none text-decoration-none text-dark"><i class="bi bi-pencil"></i></a>
+                                                <a href="/contribute/content/{{$content->slug}}/{{$data->slug}}" class="mb-0 opacity-50 fs-s-sm text-decoration-none text-dark"><i class="bi bi-trash"></i></a>
+                                                <a href="/contribute/content/{{$content->slug}}/{{$data->slug}}/edit" class="mb-0 opacity-50 fs-s-sm ms-3 text-decoration-none text-dark"><i class="bi bi-pencil"></i></a>
                                             </div>
                                             <p class="mb-0 me-2">#{{ $initialNumber  }}</p>
                                         </li>
-                                    <hr class="mb-0 mt-3">
-                                    @php
-                                        $initialNumber--;
-                                    @endphp
-                                    @endforeach
-                                @else
-                                    <div class="text-center">
-                                        <img src="{{asset('img/maskot/SearchNotFound.gif')}}" alt="" width="200px" >
-                                        <h6 class="fs-sm mb-1">WADUH, BELUM ADA CHAPTER DISINI NIH ! ... BUAT YUK !</h6>
-                                        <a href="/contribute/chapter/create/{{$content->slug}}" class="mb-0 text-decoration-none fs-sm text-primary">Lanjut bikin chapter baru </a>
+                                        @php
+                                            $initialNumber--;
+                                            @endphp
                                     </div>
-                                @endif
+                                    <hr class="mb-0 mt-3">
+                                    @endforeach
+                                    @else
+                                        <div class="text-center">
+                                            <img src="{{asset('img/maskot/SearchNotFound.gif')}}" alt="" width="200px" >
+                                            <h6 class="fs-sm mb-1">WADUH, BELUM ADA CHAPTER DISINI NIH ! ... BUAT YUK !</h6>
+                                            <a href="/contribute/chapter/create/{{$content->slug}}" class="mb-0 text-decoration-none fs-sm text-primary">Lanjut bikin chapter baru </a>
+                                        </div>
+                                    @endif
                             </ul>    
                             
                         </div>

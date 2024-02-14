@@ -107,10 +107,9 @@
                         </svg> <span class='ms-2 fs-sm @yield('active-other')'>Other</span></a>
                       </li>
 
-                      <div class="collapse justify-content-center text-center" id="collapseOther">
+                      <div class="collapse justify-content-center @yield('active-banner-show') text-center" id="collapseOther">
                         <div class="text-start">
-                            <a href="/panel/background/auth" class="text-decoration-none opacity-75 fs-sm text-gray me-4 d-block py-2 mt-1">Auth Banner</a>
-                            <a href="/panel/background/dashboard" class="text-decoration-none opacity-75 fs-sm text-gray me-4 d-block py-2 mt-1">Page BG</a>
+                            <a href="/panel/background/auth" class="text-decoration-none opacity-75 fs-sm  @yield('active-content-banner', 'text-gray') me-4 d-block py-2 mt-1">Auth Banner</a>
                         </div>  
                       </div>
 
