@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Banner;
 use App\Models\PasswordResetToken;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +23,8 @@ class AuthController extends Controller
     public function handleSubmitLogin(Request $request) {
 
         if($request->isMethod('get')){
-            return view('auth.login');
+            $banner = Banner::get();
+            return view('auth.login', compact('banner'));
         }
         
         if($request->isMethod('post')){
@@ -145,7 +147,8 @@ class AuthController extends Controller
     public function handleSubmitRegister(Request $request) {
 
         if($request->isMethod('get')){
-            return view('auth.register');
+            $banner = Banner::get();
+            return view('auth.register', compact('banner'));
         }
         
         if($request->isMethod('post')){

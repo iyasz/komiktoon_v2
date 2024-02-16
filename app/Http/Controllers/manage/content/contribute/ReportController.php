@@ -3,23 +3,15 @@
 namespace App\Http\Controllers\manage\content\contribute;
 
 use App\Http\Controllers\Controller;
+use App\Models\Comment;
+use App\Models\Content;
+use App\Models\Like;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ReportController extends Controller
 {
     public function index() {
-
-        // $days = [
-        //     'Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'
-        // ];
-        // $today = Carbon::now();
-        // $lastSevenDays = [];
-        
-        // for ($i = 1; $i <= 7; $i++) {
-        //     $lastSevenDays[] = $days[$today->dayOfWeek];
-        //     $today->subDay(); 
-        // }
 
         $today = Carbon::now();
 
@@ -32,14 +24,45 @@ class ReportController extends Controller
 
         $lastSevenMonths = [];
 
-        for ($i = 1; $i <= 7; $i++) {
-            $lastSevenMonths[] = $months[$today->month];
-            $today->subMonth(); // Kurangi satu bulan
+        for ($i = 0; $i < 7; $i++) {
+            $monthNumber = $today->month;
+            $monthName = $months[$monthNumber];
+            $year = $today->year;
+            $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $monthNumber, $year);
+            
+            $monthData = [
+                "bulan" => $monthName,
+                "bulanKe" => str_pad($monthNumber, 2, '0', STR_PAD_LEFT),
+                "tahun" => $year,
+                "jumlahHari" => $daysInMonth
+            ];
+        
+            $lastSevenMonths[] = $monthData;
+        
+            $today->subMonth(); 
         }
-
+        
         $lastSevenMonths = array_reverse($lastSevenMonths);
         
+        
 
-        return view('main.contribute.report.report', compact('lastSevenMonths'));
+
+        $startDate = Carbon::now()->startOfMonth();
+        $endDate = Carbon::now()->endOfMonth();
+
+        $likes = Like::whereBetween('created_at', [$startDate, $endDate])->get();
+
+        $comments = Comment::whereBetween('created_at', [$startDate, $endDate])->get();
+        
+        $likesGrouped = $likes->groupBy(function ($like) {
+            return $like->created_at->format('m-d');
+        });
+        
+        $commentsGrouped = $comments->groupBy(function ($comment) {
+            return $comment->created_at->format('d M Y');
+        });
+        
+
+        return view('main.contribute.report.report', compact('lastSevenMonths', 'likesGrouped', 'lastSevenMonths'));
     }
 }

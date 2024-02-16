@@ -60,7 +60,7 @@
                                     </div>
                                 </div>
                                 @error('photo')<p class="fs-s-sm text-danger mt-2 mb-0">{{$message}}</p>@enderror
-                                <p class="fs-sm text-gray mt-2 mb-0">Gambar harus kurang dari 1 MB. <br> Gambar harus atau lebih dari <br> 840x840. Hanya file JPG, JPEG, <br>dan PNG  yang diizinkan.</p>
+                                <p class="fs-sm text-gray mt-2 mb-0">Gambar harus kurang dari 1 MB. <br>. Hanya file JPG, JPEG,dan PNG <br>  yang diizinkan.</p>
                             </div>
 
                         </div>
@@ -101,12 +101,12 @@
         let file = fileInput.files[0];
         const preview = $('.square_thumbnail_show .imagePreview');
 
-        if (file && file.size > (500 * 1024)) { 
+        if (file && file.size > (1024 * 1024)) { 
             fileInput.value = '';
             preview.addClass('d-none')
             preview.attr('src', '');
             $('#alertModal').modal('show')
-            $('#alertModal .modal-content p').html('Tidak dapat mengunggah file lebih dari 500KB')
+            $('#alertModal .modal-content p').html('Tidak dapat mengunggah file lebih dari 1MB')
         }else {
             let data = new FormData();
             data.append('file', file);

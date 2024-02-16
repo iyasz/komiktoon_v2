@@ -39,47 +39,56 @@
                             </div>
                         </div>
                         <div class="list-content">
-                            <ul class="px-3">
-                                @if ($content->chapters->count() > 0)
-                                @php
-
-                                    $currentPage = $content->chapters()->orderBy('created_at', 'desc')->paginate(7);
-                                    $totalItems = $currentPage->total();
-                                    $perPage = 7;
-                                    $initialNumber = $totalItems - ($currentPage->currentPage() - 1) * $perPage;
-                                    
-                                @endphp
-                                <hr class="mt-2">
-                                    <div class="row flex-nowrap overflow-auto">
-                                    @foreach ($content->chapters()->orderBy('created_at', 'desc')->paginate(7) as $data)
-                                        <li class="align-items-center chapter-section" style="display: flex;">
-                                            <img src="{{ Storage::url($data->thumbnail) }}" alt="" width="85px" height="85px" class="object-fit-cover">
-                                            @php
-                                                $parts = explode(" - ", $data->title);
-                                                $chapterDetailNumber = $parts[0];
-                                            @endphp
-                                            <p class="mb-0 d-inline ms-3 text-gray title-chapter-limit "><span class="d-lg-block d-none">{{ $data->title }}</span><span class="d-lg-none d-block">{{$chapterDetailNumber}}</span> </p>
-                                            <div class="ms-auto me-md-5 me-2 d-flex align-items-center">
-                                                <p class="mb-0 opacity-50 fs-s-sm me-lg-5 me-2 d-md-block d-none">{{ $data->created_at->format('d M y') }}</p>
-                                                
-                                                <a href="/contribute/content/{{$content->slug}}/{{$data->slug}}" class="mb-0 opacity-50 fs-s-sm text-decoration-none text-dark"><i class="bi bi-trash"></i></a>
-                                                <a href="/contribute/content/{{$content->slug}}/{{$data->slug}}/edit" class="mb-0 opacity-50 fs-s-sm ms-3 text-decoration-none text-dark"><i class="bi bi-pencil"></i></a>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    @if ($content->chapters->count() > 0)
+                                    @php
+    
+                                        $currentPage = $content->chapters()->orderBy('created_at', 'desc')->paginate(7);
+                                        $totalItems = $currentPage->total();
+                                        $perPage = 7;
+                                        $initialNumber = $totalItems - ($currentPage->currentPage() - 1) * $perPage;
+                                        
+                                    @endphp
+                                    <tr>
+                                        <td>
+                                            <hr class="mt-2">
+                                            {{-- @foreach ($content->chapters()->orderBy('created_at', 'desc')->paginate(7) as $data)
+                                            <div class="row flex-nowrap overflow-auto">
+                                                    <li class="align-items-center chapter-section" style="display: flex;">
+                                                        <img src="{{ Storage::url($data->thumbnail) }}" alt="" width="85px" height="85px" class="object-fit-cover">
+                                                        @php
+                                                            $parts = explode(" - ", $data->title);
+                                                            $chapterDetailNumber = $parts[0];
+                                                        @endphp
+                                                        <p class="mb-0 d-inline ms-3 text-gray title-chapter-limit "><span class="d-lg-block d-none">{{ $data->title }}</span><span class="d-lg-none d-block">{{$chapterDetailNumber}}</span> </p>
+                                                        <div class="ms-auto me-md-5 me-2 d-flex align-items-center">
+                                                            <p class="mb-0 opacity-50 fs-s-sm me-lg-5 me-2 d-md-block d-none">{{ $data->created_at->format('d M y') }}</p>
+                                                            
+                                                            <a href="/contribute/content/{{$content->slug}}/{{$data->slug}}" class="mb-0 opacity-50 fs-s-sm text-decoration-none text-dark"><i class="bi bi-trash"></i></a>
+                                                            <a href="/contribute/content/{{$content->slug}}/{{$data->slug}}/edit" class="mb-0 opacity-50 fs-s-sm ms-3 text-decoration-none text-dark"><i class="bi bi-pencil"></i></a>
+                                                        </div>
+                                                        <p class="mb-0 me-2">#{{ $initialNumber  }}</p>
+                                                    </li>
+                                                    @php
+                                                        $initialNumber--;
+                                                        @endphp
+                                                </div>
+                                                <hr class="mb-0 mt-3">
+                                                @endforeach --}}
+                                            </td>
+                                        </tr>
+                                        @else
+                                            <div class="text-center">
+                                                <img src="{{asset('img/maskot/SearchNotFound.gif')}}" alt="" width="200px" >
+                                                <h6 class="fs-sm mb-1">WADUH, BELUM ADA CHAPTER DISINI NIH ! ... BUAT YUK !</h6>
+                                                <a href="/contribute/chapter/create/{{$content->slug}}" class="mb-0 text-decoration-none fs-sm text-primary">Lanjut bikin chapter baru </a>
                                             </div>
-                                            <p class="mb-0 me-2">#{{ $initialNumber  }}</p>
-                                        </li>
-                                        @php
-                                            $initialNumber--;
-                                            @endphp
-                                    </div>
-                                    <hr class="mb-0 mt-3">
-                                    @endforeach
-                                    @else
-                                        <div class="text-center">
-                                            <img src="{{asset('img/maskot/SearchNotFound.gif')}}" alt="" width="200px" >
-                                            <h6 class="fs-sm mb-1">WADUH, BELUM ADA CHAPTER DISINI NIH ! ... BUAT YUK !</h6>
-                                            <a href="/contribute/chapter/create/{{$content->slug}}" class="mb-0 text-decoration-none fs-sm text-primary">Lanjut bikin chapter baru </a>
-                                        </div>
-                                    @endif
+                                        @endif
+                                </table>
+                            </div>
+                            <ul class="px-3">
+                               
                             </ul>    
                             
                         </div>

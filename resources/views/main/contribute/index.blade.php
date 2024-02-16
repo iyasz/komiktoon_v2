@@ -33,7 +33,7 @@
                             </div>
                             <div class="col-5">
                                 <select name="" id="" class="form-control form-control-sm fs-s-sm p-2">
-                                    <option value="" selected>30 Days</option>
+                                    <option value="" selected>All</option>
                                 </select>
                             </div>
 
@@ -65,7 +65,7 @@
                             </div>
                             <div class="col-5">
                                 <select name="" id="" class="form-control form-control-sm fs-s-sm p-2">
-                                    <option value="" selected>30 Days</option>
+                                    <option value="" selected>All</option>
                                 </select>
                             </div>
 
@@ -96,7 +96,7 @@
                             </div>
                             <div class="col-5">
                                 <select name="" id="" class="form-control form-control-sm fs-s-sm p-2">
-                                    <option value="" selected>30 Days</option>
+                                    <option value="" selected>All</option>
                                 </select>
                             </div>
 
@@ -109,7 +109,7 @@
                             </div>
                             <div class="ms-3 mt-3">
                                 <p class="mb-0 fw-600">{{number_format($totalComments)}}</p>
-                                <p class="fs-s-sm">Jumlah Total Komentar</p>
+                                <p class="fs-s-sm">Jumlah Total Komentar</p>    
                             </div>
 
                         </div>

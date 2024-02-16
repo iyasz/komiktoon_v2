@@ -24,7 +24,7 @@
             </div>
         </div>
 
-        <form action="/panel/category" method="post" enctype="multipart/form-data">
+        <form action="/panel/background/auth/create" method="post" enctype="multipart/form-data">
             @csrf
 
             <div class="row">
@@ -35,8 +35,7 @@
                             <div class="mb-4 position-relative">
                                 <p class="text-gray mb-2 fw-500">File Banner</p>
                                 <input type="file" name="photo" id="square_thumbnail" class="form-control" >
-                                {{-- <input type="text" class="form-control fs-sm" name="name" value="{{old('name')}}" required placeholder="Kurang dari 25 huruf"> --}}
-                                <p class="fs-sm text-gray mt-3 mb-0">Gambar harus kurang dari 1 MB.  Gambar harus lebih dari  840x840. Hanya file JPG, JPEG, dan PNG  yang diizinkan.</p>
+                                <p class="fs-sm text-gray mt-2 mb-0">Gambar harus kurang dari 1 MB. <br>. Hanya file JPG, JPEG,dan PNG <br>  yang diizinkan.</p>
                                 @error('photo')<p class="fs-s-sm text-danger mt-2 mb-0">{{$message}}</p>@enderror
                             </div>
                             <div class="text-end">
@@ -56,7 +55,6 @@
                                 <div class="banner_thumbnail_show">
                                     <img src="" width="100%" height="100%" alt="banner" class="imagePreview d-none">
                                 </div>
-                                @error('photo')<p class="fs-s-sm text-danger mt-2 mb-0">{{$message}}</p>@enderror
                          
                             </div>
 
@@ -95,12 +93,12 @@
         let file = fileInput.files[0];
         const preview = $('.banner_thumbnail_show .imagePreview');
 
-        if (file && file.size > (500 * 1024)) { 
+        if (file && file.size > (1024 * 1024)) { 
             fileInput.value = '';
             preview.addClass('d-none')
             preview.attr('src', '');
             $('#alertModal').modal('show')
-            $('#alertModal .modal-content p').html('Tidak dapat mengunggah file lebih dari 500KB')
+            $('#alertModal .modal-content p').html('Tidak dapat mengunggah file lebih dari 1MB')
         }else {
             let data = new FormData();
             data.append('file', file);

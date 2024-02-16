@@ -95,6 +95,23 @@ body {
 
 /* ===== END NAVBAR SECTION ===== */
 
+
+/* ===== NAVBAR DAY SECTION ===== */
+
+.nav.nav-pills.nav-day li .active {
+    color: #fff !important;
+    background-color: var(--var-dark-primary) !important;
+}
+
+.nav.nav-pills.nav-day button {
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--var-black-50);
+}
+
+/* ===== END NAVBAR DAY SECTION ===== */
+
+
 /* ===== HERO SECTION ===== */
 
 #hero-content-section {
@@ -106,30 +123,60 @@ body {
 
 /* ===== END HERO SECTION ===== */
 
-    /* ===== FAVORIT DAN HISTORY SECTION ===== */
+/* ===== FAVORIT DAN HISTORY SECTION ===== */
 
-    .nav.nav-pills .nav-item a:hover {
-        color: var(--var-primary) !important;
-    }
+.nav.nav-pills.top .nav-item a:hover {
+    color: var(--var-primary) !important;
+}
 
-    .nav.nav-pills .nav-item .nav-link.active {
-        color: var(--var-primary) !important;
-        border-bottom: 1px solid var(--var-primary) !important;
-    }
+.nav.nav-pills.top .nav-item .nav-link.active {
+    color: var(--var-primary) !important;
+    border-bottom: 1px solid var(--var-primary) !important;
+}
 
-    /* ===== END FAVORIT DAN HISTORY SECTION ===== */
+/* ===== END FAVORIT DAN HISTORY SECTION ===== */
 
 
 /* ===== SEARCH SECTION ===== */
 
 .search-genre-wrapper {
-    display: block;
-    width: 170px;
-    height: 170px;
-    background-position: center;
+    display: flex;
+    text-align: center;
+    width: 90px;
+    height: 90px;
+    padding: 14px;
+    background-color: #e7e7e7;
     background-size: cover;
-    border-radius: 3px;
 }
+
+.icon-genre-wrapper {
+    display: flex;
+    text-align: center;
+    width: 60px;
+    height: 60px;
+    padding: 14px;
+    background-color: #e7e7e7;
+}
+
+.icon-genre-wrapper.active   {
+    background-color: #c9c9c9;
+}
+
+.search-input-main {
+    /* background-color: white; */
+}
+
+@media only screen and (max-width: 575px) {
+    .search-genre-wrapper {
+        width: 65px !important;
+        height: 65px !important;
+        padding: 14px !important;
+    }
+}
+
+/* ===== END SEARCH SECTION ===== */
+
+/* ===== CONTENT PRIMARY SECTION ===== */
 
 .contentContainer {
     display: block;
@@ -155,6 +202,7 @@ body {
     z-index: 4;
     height: 100%;
     transition: .3s;
+    transform: scale(1.02);
 }
 
 .contentContainer .card_front .info,
@@ -306,7 +354,7 @@ body {
     
 }
 
-/* ===== END SEARCH SECTION ===== */
+/* ===== END CONTENT PRIMARY SECTION ===== */
 
 
 /* ===== KOMIK SECTION ===== */
@@ -520,18 +568,12 @@ footer {
 
 @media only screen and (max-width: 991px) {
 
-    .search-genre-wrapper {
-        width: 160px;
-        height: 160px;
-    }
+
 }
 
 @media only screen and (max-width: 767px) {
 
-    .search-genre-wrapper {
-        width: 110px;
-        height: 110px;
-    }
+
 
     .wrapper-img-content .img-content img {
         width: 100% !important;

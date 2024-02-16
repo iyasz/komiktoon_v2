@@ -46,8 +46,7 @@
                                 <td><img src="{{Storage::url($data->photo)}}" alt="photo" width="180px"  class="object-fit-cover"></td>
                                 <td>
                                     <div class="d-flex justify-content-center">
-                                        <a href="/panel/category/{{$data->slug}}/edit" class="btn btn-primary border-0 rounded-1 fs-s-sm mx-1"><i class="bi bi-pencil"></i></a>
-                                        <form action="/panel/category/{{$data->slug}}" method="POST">
+                                        <form action="/panel/background/auth/{{$data->id}}" method="POST">
                                             @csrf
                                             @method('delete')
                                             <button onclick="return confirm('Apakah anda ingin menghapus cateogry ini?')" class="btn btn-primary border-0 rounded-1 fs-s-sm mx-1"><i class="bi bi-trash3"></i></button>

@@ -96,8 +96,7 @@
                                         {{-- <input type="hidden" name="" id="_selectFileInput" multiple> --}}
                                         <a class="btn btn-primary fs-s-sm border-0 rounded-1 me-2" id="inpSelectFile">Pilih
                                             file</a>
-                                        <a class="btn btn-danger fs-s-sm border-0 rounded-1" id="resetUploadsModal">Hapus
-                                            semua</a>
+                                        <a class="btn btn-danger fs-s-sm border-0 rounded-1" id="resetUploadsModal">Hapus semua</a>
                                         {{-- <div class="ms-auto">
                                             <p class="fs-sm mb-0"><span class="fw-600" id="sizeFileContent">0KB</span> /
                                                 20MB</p>
@@ -105,7 +104,23 @@
                                     </div>
 
                                     <div class="upload_file_image rounded-2 bg-semi-gray">
-                                        <div id="sortable"></div>
+                                        <div id="sortable">
+                                            @php
+                                                $dataImage = json_decode($chapter->images)
+                                            @endphp
+                                            @foreach ($dataImage as $key => $item)
+                                            <div id="draggable" class="ui-state-default">
+                                                <div class="item bg-white">
+                                                    <div class="img dz-image">
+                                                        <img data-dz-thumbnail src="{{Storage::url($item->photo)}}" width="100%" height="150px" class="object-fit-cover" alt="">
+                                                    </div>
+                                                    <p class="fs-s-sm m-2 one-line-text"><span class="number-file-increment me-1 fw-500">{{$key + 1}}</span>. <span data-dz-name>{{$chapter->title}}</span></p>
+                                                </div>
+                                                <button class="btn bg-white fs-s-sm rounded-circle border-0 dz-remove" data-dz-remove><i class="bi bi-x"></i></button>
+                                            </div>
+                                            @endforeach
+
+                                        </div>
                                     </div>
                                     <p class="fs-sm opacity-75 fw-300 mt-3">Sistem akan otomatis memotong dan mengurangi
                                         ukuran gambarmu untuk memenuhi dimensi gambar maksimal, yaitu 800px x 1000 px. <br>
@@ -134,8 +149,7 @@
                                 <div class="mb-4 position-relative max-input-group">
                                     <p class="text-gray mb-2 fw-500">Catatan Kreator <span
                                             class="fs-s-sm opacity-50">(Optional)</span></p>
-                                    <textarea data-max-num="400" name="note" id="creator-note" cols="10" rows="8"
-                                        class="form-control fs-sm pe-10" placeholder="Kurang dari 400 huruf">{{ old('note') }}</textarea>
+                                    <textarea data-max-num="400" name="note" id="creator-note" cols="10" rows="8"  class="form-control fs-sm pe-10" placeholder="Kurang dari 400 huruf">{{ $chapter->note }}</textarea>
                                     <div class="text-gray max-input-text fs-sm d-md-block d-none">
                                         <span class="fw-500 current-text-count">0</span>
                                         <span>/ 400</span>
@@ -148,7 +162,7 @@
                                     <p class="fw-500 mb-2 text-gray">Thumbnail Persegi </p>
                                     <input type="file" name="thumbnail" id="square_thumbnail" class="d-none">
                                     <div class="square_thumbnail_show">
-                                        <img src="{{Storage::url($chapter->thumbnail)}}" alt="banner" class="imagePreview">
+                                        <img src="{{Storage::url($chapter->thumbnail)}}" data-img="{{Storage::url($chapter->thumbnail)}}" alt="banner" class="imagePreview">
                                         <div class="text-center">
                                             <i class="bi bi-cloud-arrow-up fs-1 opacity-50"></i>
                                             <p class="fs-sm opacity-75">Pilih
@@ -238,19 +252,8 @@
 @endsection
 
 @push('javascript')
-    {{-- <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script> --}}
 
     <script>
-        // flatpickr("#dateRelease", {
-        //     minDate: "today",
-        //     maxDate: new Date().fp_incr(364),
-        //     defaultDate: "today"
-        // });
-
-        // $('#now_option').on('click', function() {
-        //     var todayDate = new Date();
-        //     flatpickr("#dateRelease").setDate(todayDate, true);
-        // });
 
         $(document).ready(function() {
             function updateElements() {
@@ -349,19 +352,6 @@
                             return false
                         }
 
-                        // decrement file size 
-                        // var removedSize = file.size / 1024;
-
-                        // totalSize -= removedSize;
-                        // var calcSize = totalSize / 1024;
-
-                        // if (Math.round(totalSize) < 1024) {
-                        //     $('#sizeFileContent').text(Math.round(totalSize) + 'KB');
-                        // } else {
-                        //     $('#sizeFileContent').text(Math.round(calcSize) + 'MB');
-                        // }
-                        // end decrement file size 
-
                         // cek index 
                         $("#sortable .ui-state-default").each(function(index) {
                             var orderNumber = index + 1;
@@ -384,18 +374,6 @@
 
                     this.on("success", function(file, response) {
 
-                        // menambah size 
-
-                        // var size = file.size / 1024;
-                        // totalSize += size;
-                        // var calcSize = totalSize / 1024;
-
-                        // if (Math.round(totalSize) < 1024) {
-                        //     $('#sizeFileContent').text(Math.round(totalSize) + 'KB');
-                        // } else {
-                        //     $('#sizeFileContent').text(Math.round(calcSize) + 'MB');
-                        // }
-                        // end menambah size 
 
                         uploadprogressCount++
                         $("#uploadContentCount").text(uploadprogressCount);
@@ -425,10 +403,9 @@
                 }
             });
             $('#resetUploadsModal').on('click', function() {
-                if (fileContent.files.length == 0) {
+                if ($('#sortable').length == 0) {
                     $('#alertModal').modal('show');
-                    $('#alertModal .modal-content p').html(
-                        'Tidak dapat dihapus: Tidak ada file untuk dihapus');
+                    $('#alertModal .modal-content p').html('Tidak dapat dihapus: Tidak ada file untuk dihapus');
                 } else {
                     $('#confirm-delete-all-files').modal('show');
                 }
@@ -436,6 +413,7 @@
 
             $('#resetUploadsButton').on('click', function() {
                 fileContent.removeAllFiles();
+                $('#sortable').html('')
                 $('#confirm-delete-all-files').modal('hide');
             });
 
@@ -477,8 +455,7 @@
 
             if (file && file.size > (500 * 1024)) {
                 fileInput.value = '';
-                preview.addClass('d-none')
-                preview.attr('src', '');
+                preview.attr('src', $(preview).data('img'));
                 $('#alertModal').modal('show')
                 $('#alertModal .modal-content p').html('Tidak dapat mengunggah file lebih dari 500KB')
             } else {
@@ -490,8 +467,7 @@
 
                     if (response.data.error) {
                         fileInput.value = '';
-                        preview.addClass('d-none')
-                        preview.attr('src', '');
+                        preview.attr('src', $(preview).data('img'));
                         $('#alertModal').modal('show')
                         $('#alertModal .modal-content p').html(response.data.error)
                     } else {
@@ -501,15 +477,14 @@
                         if (file) {
                             const reader = new FileReader();
 
-                            preview.removeClass('d-none');
                             reader.onload = function(e) {
                                 preview.attr('src', e.target.result);
                             };
 
                             reader.readAsDataURL(file);
                         } else {
-                            preview.addClass('d-none')
-                            preview.attr('src', '');
+                            fileInput.value = '';
+                            preview.attr('src', $(preview).data('img'));
                         }
                     }
                 });

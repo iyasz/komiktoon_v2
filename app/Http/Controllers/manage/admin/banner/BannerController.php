@@ -5,6 +5,7 @@ namespace App\Http\Controllers\manage\admin\banner;
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class BannerController extends Controller
 {
@@ -25,5 +26,21 @@ class BannerController extends Controller
             'photo.max' => 'Size photo terlalu besar!',
             'photo.mimes' => 'Photo harus jpeg, png, jpg!',
         ]);
+
+        $banners = new Banner();
+        $banners->photo = $request->photo->store('banner/auth','public');
+        $banners->save();
+
+        return redirect('/panel/background/auth');
+    }
+
+    public function delete($id) {
+
+        $banner = Banner::findOrFail($id);
+        Storage::disk('public')->delete($banner->photo); 
+
+        $banner->delete();
+
+        return redirect('/panel/background/auth');
     }
 }

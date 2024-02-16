@@ -30,4 +30,8 @@ class Chapter extends Model
         return $this->hasMany(Like::class);
     }
     
+    public function content() {
+        return $this->belongsTo(Content::class);
+    }
+    
 }

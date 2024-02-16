@@ -25,7 +25,7 @@
 
 <body>
 
-    <nav class="navbar bg-white navbar-expand-lg py-3 border-bottom">
+    <nav class="navbar bg-white navbar-expand-lg border-bottom py-lg-0 py-3">
         <div class="container-fluid mx-lg-2 mx-md-4 mx-2">
 
             <button class="navbar-toggler border-0 p-0" type="button" data-bs-toggle="offcanvas"
@@ -135,7 +135,7 @@
 
                 <div class="offcanvas-body">
 
-                    <ul class="navbar-nav ms-lg-4 ms-2">
+                    <ul class="navbar-nav ms-lg-4 ms-2 my-auto">
                         <div class="d-lg-none d-flex align-items-center align-content-center">
                             <img src="{{ Auth::user() && Auth::user()->photo ? Storage::url(Auth::user()->photo) : asset('img/maskot/face.png') }}"
                                 class="rounded-circle me-3 profile-img" width="50" height="50"
@@ -164,33 +164,31 @@
                         </div>
                         <hr class="d-lg-none d-block">
                         <li class="nav-item mx-lg-2 mx-0">
-                            <a href="/" class="nav-link fw-500 d-inline-flex"><i
-                                    class="bi bi-house me-3 d-lg-none d-inline"></i> Beranda</a>
+                            <a href="/" class="nav-link fw-500 d-inline-flex"><i class="bi bi-house me-3 d-lg-none d-inline"></i> Beranda</a>
                         </li>
                         <hr class="d-lg-none d-block">
                         <li class="nav-item mx-lg-2 mx-0">
-                            <a href="" class="nav-link fw-500 d-inline-flex"><i
-                                    class="bi bi-star me-3 d-lg-none d-inline"></i> Populer</a>
+                            <a href="/populer" class="nav-link fw-500 d-inline-flex"><i class="bi bi-star me-3 d-lg-none d-inline"></i> Populer</a>
                         </li>
                         <hr class="d-lg-none d-block">
                         <li class="nav-item mx-lg-2 mx-0 ">
-                            <a href="" class="nav-link fw-500 d-inline-flex"><i
-                                    class="bi bi-grid me-3 d-lg-none d-inline"></i> Genre</a>
-                        </li>
-                        <hr class="d-lg-none d-block">
-                        <li class="nav-item mx-lg-2 mx-0 ">
-                            <a href="" class="nav-link fw-500 d-inline-flex"><i
-                                    class="bi bi-megaphone me-3 d-lg-none d-inline"></i> Event</a>
+                            <a href="/genre" class="nav-link fw-500 d-inline-flex"><i class="bi bi-grid me-3 d-lg-none d-inline"></i> Genre</a>
                         </li>
                         <hr class="d-lg-none d-block">
                         @if (Auth::user())
+                        <li class="nav-item mx-lg-2 mx-0 d-lg-none d-block">
+                            <a href="/contribute/dashboard" class="nav-link fw-500 d-inline-flex"><i class="bi bi-megaphone me-3 d-lg-none d-inline"></i> Contribute</a>
+                        </li>
+                        <hr class="d-lg-none d-block">
                             <li class="nav-item mx-lg-2 mx-0 d-lg-none d-block">
-                                <a href="{{ route('logout') }}" class="nav-link fw-500 d-inline-flex"><i
-                                        class="bi bi-box-arrow-right me-3 d-lg-none d-inline"></i> Logout</a>
+                                <a href="{{ route('logout') }}" class="nav-link fw-500 d-inline-flex"><i class="bi bi-box-arrow-right me-3 d-lg-none d-inline"></i> Logout</a>
                             </li>
                             <hr class="d-lg-none d-block">
                         @endif
                     </ul>
+                    <a href="{{ Auth::user() ? '/contribute/dashboard' : '/auth/login' }}" class="ms-4 d-lg-block d-none">
+                        <img src="{{asset('img/maskot/contribute_icon.png')}}" width="80px" height="100%" alt="">
+                    </a>
                     <ul class="navbar-nav ms-auto">
 
                         <li class="nav-item me-3 my-auto position-relative d-lg-block d-none">
@@ -225,10 +223,7 @@
                             <li class="nav-item dropdown my-auto d-lg-block d-none">
                                 <a class="nav-link fs-sm py-0 text-gray" href="/anime" role="button"
                                     data-bs-toggle="dropdown" aria-expanded="false">
-                                    <div class="d-flex align-items-center"><img
-                                            src="{{ Auth::user()->photo ? Storage::url(Auth::user()->photo) : asset('img/maskot/face.png') }}"
-                                            class="rounded-circle me-3" width="35" height="35"
-                                            alt=""><span class="mt-2 ellipsis-text">{{ Auth::user()->name }}
+                                    <div class="d-flex align-items-center"><img src="{{ Auth::user()->photo ? Storage::url(Auth::user()->photo) : asset('img/maskot/face.png') }}" class="rounded-circle object-fit-cover me-3" width="35" height="35" alt=""><span class="mt-2 ellipsis-text">{{ Auth::user()->name }}
                                         </span></div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end border-0 position-absolute w-100 mt-3">
@@ -241,9 +236,10 @@
                                         </div>
                                     </li>
                                     <hr class="my-2">
-                                    <li><a href="/user/my-account" class="dropdown-item py-2 opacity-75 fs-s-sm"><i class="bi bi-person mx-3"></i> Akun Saya</a></li>
-                                    <li><a href="/favorit" class="dropdown-item py-2 opacity-75 fs-s-sm"><i class="bi bi-heart mx-3"></i> Favorit</a></li>
-                                    <li><a href="/history" class="dropdown-item py-2 opacity-75 fs-s-sm"><i class="bi bi-clock-history mx-3"></i> Riwayat Baca</a></li>
+                                    <li><a href="{{ Auth::user() ? '/user/my-account' : '/auth/login' }}" class="dropdown-item py-2 opacity-75 fs-s-sm"><i class="bi bi-person mx-3"></i> Akun Saya</a></li>
+                                    <li><a href="{{Auth::user() ? '/favorit' : '/auth/login'}}" class="dropdown-item py-2 opacity-75 fs-s-sm"><i class="bi bi-heart mx-3"></i> Favorit</a></li>
+                                    <li><a href="{{Auth::user() ? '/history' : '/auth/login'}}" class="dropdown-item py-2 opacity-75 fs-s-sm"><i class="bi bi-clock-history mx-3"></i> Riwayat Baca</a></li>
+                                    <li><a href="{{Auth::user() ? '/contribute/dashboard' : '/auth/login'}}" class="dropdown-item py-2 opacity-75 fs-s-sm"><i class="bi bi-megaphone mx-3"></i> Contribute</a></li>
                                     <hr class="my-2">
                                     <li><a href="/logout" class="dropdown-item py-2 opacity-75 fs-s-sm"><i class="bi bi-box-arrow-right mx-3"></i> Logout</a></li>
                                 </ul>

@@ -2,29 +2,33 @@
 
 @section('content')
     <section>
-        <div class="container mt-4">
-            <div class="row justify-content-center search-input-main">
-                <div class="col-lg-5 col-md-8 col-12 text-center">
-                    <form action="/search" method="get">
-                        <input type="text" name="q" id="" placeholder="Cari Judul atau Kreator"
-                            class="form-control w-100 rounded-pill px-md-4 px-3 text-gray">
-                    </form>
-                    <hr class="mx-5">
-                </div>
-            </div>
-
-            <div class="row mt-4">
-                <div class="col-12 mb-3">
-                    <h4 class="front-title-header">Genre </h4>
-                </div>
-            </div>
-            <div class="row flex-nowrap overflow-auto mx-md-0 mx-1">
-                @foreach ($genre as $data)
-                    <div class="col-auto mb-1 px-0 me-2">
-                        <a href="" class="search-genre-wrapper"
-                            style="background-image: url({{ Storage::url($data->photo) }})"></a>
+        <div class="bg-white pt-2 pb-2">
+            <div class="container">
+                <div class="row justify-content-center search-input-main">
+                    <div class="col-lg-5 col-md-8 col-12 text-center">
+                        <form action="/search" method="get">
+                            <input type="text" name="q" id="" placeholder="Cari Judul atau Author" class="form-control w-100 rounded-pill fs-sm px-md-4 px-3 text-gray">
+                        </form>
                     </div>
-                @endforeach
+                </div>
+            </div>
+        </div>
+        @if (!$dataContent)
+            
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-9 col-12 ">
+                    <div class="row justify-content-center mx-md-0 mx-1">
+                        @foreach ($genre->take(6) as $data)
+                            <div class="col-auto mb-1 px-0 mx-3  text-center">
+                                <a href="/genre?s={{$data->slug}}" class="search-genre-wrapper rounded-circle">
+                                    <img src="{{ Storage::url($data->photo) }}" alt="">
+                                </a>
+                                <p class="fs-s-sm text-gray mb-0 mt-2">{{$data->name}}</p>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
             </div>
             <div class="row mt-5">
                 <div class="col-12 mb-3">
@@ -32,39 +36,99 @@
                 </div>
             </div>
             <div class="row">
-                @for ($i = 0; $i < 9; $i++)
+                
+                @foreach ($content as $data)
+                @php
+                $likeCountAll = $data->chapters->sum(function ($chapter) {
+                                    return $chapter->likes->count();
+                                });
+                @endphp
                     <div class="col-auto mb-3 pe-md-1 pe-0">
-                        <a href="/komik/this-slug/list" class="contentContainer">
+                        <a href="/komik/{{$data->slug}}/list" class="contentContainer">
                             <div class="card_front">
-                                <img src="{{ asset('img/30.jpg') }}" class="object-fit-cover"  alt="">
+                                <img src="{{ Storage::url($data->thumbnail) }}" class="object-fit-cover"  alt="">
                                 <div class="info">
-                                    <p class="subj">The dragon's king bride</p>
+                                    <p class="subj">{{$data->title}}</p>
                                     <div class="grade-area">
                                         <i class="bi bi-heart-fill text-primary"></i>
-                                        <p class="mb-0 ms-2">{{ number_format(2030) }}</p>
+                                        <p class="mb-0 ms-2">{{ number_format($likeCountAll) }}</p>
                                     </div>
                                 </div>
-                                <p class="content_genre">Romantis</p>
+                                <p class="content_genre">{{ $data->genreDetail->first()->genre->name }}</p>
                             </div>
                             <div class="card_back">
                                 <div class="info">
-                                    <p class="subj">The dragon's king bride</p>
+                                    <p class="subj">{{$data->title}}</p>
                                     <div class="creator-name">
-                                        <p>HDR ROBOT</p>
+                                        <p>{{$data->author}}</p>
                                     </div>
                                     <p class="line-content"></p>
                                     <div class="content-desc">
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi ex explicabo
-                                            doloribus nihil pariatur similique nobis expedita est aliquid qui. Minima,
-                                            officiis nulla deleniti itaque deserunt doloribus harum cupiditate debitis!</p>
+                                        <p>{{$data->synopsis}}</p>
                                     </div>
                                 </div>
                             </div>
                         </a>
                     </div>
-                @endfor
+                @endforeach
             </div>
         </div>
+        @else
+            <div class="container mt-5">
+                <div class="row mt-5">
+                    <div class="col-12 mb-3">
+                        <h4 class="front-title-header">Komik <span class="fs-s-sm text-gray ms-3">(Hasil pencarian : {{$dataContent->count()}})</span></h4>
+                    </div>
+                </div>
+                <div class="row">
+                    
+                    
+                    @if ($dataContent->count() < 1)
+                    
+                    <div class="text-center">
+                        <img src="{{asset('img/maskot/SearchNotFound.gif')}}" alt="" width="300px" >
+                        <h6>WADUH, KITA TIDAK BISA MENEMUKAN KOMIK NYA NIH ! ...</h6>
+                    </div>
+                    @endif
+                    @foreach ($dataContent as $data)
+                    @php
+                    $likeCountAll = $data->chapters->sum(function ($chapter) {
+                                        return $chapter->likes->count();
+                                    });
+                    @endphp
+                        <div class="col-auto mb-3 pe-md-1 pe-0">
+                            <a href="/komik/{{$data->slug}}/list" class="contentContainer">
+                                <div class="card_front">
+                                    <img src="{{ Storage::url($data->thumbnail) }}" class="object-fit-cover"  alt="">
+                                    <div class="info">
+                                        <p class="subj">{{$data->title}}</p>
+                                        <div class="grade-area">
+                                            <i class="bi bi-heart-fill text-primary"></i>
+                                            <p class="mb-0 ms-2">{{ number_format($likeCountAll) }}</p>
+                                        </div>
+                                    </div>
+                                    <p class="content_genre">{{ $data->genreDetail->first()->genre->name }}</p>
+                                </div>
+                                <div class="card_back">
+                                    <div class="info">
+                                        <p class="subj">{{$data->title}}</p>
+                                        <div class="creator-name">
+                                            <p>{{$data->author}}</p>
+                                        </div>
+                                        <p class="line-content"></p>
+                                        <div class="content-desc">
+                                            <p>{{$data->synopsis}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                    @endforeach
+                </div>
+            </div>
+        @endif
+
 
     </section>
 @endsection

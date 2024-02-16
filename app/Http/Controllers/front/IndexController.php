@@ -7,19 +7,75 @@ use App\Models\Bookmark;
 use App\Models\Category;
 use App\Models\Content;
 use App\Models\Histories;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class IndexController extends Controller
 {
     public function index() {
+
         $content = Content::where('status', 3)->get();
-        return view('main.front.index', compact('content'));
+
+        $days = [
+            0 => 'MIN',
+            1 => 'SEN',
+            2 => 'SEL',
+            3 => 'RAB',
+            4 => 'KAM',
+            5 => 'JUM',
+            6 => 'SAB',
+        ];
+
+        $todayIndex = Carbon::now()->dayOfWeek;
+
+        $today = $days[$todayIndex];
+
+        // dd(Carbon::now()->addDays(1)->format('D'));
+
+
+        return view('main.front.index', compact('content', 'days', 'today'));
     }
 
     public function search() {
-        $genre = Category::take(6)->inRandomOrder()->distinct()->get();
-        return view('main.front.search', compact('genre'));
+        $dataContent = '';
+        if (request()->has('q') && request()->filled('q')) {
+            $q = request()->input('q');
+
+            $dataContent = Content::where('author', 'like', "%$q%")->orWhere('title', 'like', "%$q%")->get();
+        } 
+
+        $genre = Category::inRandomOrder()->distinct()->get();
+        $content = Content::take(10)->inRandomOrder()->where('status', 3)->distinct()->get();
+        return view('main.front.search', compact('genre', 'content', 'dataContent'));
+        
+    }
+
+    public function genre() {
+        $genre = Category::all();
+        $result = null;
+        if (request()->has('s') && request()->filled('s')) {
+            $s = request()->input('s');
+
+            $result = Category::where('slug', request('s'))->first();
+        } 
+
+        $content = Content::take(10)->where('status', 3)->inRandomOrder()->distinct()->get();
+        
+
+        return view('main.front.genre', compact('genre', 'result', 'content'));
+    }
+    
+    public function populer() {
+        $contentMostPopuler = Content::inRandomOrder()->where('status', 3)->first();
+
+        $content = Content::where('status', 3)
+            ->whereNotIn('id', [$contentMostPopuler->id])
+            ->inRandomOrder()
+            ->take(10)
+            ->get();
+        
+        return view('main.front.populer', compact('content', 'contentMostPopuler'));
     }
     
     public function policyPrivacy() {

@@ -153,7 +153,7 @@
                               <img src="{{asset('img/maskot/face.png')}}" class="me-3" width="34px" height="34px" alt=""> 
                               <div class="">
                                 <span class="fs-sm">{{Auth::user()->name}}</span>
-                                <p class="mb-0 fs-s-sm text-gray">2 Hours Ago</p>
+                                <p class="mb-0 fs-s-sm text-gray">Admin</p>
                               </div>
                             </li>
                             <hr class="my-2">

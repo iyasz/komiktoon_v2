@@ -103,16 +103,17 @@
                 let file = fileInput.files[0];
                 const preview = $('.square_thumbnail_show .imagePreview');
 
-                if (file && file.size > (500 * 1024)) { 
+                if (file && file.size > (1024 * 1024)) { 
                     fileInput.value = '';
                     preview.attr('src', $(preview).data('img'));
                     $('#alertModal').modal('show')
-                    $('#alertModal .modal-content p').html('Tidak dapat mengunggah file lebih dari 500KB')
+                    $('#alertModal .modal-content p').html('Tidak dapat mengunggah file lebih dari 1MB')
                 }else {
                     let data = new FormData();
                     data.append('file', file);
 
-                    axios.post('/contribute/content/create',data).then(function (response) {
+                axios.post('/panel/admin/getvalidationimage',data).then(function (response) {
+
                         if(response.data.error){
                             fileInput.value = '';
                             preview.attr('src', $(preview).data('img'));

@@ -162,7 +162,7 @@ body {
     position: relative;
     cursor: move;
     width: 120px;
-    height: 185px;
+    min-height: 185px;
     margin: 8px;
     border: solid 1px #cbcbcb;
 }
@@ -221,7 +221,7 @@ body {
     margin-right: auto; 
 }
 
-.title-chapter-limit {
+/* .title-chapter-limit {
     overflow: hidden;
     display: -webkit-box !important;
     -webkit-box-orient: vertical;
@@ -229,7 +229,7 @@ body {
     text-overflow: ellipsis;
     text-decoration: none;
     width: 300px !important;
-}
+} */
 
 
 

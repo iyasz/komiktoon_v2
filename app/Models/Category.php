@@ -20,4 +20,9 @@ class Category extends Model
         return 'string';
     }
 
+    public function genreDetail()
+    {
+        return $this->hasMany(CategoryDetail::class, 'category_id', 'id');
+    }
+
 }

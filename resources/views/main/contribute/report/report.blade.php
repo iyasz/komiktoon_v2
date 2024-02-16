@@ -9,7 +9,7 @@
                 <div class="card border-0 rounded-1 h-100">
                     <div class="card-body">
                         <div class=" p-lg-3 p-0">
-    
+
                             <div class="row mt-3">
                                 <div class="col-12 mb-3">
                                     <h4 class="mb-0">Laporan Bulanan</h4>
@@ -23,53 +23,76 @@
                                             <option value=""></option>
                                         </select>   
                                     </div> --}}
-                                    
+
                                     <div class="">
-                                        <ul class="nav nav-pills border-bottom mb-3 fs-sm mx-lg-4 mx-auto flex-nowrap overflow-auto" id="pills-tab" role="tablist">
-                                            @foreach ($lastSevenMonths as $key => $item)
-                                            <li class="nav-item" role="presentation">
-                                                <a class="nav-link border-bottom-white rounded-0 bg-transparent py-3 me-3 text-gray fw-400 {{ $key === count($lastSevenMonths) - 1 ? 'active' : '' }}" data-bs-toggle="pill" data-bs-target="#pills-{{$item}}{{$key}}" type="button" role="tab" aria-controls="pills-{{$item}}{{$key}}" aria-selected="false">{{$item}}</a>
-                                            </li>
+                                        <ul class="nav nav-pills border-bottom mb-3 fs-sm mx-lg-4 mx-auto flex-nowrap overflow-auto"
+                                            id="pills-tab" role="tablist">
+                                            @foreach ($lastSevenMonths as $item)
+                                                <li class="nav-item" role="presentation">
+                                                    <a class="nav-link border-bottom-white rounded-0 bg-transparent py-3 me-3 text-gray fw-400 {{ $loop->last ? 'active' : '' }}"
+                                                        id="pills-{{ $item['bulan'] }}{{ $item['tahun'] }}-tab"
+                                                        data-bs-toggle="pill"
+                                                        href="#pills-{{ $item['bulan'] }}{{ $item['tahun'] }}"
+                                                        role="tab"
+                                                        aria-controls="pills-{{ $item['bulan'] }}{{ $item['tahun'] }}"
+                                                        aria-selected="{{ $loop->last ? 'true' : 'false' }}">{{ $item['bulan'] }}</a>
+                                                </li>
                                             @endforeach
                                         </ul>
                                     </div>
 
                                     <div class="tab-content" id="pills-tabContent">
                                         @foreach ($lastSevenMonths as $key => $item)
-                                        <div class="tab-pane height fade {{ $key === count($lastSevenMonths) - 1 ? 'show active' : '' }}" id="pills-{{$item}}{{$key}}" role="tabpanel" tabindex="0">
-                                            <div class="bg-semi-gray">
-                                                    <div class="table-responsive ">
-                                                        <table class="table table-borderless">
+                                            {{-- <div>{{ print_r($item['jumlahHari']) }}</div> --}}
+                                            <div class="tab-pane height fade {{ $loop->last ? 'show active' : '' }}"
+                                                id="pills-{{ $item['bulan'] }}{{ $item['tahun'] }}" role="tabpanel"
+                                                tabindex="0">
+                                                <div class="table-responsive ">
+                                                    <table class="table table-borderless">
                                                         <tr>
-                                                            <th class="fs-s-sm">Tanggal</th>
-                                                            <th class="fs-s-sm">Jumlah Pembaca</th>
-                                                            <th class="fs-s-sm">Komentar</th>
-                                                            <th class="fs-s-sm">Like</th>
+                                                            <th class="fs-s-sm bg-semi-gray text-center">Tanggal
+                                                                {{ $key }}</th>
+                                                            <th class="fs-s-sm bg-semi-gray text-center">Jumlah Pembaca
+                                                                {{ $item['bulan'] }}</th>
+                                                            <th class="fs-s-sm bg-semi-gray text-center">Komentar</th>
+                                                            <th class="fs-s-sm bg-semi-gray text-center">Like</th>
                                                         </tr>
-                                                        <tr>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </table>
-                                                    {{-- <h1>{{$item}}</h1> --}}
-                                                </div>
-                                            </div>
+                                                        @for ($i = $item['jumlahHari']; $i >= 1; $i--)
+                                                            <?php
+                                                            $day = str_pad($i, 2, '0', STR_PAD_LEFT);
+                                                            $viewCount = getViewCountByDate($item['tahun'], $item['bulanKe'], $day);
+                                                            $commentCount = getCommentCountByDate($item['tahun'], $item['bulanKe'], $day);
+                                                            $likeCount = getLikeCountByDate($item['tahun'], $item['bulanKe'], $day);
+                                                            ?>
+                                                            @if ($viewCount != 0 || $commentCount != 0 || $likeCount != 0)
+                                                                <tr>
+                                                                    <td class="border-bottom text-center">
+                                                                        {{ substr($item['tahun'], -2) }} - {{ $day }}</td>
+                                                                    <td class="border-bottom text-center">
+                                                                        {{ $viewCount }}</td>
+                                                                    <td class="border-bottom text-center">
+                                                                        {{ $commentCount }}</td>
+                                                                    <td class="border-bottom text-center">
+                                                                        {{ $likeCount }}</td>
+                                                                </tr>
+                                                            @endif
+                                                        @endfor
 
-                                        </div>
+                                                    </table>
+                                                </div>
+
+                                            </div>
                                         @endforeach
 
                                     </div>
 
                                 </div>
-                            </div>  
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-         
-    </div>
-@endsection
 
+        </div>
+    @endsection
