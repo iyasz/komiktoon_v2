@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Content;
 use App\Models\Report;
 use App\Models\Takedown;
+use App\Models\User;
 use App\Models\View;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -15,7 +16,10 @@ class IndexController extends Controller
 {
     public function index() {
 
-        $contentCount = Content::where('status', 3)->whereMonth('created_at', Carbon::now()->month)->whereYear('created_at', Carbon::now()->year)->count();
+        $userCount = User::whereMonth('created_at', Carbon::now()->month)->whereYear('created_at', Carbon::now()->year)->whereHas('contents', function($query){
+            $query->where('status', 3);
+        })->count();
+        
         $takedownCount = Takedown::whereMonth('created_at', Carbon::now()->month)->whereYear('created_at', Carbon::now()->year)->count();
         $reportCount = Report::whereMonth('created_at', Carbon::now()->month)->whereYear('created_at', Carbon::now()->year)->count();
 
@@ -42,21 +46,26 @@ class IndexController extends Controller
         $data7toJson = json_encode($data7Days);
         
 
-        return view('manage.admin.dashboard', compact('contentCount', 'takedownCount', 'reportCount', 'data7toJson', 'komikUpdatedCount', 'komikActiveCount', 'komikTakedownCount'));
+        return view('manage.admin.dashboard', compact('userCount', 'takedownCount', 'reportCount', 'data7toJson', 'komikUpdatedCount', 'komikActiveCount', 'komikTakedownCount'));
     }
 
     public function getDataKomikSelect(Request $request) {
         $startOfWeek = Carbon::now()->startOfWeek();
         $endOfWeek = Carbon::now()->endOfWeek();
 
-        if($request->dataActive){
-            $contentCount = '';
-            if($request->dataActive == 7){
-                $contentCount = Content::where('status', 3)->whereBetween('created_at', [$startOfWeek, $endOfWeek])->whereMonth('created_at', Carbon::now()->month)->whereYear('created_at', Carbon::now()->year)->count();
+        if($request->userCreator){
+            $conuserCounttentCount = '';
+            if($request->userCreator == 30){
+                $userCount = User::whereMonth('created_at', Carbon::now()->month)->whereYear('created_at', Carbon::now()->year)->whereHas('contents', function($query){
+                    $query->where('status', 3);
+                })->count();
+                
             }else{
-                $contentCount = Content::where('status', 3)->whereMonth('created_at', Carbon::now()->month)->whereYear('created_at', Carbon::now()->year)->count();
+                $userCount = User::whereHas('contents', function($query){
+                    $query->where('status', 3);
+                })->count();
             }
-            return response()->json(['contentCount' => $contentCount]);
+            return response()->json(['contentCount' => $userCount]);
         }
 
         if($request->dataTakedown){

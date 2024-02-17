@@ -132,7 +132,9 @@ class ChapterController extends Controller
     }
 
     public function showEditChapter($slugContent, $slugChapter) {
-        $content = Content::where('slug', $slugContent)->where('status', 3)->whereOr('status', 1)->first();
+        $content = Content::where('slug', $slugContent)->where(function($query) {
+                      $query->where('status', 3)->orWhere('status', 1);
+                  })->first();
         if(!$content || $content->user_id != Auth::user()->id){
             abort(404);
         }

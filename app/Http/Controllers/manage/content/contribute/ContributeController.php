@@ -26,22 +26,23 @@ class ContributeController extends Controller
         ->orderByDesc('view_count')
         ->take(10)
         ->get();
+        
 
         // dd($totalContentsWithMostViews);
     
     
         $contentIds = User::find(Auth::user()->id)->contents()->where('status', 3)->pluck('id');
 
-        $totalLikes = Like::whereIn('chapter_id', function ($query) use ($contentIds) {
-            $query->select('id')
-                  ->from('chapters')
-                  ->whereIn('content_id', $contentIds);
+        $totalLikes = Like::whereHas('chapter', function($query){
+            $query->whereHas('content', function($e){
+                $e->where('status', 3)->where('user_id', Auth::user()->id);
+            });
         })->count();
 
-        $totalViews = View::whereIn('chapter_id', function ($query) use ($contentIds) {
-            $query->select('id')
-                  ->from('chapters')
-                  ->whereIn('content_id', $contentIds);
+        $totalViews = View::whereHas('chapter', function($query){
+            $query->whereHas('content', function($e){
+                $e->where('status', 3)->where('user_id', Auth::user()->id);
+            });
         })->count();
 
         $totalComments = Comment::whereIn('content_id', function($query) {

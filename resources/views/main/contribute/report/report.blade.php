@@ -58,12 +58,12 @@
                                                             <th class="fs-s-sm bg-semi-gray text-center">Like</th>
                                                         </tr>
                                                         @for ($i = $item['jumlahHari']; $i >= 1; $i--)
-                                                            <?php
+                                                            @php
                                                             $day = str_pad($i, 2, '0', STR_PAD_LEFT);
                                                             $viewCount = getViewCountByDate($item['tahun'], $item['bulanKe'], $day);
                                                             $commentCount = getCommentCountByDate($item['tahun'], $item['bulanKe'], $day);
                                                             $likeCount = getLikeCountByDate($item['tahun'], $item['bulanKe'], $day);
-                                                            ?>
+                                                            @endphp
                                                             @if ($viewCount != 0 || $commentCount != 0 || $likeCount != 0)
                                                                 <tr>
                                                                     <td class="border-bottom text-center">

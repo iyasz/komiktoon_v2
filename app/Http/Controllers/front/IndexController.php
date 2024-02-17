@@ -18,16 +18,17 @@ class IndexController extends Controller
         $content = Content::where('status', 3)->get();
 
         $days = [
-            0 => 'MIN',
-            1 => 'SEN',
-            2 => 'SEL',
-            3 => 'RAB',
-            4 => 'KAM',
-            5 => 'JUM',
-            6 => 'SAB',
+            0 => 'SEN',
+            1 => 'SEL',
+            2 => 'RAB',
+            3 => 'KAM',
+            4 => 'JUM',
+            5 => 'SAB',
+            6 => 'MIN',
         ];
 
-        $todayIndex = Carbon::now()->dayOfWeek;
+        $todayIndex = Carbon::now()->dayOfWeek - 1;
+        // $todayIndex = Carbon::now()->dayOfWeek === 0 ? 6 : Carbon::now()->dayOfWeek - 1;
 
         $today = $days[$todayIndex];
 

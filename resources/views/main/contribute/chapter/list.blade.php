@@ -53,7 +53,7 @@
                                     <tr>
                                         <td>
                                             <hr class="mt-2">
-                                            {{-- @foreach ($content->chapters()->orderBy('created_at', 'desc')->paginate(7) as $data)
+                                            @foreach ($content->chapters()->orderBy('created_at', 'desc')->paginate(7) as $data)
                                             <div class="row flex-nowrap overflow-auto">
                                                     <li class="align-items-center chapter-section" style="display: flex;">
                                                         <img src="{{ Storage::url($data->thumbnail) }}" alt="" width="85px" height="85px" class="object-fit-cover">
@@ -75,7 +75,7 @@
                                                         @endphp
                                                 </div>
                                                 <hr class="mb-0 mt-3">
-                                                @endforeach --}}
+                                                @endforeach
                                             </td>
                                         </tr>
                                         @else

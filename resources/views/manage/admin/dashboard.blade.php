@@ -10,11 +10,11 @@
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-7">
-                                <p class="mb-0 fs-sm">Komik Aktif</p>
+                                <p class="mb-0 fs-sm">Creator</p>
                             </div>
                             <div class="col-5">
-                                <select id="komikAktif" class="form-control form-control-sm fs-s-sm p-2">
-                                    <option value="7" >7 Days</option>
+                                <select id="creatorKomik" class="form-control form-control-sm fs-s-sm p-2">
+                                    <option value="all">All</option>
                                     <option value="30" selected>30 Days</option>
                                 </select>
                             </div>
@@ -29,8 +29,8 @@
                                 </svg>    
                             </div>
                             <div class="ms-3 mt-3">
-                                <p class="mb-0 fw-600" id="komikAktifText">{{number_format($contentCount)}}</p>
-                                <p class="fs-s-sm">Jumlah Komik Aktif</p>
+                                <p class="mb-0 fw-600" id="creatorKomikText">{{number_format($userCount)}}</p>
+                                <p class="fs-s-sm">Jumlah Creator </p>
                             </div>
 
                         </div>
@@ -151,12 +151,12 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
     <script>
-        $('#komikAktif').on('change', function(){
+        $('#creatorKomik').on('change', function(){
             let data = new FormData();
-            data.append('dataActive', $('#komikAktif').val());
+            data.append('userCreator', $('#creatorKomik').val());
             
             axios.post(window.location.href, data).then(function (response) {
-                $('#komikAktifText').text(response.data.contentCount.toLocaleString())
+                $('#creatorKomikText').text(response.data.contentCount.toLocaleString())
             });
 
         })

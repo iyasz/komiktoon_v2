@@ -29,6 +29,7 @@ class Content extends Model
     {
         return $this->hasMany(Chapter::class);
     }
+    
 
     public function comments()
     {
@@ -42,7 +43,7 @@ class Content extends Model
 
     public function takedown() {
         return $this->hasMany(Takedown::class);
-    }
+    }   
 
 
 }
