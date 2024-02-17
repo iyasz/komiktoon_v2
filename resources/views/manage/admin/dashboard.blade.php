@@ -13,8 +13,9 @@
                                 <p class="mb-0 fs-sm">Komik Aktif</p>
                             </div>
                             <div class="col-5">
-                                <select name="" id="" class="form-control form-control-sm fs-s-sm p-2">
-                                    <option value="" selected>30 Days</option>
+                                <select id="komikAktif" class="form-control form-control-sm fs-s-sm p-2">
+                                    <option value="7" >7 Days</option>
+                                    <option value="30" selected>30 Days</option>
                                 </select>
                             </div>
 
@@ -28,7 +29,7 @@
                                 </svg>    
                             </div>
                             <div class="ms-3 mt-3">
-                                <p class="mb-0 fw-600">{{number_format($contentCount)}}</p>
+                                <p class="mb-0 fw-600" id="komikAktifText">{{number_format($contentCount)}}</p>
                                 <p class="fs-s-sm">Jumlah Komik Aktif</p>
                             </div>
 
@@ -45,8 +46,9 @@
                                 <p class="mb-0 fs-sm">Takedown</p>
                             </div>
                             <div class="col-5">
-                                <select name="" id="" class="form-control form-control-sm fs-s-sm p-2">
-                                    <option value="" selected>30 Days</option>
+                                <select id="komikTakedown" class="form-control form-control-sm fs-s-sm p-2">
+                                    <option value="7" >7 Days</option>
+                                    <option value="30" selected>30 Days</option>
                                 </select>
                             </div>
 
@@ -58,7 +60,7 @@
                                 </svg>
                             </div>
                             <div class="ms-3 mt-3">
-                                <p class="mb-0 fw-600">{{number_format($takedownCount)}}</p>
+                                <p class="mb-0 fw-600" id="komikTakedownText">{{number_format($takedownCount)}}</p>
                                 <p class="fs-s-sm">Jumlah Takedown</p>
                             </div>
 
@@ -75,8 +77,10 @@
                                 <p class="mb-0 fs-sm">Laporan</p>
                             </div>
                             <div class="col-5">
-                                <select name="" id="" class="form-control form-control-sm fs-s-sm p-2">
-                                    <option value="" selected>30 Days</option>
+                                <select id="komikReport" class="form-control form-control-sm fs-s-sm p-2">
+                                    <option value="7" >7 Days</option>
+                                    <option value="30" selected>30 Days</option>
+                                   
                                 </select>
                             </div>
 
@@ -89,8 +93,8 @@
                                 </svg>
                             </div>
                             <div class="ms-3 mt-3">
-                                <p class="mb-0 fw-600">{{number_format($reportCount)}}</p>
-                                <p class="fs-s-sm">Laporan aktif</p>
+                                <p class="mb-0 fw-600" id="reportKomikText">{{number_format($reportCount)}}</p>
+                                <p class="fs-s-sm">Jumlah Laporan</p>
                             </div>
 
                         </div>
@@ -103,12 +107,20 @@
         <div class="row">
             <div class="col-lg-8 col-12 mt-lg-auto mt-3 mb-3">
 
-                <div class="row flex-nowrap overflow-auto">
+                <div class="row">
                     
-                    <div class="col-12 pe-lg-0 pe-auto" >
+                    <div class="col-12 pe-lg-0 pe-auto"  >
                         <div class="card border-0 rounded-1 h-100 ">
                             <div class="card-body">
-                                <div><canvas id="statisticLineBar"></canvas></div>
+                                <div class="title">
+                                    <h5 class="fw-600 mb-1">Data Pembaca</h5>
+                                    <p class="fs-s-sm">Laporan 7 hari terakhir banyaknya pembaca</p>
+                                </div>
+                                <div class="row flex-nowrap overflow-auto">
+                                    <div class="col-12" style="min-width: 600px">
+                                        <div><canvas id="statisticLineBar"></canvas></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -117,10 +129,14 @@
         
             </div>
 
-            <div class="col-lg-4 col-12 mb-3 text-center ps-3">
+            <div class="col-lg-4 col-12 mb-3 ps-3">
 
                 <div class="card border-0 rounded-1 h-100 ">
                     <div class="card-body">
+                        <div class="title">
+                            <h5 class="fw-600 mb-1">Komik Status</h5>
+                            <p class="fs-s-sm">Laporan Staus Komik {{ \Carbon\Carbon::now()->translatedFormat('F') }} {{\Carbon\Carbon::now()->year}}</p>
+                        </div>
                         <div><canvas id="statisticDoughnuteBar"></canvas></div>
                     </div>
                 </div>
@@ -135,17 +151,34 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
     <script>
-        
-        const app = {
-            data(){
-                return{
-                    nama : 'iyasz'
-                }
-            },
-        }
+        $('#komikAktif').on('change', function(){
+            let data = new FormData();
+            data.append('dataActive', $('#komikAktif').val());
+            
+            axios.post(window.location.href, data).then(function (response) {
+                $('#komikAktifText').text(response.data.contentCount.toLocaleString())
+            });
 
-        Vue.createApp(app).mount('#app')
+        })
 
+        $('#komikTakedown').on('change', function(){
+            let data = new FormData();
+            data.append('dataTakedown', $('#komikTakedown').val());
+            
+            axios.post(window.location.href, data).then(function (response) {
+                $('#komikTakedownText').text(response.data.takedownCount.toLocaleString())
+            });
+
+        })
+
+        $('#komikReport').on('change', function(){
+            let data = new FormData();
+            data.append('dataReport', $('#komikReport').val());
+            
+            axios.post(window.location.href, data).then(function (response) {
+                $('#reportKomikText').text(response.data.reportCount.toLocaleString())
+            });
+        })
     </script>
 
     <script>
@@ -154,18 +187,16 @@
 
             // LINE CHART 
 
-            const today = new Date();
-            const labels = Array.from({ length: 7 }, (_, i) => {
-            const date = new Date(today);
-            date.setDate(today.getDate() - i);
-            return date.toLocaleDateString(undefined, { day: 'numeric', month: 'short' });
-            });
+            const chartData = <?php echo $data7toJson; ?>;
+
+            const labels = chartData.map(data => data.date);
+            const viewTotals = chartData.map(data => data.viewTotal);
 
             const data = {
-                labels: labels.reverse(),
+                labels: labels.reverse(),   
                 datasets: [{
                     label: 'Jumlah Pembaca',
-                    data: [65, 59, 80, 81, 56, 55, 40],
+                    data: viewTotals.reverse(),
                     fill: false,
                     borderColor: 'rgb(75, 192, 192)',
                     tension: 0.3
@@ -193,13 +224,17 @@
         // END LINE CHART 
 
         // DOUGHNUT CHART 
+        const waitCount = <?php echo $komikUpdatedCount; ?>;
+        const takedownCount = <?php echo $komikTakedownCount; ?>;
+        const activeCount = <?php echo $komikActiveCount; ?>;
 
         const data = {
 
-        labels: ['Year', 'Month', 'Day'],
+        labels: ['Takedown', 'Active', 'Waiting'],
 
+        
         datasets: [{
-            data: [300, 50, 100],
+            data: [takedownCount,activeCount ,waitCount],
             backgroundColor: [
             'rgb(255, 99, 132)',
             'rgb(54, 162, 235)',

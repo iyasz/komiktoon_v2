@@ -66,6 +66,8 @@ Route::middleware(['auth'])->group(function () {
         
         // Admin Panel 
         Route::get('/panel/admin/dashboard', [IndexController::class, 'index']);
+        Route::post('/panel/admin/dashboard', [IndexController::class, 'getDataKomikSelect']);
+
         Route::resource('/panel/category', CategoryController::class);
 
         Route::get('/panel/komik/list', [ContentManageController::class, 'index']);

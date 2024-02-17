@@ -20,31 +20,68 @@ class IndexController extends Controller
         $reportCount = Report::whereMonth('created_at', Carbon::now()->month)->whereYear('created_at', Carbon::now()->year)->count();
 
 
-        $datesAndDays = [];
+        $data7Days = [];
 
         for ($i = 0; $i < 7; $i++) {
             $date = Carbon::now()->subDays($i);
-            $formattedDate = $date->translatedFormat('j F'); // Format tanggal seperti '13 Februari'
-            $dayOfWeek = ucfirst($date->translatedFormat('l')); // Hari dalam Bahasa Indonesia dan huruf pertama kapital
+            $formattedDate = $date->translatedFormat('j F'); 
+            $dayOfWeek = ucfirst($date->translatedFormat('l')); 
         
-            // Lakukan query untuk mendapatkan jumlah view untuk tanggal saat ini
             $viewTotal = View::whereDate('created_at', $date->toDateString())->count();
         
-            $datesAndDays[] = [
+            $data7Days[] = [
                 "date" => $formattedDate,
                 "viewTotal" => $viewTotal
             ];
         }
+
+        $komikUpdatedCount = Content::where('status', 2)->whereMonth('created_at', Carbon::now()->month)->whereYear('created_at', Carbon::now()->year)->count();
+        $komikActiveCount = Content::where('status', 3)->whereMonth('created_at', Carbon::now()->month)->whereYear('created_at', Carbon::now()->year)->count();
+        $komikTakedownCount = Content::where('status', 5)->whereMonth('created_at', Carbon::now()->month)->whereYear('created_at', Carbon::now()->year)->count();
+
+        $data7toJson = json_encode($data7Days);
         
-        // Contoh output
-        dd($datesAndDays);
+
+        return view('manage.admin.dashboard', compact('contentCount', 'takedownCount', 'reportCount', 'data7toJson', 'komikUpdatedCount', 'komikActiveCount', 'komikTakedownCount'));
+    }
+
+    public function getDataKomikSelect(Request $request) {
+        $startOfWeek = Carbon::now()->startOfWeek();
+        $endOfWeek = Carbon::now()->endOfWeek();
+
+        if($request->dataActive){
+            $contentCount = '';
+            if($request->dataActive == 7){
+                $contentCount = Content::where('status', 3)->whereBetween('created_at', [$startOfWeek, $endOfWeek])->whereMonth('created_at', Carbon::now()->month)->whereYear('created_at', Carbon::now()->year)->count();
+            }else{
+                $contentCount = Content::where('status', 3)->whereMonth('created_at', Carbon::now()->month)->whereYear('created_at', Carbon::now()->year)->count();
+            }
+            return response()->json(['contentCount' => $contentCount]);
+        }
+
+        if($request->dataTakedown){
+            $takedownCount = '';
+            if($request->dataTakedown == 7){
+                $takedownCount = Takedown::whereBetween('created_at', [$startOfWeek, $endOfWeek])->whereMonth('created_at', Carbon::now()->month)->whereYear('created_at', Carbon::now()->year)->count();
+            }else{
+                $takedownCount = Takedown::whereMonth('created_at', Carbon::now()->month)->whereYear('created_at', Carbon::now()->year)->count();   
+            }
+            return response()->json(['takedownCount' => $takedownCount]);
+            
+        }
         
+        if($request->dataReport){
+            if($request->dataReport == 7){
+                
+                $reportCount = Report::whereBetween('created_at', [$startOfWeek, $endOfWeek])->whereMonth('created_at', Carbon::now()->month)->whereYear('created_at', Carbon::now()->year)->count();
+            }else{
+                $reportCount = Report::whereMonth('created_at', Carbon::now()->month)->whereYear('created_at', Carbon::now()->year)->count();
+                
+            }
+            
+            return response()->json(['reportCount' => $reportCount]);
+        }
 
-
-        // $view = View::where('created_at' < 7 days);
-        // dd(Carbon::now()->startOfWeek('0')->format('D'));
-
-        return view('manage.admin.dashboard', compact('contentCount', 'takedownCount', 'reportCount'));
     }
 
     public function handleValidateImage(Request $request) {
