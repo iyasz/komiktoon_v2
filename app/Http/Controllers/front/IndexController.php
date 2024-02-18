@@ -18,22 +18,19 @@ class IndexController extends Controller
         $content = Content::where('status', 3)->get();
 
         $days = [
-            0 => 'SEN',
-            1 => 'SEL',
-            2 => 'RAB',
-            3 => 'KAM',
-            4 => 'JUM',
-            5 => 'SAB',
-            6 => 'MIN',
+            1 => 'SEN',
+            2 => 'SEL',
+            3 => 'RAB',
+            4 => 'KAM',
+            5 => 'JUM',
+            6 => 'SAB',
+            7 => 'MIN',
         ];
 
         // $todayIndex = Carbon::now()->dayOfWeek - 1;
-        $todayIndex = Carbon::now()->dayOfWeek === 0 ? 6 : Carbon::now()->dayOfWeek - 1;
+        $todayIndex = Carbon::now()->dayOfWeek === 0 ? 7 : Carbon::now()->dayOfWeek - 1;
 
         $today = $days[$todayIndex];
-
-        // dd(Carbon::now()->addDays(1)->format('D'));
-
 
         return view('main.front.index', compact('content', 'days', 'today'));
     }
@@ -41,9 +38,13 @@ class IndexController extends Controller
     public function search() {
         $dataContent = '';
         if (request()->has('q') && request()->filled('q')) {
-            $q = request()->input('q');
+            $q = request()->input('q'); 
 
-            $dataContent = Content::where('author', 'like', "%$q%")->orWhere('title', 'like', "%$q%")->get();
+            $dataContent = Content::where('status', 3)
+            ->where(function($query) use ($q) {
+                $query->where('author', 'like', "%$q%")->orWhere('title', 'like', "%$q%");
+            })->get();
+
         } 
 
         $genre = Category::inRandomOrder()->distinct()->get();

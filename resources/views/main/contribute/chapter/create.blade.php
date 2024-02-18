@@ -300,8 +300,8 @@
                 acceptedFiles: 'image/png, image/jpg, image/jpeg',
                 maxThumbnailFilesize: 20,
                 thumbnailMethod: "crop",
-                thumbnailWidth: 800,
-                thumbnailHeight: 889,
+                thumbnailWidth: 690,
+                thumbnailHeight: 1240,
                 dictInvalidFileType: "Tipe file ini tidak diizinkan",
                 dictResponseError: "Terjadi kesalahan saat mengunggah file.",
                 headers: {
@@ -343,18 +343,7 @@
                             return false
                         }
 
-                        // decrement file size 
-                        // var removedSize = file.size / 1024;
-
-                        // totalSize -= removedSize;
-                        // var calcSize = totalSize / 1024;
-
-                        // if (Math.round(totalSize) < 1024) {
-                        //     $('#sizeFileContent').text(Math.round(totalSize) + 'KB');
-                        // } else {
-                        //     $('#sizeFileContent').text(Math.round(calcSize) + 'MB');
-                        // }
-                        // end decrement file size 
+                        
 
                         // cek index 
                         $("#sortable .ui-state-default").each(function(index) {

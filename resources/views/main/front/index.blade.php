@@ -1,80 +1,100 @@
 @extends('layout.front')
 
 @section('content')
-    <section id="hero-content-section" style="background-image: url('{{ asset('img/bg.jpg') }}');">
+    <section id="hero-content-section" style="background-image: url('{{ asset('img/template/bg.jpg') }}');">
         <div class="container">
             <div class="row">
-                <div class="col-12 text-center">
-                    {{-- <h>keren</h>   --}}
+                <div class="col-12">
+                    <div class="wrapper-banner">
+                        <div class="big_banner">
+                            <a href="/komik/steel-eating-player/list" class="d-block">
+                                <img src="{{asset('img/template/banner_home.png')}}" alt="big-banner">
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
     <div class="bg-white">
         <div class="container">
-            <div class="row">
+            <div class="row flex-nowrap overflow-auto">
                 <div class="col-12">
                     <ul class="nav nav-pills nav-day justify-content-center" id="pills-tab" role="tablist">
                         @foreach ($days as $item)
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link py-4 px-5 rounded-0 {{$item == $today ? 'active' : ''}}" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">{{$item}}</button>
+                            <button class="nav-link py-4 px-5 rounded-0 {{$item == $today ? 'active' : ''}}" id="pills-{{$item}}-tab" data-bs-toggle="pill" data-bs-target="#pills-{{$item}}" type="button" role="tab" aria-controls="pills-{{$item}}" aria-selected="true">{{$item}}</button>
                         </li>
                         @endforeach
-                        <div class="tab-content" id="pills-tabContent">
-                            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">...</div>
-                            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">...</div>
-                            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">...</div>
-                            <div class="tab-pane fade" id="pills-disabled" role="tabpanel" aria-labelledby="pills-disabled-tab" tabindex="0">...</div>
-                      </div>
+                      
                 </div>
             </div>
         </div>
     </div>
     <section id="content">
         <div class="container mt-5">
-            <div class="row">
-                @foreach($content as $data)
-                    @php
-                    $likeCountAll = $data->chapters->sum(function ($chapter) {
-                            return $chapter->likes->count();
-                        });
-                    @endphp
-                    <div class="col-auto mb-3 pe-md-1 pe-0">
-                        <a href="/komik/{{$data->slug}}/list" class="contentContainer">
-                            <div class="card_front">
-                                <img src="{{ Storage::url($data->thumbnail) }}" class=""  alt="">
-                                <div class="info">
-                                    <p class="subj">{{$data->title}}</p>
-                                    <div class="grade-area">
-                                        <i class="bi bi-heart-fill text-primary"></i>
-                                        <p class="mb-0 ms-2">{{ number_format($likeCountAll) }}</p>
+                @foreach ($days as $item)
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade {{$item == $today ? 'show active' : ''}}" id="pills-{{$item}}" role="tabpanel" aria-labelledby="pills-{{$item}}-tab" tabindex="0">
+                        <div class="row">
+                        @foreach (getContentUseWeek($item) as $data)
+                            @php
+                            $likeCountAll = $data->chapters->sum(function ($chapter) {
+                                    return $chapter->likes->count();
+                                });
+                            @endphp
+                            <div class="col-auto mb-3 pe-md-1 pe-0">
+                                <a href="/komik/{{$data->slug}}/list" class="contentContainer">
+                                    <div class="card_front">
+                                        <img src="{{ Storage::url($data->thumbnail) }}" class=""  alt="">
+                                        <div class="info">
+                                            <p class="subj">{{$data->title}}</p>
+                                            <div class="grade-area">
+                                                <i class="bi bi-heart-fill text-primary"></i>
+                                                <p class="mb-0 ms-2">{{ number_format($likeCountAll) }}</p>
+                                            </div>
+                                            @if ($data->created_at >  \Carbon\Carbon::now()->subWeek())
+                                            <div class="badge-icon">
+                                                <img src="{{asset('img/template/new_st.png')}}" alt="status" width="30">
+                                            </div>
+                                            @elseif($data->chapters()->whereDate('created_at', '>', now()->subDays(3))->exists())
+                                            <div class="badge-icon">
+                                                <img src="{{asset('img/template/up_st.png')}}" alt="status" width="30">
+                                            </div>
+                                            @elseif($data->is_ongoing == 2)
+                                            <div class="badge-icon">
+                                                <img src="{{asset('img/template/end_st.png')}}" alt="status" width="30">
+                                            </div>
+                                            @endif
+                                        </div>
+                                        <p class="content_genre">{{ $data->genreDetail->first()->genre->name }}</p>
                                     </div>
-                                </div>
-                                <p class="content_genre">{{ $data->genreDetail->first()->genre->name }}</p>
+                                    <div class="card_back">
+                                        <div class="info">
+                                            <p class="subj">{{$data->title}}</p>
+                                            <div class="creator-name">
+                                                <p>{{$data->author}}</p>
+                                            </div>
+                                            <p class="line-content"></p>
+                                            <div class="content-desc">
+                                                <p>{{$data->synopsis}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
                             </div>
-                            <div class="card_back">
-                                <div class="info">
-                                    <p class="subj">{{$data->title}}</p>
-                                    <div class="creator-name">
-                                        <p>{{$data->author}}</p>
-                                    </div>
-                                    <p class="line-content"></p>
-                                    <div class="content-desc">
-                                        <p>{{$data->synopsis}}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
+                        @endforeach
                     </div>
+                    </div>
+                </div>
                 @endforeach
-            </div>
-
         </div>
 
-        <div class="bg-white my-5">
+        <div class="bg-white my-5 py-5">
             <div class="container">
                 <div class="row">   
                     <div class="col-12 text-end">
+                        <h1>kanjut</h1>
                         {{-- @foreach ($content->inRandomOrder()->take(1)->get() as $item)
                             <img src="{{Storage::url($item->thumbnail)}}" width="180px" alt="">
                         @endforeach --}}
@@ -106,6 +126,19 @@
                                             <i class="bi bi-heart-fill text-primary"></i>
                                             <p class="mb-0 ms-2">{{ number_format($likeCountAll) }}</p>
                                         </div>
+                                        @if ($data->created_at >  \Carbon\Carbon::now()->subWeek())
+                                        <div class="badge-icon">
+                                            <img src="{{asset('img/template/new_st.png')}}" alt="status" width="30">
+                                        </div>
+                                        @elseif($data->chapters()->whereDate('created_at', '>', now()->subDays(3))->exists())
+                                        <div class="badge-icon">
+                                            <img src="{{asset('img/template/up_st.png')}}" alt="status" width="30">
+                                        </div>
+                                        @elseif($data->is_ongoing == 2)
+                                        <div class="badge-icon">
+                                            <img src="{{asset('img/template/end_st.png')}}" alt="status" width="30">
+                                        </div>
+                                        @endif
                                     </div>
                                     <p class="content_genre">{{ $data->genreDetail->first()->genre->name }}</p>
                                 </div>

@@ -53,26 +53,26 @@
                                                 <p class="text-gray mb-2 fw-500">Update Day 1 <span class="fs-s-sm opacity-50">(Wajib)</span></p>
                                                 <select name="update_day" required id="" class="form-control fs-sm">
                                                     <option selected disabled></option>
-                                                    <option value="0">Senin</option>
-                                                    <option value="1">Selasa</option>
-                                                    <option value="2">Rabu</option>
-                                                    <option value="3">Kamis</option>
-                                                    <option value="4">Jum'at</option>
-                                                    <option value="5">Sabtu</option>
-                                                    <option value="6">Minggu</option>
+                                                    <option value="1">Senin</option>
+                                                    <option value="2">Selasa</option>
+                                                    <option value="3">Rabu</option>
+                                                    <option value="4">Kamis</option>
+                                                    <option value="5">Jum'at</option>
+                                                    <option value="6">Sabtu</option>
+                                                    <option value="7">Minggu</option>
                                                 </select>
                                             </div>
                                             <div class="mb-4">
                                                 <p class="text-gray mb-2 fw-500">Update Day 2 <span class="fs-s-sm opacity-50">(Optional)</span></p>
                                                 <select name="update_day_2" id="" class="form-control fs-sm">
                                                     <option selected disabled></option>
-                                                    <option value="0">Senin</option>
-                                                    <option value="1">Selasa</option>
-                                                    <option value="2">Rabu</option>
-                                                    <option value="3">Kamis</option>
-                                                    <option value="4">Jum'at</option>
-                                                    <option value="5">Sabtu</option>
-                                                    <option value="6">Minggu</option>
+                                                    <option value="1">Senin</option>
+                                                    <option value="2">Selasa</option>
+                                                    <option value="3">Rabu</option>
+                                                    <option value="4">Kamis</option>
+                                                    <option value="5">Jum'at</option>
+                                                    <option value="6">Sabtu</option>
+                                                    <option value="7">Minggu</option>
                                                 </select>
                                             </div>
                                         </div>

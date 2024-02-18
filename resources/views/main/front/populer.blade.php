@@ -20,7 +20,7 @@
         <div class="container">
                 <div class="row">
 
-                    <div class="col-auto mb-3 pe-md-1 pe-0">
+                    {{-- <div class="col-auto mb-3 pe-md-1 pe-0">
                         <a href="/komik/{{$contentMostPopuler->slug}}/list" class="contentContainer populer">
                             <div class="card_front">
                                 <img src="{{ Storage::url($contentMostPopuler->thumbnail) }}" class="object-fit-cover"  alt="">
@@ -28,7 +28,7 @@
                                     <p class="subj">{{$contentMostPopuler->title}}</p>
                                     <div class="grade-area">
                                         <i class="bi bi-heart-fill text-primary"></i>
-                                        {{-- <p class="mb-0 ms-2">{{ number_format($likeCountAll) }}</p> --}}
+                                        <p class="mb-0 ms-2">{{ number_format($likeCountAll) }}</p>
                                     </div>
                                 </div>
                                 <p class="content_genre">{{ $contentMostPopuler->genreDetail->first()->genre->name }}</p>
@@ -46,7 +46,7 @@
                                 </div>
                             </div>
                         </a>
-                    </div>
+                    </div> --}}
                     
                     @foreach ($content as $item)
                     @php
@@ -64,6 +64,19 @@
                                             <i class="bi bi-heart-fill text-primary"></i>
                                             <p class="mb-0 ms-2">{{ number_format($likeCountAll) }}</p>
                                         </div>
+                                        @if ($data->created_at >  \Carbon\Carbon::now()->subWeek())
+                                        <div class="badge-icon">
+                                            <img src="{{asset('img/template/new_st.png')}}" alt="status" width="30">
+                                        </div>
+                                        @elseif($data->chapters()->whereDate('created_at', '>', now()->subDays(3))->exists())
+                                        <div class="badge-icon">
+                                            <img src="{{asset('img/template/up_st.png')}}" alt="status" width="30">
+                                        </div>
+                                        @elseif($data->is_ongoing == 2)
+                                        <div class="badge-icon">
+                                            <img src="{{asset('img/template/end_st.png')}}" alt="status" width="30">
+                                        </div>
+                                        @endif
                                     </div>
                                     <p class="content_genre">{{ $item->genreDetail->first()->genre->name }}</p>
                                 </div>

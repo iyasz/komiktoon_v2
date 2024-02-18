@@ -118,7 +118,15 @@ body {
     height: 500px;
     background-size: cover;
     background-position: center;
+    position: relative;
     /* background: var(--var-dark-primary); */
+}
+
+#hero-content-section .wrapper-banner .big_banner a{
+    position: absolute;
+    top: 8px;
+    bottom: 0;
+    left: 0;
 }
 
 /* ===== END HERO SECTION ===== */
@@ -188,7 +196,7 @@ body {
     border-radius: 4px;
 }
 
-.contentContainer .card_front img {
+.contentContainer .card_front > img {
     width: 210px;
     height: 210px;
 }
@@ -202,7 +210,7 @@ body {
     z-index: 4;
     height: 100%;
     transition: .3s;
-    transform: scale(1.02);
+    /* transform: scale(1.02); */
 }
 
 .contentContainer .card_front .info,
@@ -312,9 +320,14 @@ body {
         width: 152px;
     }
     
-    .contentContainer .card_front img {
+    .contentContainer .card_front > img {
         width: 152px;
         height: 152px;
+    }
+
+    .contentContainer .badge-icon > img {
+        width: 22px;
+        height: 22px;
     }
 
     .contentContainer .card_back {

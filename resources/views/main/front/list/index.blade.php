@@ -319,14 +319,14 @@
                                 </ul>
                                 <div class="update mt-3 d-flex align-items-center">
                                     @php
-                                        $days = [
-                                            0 => 'SENIN',
-                                            1 => 'SELASA',
-                                            2 => 'RABU',
-                                            3 => 'KAMIS',
-                                            4 => 'JUMAT',
-                                            5 => 'SABTU',
-                                            6 => 'MINGGU',
+                                         $days = [
+                                            1 => 'SEN',
+                                            2 => 'SEL',
+                                            3 => 'RAB',
+                                            4 => 'KAM',
+                                            5 => 'JUM',
+                                            6 => 'SAB',
+                                            7 => 'MIN',
                                         ];
                                         @endphp 
                                     @if($content->is_ongoing == 1)

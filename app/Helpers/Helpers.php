@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Comment;
+use App\Models\Content;
 use App\Models\Like;
 use App\Models\View;
 use Carbon\Carbon;
@@ -27,4 +28,21 @@ function getViewCountByDate($year, $month, $day) {
             $e->where('status', 3)->where('user_id', Auth::user()->id);;
         });
     })->count();
+}
+
+function getContentUseWeek($week) {
+    $days = [
+        "SEN" => 1,
+        "SEL" => 2,
+        "RAB" => 3,
+        "KAM" => 4,
+        "JUM" => 5,
+        "SAB" => 6,
+        "MIN" => 7,
+    ];
+    
+    return Content::where('status', 3)->where(function($query) use ($days, $week) {
+                  $query->where('update_day', $days[$week])->orWhere('update_day_2', $days[$week]);
+              })->take(8)->get();
+
 }
