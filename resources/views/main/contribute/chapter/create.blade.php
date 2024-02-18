@@ -244,16 +244,7 @@
     {{-- <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script> --}}
 
     <script>
-        // flatpickr("#dateRelease", {
-        //     minDate: "today",
-        //     maxDate: new Date().fp_incr(364),
-        //     defaultDate: "today"
-        // });
-
-        // $('#now_option').on('click', function() {
-        //     var todayDate = new Date();
-        //     flatpickr("#dateRelease").setDate(todayDate, true);
-        // });
+   
 
         $(document).ready(function() {
             function updateElements() {

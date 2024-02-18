@@ -50,8 +50,7 @@
                                                 <div class="table-responsive ">
                                                     <table class="table table-borderless">
                                                         <tr>
-                                                            <th class="fs-s-sm bg-semi-gray text-center">Tanggal
-                                                                {{ $key }}</th>
+                                                            <th class="fs-s-sm bg-semi-gray text-center">Tanggal</th>
                                                             <th class="fs-s-sm bg-semi-gray text-center">Jumlah Pembaca
                                                                 {{ $item['bulan'] }}</th>
                                                             <th class="fs-s-sm bg-semi-gray text-center">Komentar</th>

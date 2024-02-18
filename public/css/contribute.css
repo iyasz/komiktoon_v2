@@ -221,15 +221,16 @@ body {
     margin-right: auto; 
 }
 
-/* .title-chapter-limit {
+.title-chapter-limit {
+    /* white-space: nowrap;  */
     overflow: hidden;
     display: -webkit-box !important;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
+    -webkit-line-clamp: 1;  
     text-overflow: ellipsis;
-    text-decoration: none;
     width: 300px !important;
-} */
+
+}
 
 
 

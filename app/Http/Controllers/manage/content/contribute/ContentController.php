@@ -287,7 +287,7 @@ class ContentController extends Controller
 
             foreach($chapters as $data){
                 Storage::disk('public')->delete($data->thumbnail);   
-                Storage::deleteDirectory('/storage/chapters/'.$content->slug);
+                Storage::disk('public')->deleteDirectory('/storage/chapters/'.$content->slug);
 
                 $data->delete();
             }

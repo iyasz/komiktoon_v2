@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="{{ asset('css/front.css') }}">
 </head>
 
-<body>
+<body class="bg-white">
 
     <div class="wrapper navbar-control-page">
         <div class="container-fluid h-100">

@@ -7,6 +7,8 @@ use App\Models\Content;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Like;
+use App\Models\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -83,6 +85,7 @@ class ChapterController extends Controller
                 $title = 'EXTRA CHAPTER - '.strtoupper($request->input('title'));
             }else{
                 $title = 'EXTRA CHAPTER - '.$chapterExtraCount;
+                $title = 'EXTRA CHAPTER - '.$chapterExtraCount;
             }
             
         }
@@ -129,6 +132,42 @@ class ChapterController extends Controller
         
 
         return view('main.contribute.chapter.list', compact('content'));
+    }
+
+    public function handleDeleteChapter(Request $request) {
+        $chapter = Chapter::where('slug', $request->data)->first();
+        if(!$chapter){
+            abort(404);
+        }
+
+        $chapterCount = Chapter::where('content_id', $chapter->content->id)->count();
+
+        if($chapterCount < 2){
+            return response()->json(['message' => 'failed']);
+        }else{   
+            $likes = Like::where('chapter_id', $chapter->id)->get();
+            $views = View::where('chapter_id', $chapter->id)->get();
+    
+            if($likes->isNotEmpty()){
+                foreach($likes as $data){
+                    $data->delete();
+                }
+            }
+    
+            if($views->isNotEmpty()){
+                foreach($views as $data){
+                    $data->delete();
+                }
+            }
+    
+            Storage::disk('public')->delete($chapter->thumbnail); 
+            Storage::disk('public')->deleteDirectory('chapters/'.$chapter->content->slug.'/'.$chapter->slug);
+    
+    
+            $chapter->delete();
+            return response()->json(['message' => 'success']);
+
+        }
     }
 
     public function showEditChapter($slugContent, $slugChapter) {
