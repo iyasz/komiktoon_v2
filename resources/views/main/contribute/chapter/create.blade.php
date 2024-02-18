@@ -2,23 +2,8 @@
 @section('content-active', 'text-primary')
 
 @push('css')
-    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"> --}}
     <script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js"></script>
     <link href="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone.css" rel="stylesheet" type="text/css" />
-
-
-    <style>
-        .flatpickr-monthDropdown-months {
-            -webkit-appearance: none !important;
-            -moz-appearance: none !important;
-            appearance: none !important;
-        }
-
-        .flatpickr-day.selected {
-            background: #f49a97 !important;
-            border-color: #f49a97 !important;
-        }
-    </style>
 @endpush
 
 @section('content')
@@ -206,8 +191,7 @@
                         <p class="text-gray"></p>
                     </div>
                     <div class="d-flex justify-content-center mt-4 mx-3">
-                        <button class="btn bg-dark text-white py-3 px-5 border-0 rounded-pill"
-                            data-bs-dismiss="modal">YA</button>
+                        <button class="btn bg-dark text-white py-3 px-5 border-0 rounded-pill"  data-bs-dismiss="modal">YA</button>
                     </div>
                 </div>
             </div>
@@ -224,9 +208,8 @@
                     </div>
                     <div class="d-flex justify-content-center align-items-center">
 
-                        <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100"
-                            style="height: 6px; width: 80%;">
-                            <div class="progress-bar" style="width: 100%"></div>
+                        <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="height: 6px; width: 80%;">
+                            <div class="progress-bar" style="width: 0%"></div>    
                         </div>
                         <div class="d-flex fs-sm ms-2">
                             <span id="uploadContentCount">0</span>
@@ -282,6 +265,7 @@
             var uploadprogressCount = 0;
             var totalProgressCount = 0;
             var totalSizeCalc = 0
+            var totalProgress = 0;
 
             var fileContent = new Dropzone("#sortable", {
                 url: "/contribute/chapter/" + slug,
@@ -336,14 +320,27 @@
                         // end cek upload file 
                     });
 
+                    this.on('totaluploadprogress', function(progress) {
+                        
+                        // progress bar 
+                        
+                        var total = 100 / totalProgressCount;
+                        totalProgress += total;
+
+                        if (totalProgress > 100) {
+                            totalProgress = 100;
+                        }
+
+                        $('.progress-bar').css('width', totalProgress+'%')
+
+                    });
+
                     this.on("removedfile", function(file) {
 
                         if (file.type != "image/jpeg" && file.type != "image/png" && file
                             .type != "image/png") {
                             return false
                         }
-
-                        
 
                         // cek index 
                         $("#sortable .ui-state-default").each(function(index) {
@@ -367,29 +364,15 @@
 
                     this.on("success", function(file, response) {
 
-                        // menambah size 
-
-                        // var size = file.size / 1024;
-                        // totalSize += size;
-                        // var calcSize = totalSize / 1024;
-
-                        // if (Math.round(totalSize) < 1024) {
-                        //     $('#sizeFileContent').text(Math.round(totalSize) + 'KB');
-                        // } else {
-                        //     $('#sizeFileContent').text(Math.round(calcSize) + 'MB');
-                        // }
-                        // end menambah size 
 
                         uploadprogressCount++
                         $("#uploadContentCount").text(uploadprogressCount);
 
-                        if (this.getUploadingFiles().length === 0 && this.getQueuedFiles()
-                            .length === 0) {
+                        if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
                             uploadprogressCount = 0
                         }
 
-                        console.log("File uploaded successfully:", file);
-                        console.log("Server response:", response);
+                       
                     });
 
                     this.on("error", function(file, errorMessage) {
