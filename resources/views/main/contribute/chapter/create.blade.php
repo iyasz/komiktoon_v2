@@ -359,6 +359,9 @@
                             $('.uploadContentCountTotal').text('/' + totalProgressCount)
                             $('#progressBar').modal('hide');
 
+                            totalProgress = 0
+                            $('.progress-bar').css('width', '0%')
+
                         }, 500);
                     });
 

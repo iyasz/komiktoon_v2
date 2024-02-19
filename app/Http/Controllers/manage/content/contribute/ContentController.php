@@ -300,7 +300,11 @@ class ContentController extends Controller
     }
 
     public function handleEditContent($slug) {
-        $content = Content::where('slug', $slug)->whereNot('status', 4)->whereNot('status', 5)->first();
+        $content = Content::where('slug', $slug)->whereNotIn('status', [4, 5])->where('user_id', Auth::user()->id)->first();
+        if(!$content){
+            abort(404);
+        }
+
         $categoryDetails = CategoryDetail::where('content_id', $content->id)->get();
         
         $genre = Category::all();
@@ -308,6 +312,7 @@ class ContentController extends Controller
     }
     
     public function handleUpdateContent(Request $request, $slug) {
+        
         $content = Content::where('slug', $slug)->whereNot('status', 4)->whereNot('status', 5)->first();
 
         $request->validate([
@@ -365,6 +370,60 @@ class ContentController extends Controller
 
         return redirect('/contribute/content/'.$content->slug.'/chapter')->with('success', 'Serial berhasil dibuat!');
         
+    }
+
+    function handleEditContent2($slug) {
+        $content = Content::where('slug', $slug)->where('status', 3)->where('user_id', Auth::user()->id)->first();
+
+        if(!$content){
+            abort(404);
+        }
+        return view('main.contribute.content.banneredit', compact('content'));
+
+    }
+
+    function handleUpdateContent2(Request $request, $slug) {
+        $content = Content::where('user_id', Auth::user()->id)->where('slug', $slug)->where('status', 3)->first();
+        // dd($request->all());
+        if(!$content){
+            abort(404);
+        }
+
+        $content->is_ongoing = $request->is_ongoing;
+        $content->update_day = $request->update_day;
+        if($request->update_day_2){
+            $content->update_day_2 = $request->update_day_2;
+        }
+
+        if($request->bg_banner){
+            if($request->bg_banner != NULL){
+
+                $exist = Storage::disk('public')->exists($content->bg_banner);
+                
+                if($exist){
+                    Storage::disk('public')->delete($content->bg_banner);   
+                }
+
+                $content->bg_banner = $request->bg_banner->store('banner/contribute', 'public');
+            }
+        }
+
+        if($request->banner){
+            if($request->banner != NULL){
+
+                $exist = Storage::disk('public')->exists($content->banner);
+                
+                if($exist){
+                    Storage::disk('public')->delete($content->banner);   
+                }
+
+                $content->banner = $request->banner->store('banner/contribute', 'public');
+            }
+        }
+
+        $content->update();
+
+        return redirect('contribute/content/'.$content->slug.'/chapter');
     }
 
 }

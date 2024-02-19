@@ -27,8 +27,8 @@ class IndexController extends Controller
             7 => 'MIN',
         ];
 
-        // $todayIndex = Carbon::now()->dayOfWeek - 1;
-        $todayIndex = Carbon::now()->dayOfWeek === 0 ? 7 : Carbon::now()->dayOfWeek - 1;
+        $todayIndex = Carbon::now()->dayOfWeek; 
+        // $todayIndex = Carbon::now()->dayOfWeek === 0 ? 7 : Carbon::now()->dayOfWeek;
 
         $today = $days[$todayIndex];
 

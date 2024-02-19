@@ -2,23 +2,8 @@
 @section('content-active', 'text-primary')
 
 @push('css')
-    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"> --}}
     <script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js"></script>
     <link href="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone.css" rel="stylesheet" type="text/css" />
-
-
-    <style>
-        .flatpickr-monthDropdown-months {
-            -webkit-appearance: none !important;
-            -moz-appearance: none !important;
-            appearance: none !important;
-        }
-
-        .flatpickr-day.selected {
-            background: #f49a97 !important;
-            border-color: #f49a97 !important;
-        }
-    </style>
 @endpush
 
 @section('content')
@@ -291,6 +276,7 @@
             var uploadprogressCount = 0;
             var totalProgressCount = 0;
             var totalSizeCalc = 0
+            var totalProgress = 0;
 
             var fileContent = new Dropzone("#sortable", {
                 url: "/contribute/chapter/" + slug,
@@ -345,6 +331,21 @@
                         // end cek upload file 
                     });
 
+                    this.on('totaluploadprogress', function(progress) {
+                        
+                        // progress bar 
+                        
+                        var total = 100 / totalProgressCount;
+                        totalProgress += total;
+
+                        if (totalProgress > 100) {
+                            totalProgress = 100;
+                        }
+
+                        $('.progress-bar').css('width', totalProgress+'%')
+
+                    });
+
                     this.on("removedfile", function(file) {
 
                         if (file.type != "image/jpeg" && file.type != "image/png" && file
@@ -368,6 +369,9 @@
                             $('#uploadContentCount').text('0')
                             $('.uploadContentCountTotal').text('/' + totalProgressCount)
                             $('#progressBar').modal('hide');
+
+                            totalProgress = 0
+                            $('.progress-bar').css('width', '0%')
 
                         }, 500);
                     });

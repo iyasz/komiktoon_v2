@@ -109,6 +109,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/contribute/content/{slug}/edit', [ContentController::class, 'handleEditContent']);
     Route::post('/contribute/content/{slug}/edit', [ContentController::class, 'handleUpdateContent']);
+    Route::get('/contribute/content/{slug}/banner/edit', [ContentController::class, 'handleEditContent2']);
+    Route::put('/contribute/content/{slug}/banner/edit', [ContentController::class, 'handleUpdateContent2']);
     
     Route::get('/contribute/content/{slugContent}/{slugChapter}/edit', [ChapterController::class, 'showEditChapter']);
     

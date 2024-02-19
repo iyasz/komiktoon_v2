@@ -20,13 +20,11 @@
                                 <h4>{{$content->title}} </h4>
                                 <p class="fs-sm text-gray mb-2 two-line-text">{{$content->synopsis}}</p>
                                 <a href="/contribute/content/{{$content->slug}}/edit" class="btn bg-semi-gray text-gray border-0 me-2 rounded-0 py-2 mt-2 fs-s-sm">Edit Komik</a>
+                                @if ($content->status == 3)
+                                    <a href="/contribute/content/{{$content->slug}}/banner/edit" class="btn bg-semi-gray text-gray border-0 me-2 rounded-0 py-2 mt-2 fs-s-sm">Edit Banner</a>
+                                @endif
                             </div>
                         </div>
-                        {{-- <div class="row ">
-                            <div class="col-12 d-flex flex-nowrap overflow-auto">
-
-                            </div>
-                        </div> --}}
                         <hr class="mx-2 mb-2">
                         <div class="">
                             <div class="row">
