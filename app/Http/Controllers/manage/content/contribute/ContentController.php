@@ -30,7 +30,7 @@ class ContentController extends Controller
         $terbitContent = Content::where('status', 3)->where('user_id', Auth::user()->id)->get();
         $rejectedContent = Content::where('status', 4)->where('user_id', Auth::user()->id)->get();
 
-        $contentCount = Content::where('user_id', Auth::user()->id)->count();
+        $contentCount = Content::where('user_id', Auth::user()->id)->whereNot('status', 5)->count();
         $contentConfirmedCount = Content::where('status', 2)->where('user_id', Auth::user()->id)->count();
         $contentTerbitCount = Content::where('status', 3)->where('user_id', Auth::user()->id)->count();
 

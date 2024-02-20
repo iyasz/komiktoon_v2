@@ -109,6 +109,10 @@ body {
     color: var(--var-black-50);
 }
 
+.nav.nav-pills.nav-day button:hover {
+    color: var(--var-primary);
+}
+
 /* ===== END NAVBAR DAY SECTION ===== */
 
 
@@ -119,15 +123,58 @@ body {
     background-size: cover;
     background-position: center;
     position: relative;
-    /* background: var(--var-dark-primary); */
 }
 
-#hero-content-section .wrapper-banner .big_banner a{
+#hero-content-section .wrapper-banner .big_banner {
     position: absolute;
-    top: 8px;
+    top: 0;
     bottom: 0;
     left: 0;
 }
+
+#hero-content-section .wrapper-banner .big_banner #carouselFade{
+    width: 963px;
+}
+
+#carouselFade .carousel-indicators {
+    margin: 0;
+    position: absolute;
+    left: -50%;
+    top: 70%;
+}
+
+#carouselFade  {
+    cursor: pointer;
+}
+
+#carouselFade .carousel-indicators button {
+    width: 12px !important;
+    height: 12px !important;
+    border-radius: 50%;
+    margin: auto 4px;
+}
+
+.carousel-fade .carousel-item-next.carousel-item-start, .carousel-fade .carousel-item-prev.carousel-item-end, .carousel-fade .carousel-item:not(.active){
+    opacity: 0;
+}
+
+.carousel-item.active {
+    transition: opacity 0.7s ease-in-out !important; 
+}
+
+.wrapper-banner .sm_banner .first{
+    position: absolute;
+    right: 100px;
+    bottom: 250px;
+}
+
+.wrapper-banner .sm_banner .sec{
+    position: absolute;
+    right: 100px;
+    bottom: 40px;
+}
+
+
 
 /* ===== END HERO SECTION ===== */
 

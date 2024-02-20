@@ -1,16 +1,42 @@
 @extends('layout.front')
 
 @section('content')
-    <section id="hero-content-section" style="background-image: url('{{ asset('img/template/bg.jpg') }}');">
+    <section id="hero-content-section" style="background-image: url('{{ asset('img/template/banner_home/bg.jpg') }}');">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class="wrapper-banner">
                         <div class="big_banner">
-                            <a href="/komik/steel-eating-player/list" class="d-block">
-                                <img src="{{asset('img/template/banner_home.png')}}" alt="big-banner">
-                            </a>
+                            
+                                <div id="carouselFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                                    <div class="carousel-indicators">
+                                        <button type="button" data-bs-target="#carouselFade" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                        <button type="button" data-bs-target="#carouselFade" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                        <button type="button" data-bs-target="#carouselFade" data-bs-slide-to="2" aria-label="Slide #"></button>
+                                    </div>
+                                    <div class="carousel-inner">
+                                        <div class="carousel-item active" data-bs-interval="3000">
+                                            <img draggable="false" src="{{asset('img/template/banner_home/banner_home.png')}}" class="w-100 d-block" alt="big-banner">
+                                        </div>
+                                        <div class="carousel-item" data-bs-interval="3000">
+                                            <img draggable="false" src="{{asset('img/template/banner_home/banner_home_2.png')}}" class="w-100 d-block" alt="big-banner">
+                                        </div>
+                                        <div class="carousel-item" data-bs-interval="3000">
+                                            <img draggable="false" src="{{asset('img/template/banner_home/banner_home_3.png')}}" class="w-100 d-block" alt="big-banner">
+                                        </div>
+                                    </div>
+                                </div>
+
                         </div>
+                        <div class="sm_banner">
+                            <div class="first">
+                                <img src="{{asset('img/template/banner_home/banner-sm.png')}}" alt="" width="310px">
+                            </div>
+                            <div class="sec">
+                                <img src="{{asset('img/template/banner_home/banner-sm-2.png')}}" alt="" width="275px">
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -90,14 +116,13 @@
                 @endforeach
         </div>
 
-        <div class="bg-white my-5 py-5">
-            <div class="container">
+        <div class="bg-white my-5 ">
+            <div class="container-fluid ps-1">
                 <div class="row">   
                     <div class="col-12 text-end">
-                        <h1>kanjut</h1>
-                        {{-- @foreach ($content->inRandomOrder()->take(1)->get() as $item)
-                            <img src="{{Storage::url($item->thumbnail)}}" width="180px" alt="">
-                        @endforeach --}}
+                        @foreach ($content->shuffle()->take(1) as $item)
+                            <img src="{{Storage::url($item->thumbnail)}}" width="210px" alt="">
+                        @endforeach
                     </div>
                 </div>
             </div>

@@ -10,6 +10,7 @@ use App\Models\Histories;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class IndexController extends Controller
 {
@@ -69,15 +70,57 @@ class IndexController extends Controller
     }
     
     public function populer() {
-        $contentMostPopuler = Content::inRandomOrder()->where('status', 3)->first();
+        // $contentMostPopuler = Content::inRandomOrder()->where('status', 3)->first();
 
-        $content = Content::where('status', 3)
-            ->whereNotIn('id', [$contentMostPopuler->id])
-            ->inRandomOrder()
-            ->take(10)
+        // $content = Content::where('status', 3)->whereNotIn('id', [$contentMostPopuler->id])->inRandomOrder()->take(10)->get();
+
+        $startDate = Carbon::now()->subDays(7);
+
+        $topOneContents = Content::join('chapters', 'contents.id', '=', 'chapters.content_id')
+        ->leftJoin('views', 'chapters.id', '=', 'views.chapter_id')
+        ->leftJoin('likes', 'chapters.id', '=', 'likes.chapter_id')
+        ->select('contents.*', 
+                 DB::raw('IFNULL(COUNT(DISTINCT views.id), 0) * 1 AS view_score'), 
+                 DB::raw('IFNULL(COUNT(DISTINCT likes.id), 0) * 3 AS like_score')) 
+        ->where('contents.created_at', '>=', $startDate)
+        ->groupBy('contents.id')
+        ->orderByRaw('view_score + like_score DESC') 
+        ->first();
+
+
+        $topOneContentsData = DB::table('contents')
+            ->join('chapters', 'contents.id', '=', 'chapters.content_id')
+            ->leftJoin('views', 'chapters.id', '=', 'views.chapter_id')
+            ->leftJoin('likes', 'chapters.id', '=', 'likes.chapter_id')
+            ->select('contents.*', 
+                     DB::raw('IFNULL(COUNT(DISTINCT views.id), 0) * 1 AS view_score'), 
+                     DB::raw('IFNULL(COUNT(DISTINCT likes.id), 0) * 3 AS like_score')) 
+            ->where('contents.created_at', '>=', $startDate)
+            ->groupBy('contents.id')
+            ->orderByRaw('view_score + like_score DESC') 
+            ->take(1)
             ->get();
+
+        $topOneContentsDataIds = $topOneContentsData->pluck('id')->toArray();
+
+
+        $topContents = Content::select('contents.*')
+        ->join('chapters', 'contents.id', '=', 'chapters.content_id')
+        ->leftJoin('views', 'chapters.id', '=', 'views.chapter_id')
+        ->leftJoin('likes', 'chapters.id', '=', 'likes.chapter_id')
+        ->selectRaw('IFNULL(COUNT(DISTINCT views.id), 0) * 1 AS view_score')
+        ->selectRaw('IFNULL(COUNT(DISTINCT likes.id), 0) * 3 AS like_score')
+        ->where('contents.created_at', '>=', $startDate)
+        ->groupBy('contents.id')
+        ->orderByRaw('view_score + like_score DESC')
+        ->take(10)
+        ->whereNotIn('contents.id', $topOneContentsDataIds)
+        ->with('genreDetail')
+        ->get();
+    
+
         
-        return view('main.front.populer', compact('content', 'contentMostPopuler'));
+        return view('main.front.populer', compact('topContents', 'topOneContents'));
     }
     
     public function policyPrivacy() {

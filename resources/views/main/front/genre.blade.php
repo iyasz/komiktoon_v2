@@ -5,7 +5,7 @@
         <div class="">
             <div class="bg-white">
                 <div class="container">
-                    <ul class="nav nav-pills top border-bottom mb-3 mx-lg-4 mx-auto justify-content-center flex-nowrap overflow-auto" id="pills-tab" role="tablist">
+                    <ul class="nav nav-pills top mb-3 mx-lg-4 mx-auto justify-content-center flex-nowrap overflow-auto" id="pills-tab" role="tablist">
                         <li class="nav-item" role="presentation">
                             <a href="/populer" class="nav-link border-bottom-white rounded-0 bg-transparent py-3 me-3 text-gray fw-400" >Populer</a>
                         </li>
@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 <div class="row">
-            @foreach ($result->genreDetail as $item)
+                @foreach ($result->genreDetail as $item)
                         @if ($item->contents->status == 3)
                         @php
                         $likeCountAll = $item->contents->chapters->sum(function ($chapter) {
@@ -56,15 +56,15 @@
                                                 <i class="bi bi-heart-fill text-primary"></i>
                                                 <p class="mb-0 ms-2">{{ number_format($likeCountAll) }}</p>
                                             </div>
-                                            @if ($data->created_at >  \Carbon\Carbon::now()->subWeek())
+                                            @if ($item->contents->created_at >  \Carbon\Carbon::now()->subWeek())
                                             <div class="badge-icon">
                                                 <img src="{{asset('img/template/new_st.png')}}" alt="status" width="30">
                                             </div>
-                                            @elseif($data->chapters()->whereDate('created_at', '>', now()->subDays(3))->exists())
+                                            @elseif($item->contents->chapters()->whereDate('created_at', '>', now()->subDays(3))->exists())
                                             <div class="badge-icon">
                                                 <img src="{{asset('img/template/up_st.png')}}" alt="status" width="30">
                                             </div>
-                                            @elseif($data->is_ongoing == 2)
+                                            @elseif($item->contents->is_ongoing == 2)
                                             <div class="badge-icon">
                                                 <img src="{{asset('img/template/end_st.png')}}" alt="status" width="30">
                                             </div>

@@ -5,7 +5,7 @@
         <div class="">
             <div class="bg-white">
                 <div class="container">
-                    <ul class="nav nav-pills top border-bottom mb-3 mx-lg-4 mx-auto justify-content-center flex-nowrap overflow-auto" id="pills-tab" role="tablist">
+                    <ul class="nav nav-pills top mb-3 mx-lg-4 mx-auto justify-content-center flex-nowrap overflow-auto" id="pills-tab" role="tablist">
                         <li class="nav-item" role="presentation">
                             <a href="/populer" class="nav-link border-bottom-white rounded-0 bg-transparent py-3 me-3 text-gray fw-400 active" >Populer</a>
                         </li>
@@ -19,85 +19,52 @@
 
         <div class="container">
                 <div class="row">
-
-                    {{-- <div class="col-auto mb-3 pe-md-1 pe-0">
-                        <a href="/komik/{{$contentMostPopuler->slug}}/list" class="contentContainer populer">
-                            <div class="card_front">
-                                <img src="{{ Storage::url($contentMostPopuler->thumbnail) }}" class="object-fit-cover"  alt="">
-                                <div class="info">
-                                    <p class="subj">{{$contentMostPopuler->title}}</p>
-                                    <div class="grade-area">
-                                        <i class="bi bi-heart-fill text-primary"></i>
-                                        <p class="mb-0 ms-2">{{ number_format($likeCountAll) }}</p>
-                                    </div>
-                                </div>
-                                <p class="content_genre">{{ $contentMostPopuler->genreDetail->first()->genre->name }}</p>
+                    <div class="col-12 mt-3">
+                        <h4 class="fw-500">Populer Minggu Ini</h4>
+                    </div>
+                    <div class="col-4 me-5">
+                        <a href="/komik/{{$topOneContents->slug}}/list" class="d-block text-decoration-none">
+                            <div class="pic">
+                                <img src="{{Storage::url($topOneContents->thumbnail)}}" alt="" width="100%" class="object-fit-cover">
                             </div>
-                            <div class="card_back">
-                                <div class="info">
-                                    <p class="subj">{{$contentMostPopuler->title}}</p>
-                                    <div class="creator-name">
-                                        <p>{{$contentMostPopuler->author}}</p>
-                                    </div>
-                                    <p class="line-content"></p>
-                                    <div class="content-desc">
-                                        <p>{{$contentMostPopuler->synopsis}}</p>
-                                    </div>
-                                </div>
+                            <div class="mt-3">
+                                <p class="fs-sm text-gray mb-2">{{ $topOneContents->genreDetail->pluck('genre.name')->implode(', ') }}</p>
+                                <h3 class="text-black mb-1">{{$topOneContents->title}}</h3>
+                                <p class="fs-sm text-black mb-2">{{ $topOneContents->author }}</p>
+                                <p class="fs-s-sm text-black">{{$topOneContents->synopsis}}</p>
                             </div>
                         </a>
-                    </div> --}}
-                    
-                    @foreach ($content as $item)
-                    @php
-                    $likeCountAll = $item->chapters->sum(function ($chapter) {
-                            return $chapter->likes->count();
-                        });
-                    @endphp
-                        <div class="col-auto mb-3 pe-md-1 pe-0">
-                            <a href="/komik/{{$item->slug}}/list" class="contentContainer">
-                                <div class="card_front">
-                                    <img src="{{ Storage::url($item->thumbnail) }}" class="object-fit-cover"  alt="">
-                                    <div class="info">
-                                        <p class="subj">{{$item->title}}</p>
-                                        <div class="grade-area">
-                                            <i class="bi bi-heart-fill text-primary"></i>
-                                            <p class="mb-0 ms-2">{{ number_format($likeCountAll) }}</p>
+                    </div>
+                    <div class="col-7">
+                        <div class="row">
+
+                            @foreach ($topContents as $item)
+                            <div class="col-12 ps-0">
+                                <a href="/komik/{{$item->slug}}/list" class="d-block text-decoration-none">
+                                    <div class="row align-items-center">
+                                        <div class="col-auto">
+                                            <div class="pic">
+                                                <img src="{{Storage::url($item->thumbnail)}}" alt="thumbnail" width="90px">
+                                            </div>
                                         </div>
-                                        @if ($item->created_at >  \Carbon\Carbon::now()->subWeek())
-                                        <div class="badge-icon">
-                                            <img src="{{asset('img/template/new_st.png')}}" alt="status" width="30">
+                                        <div class="col-auto">
+                                            <h5 class="mb-0 text-black">{{$loop->iteration + 1}}</h5>
                                         </div>
-                                        @elseif($item->chapters()->whereDate('created_at', '>', now()->subDays(3))->exists())
-                                        <div class="badge-icon">
-                                            <img src="{{asset('img/template/up_st.png')}}" alt="status" width="30">
-                                        </div>
-                                        @elseif($item->is_ongoing == 2)
-                                        <div class="badge-icon">
-                                            <img src="{{asset('img/template/end_st.png')}}" alt="status" width="30">
-                                        </div>
-                                        @endif
-                                    </div>
-                                    <p class="content_genre">{{ $item->genreDetail->first()->genre->name }}</p>
-                                </div>
-                                <div class="card_back">
-                                    <div class="info">
-                                        <p class="subj">{{$item->title}}</p>
-                                        <div class="creator-name">
-                                            <p>{{$item->author}}</p>
-                                        </div>
-                                        <p class="line-content"></p>
-                                        <div class="content-desc">
-                                            <p>{{$item->synopsis}}</p>
+                                        <div class="col-auto">
+                                            <p class="fs-s-sm fw-300 text-gray mb-0">{{ $item->genreDetail->pluck('genre.name')->implode(', ') }}</p>
+                                            <p class="h5 fw-400 text-black mb-1">{{ $item->title}}</p>
+                                            <p class="fs-s-sm fw-300 text-black mb-1">{{ $item->title}}</p>
                                         </div>
                                     </div>
-                                </div>
-                            </a>
+                                </a>
+                            </div>
+                            <hr class="my-2">
+                            @endforeach
                         </div>
-                    @endforeach
+                    </div>
                 </div>
         </div>
-
+        
         
     </section>
 @endsection

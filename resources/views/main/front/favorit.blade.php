@@ -13,7 +13,7 @@
     <div class="">
         <div class="bg-white">
             <div class="container">
-                <ul class="nav nav-pills top border-bottom mb-3 mx-lg-4 mx-auto flex-nowrap overflow-auto" id="pills-tab" role="tablist">
+                <ul class="nav nav-pills top mb-3 mx-lg-4 mx-auto justify-content-center flex-nowrap overflow-auto" id="pills-tab" role="tablist">
                     <li class="nav-item" role="presentation">
                         <a href="/favorit" class="nav-link border-bottom-white rounded-0 bg-transparent py-3 me-3 text-gray fw-400 active" >Favorit</a>
                     </li>
