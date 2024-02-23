@@ -45,7 +45,7 @@
                                             class="fs-s-sm opacity-50">(Optional)</span></p>
                                     <div class="input-group mb-3">
                                         <span class="input-group-text bg-white px-md-5 px-3">{{ $chapterCount }}</span>
-                                        <input type="text" value="{{ old('title') }}" required data-max-num="50"
+                                        <input type="text" value="{{ old('title') }}" data-max-num="50"
                                             class="form-control fs-sm pe-10" name="title" id="chapter-title"
                                             placeholder="Kurang dari 50 huruf">
                                         @error('title')
@@ -105,16 +105,15 @@
                                         mengunggah hingga total 20MB dan 100 gambar. <br>
                                         Jika kamu tidak bersedia gambarmu dioptimisasi dengan cara apa pun, harap pastikan
                                         mengunggah gambar berukuran maksimum 800x1280px dan memenuhi batas ukuran dokumen.
-                                        <br>
                                         Hanya format JPG, JPEG, dan PNG yang diizinkan.
                                     </p>
-                                    <div class="row mt-3">
+                                    {{-- <div class="row mt-3">
                                         <div class="col-12">
                                             <a class="btn btn-primary fs-s-sm border-0 rounded-pill ">Pratinjau PC</a>
                                             <a class="btn btn-primary fs-s-sm border-0 rounded-pill ms-2 ">Pratinjau
                                                 Mobile</a>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                 </div>
                                 <hr class="my-5">
@@ -224,29 +223,7 @@
 @endsection
 
 @push('javascript')
-    {{-- <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script> --}}
 
-    <script>
-   
-
-        $(document).ready(function() {
-            function updateElements() {
-                var isChecked = $('#later_option').is(':checked');
-                $('#dateRelease').prop('disabled', !isChecked);
-            }
-            updateElements();
-            $('input[name="schedule_chapter"]').change(updateElements);
-
-            $('#now_option').on('click', function() {
-                var todayDate = new Date();
-                flatpickr("#dateRelease", {
-                    minDate: "today",
-                    maxDate: new Date().fp_incr(364),
-                    defaultDate: "today"
-                });
-            });
-        });
-    </script>
 
     <script>
         // Content file 
@@ -264,16 +241,16 @@
             var totalSize = 0;
             var uploadprogressCount = 0;
             var totalProgressCount = 0;
-            var totalSizeCalc = 0
+            var totalSizeCalc = 0;
             var totalProgress = 0;
 
             var fileContent = new Dropzone("#sortable", {
                 url: "/contribute/chapter/" + slug,
                 previewTemplate: `
-                        <div id="draggable" class="ui-state-default">
+                        <div id="draggable" class="ui-state-default ">
                             <div class="item bg-white">
                                 <div class="img dz-image">
-                                    <img data-dz-thumbnail width="100%" height="150px" class="object-fit-cover" alt="">
+                                    <img data-dz-thumbnail draggable="false" width="100%" height="150px" class="object-fit-cover" alt="">
                                 </div>
                                 <p class="fs-s-sm m-2 one-line-text"><span class="number-file-increment me-1 fw-500">${index}</span><span data-dz-name></span></p>
                             </div>
@@ -284,8 +261,8 @@
                 acceptedFiles: 'image/png, image/jpg, image/jpeg',
                 maxThumbnailFilesize: 20,
                 thumbnailMethod: "crop",
-                thumbnailWidth: 700,
-                thumbnailHeight: 1000,
+                thumbnailWidth: 690,
+                thumbnailHeight: 1240,
                 dictInvalidFileType: "Tipe file ini tidak diizinkan",
                 dictResponseError: "Terjadi kesalahan saat mengunggah file.",
                 headers: {

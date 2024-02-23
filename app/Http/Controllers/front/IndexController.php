@@ -16,7 +16,8 @@ class IndexController extends Controller
 {
     public function index() {
 
-        $content = Content::where('status', 3)->get();
+        $content = Content::where('status', 3)->take(15)->inRandomOrder()->get();
+        $newest = Content::where('status', 3)->orderBy('created_at', 'desc')->take(10)->get();
 
         $days = [
             1 => 'SEN',
@@ -29,11 +30,24 @@ class IndexController extends Controller
         ];
 
         $todayIndex = Carbon::now()->dayOfWeek; 
+
+        $top5Views = Content::select('contents.*')
+        ->join('chapters', 'contents.id', '=', 'chapters.content_id')
+        ->join('views', 'chapters.id', '=', 'views.chapter_id')
+        ->where('contents.status', 3)
+        ->select('contents.*', DB::raw('COUNT(views.id) AS view_count'))
+        ->groupBy('contents.id')
+        ->orderByDesc('view_count')
+        ->take(5)
+        ->get();
+
+        $genreWith5Data = Category::inRandomOrder()->first();
+        
         // $todayIndex = Carbon::now()->dayOfWeek === 0 ? 7 : Carbon::now()->dayOfWeek;
 
         $today = $days[$todayIndex];
 
-        return view('main.front.index', compact('content', 'days', 'today'));
+        return view('main.front.index', compact('content', 'days', 'today', 'newest', 'top5Views', 'genreWith5Data'));
     }
 
     public function search() {

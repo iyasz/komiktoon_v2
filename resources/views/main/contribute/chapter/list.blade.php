@@ -41,14 +41,9 @@
                                 <table class="table">
                                     @if ($content->chapters->count() > 0)
                                     @php
-    
-                                        $currentPage = $content->chapters()->orderBy('created_at', 'desc')->paginate(7);
-                                        $totalItems = $currentPage->total();
-                                        $perPage = 7;
-                                        $initialNumber = $totalItems - ($currentPage->currentPage() - 1) * $perPage;
-                                        
+                                        $initialNumber = $content->chapters->count();
                                     @endphp
-                                        @foreach ($content->chapters()->orderBy('created_at', 'desc')->paginate(7) as $data)
+                                        @foreach ($content->chapters()->orderBy('created_at', 'desc')->get() as $data)
                                         <tr>
                                             <td>
                                                 <li class="align-items-center chapter-section" style="display: flex;">
@@ -62,7 +57,7 @@
                                                         <p class="mb-0 opacity-50 fs-s-sm me-lg-5 me-2 d-md-block d-none">{{ $data->created_at->format('d M y') }}</p>
                                                         
                                                         <button data-slug="{{$data->slug}}" class="mb-0 btn_delete_chapter p-0 border-0 bg-transparent opacity-50 fs-s-sm text-decoration-none text-dark"><i class="bi bi-trash"></i></button>
-                                                        <a href="/contribute/content/{{$content->slug}}/{{$data->slug}}/edit" class="mb-0 opacity-50 fs-s-sm ms-3 text-decoration-none text-dark"><i class="bi bi-pencil"></i></a>
+                                                        <a href="/contribute/chapter/{{$content->slug}}/{{$data->slug}}/edit" class="mb-0 opacity-50 fs-s-sm ms-3 text-decoration-none text-dark"><i class="bi bi-pencil"></i></a>
                                                     </div>
                                                     <p class="mb-0 me-2">#{{ $initialNumber  }}</p>
                                                 </li>
@@ -102,7 +97,7 @@
                     <div class="text-center">
                         <p>Yakin ingin menghapus Chapter ini?</p>
                         <p class="d-none modal_slug_data" data-slug="" ></p>
-                        <p class="fs-s-sm text-gray">Chapter ini akan dihapus permanent dan <br> tidak akan bisa dikembalikan.</p>
+                        <p class="fs-s-sm text-gray">Chapter ini akan dihapus permanent dan <br> mungkin akan mempengaruhi urutan Chapter</p>
                     </div>
                     <div class="d-flex justify-content-center mt-4 mx-3">
                         <button class="btn btn-primary w-100 fs-sm py-3 px-4 border-0 mx-2 rounded-pill" id="btn_confirm_delete_chapter">Hapus</button>

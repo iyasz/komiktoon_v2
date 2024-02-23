@@ -112,7 +112,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/contribute/content/{slug}/banner/edit', [ContentController::class, 'handleEditContent2']);
     Route::put('/contribute/content/{slug}/banner/edit', [ContentController::class, 'handleUpdateContent2']);
     
-    Route::get('/contribute/content/{slugContent}/{slugChapter}/edit', [ChapterController::class, 'showEditChapter']);
+    Route::get('/contribute/chapter/{slugContent}/{slugChapter}/edit', [ChapterController::class, 'showEditChapter']);
+    Route::post('/contribute/chapter/{slugContent}/{slugChapter}/edit', [ChapterController::class, 'handleUpdateChapter']);
     
     Route::get('/contribute/content/update/{slug}', [ContentController::class, 'handleUpdateConfirmed']);
     Route::post('/contribute/content/update/{slug}', [ContentController::class, 'handleBgBannerValidation']);

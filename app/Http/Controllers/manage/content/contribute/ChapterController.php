@@ -107,7 +107,6 @@ class ChapterController extends Controller
                 
                 $imagesData[] = [
                     'photo' => $imagePath,
-                    // 'size' => Storage::size($imagePath), 
                     'ext' => pathinfo($imagePath, PATHINFO_EXTENSION), 
                 ];
             }
@@ -180,22 +179,83 @@ class ChapterController extends Controller
 
         
         $chapter = Chapter::where('slug', $slugChapter)->where('content_id', $content->id)->first();
+        if(!$chapter){
+            abort(404);
+        }
         $isExtraChapter = '';
         // $chapterNumber = substr($chapter->title, strpos($chapter->title, 'CHAPTER') + strlen('CHAPTER'));
         // dd(trim($chapterNumber));
         
         if($chapter->is_extra_chapter == 1){
-            $isExtraChapter = '';
+            $isExtraChapter = Chapter::where('content_id', $content->id)->where('is_extra_chapter', 1)->pluck('id')->count();
+        }else{
+            $isExtraChapter = Chapter::where('content_id', $content->id)->where('is_extra_chapter', 2)->pluck('id')->count();
         }
 
-        if(!$chapter){
+        $chapterExtraCount = Chapter::where('content_id', $content->id)->where('is_extra_chapter', 1)->count();
+
+        return view('main.contribute.chapter.edit', compact('content', 'chapterExtraCount', 'isExtraChapter', 'chapter'));
+    }
+
+    public function handleUpdateChapter(Request $request, $slugContent, $slugChapter) {
+        $content = Content::where('slug', $slugContent)->first();
+
+        // $chapterCount = Chapter::where('content_id', $content->id)->where('is_extra_chapter', 2)->count() + 1;
+        // $chapterExtraCount = Chapter::where('content_id', $content->id)->where('is_extra_chapter', 1)->count() + 1;
+    
+        if (!$content) {
             abort(404);
         }
 
-        $chapterCount = Chapter::where('content_id', $content->id)->where('is_extra_chapter', 2)->count() + 1;
-        $chapterExtraCount = Chapter::where('content_id', $content->id)->where('is_extra_chapter', 1)->count();
+        $chapter = Chapter::where('content_id', $content->id)->where('slug', $slugChapter)->first();
 
-        return view('main.contribute.chapter.edit', compact('content', 'chapterExtraCount', 'chapterCount', 'chapter'));
+        if (!$chapter) {
+            abort(404);
+        }
+
+        $title = $chapter->title;
+        $slug = $chapter->slug;
+
+        if($request->input('title')){
+            $title = $chapter->title = preg_replace('/^(EXTRA CHAPTER|CHAPTER \d+) - .*/', '$1', $chapter->title).' - '.strtoupper($request->input('title'));
+            $slug = $chapter->slug = Str::slug($title);
+        }
+
+        if($request->file('thumbnail') != ''){
+            
+            $exist = Storage::disk('public')->exists($chapter->thumbnail);
+            if($exist){
+                Storage::disk('public')->delete($chapter->thumbnail);   
+            }
+
+            $chapter->thumbnail = $request->file('thumbnail')->store('chapters/thumbnail', 'public');
+        }
+
+        $imagesData = [];
+
+        if ($request->has('gambar')) {
+
+            Storage::disk('public')->deleteDirectory('chapters/'.$chapter->content->slug.'/'.$chapter->slug);
+
+            foreach ($request->gambar as $index => $base64Data) {
+  
+                $imagePath = 'chapters/'.$content->slug.'/'.$slug.'/'.($index + 1).'.png';
+                Storage::disk('public')->put($imagePath, base64_decode($base64Data)); 
+                
+                $imagesData[] = [
+                    'photo' => $imagePath,
+                    'ext' => pathinfo($imagePath, PATHINFO_EXTENSION), 
+                ];
+            }
+
+        }
+    
+        $chapter->images = json_encode($imagesData);
+
+        $chapter->note = $request->input('note');
+        $chapter->update();
+    
+        return response()->json(['res' => 'Data berhasil diubah!']);
     }
 
 }

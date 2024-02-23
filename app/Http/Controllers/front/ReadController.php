@@ -25,7 +25,7 @@ class ReadController extends Controller
             abort(404);
         }
         
-        $firstChapter = Chapter::orderBy('created_at', 'desc')->where('content_id', $content->id)->first();
+        $firstChapter = Chapter::orderBy('created_at', 'asc')->where('content_id', $content->id)->first();
 
         $commentCount = Comment::where('content_id', $content->id)->count();
         $getAllComment = Comment::where('content_id', $content->id)->orderBy('created_at', 'desc')->get();

@@ -41,10 +41,18 @@
                                 <p class="text-gray mb-4 fw-500">Judul Serial : <span
                                         class="opacity-50">{{ $content->title }}</span></p>
                                 <div class="mb-4 position-relative max-input-group">
-                                    <p class="text-gray mb-2 fw-500">Judul Chapter <span class="fs-s-sm opacity-50">(Optional)</span></p>
+                                    <p class="text-gray mb-2 fw-500">Judul Chapter <span
+                                            class="fs-s-sm opacity-50">(Optional)</span></p>
                                     <div class="input-group mb-3">
-                                        <span class="input-group-text bg-white px-md-5 px-3">{{ $chapterCount }}</span>
-                                        <input type="text" value="{{ preg_replace('/^CHAPTER (?:\d+|EXTRA) - /', '', $chapter->title) }}" required data-max-num="50" class="form-control fs-sm pe-10" name="title" id="chapter-title" placeholder="Kurang dari 50 huruf">
+                                        @php
+                                            $chap = explode('-', $chapter->slug);
+                                            $chapter_number = $chap[1];
+                                        @endphp
+                                        <span class="input-group-text bg-white px-md-5 px-3">{{ $chapter_number == 'chapter' ? '-' : $chapter_number }}</span>
+                                        <input type="text"
+                                            value="{{ preg_replace('/^(?:CHAPTER \d+ - |EXTRA CHAPTER - )/', '', $chapter->title) }}"
+                                            data-max-num="50" class="form-control fs-sm pe-10" name="title"
+                                            id="chapter-title" placeholder="Kurang dari 50 huruf">
                                         @error('title')
                                             <p class="fs-s-sm text-danger mt-2 mb-0">{{ $message }}</p>
                                         @enderror
@@ -55,54 +63,43 @@
                                     </div>
                                 </div>
 
-                                <div class="mb-4">
-                                    <p class="text-gray mb-0 fw-500">Extra Chapter</p>
-                                    <span class="fs-s-sm opacity-50">Total Extra Chapter : {{ $chapterExtraCount }}</span>
-                                    <div class="fs-4 mt-2">
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-inp is_extra_chapter"
-                                                {{ $chapter->is_extra_chapter == 1 ? 'checked' : '' }} type="radio"
-                                                name="is_extra_chapter" id="yes_option" value="1">
-                                            <label class="form-check-label fs-6 text-gray" for="yes_option">Ya</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-inp is_extra_chapter"
-                                                {{ $chapter->is_extra_chapter == 2 ? 'checked' : '' }} type="radio"
-                                                name="is_extra_chapter" id="no_option" value="2">
-                                            <label class="form-check-label fs-6 text-gray" for="no_option">Bukan</label>
-                                        </div>
-                                    </div>
-
-                                </div>
-
                                 <div class="mb-4 ">
                                     <p class="text-gray fw-500">Upload File</p>
                                     <div class="mb-3 d-flex align-items-center">
-                                        {{-- <input type="hidden" name="" id="_selectFileInput" multiple> --}}
                                         <a class="btn btn-primary fs-s-sm border-0 rounded-1 me-2" id="inpSelectFile">Pilih
                                             file</a>
-                                        <a class="btn btn-danger fs-s-sm border-0 rounded-1" id="resetUploadsModal">Hapus semua</a>
-                                        {{-- <div class="ms-auto">
-                                            <p class="fs-sm mb-0"><span class="fw-600" id="sizeFileContent">0KB</span> /
-                                                20MB</p>
-                                        </div> --}}
+                                        <a class="btn btn-danger fs-s-sm border-0 rounded-1" id="resetUploadsModal">Hapus
+                                            semua</a>
                                     </div>
 
                                     <div class="upload_file_image rounded-2 bg-semi-gray">
                                         <div id="sortable">
+
                                             @php
-                                                $dataImage = json_decode($chapter->images)
+                                                $dataImage = json_decode($chapter->images);
                                             @endphp
                                             @foreach ($dataImage as $key => $item)
-                                            <div id="draggable" class="ui-state-default">
-                                                <div class="item bg-white">
-                                                    <div class="img dz-image">
-                                                        <img data-dz-thumbnail src="{{Storage::url($item->photo)}}" width="100%" height="150px" class="object-fit-cover" alt="">
+                                                <div id="draggable" class="ui-state-default img_data">
+                                                    <div class="item bg-white">
+                                                        <div class="img dz-image">
+                                                            @php
+                                                                $image = file_get_contents(public_path('/storage/' . $item->photo));
+                                                                $base64_image = base64_encode($image);
+                                                            @endphp
+                                                            <img data-dz-thumbnail draggable="false"
+                                                                src="data:image/png;base64,{{ $base64_image }}"
+                                                                width="100%" height="150px" class="object-fit-cover"
+                                                                alt="">
+                                                        </div>
+                                                        <p class="fs-s-sm m-2 one-line-text"><span
+                                                                class="number-file-increment me-1 fw-500">{{ $key + 1 }}</span>.
+                                                            <span data-dz-name>{{ $chapter->title }}</span>
+                                                        </p>
                                                     </div>
-                                                    <p class="fs-s-sm m-2 one-line-text"><span class="number-file-increment me-1 fw-500">{{$key + 1}}</span>. <span data-dz-name>{{$chapter->title}}</span></p>
+                                                    <button
+                                                        class="btn bg-white fs-s-sm rounded-circle border-0 dz-remove default"
+                                                        data-dz-remove><i class="bi bi-x"></i></button>
                                                 </div>
-                                                <button class="btn bg-white fs-s-sm rounded-circle border-0 dz-remove" data-dz-remove><i class="bi bi-x"></i></button>
-                                            </div>
                                             @endforeach
 
                                         </div>
@@ -117,16 +114,15 @@
                                         mengunggah hingga total 20MB dan 100 gambar. <br>
                                         Jika kamu tidak bersedia gambarmu dioptimisasi dengan cara apa pun, harap pastikan
                                         mengunggah gambar berukuran maksimum 800x1280px dan memenuhi batas ukuran dokumen.
-                                        <br>
                                         Hanya format JPG, JPEG, dan PNG yang diizinkan.
                                     </p>
-                                    <div class="row mt-3">
+                                    {{-- <div class="row mt-3">
                                         <div class="col-12">
                                             <a class="btn btn-primary fs-s-sm border-0 rounded-pill ">Pratinjau PC</a>
                                             <a class="btn btn-primary fs-s-sm border-0 rounded-pill ms-2 ">Pratinjau
                                                 Mobile</a>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                 </div>
                                 <hr class="my-5">
@@ -134,7 +130,8 @@
                                 <div class="mb-4 position-relative max-input-group">
                                     <p class="text-gray mb-2 fw-500">Catatan Kreator <span
                                             class="fs-s-sm opacity-50">(Optional)</span></p>
-                                    <textarea data-max-num="400" name="note" id="creator-note" cols="10" rows="8"  class="form-control fs-sm pe-10" placeholder="Kurang dari 400 huruf">{{ $chapter->note }}</textarea>
+                                    <textarea data-max-num="400" name="note" id="creator-note" cols="10" rows="8"
+                                        class="form-control fs-sm pe-10" placeholder="Kurang dari 400 huruf">{{ $chapter->note }}</textarea>
                                     <div class="text-gray max-input-text fs-sm d-md-block d-none">
                                         <span class="fw-500 current-text-count">0</span>
                                         <span>/ 400</span>
@@ -147,7 +144,9 @@
                                     <p class="fw-500 mb-2 text-gray">Thumbnail Persegi </p>
                                     <input type="file" name="thumbnail" id="square_thumbnail" class="d-none">
                                     <div class="square_thumbnail_show">
-                                        <img src="{{Storage::url($chapter->thumbnail)}}" data-img="{{Storage::url($chapter->thumbnail)}}" alt="banner" class="imagePreview">
+                                        <img src="{{ Storage::url($chapter->thumbnail) }}"
+                                            data-img="{{ Storage::url($chapter->thumbnail) }}" alt="banner"
+                                            class="imagePreview">
                                         <div class="text-center">
                                             <i class="bi bi-cloud-arrow-up fs-1 opacity-50"></i>
                                             <p class="fs-sm opacity-75">Pilih
@@ -164,7 +163,8 @@
                         </div>
                         <div class="row">
                             <div class="col-12">
-                                <button class="btn btn-primary border-0 rounded-1 px-4 py-3" id="saveDataChapter">Simpan Chapter <i class="bi bi-chevron-right"></i></button>
+                                <button class="btn btn-primary border-0 rounded-1 px-4 py-3" id="saveDataChapter">Simpan
+                                    Chapter <i class="bi bi-chevron-right"></i></button>
                             </div>
                         </div>
 
@@ -219,10 +219,9 @@
                         <p class="text-gray">Sedang mengunggah file ..</p>
                     </div>
                     <div class="d-flex justify-content-center align-items-center">
-
                         <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100"
                             style="height: 6px; width: 80%;">
-                            <div class="progress-bar" style="width: 100%"></div>
+                            <div class="progress-bar" style="width: 0%"></div>
                         </div>
                         <div class="d-flex fs-sm ms-2">
                             <span id="uploadContentCount">0</span>
@@ -237,34 +236,8 @@
 @endsection
 
 @push('javascript')
-
-    <script>
-
-        $(document).ready(function() {
-            function updateElements() {
-                var isChecked = $('#later_option').is(':checked');
-                $('#dateRelease').prop('disabled', !isChecked);
-            }
-            updateElements();
-            $('input[name="schedule_chapter"]').change(updateElements);
-
-            $('#now_option').on('click', function() {
-                var todayDate = new Date();
-                flatpickr("#dateRelease", {
-                    minDate: "today",
-                    maxDate: new Date().fp_incr(364),
-                    defaultDate: "today"
-                });
-            });
-        });
-    </script>
-
     <script>
         // Content file 
-
-        $('#inpSelectFile').click(function() {
-            $('#sortable').click();
-        });
 
         $(document).ready(function() {
 
@@ -275,7 +248,7 @@
             var totalSize = 0;
             var uploadprogressCount = 0;
             var totalProgressCount = 0;
-            var totalSizeCalc = 0
+            var totalSizeCalc = 0;
             var totalProgress = 0;
 
             var fileContent = new Dropzone("#sortable", {
@@ -284,7 +257,7 @@
                         <div id="draggable" class="ui-state-default">
                             <div class="item bg-white">
                                 <div class="img dz-image">
-                                    <img data-dz-thumbnail width="100%" height="150px" class="object-fit-cover" alt="">
+                                    <img data-dz-thumbnail draggable="false" width="100%" height="150px" class="object-fit-cover" alt="">
                                 </div>
                                 <p class="fs-s-sm m-2 one-line-text"><span class="number-file-increment me-1 fw-500">${index}</span><span data-dz-name></span></p>
                             </div>
@@ -332,9 +305,9 @@
                     });
 
                     this.on('totaluploadprogress', function(progress) {
-                        
+
                         // progress bar 
-                        
+
                         var total = 100 / totalProgressCount;
                         totalProgress += total;
 
@@ -342,7 +315,7 @@
                             totalProgress = 100;
                         }
 
-                        $('.progress-bar').css('width', totalProgress+'%')
+                        $('.progress-bar').css('width', totalProgress + '%')
 
                     });
 
@@ -394,7 +367,8 @@
                     this.on("error", function(file, errorMessage) {
 
                         $('#alertModal').modal('show')
-                        $('#alertModal .modal-content p').html("Type file \"" + file.name + "\" harus berupa JPEG, JPG, atau PNG")
+                        $('#alertModal .modal-content p').html("Type file \"" + file.name +
+                            "\" harus berupa JPEG, JPG, atau PNG")
                         this.removeFile(file);
 
                     });
@@ -406,8 +380,25 @@
 
                 }
             });
+
+            // delete chapter list 
+            $(document).on("click", ".dz-remove.default", function() {
+                var index = $(this).closest(".ui-state-default");
+                index.remove();
+
+                // cek index 
+                $("#sortable .ui-state-default").each(function(index) {
+                    var orderNumber = index + 1;
+                    $(this).find('.number-file-increment').text(orderNumber +
+                        '.');
+                });
+                // end cek index 
+
+            });
+            // end delete chapter list 
+
             $('#resetUploadsModal').on('click', function() {
-                if ($('#sortable').length == 0) {
+                if ($('#sortable').children().length === 0) {
                     $('#alertModal').modal('show');
                     $('#alertModal .modal-content p').html('Tidak dapat dihapus: Tidak ada file untuk dihapus');
                 } else {
@@ -420,6 +411,7 @@
                 $('#sortable').html('')
                 $('#confirm-delete-all-files').modal('hide');
             });
+
 
         })
         // End Content file 
@@ -522,39 +514,9 @@
 
         // end max word 
 
-        // submit validasi 
-
-        $('.btn.btn-primary.draft').click(function() {
-            var fileInput = $('#square_thumbnail')[0];
-
-            if (fileInput.files.length === 0) {
-                var errorMessage = 'File gambar tidak boleh kosong!';
-                $('#alertModal').modal('show');
-                $('#alertModal .modal-content p').html(errorMessage);
-                return false;
-            }
-
-            $(this).attr('disabled', 'disabled');
-            $(this).closest('form').submit();
-        });
-
-        // end submit validasi 
-
         // simpan data 
 
         $('#saveDataChapter').on('click', function() {
-
-            if ($('input[name="is_extra_chapter"]:checked').length === 0) {
-                $('#alertModal').modal('show')
-                $('#alertModal .modal-content p').html('Extra chapter harus dipilih!')
-                return false;
-            }
-
-            if (!$.trim($('#square_thumbnail').val())) {
-                $('#alertModal').modal('show')
-                $('#alertModal .modal-content p').html('Masukan thumbnail chapter!')
-                return false;
-            }
 
             if ($('.ui-state-default').length < 5) {
                 $('#alertModal').modal('show')
@@ -569,10 +531,10 @@
             let fileInput = document.getElementById('square_thumbnail');
             let thumbnail = fileInput.files[0];
 
-            data.append('is_extra_chapter', $('.form-check-inp.is_extra_chapter:checked').val());
             data.append('title', $('#chapter-title').val());
             data.append('thumbnail', thumbnail);
             data.append('note', $('#creator-note').val());
+
             let base64Images = [];
 
             // Mengambil data base64 dari setiap gambar dan menyimpannya dalam array
@@ -588,8 +550,9 @@
 
             var slug = location.pathname.split("/")[4];
 
-            axios.post('/contribute/chapter/store/' + slug, data).then(function(response) {
-                window.location.href="/contribute/content"
+            axios.post(window.location.href, data).then(function(response) {
+                // window.location.href="/contribute/content"
+                console.log(response)
             }).catch(function(error) {
                 console.error(error);
             });
@@ -597,6 +560,5 @@
         })
 
         // end simpan data 
-
     </script>
 @endpush

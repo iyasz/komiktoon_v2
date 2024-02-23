@@ -22,7 +22,7 @@
                     <div class="col-12 mt-3">
                         <h4 class="fw-500">Populer Minggu Ini</h4>
                     </div>
-                    <div class="col-4 me-5">
+                    <div class="col-md-4 col-12 me-5">
                         <a href="/komik/{{$topOneContents->slug}}/list" class="d-block text-decoration-none">
                             <div class="pic">
                                 <img src="{{Storage::url($topOneContents->thumbnail)}}" alt="" width="100%" class="object-fit-cover">
@@ -35,7 +35,7 @@
                             </div>
                         </a>
                     </div>
-                    <div class="col-7">
+                    <div class="col-md-7 col-12">
                         <div class="row">
 
                             @foreach ($topContents as $item)
@@ -50,9 +50,9 @@
                                         <div class="col-auto">
                                             <h5 class="mb-0 text-black">{{$loop->iteration + 1}}</h5>
                                         </div>
-                                        <div class="col-auto">
-                                            <p class="fs-s-sm fw-300 text-gray mb-0">{{ $item->genreDetail->pluck('genre.name')->implode(', ') }}</p>
-                                            <p class="h5 fw-400 text-black mb-1">{{ $item->title}}</p>
+                                        <div class="col">
+                                            <p class="fs-s-sm fw-300 text-gray mb-0 ">{{ $item->genreDetail->pluck('genre.name')->implode(', ') }}</p>
+                                            <p class="h5 fw-400 text-black mb-1 one-line-text">{{ $item->title}}</p>
                                             <p class="fs-s-sm fw-300 text-black mb-1">{{ $item->title}}</p>
                                         </div>
                                     </div>

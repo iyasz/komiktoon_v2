@@ -103,7 +103,7 @@
                                 3 => 'RAB',
                                 4 => 'KAM',
                                 5 => 'JUM',
-                                6 => 'SAB',
+                                6 => 'SAzB',
                                 7 => 'MIN',
                             ];
                         @endphp 

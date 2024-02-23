@@ -145,13 +145,13 @@ body {
 .upload_file_image {
     width: 100%;
     height: 410px;
-    overflow-y: auto;
 }
 
 #sortable {
     width: 100%;
     height: 100%;
     padding: 5px;
+    overflow-y: auto;
 }
 
 #sortable>div {
@@ -159,6 +159,7 @@ body {
 }
 
 #sortable .ui-state-default {
+    display: flex;
     position: relative;
     cursor: move;
     width: 120px;
