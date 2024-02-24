@@ -43,6 +43,6 @@ function getContentUseWeek($week) {
     
     return Content::where('status', 3)->where(function($query) use ($days, $week) {
                   $query->where('update_day', $days[$week])->orWhere('update_day_2', $days[$week]);
-              })->take(8)->get();
+              })->take(10)->get();
 
 }

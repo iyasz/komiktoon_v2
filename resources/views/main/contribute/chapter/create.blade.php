@@ -261,8 +261,8 @@
                 acceptedFiles: 'image/png, image/jpg, image/jpeg',
                 maxThumbnailFilesize: 20,
                 thumbnailMethod: "crop",
-                thumbnailWidth: 690,
-                thumbnailHeight: 1240,
+                thumbnailWidth: 800,
+                thumbnailHeight: 1000,
                 dictInvalidFileType: "Tipe file ini tidak diizinkan",
                 dictResponseError: "Terjadi kesalahan saat mengunggah file.",
                 headers: {

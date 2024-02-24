@@ -95,6 +95,7 @@ class ChapterController extends Controller
         $chapter->content_id = $content->id;
         $chapter->is_extra_chapter = $request->input('is_extra_chapter');
         $chapter->title = $title;
+        $chapter->is_active = 1;
         $slug = $chapter->slug = Str::slug($title);
 
         $imagesData = [];
@@ -133,40 +134,29 @@ class ChapterController extends Controller
         return view('main.contribute.chapter.list', compact('content'));
     }
 
-    public function handleDeleteChapter(Request $request) {
-        $chapter = Chapter::where('slug', $request->data)->first();
-        if(!$chapter){
-            abort(404);
+    public function changeStatusChapter(Request $request, $slug) {
+        $content = Content::where('slug', $slug)->first();
+
+        $chapter = Chapter::where('content_id', $content->id)->where('slug', $request->slug)->first();
+
+        $message = '';
+        if($chapter->is_active == 1){
+
+
+            $checkCountChapterActive = $content->chapters()->where('is_active', 1)->count();
+            if($checkCountChapterActive < 2){
+                return response()->json(['message' => 3]);
+            }
+
+            $message = 2;
+            $chapter->is_active = 2;
+        }else {
+            $message = 1;
+            $chapter->is_active = 1;
         }
 
-        $chapterCount = Chapter::where('content_id', $chapter->content->id)->count();
-
-        if($chapterCount < 2){
-            return response()->json(['message' => 'failed']);
-        }else{   
-            $likes = Like::where('chapter_id', $chapter->id)->get();
-            $views = View::where('chapter_id', $chapter->id)->get();
-    
-            if($likes->isNotEmpty()){
-                foreach($likes as $data){
-                    $data->delete();
-                }
-            }
-    
-            if($views->isNotEmpty()){
-                foreach($views as $data){
-                    $data->delete();
-                }
-            }
-    
-            Storage::disk('public')->delete($chapter->thumbnail); 
-            Storage::disk('public')->deleteDirectory('chapters/'.$chapter->content->slug.'/'.$chapter->slug);
-    
-    
-            $chapter->delete();
-            return response()->json(['message' => 'success']);
-
-        }
+        $chapter->save();
+        return response()->json(['message' => $message]);
     }
 
     public function showEditChapter($slugContent, $slugChapter) {

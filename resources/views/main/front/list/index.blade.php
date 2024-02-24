@@ -232,15 +232,15 @@
 
                                                 @endphp
                                                 @foreach ($content->chapters()->orderBy('created_at', 'desc')->paginate(7) as $data)
-                                                <a class="text-dark" href="/{{ $content->slug }}/{{ $data->slug }}/view">
+                                                <a class="text-dark {{ $data->is_active == 2 ? 'cursor-block' : ''}} " {{ $data->is_active == 2 ? 'title=Perbaikan aria-label=Perbaikan' : 'href=/' . $content->slug . '/' . $data->slug . '/view' }}>
                                                     <li class="d-flex align-items-center">
                                                         <img src="{{ Storage::url($data->thumbnail) }}" alt="" width="85px" height="85px" class="object-fit-cover">
-                                                        <p class="mb-0 d-inline ms-3 text-gray title-chapter-limit">{{ $data->title }}</p>
+                                                        <p class="mb-0 d-inline ms-3 text-gray title-chapter-limit {{$data->is_active == 2 ? 'opacity-50' : ''}}">{{ $data->title }}</p>
                                                         <div class="ms-auto me-5 d-flex align-items-center">
                                                             <p class="mb-0 opacity-50 fs-s-sm me-lg-5 me-2 d-md-block d-none">{{ $data->created_at->format('d M y') }}</p>
                                                             <p class="mb-0 opacity-50 fs-s-sm d-lg-block d-none"><i class="bi bi-heart me-1"></i> {{ number_format($data->likes->count()) }}</p>
                                                         </div>
-                                                        <p class="mb-0 me-2">#{{ $initialNumber  }}</p>
+                                                        <p class="mb-0 me-2 {{$data->is_active == 2 ? 'opacity-50' : ''}}">#{{ $initialNumber  }}</p>
                                                     </li>
                                                 </a>
                                                 <hr class="my-0">

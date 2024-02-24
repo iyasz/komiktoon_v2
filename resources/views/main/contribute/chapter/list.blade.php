@@ -56,8 +56,15 @@
                                                     <div class="ms-auto me-md-5 me-4 d-flex align-items-center">
                                                         <p class="mb-0 opacity-50 fs-s-sm me-lg-5 me-2 d-md-block d-none">{{ $data->created_at->format('d M y') }}</p>
                                                         
-                                                        <button data-slug="{{$data->slug}}" class="mb-0 btn_delete_chapter p-0 border-0 bg-transparent opacity-50 fs-s-sm text-decoration-none text-dark"><i class="bi bi-trash"></i></button>
-                                                        <a href="/contribute/chapter/{{$content->slug}}/{{$data->slug}}/edit" class="mb-0 opacity-50 fs-s-sm ms-3 text-decoration-none text-dark"><i class="bi bi-pencil"></i></a>
+                                                        <button data-slug="{{$data->slug}}" class="mb-0 btn_switch_status fs-4 p-0 border-0 bg-transparent opacity-50 text-decoration-none text-dark">
+                                                            @if($data->is_active == 1)
+                                                                <span><i class="bi bi-toggle-off"></i></span>
+                                                            @else
+                                                                <span><i class="bi bi-toggle-on text-primary"></i></span>
+                                                            @endif
+                                                        </button>
+                                                        
+                                                        <a href="/contribute/chapter/{{$content->slug}}/{{$data->slug}}/edit" class="mb-0 opacity-50 ms-3 text-decoration-none text-dark"><i class="bi bi-pencil"></i></a>
                                                     </div>
                                                     <p class="mb-0 me-2">#{{ $initialNumber  }}</p>
                                                 </li>
@@ -90,24 +97,6 @@
 
     </div>
 
-    <div class="modal fade" id="confirm-delete-all-files" aria-hidden="true" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-body py-5">
-                    <div class="text-center">
-                        <p>Yakin ingin menghapus Chapter ini?</p>
-                        <p class="d-none modal_slug_data" data-slug="" ></p>
-                        <p class="fs-s-sm text-gray">Chapter ini akan dihapus permanent dan <br> mungkin akan mempengaruhi urutan Chapter</p>
-                    </div>
-                    <div class="d-flex justify-content-center mt-4 mx-3">
-                        <button class="btn btn-primary w-100 fs-sm py-3 px-4 border-0 mx-2 rounded-pill" id="btn_confirm_delete_chapter">Hapus</button>
-                        <button class="btn bg-semi-gray w-100 fs-sm py-3 px-4 border-0 mx-2 rounded-pill" data-bs-dismiss="modal">Batal</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="modal" id="alertModal" aria-hidden="true" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0">
@@ -136,27 +125,27 @@
                 });
             });
             
-            $(".btn_delete_chapter").on("click", function() {
-                let slug = $(this).data('slug')
-                $('.modal_slug_data').attr('data-slug', slug)
-                $('#confirm-delete-all-files').modal('show')
-            });
-
-            $("#btn_confirm_delete_chapter").on("click", function() {
-                
-                axios.post(window.location.href, {data : $('.modal_slug_data').attr('data-slug')})
+            $(".btn_switch_status").on("click", function() {
+                var $button = $(this);
+     
+                axios.put(window.location.href, {slug : $(this).attr('data-slug')})
                 .then(function (response) {
-                    if(response.data.message == 'failed'){
+                    console.log(response);
+                    if (response.data.message == 1) {
+                        $button.closest('.ms-auto').find('.btn_switch_status').html('<i class="bi bi-toggle-off"></i>');
+                    } else if(response.data.message == 2) {
+                        $button.closest('.ms-auto').find('.btn_switch_status').html('<i class="bi bi-toggle-on text-primary"></i>');
+                    }else if(response.data.message == 3){
                         $('#alertModal').modal('show')
-                        $('#alertModal .modal-content p').html("Minimal Harus Memiliki 1 Chapter ")
-                    }else{
-                        window.location.reload()
+                        $('#alertModal .modal-content p').html("Tidak bisa melakukan aksi ini!")
                     }
-                });
-
-                $('#confirm-delete-all-files').modal('hide')
+                });  
             });
+
+
         });
+
+            
 
     </script>
 @endpush

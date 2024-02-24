@@ -105,7 +105,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/contribute/content/{slug}/delete', [ContentController::class, 'handleDeleteContent']);
     
     Route::get('/contribute/content/{slug}/chapter', [ChapterController::class, 'handleListChapter']);
-    Route::post('/contribute/content/{slug}/chapter', [ChapterController::class, 'handleDeleteChapter']);
+    Route::put('/contribute/content/{slug}/chapter', [ChapterController::class, 'changeStatusChapter']);
 
     Route::get('/contribute/content/{slug}/edit', [ContentController::class, 'handleEditContent']);
     Route::post('/contribute/content/{slug}/edit', [ContentController::class, 'handleUpdateContent']);

@@ -25,7 +25,7 @@ class ReadController extends Controller
             abort(404);
         }
         
-        $firstChapter = Chapter::orderBy('created_at', 'asc')->where('content_id', $content->id)->first();
+        $firstChapter = Chapter::orderBy('created_at', 'asc')->where('content_id', $content->id)->where('is_active', 1)->first();
 
         $commentCount = Comment::where('content_id', $content->id)->count();
         $getAllComment = Comment::where('content_id', $content->id)->orderBy('created_at', 'desc')->get();
@@ -111,7 +111,7 @@ class ReadController extends Controller
             abort(404);
         }
 
-        $chapter = Chapter::where('content_id', $content->id)->where('slug', $slugChapter)->first();
+        $chapter = Chapter::where('content_id', $content->id)->where('slug', $slugChapter)->where('is_active', 1)->first();
         
         if(!$chapter){
             abort(404);
@@ -154,8 +154,8 @@ class ReadController extends Controller
         }
 
         // next and previous 
-        $chapterNext = Chapter::where('content_id', $content->id)->where('created_at', '>', $chapter->created_at)->first();
-        $chapterPrevious = Chapter::where('content_id', $content->id)->where('created_at', '<', $chapter->created_at)->orderBy('created_at', 'desc')->first();
+        $chapterNext = Chapter::where('content_id', $content->id)->where('created_at', '>', $chapter->created_at)->where('is_active', 1)->first();
+        $chapterPrevious = Chapter::where('content_id', $content->id)->where('created_at', '<', $chapter->created_at)->orderBy('created_at', 'desc')->where('is_active', 1)->first();
     
         return view('main.front.list.chapter', compact('chapter','decodeDataChapters', 'content', 'indexOfCreated', 'chapterNext', 'chapterPrevious', 'isLike', 'chapterLikeCount'));
     }

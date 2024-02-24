@@ -68,6 +68,10 @@ th {
     cursor: pointer;
 }
 
+.cursor-block {
+    cursor: no-drop;
+}
+
 .stepper {
     background: var(--var-black-50);
     border-radius: 1500px;

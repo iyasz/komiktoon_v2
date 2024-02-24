@@ -221,7 +221,7 @@
 
                         @if (Auth::user())
                             <li class="nav-item dropdown my-auto d-lg-block d-none">
-                                <a class="nav-link fs-sm py-0 text-gray" href="/anime" role="button"
+                                <a class="nav-link fs-sm py-0 text-gray" role="button"
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     <div class="d-flex align-items-center"><img src="{{ Auth::user()->photo ? Storage::url(Auth::user()->photo) : asset('img/maskot/face.png') }}" class="rounded-circle object-fit-cover me-3" width="35" height="35" alt=""><span class="mt-2 ellipsis-text">{{ Auth::user()->name }}
                                         </span></div>

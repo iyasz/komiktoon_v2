@@ -84,9 +84,6 @@ class IndexController extends Controller
     }
     
     public function populer() {
-        // $contentMostPopuler = Content::inRandomOrder()->where('status', 3)->first();
-
-        // $content = Content::where('status', 3)->whereNotIn('id', [$contentMostPopuler->id])->inRandomOrder()->take(10)->get();
 
         $startDate = Carbon::now()->subDays(7);
 
@@ -127,7 +124,7 @@ class IndexController extends Controller
         ->where('contents.created_at', '>=', $startDate)
         ->groupBy('contents.id')
         ->orderByRaw('view_score + like_score DESC')
-        ->take(10)
+        ->take(9)
         ->whereNotIn('contents.id', $topOneContentsDataIds)
         ->with('genreDetail')
         ->get();

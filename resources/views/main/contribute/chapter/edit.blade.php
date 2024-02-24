@@ -549,9 +549,10 @@
 
 
             var slug = location.pathname.split("/")[4];
+            var slugContent = location.pathname.split("/")[3];
 
             axios.post(window.location.href, data).then(function(response) {
-                // window.location.href="/contribute/content"
+                window.location.href="/contribute/content/"+slugContent+'/chapter'
                 console.log(response)
             }).catch(function(error) {
                 console.error(error);
