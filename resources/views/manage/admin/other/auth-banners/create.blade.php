@@ -34,7 +34,7 @@
                         <div class="card-body">
                             <div class="mb-4 position-relative">
                                 <p class="text-gray mb-2 fw-500">File Banner</p>
-                                <input type="file" name="photo" id="square_thumbnail" class="form-control" >
+                                <input type="file" name="photo" required id="square_thumbnail" class="form-control" >
                                 <p class="fs-sm text-gray mt-2 mb-0">Gambar harus kurang dari 1 MB. <br>. Hanya file JPG, JPEG,dan PNG <br>  yang diizinkan.</p>
                                 @error('photo')<p class="fs-s-sm text-danger mt-2 mb-0">{{$message}}</p>@enderror
                             </div>

@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('auth_banners', function (Blueprint $table) {
+        Schema::create('banners', function (Blueprint $table) {
             $table->id();
             $table->string('photo')->nullable();
+            $table->enum('type', ['1', '2'])->nullable();
+            $table->string('link')->nullable();
             $table->timestamps();
         });
     }

@@ -10,20 +10,16 @@
                             
                                 <div id="carouselFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
                                     <div class="carousel-indicators">
-                                        <button type="button" data-bs-target="#carouselFade" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                        <button type="button" data-bs-target="#carouselFade" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                        <button type="button" data-bs-target="#carouselFade" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                        @foreach ($banners as $key => $item)
+                                            <button type="button" data-bs-target="#carouselFade" data-bs-slide-to="{{$key}}" class="{{ $key == 0 ? 'active' : '' }}" aria-current="true" aria-label="Slide {{$key}}"></button>
+                                        @endforeach
                                     </div>
                                     <div class="carousel-inner">
-                                        <div class="carousel-item large active" data-bs-interval="3000">
-                                            <img draggable="false" src="{{asset('img/template/banner_home/banner_home.png')}}" class="w-100 d-block" alt="big-banner">
+                                        @foreach ($banners as $key => $item)
+                                        <div onclick="window.location.href='{{$item->link}}'" class="carousel-item large {{ $key == 0 ? 'active' : '' }}" data-bs-interval="3000">
+                                            <img draggable="false" src="{{Storage::url($item->photo)}}" class="w-100 d-block" alt="big-banner">
                                         </div>
-                                        <div class="carousel-item large" data-bs-interval="3000">
-                                            <img draggable="false" src="{{asset('img/template/banner_home/banner_home_2.png')}}" class="w-100 d-block" alt="big-banner">
-                                        </div>
-                                        <div class="carousel-item large" data-bs-interval="3000">
-                                            <img draggable="false" src="{{asset('img/template/banner_home/banner_home_3.png')}}" class="w-100 d-block" alt="big-banner">
-                                        </div>
+                                        @endforeach
                                     </div>
                                 </div>
 

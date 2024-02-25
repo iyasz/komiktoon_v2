@@ -110,6 +110,7 @@
                       <div class="collapse justify-content-center @yield('active-banner-show') text-center" id="collapseOther">
                         <div class="text-start">
                             <a href="/panel/background/auth" class="text-decoration-none opacity-75 fs-sm  @yield('active-content-banner', 'text-gray') me-4 d-block py-2 mt-1">Auth Banner</a>
+                            <a href="/panel/background/home" class="text-decoration-none opacity-75 fs-sm  @yield('active-content-banner-home', 'text-gray') me-4 d-block py-2 mt-1">Home Banner</a>
                         </div>  
                       </div>
 
@@ -146,7 +147,7 @@
                     <ul class="navbar-nav ms-auto me-2 mt-1">
                       <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle fs-sm text-dark" href="#" role="button" data-bs-toggle="dropdown">
-                          Yasz Avellia
+                          {{Auth::user()->name}}
                         </a>
                           <ul class="dropdown-menu dropdown-menu-end border-0 position-absolute w-100">
                             <li class=" py-2 d-flex ms-4">

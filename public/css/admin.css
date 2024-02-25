@@ -143,9 +143,13 @@ td {
 /*  BANNER SECTION  */
 
 .banner_thumbnail_show {
-    width: 380px;
-    min-height: 380px;
+    width: 300px;
+    min-height: 220px;
     background-color: #f3f3f3;
+}
+
+.banner_thumbnail_show.template {
+    width: 100% !important;
 }
 
 /* END BANNER SECTION  */

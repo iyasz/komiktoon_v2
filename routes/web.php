@@ -88,10 +88,15 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/panel/confirmation/content/{slug}', [ConfirmationController::class, 'confirm']);
         Route::put('/panel/confirmation/content/{slug}', [ConfirmationController::class, 'rejected']);
         
-        Route::get('/panel/background/auth', [BannerController::class, 'banners']);
-        Route::get('/panel/background/auth/create', [BannerController::class, 'create']);
-        Route::post('/panel/background/auth/create', [BannerController::class, 'store']);
-        Route::delete('/panel/background/auth/{id}', [BannerController::class, 'delete']);
+        Route::get('/panel/background/auth', [BannerController::class, 'bannersAuth']);
+        Route::get('/panel/background/auth/create', [BannerController::class, 'authCreate']);
+        Route::post('/panel/background/auth/create', [BannerController::class, 'authStore']);
+        Route::delete('/panel/background/auth/{id}', [BannerController::class, 'authDelete']);
+        
+        Route::get('/panel/background/home', [BannerController::class, 'bannerHome']);
+        Route::get('/panel/background/home/create', [BannerController::class, 'homeCreate']);
+        Route::post('/panel/background/home/create', [BannerController::class, 'homeStore']);
+        Route::delete('/panel/background/home/{id}', [BannerController::class, 'homeDelete']);
     });
 
     

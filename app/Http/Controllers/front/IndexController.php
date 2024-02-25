@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Banner;
 use App\Models\Bookmark;
 use App\Models\Category;
 use App\Models\Content;
@@ -29,7 +30,12 @@ class IndexController extends Controller
             7 => 'MIN',
         ];
 
+
         $todayIndex = Carbon::now()->dayOfWeek; 
+
+        if ($todayIndex == 0) {
+            $todayIndex = 7;
+        }
 
         $top5Views = Content::select('contents.*')
         ->join('chapters', 'contents.id', '=', 'chapters.content_id')
@@ -41,13 +47,15 @@ class IndexController extends Controller
         ->take(5)
         ->get();
 
+        $banners = Banner::where('type', 1)->get();
+
         $genreWith5Data = Category::inRandomOrder()->first();
         
         // $todayIndex = Carbon::now()->dayOfWeek === 0 ? 7 : Carbon::now()->dayOfWeek;
 
         $today = $days[$todayIndex];
 
-        return view('main.front.index', compact('content', 'days', 'today', 'newest', 'top5Views', 'genreWith5Data'));
+        return view('main.front.index', compact('content', 'days', 'today', 'newest', 'top5Views', 'genreWith5Data', 'banners'));
     }
 
     public function search() {

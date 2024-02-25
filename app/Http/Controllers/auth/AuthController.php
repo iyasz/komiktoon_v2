@@ -23,7 +23,7 @@ class AuthController extends Controller
     public function handleSubmitLogin(Request $request) {
 
         if($request->isMethod('get')){
-            $banner = Banner::get();
+            $banner = Banner::where('type', 2)->get();
             return view('auth.login', compact('banner'));
         }
         
@@ -147,7 +147,7 @@ class AuthController extends Controller
     public function handleSubmitRegister(Request $request) {
 
         if($request->isMethod('get')){
-            $banner = Banner::get();
+            $banner = Banner::where('type', 2)->get();
             return view('auth.register', compact('banner'));
         }
         

@@ -9,5 +9,5 @@ class Banner extends Model
 {
     use HasFactory;
 
-    protected $table = "auth_banners";
+    protected $table = "banners";
 }

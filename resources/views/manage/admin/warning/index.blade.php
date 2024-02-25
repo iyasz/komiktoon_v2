@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-center mt-4 mx-3 mt-5">
-                    <button class="btn bg-dark disabled text-white py-3 px-5 border-0 rounded-pill" id="btnConfirmReport" data-bs-dismiss="modal">Tolak</button>
+                    <button class="btn bg-dark disabled text-white py-3 px-5 border-0 rounded-pill" id="btnConfirmReport" data-bs-dismiss="modal">Submit</button>
                 </div>
             </div>
         </div>
