@@ -72,7 +72,10 @@ class UserAccountController extends Controller
 
             $user->photo = $request->photo->store('avatar','public');
         }
-        $user->password = password_hash($request->password, PASSWORD_BCRYPT);
+
+        if($request->password){
+            $user->password = password_hash($request->password, PASSWORD_BCRYPT);
+        }
         $user->update();
 
         return redirect('/user/my-account');

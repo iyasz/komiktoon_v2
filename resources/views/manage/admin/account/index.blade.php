@@ -74,7 +74,7 @@
                                     </div>
                                 </div>
                                 @error('photo')<p class="fs-s-sm text-danger mt-2 mb-0">{{$message}}</p>@enderror
-                                <p class="fs-sm text-gray mt-2 mb-0">Gambar harus kurang dari 1 MB. <br>. Hanya file JPG, JPEG,dan PNG <br>  yang diizinkan.</p>
+                                <p class="fs-sm text-gray mt-2 mb-0">Gambar harus kurang dari 1 MB. <br>Hanya file JPG, JPEG,dan PNG <br>  yang diizinkan.</p>
                             </div>
 
                         </div>

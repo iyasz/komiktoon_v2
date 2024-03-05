@@ -1,9 +1,10 @@
-@extends('layout.contribute')
-
-@section('account-active', 'text-primary')
+@extends('layout.main')
+@section('active-other', 'text-primary')
+@section('active-banner-show', 'show')
+@section('active-content-banner-home', 'text-primary')
 
 @section('content')
-    <div id="app">
+    <div id="app" class="mb-3">
         <div class="row">
             <div class="col-12 p-3">
                 <div class="card border-0 rounded-1">
@@ -11,7 +12,8 @@
                         <div class="row justify-content-between">
                             <div class="col-md-4 col-9 pe-0">
                                 <div class="d-flex align-items-center">
-                                    <p class="mb-0 fs-5 ms-4 fw-500">My Account</p>
+                                    <a href="/panel/background/home" class="btn btn-primary border-0 rounded-1"><i class="bi bi-chevron-left"></i></a>
+                                    <p class="mb-0 fs-5 ms-4 fw-500">Small Banner</p>
                                 </div>
                             </div>
 
@@ -22,58 +24,43 @@
             </div>
         </div>
 
-        <form action="/user/my-account" method="post" enctype="multipart/form-data">
+        <form action="/panel/background/home/small/create" method="post" enctype="multipart/form-data">
             @csrf
-            @method('put')
+
             <div class="row">
-                <div class="col-md-8 col-12 ps-3 pe-md-0 pe-3 order-md-0 order-1 mt-md-0 mt-3">
+                <div class="col-md-5 col-12 ps-3 pe-md-0 pe-3 order-md-0 order-1 mt-md-0 mt-3">
 
                     <div class="card border-0 rounded-1">
                         <div class="card-body">
-                            <div class="mb-4">
-                                <p class="text-gray mb-2 fw-500">Nama </p>
-                                <input type="text" class="form-control fs-sm" name="name" value="{{Auth::user()->name}}" required >
-                                @error('name')<p class="fs-s-sm text-danger mt-2 mb-0">{{$message}}</p>@enderror
+                            <div class="mb-4 position-relative">
+                                <p class="text-gray mb-2 fw-500">File Banner</p>
+                                <input type="file" name="photo" required id="square_thumbnail" class="form-control" >
+                                <p class="fs-sm text-gray mt-2 mb-0">Gambar harus kurang dari 1 MB. <br>. Hanya file JPG, JPEG,dan PNG <br>  yang diizinkan.</p>
+                                @error('photo')<p class="fs-s-sm text-danger mt-2 mb-0">{{$message}}</p>@enderror
                             </div>
-                            <div class="mb-4">
-                                <p class="text-gray mb-2 fw-500">Email <span class="fs-s-sm opacity-50">(Wajib Aktif)</span></p>
-                                <input type="email" class="form-control fs-sm" name="email" value="{{Auth::user()->email}}" required >
-                                @error('email')<p class="fs-s-sm text-danger mt-2 mb-0">{{$message}}</p>@enderror
-                            </div>
-                            <div class="mb-4">
-                                <p class="text-gray mb-2 fw-500">Password <span class="fs-s-sm opacity-50">(Optional)</span></p>
-                                <input type="password" class="form-control fs-sm" name="password" value="" >
-                                @error('password')<p class="fs-s-sm text-danger mt-2 mb-0">{{$message}}</p>@enderror
-                            </div>
-                            <div class="mb-4">
-                                <p class="text-gray mb-2 fw-500">Confirm Password</p>
-                                <input type="password" class="form-control fs-sm" name="password_confirmation" value="" >
-                                @error('password_confirmation')<p class="fs-s-sm text-danger mt-2 mb-0">{{$message}}</p>@enderror
+                            <div class="mb-4 position-relative">
+                                <p class="text-gray mb-2 fw-500">Link</p>
+                                <input type="text" name="link" required class="form-control" >
+                                @error('link')<p class="fs-s-sm text-danger mt-2 mb-0">{{$message}}</p>@enderror
                             </div>
                             <div class="text-end">
-                                <button class="btn btn-primary rounded-1 px-3 py-2 border-0 fs-sm " id="btnSubmitAccount">Submit</button>
+                                <button class="btn btn-primary rounded-1 px-3 py-2 border-0 fs-sm " id="btnSubmitGenre">Submit</button>
                             </div>
                         </div>
                     </div>
 
                 </div>
 
-                <div class="col-md-4 col-12 ps-3 pe-3 order-md-1 order-0 ">
+                <div class="col-md-7 col-12 ps-3 pe-3 order-md-1 order-0 ">
 
                     <div class="card border-0 rounded-1">
                         <div class="card-body">
                             <div class="position-relative">
-                                <p class="text-gray mb-2 fw-500">Avatar</p>
-                                <input type="file" name="photo" id="square_thumbnail" class="d-none" >
-                                <div class="square_thumbnail_show">
-                                    <img src="{{ Auth::user()->photo != NULL ? Storage::url(Auth::user()->photo) : '' }}" alt="Avatar" class="imagePreview {{ Auth::user()->photo != NULL ? '' : 'd-none' }}" >
-                                    <div class="text-center">
-                                        <i class="bi bi-cloud-arrow-up fs-1 opacity-50"></i>
-                                        <p class="fs-sm text-gray">Pilih gambar untuk diunggah disini.</p>
-                                    </div>
+                                <p class="text-gray mb-2 fw-500">Preview</p>
+                                <div class="banner_thumbnail_show" >
+                                    <img src="" width="100%" height="100%" alt="banner" class="imagePreview d-none">
                                 </div>
-                                @error('photo')<p class="fs-s-sm text-danger mt-2 mb-0">{{$message}}</p>@enderror
-                                <p class="fs-sm text-gray mt-3 mb-0">Gambar harus kurang dari 1 MB. <br>Hanya file JPG, JPEG,dan PNG <br>  yang diizinkan.</p>
+                         
                             </div>
 
                         </div>
@@ -103,15 +90,13 @@
 
 @push('javascript')
     <script>
-        $('.square_thumbnail_show').on('click', function(){
-            $('#square_thumbnail').click()
-        })
 
+  
         $('#square_thumbnail').on('change', function () {
 
         let fileInput = document.getElementById('square_thumbnail');
         let file = fileInput.files[0];
-        const preview = $('.square_thumbnail_show .imagePreview');
+        const preview = $('.banner_thumbnail_show img');
 
         if (file && file.size > (1024 * 1024)) { 
             fileInput.value = '';
@@ -123,7 +108,7 @@
             let data = new FormData();
             data.append('file', file);
 
-            axios.post('/user/my-account',data).then(function (response) {
+            axios.post('/panel/admin/getvalidationimage',data).then(function (response) {
                 if(response.data.error){
                     fileInput.value = '';
                     preview.addClass('d-none')
@@ -144,7 +129,6 @@
 
                         reader.readAsDataURL(file);
                     } else {
-                            fileInput.value = '';
                         preview.addClass('d-none')
                         preview.attr('src', '');
                     }
@@ -155,6 +139,21 @@
 
         });
 
+        $('#btnSubmitGenre').click(function() {
+            var fileInput = $('#square_thumbnail')[0];
+
+            if (fileInput.files.length === 0) {
+                $('#alertModal').modal('show');
+                $('#alertModal .modal-content p').html('File gambar tidak boleh kosong!');
+                return false;
+            }
+
+            $(this).attr('disabled', 'disabled');
+            $(this).closest('form').submit();
+        });
+
+
+// end image 
 
 
     </script>

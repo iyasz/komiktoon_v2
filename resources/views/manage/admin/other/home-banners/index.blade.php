@@ -10,6 +10,9 @@
                 <div class="card border-0 rounded-1 h-100">
                     <div class="card-body">
                         <div class="row justify-content-end">
+                            <div class="col-md-2 col-5">
+                                <a href="/panel/background/home/small/create" class="btn btn-primary border-0 py-3 rounded-1 h-100 w-100 fs-sm d-flex align-items-center justify-content-center"><i class="bi bi-plus-lg me-md-2 me-3"></i> Small</a>
+                            </div>
                             <div class="col-md-2 col-3">
                                 <a href="/panel/background/home/create" class="btn btn-primary border-0 py-3 rounded-1 h-100 w-100 fs-sm d-flex align-items-center justify-content-center"><i class="bi bi-plus-lg me-md-2 me-0"></i> <span class="d-md-block d-none">Tambah</span></a>
                             </div>
@@ -43,7 +46,7 @@
                                         <form action="/panel/background/home/{{$data->id}}" method="POST">
                                             @csrf
                                             @method('delete')
-                                            <button onclick="return confirm('Apakah anda ingin menghapus cateogry ini?')" class="btn btn-primary border-0 rounded-1 fs-s-sm mx-1"><i class="bi bi-trash3"></i></button>
+                                            <button onclick="return confirm('Apakah anda ingin menghapus Banner ini?')" class="btn btn-primary border-0 rounded-1 fs-s-sm mx-1"><i class="bi bi-trash3"></i></button>
                                         </form>
                                     </div> 
                                 </td>

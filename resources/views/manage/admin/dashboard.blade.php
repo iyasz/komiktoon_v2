@@ -14,8 +14,8 @@
                             </div>
                             <div class="col-5">
                                 <select id="creatorKomik" class="form-control form-control-sm fs-s-sm p-2">
-                                    <option value="all">All</option>
-                                    <option value="30" selected>30 Days</option>
+                                    <option selected>All</option>
+                                    <option value="7">7 Days</option>
                                 </select>
                             </div>
 
@@ -45,8 +45,8 @@
                             </div>
                             <div class="col-5">
                                 <select id="komikTakedown" class="form-control form-control-sm fs-s-sm p-2">
-                                    <option value="7" >7 Days</option>
-                                    <option value="30" selected>30 Days</option>
+                                    <option selected>All</option>
+                                    <option value="7">7 Days</option>
                                 </select>
                             </div>
 
@@ -76,8 +76,8 @@
                             </div>
                             <div class="col-5">
                                 <select id="komikReport" class="form-control form-control-sm fs-s-sm p-2">
-                                    <option value="7" >7 Days</option>
-                                    <option value="30" selected>30 Days</option>
+                                    <option selected>All</option>
+                                    <option value="7">7 Days</option>
                                    
                                 </select>
                             </div>

@@ -7,7 +7,6 @@
                 <div class="col-12 p-0">
                     <div class="wrapper-banner">
                         <div class="big_banner d-md-block d-none">
-                            
                                 <div id="carouselFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
                                     <div class="carousel-indicators">
                                         @foreach ($banners as $key => $item)
@@ -35,24 +34,11 @@
                         <div class="banner_mobile w-100 d-md-none d-block">
                             <div id="carousel_mobile" class="carousel slide" data-bs-ride="carousel">
                                 <div class="carousel-inner">
-                                    <div class="carousel-item active" >
-                                        <img draggable="false" src="{{asset('img/template/banner_home/bs-1.jpg')}}" class=" d-block" alt="mobile-banner">
-                                    </div>
-                                    <div class="carousel-item" >
-                                        <img draggable="false" src="{{asset('img/template/banner_home/bs-2.gif')}}" class=" d-block" alt="mobile-banner">
-                                    </div>
-                                    <div class="carousel-item" >
-                                        <img draggable="false" src="{{asset('img/template/banner_home/bs-3.jpg')}}" class=" d-block" alt="mobile-banner">
-                                    </div>
-                                    <div class="carousel-item" >
-                                        <img draggable="false" src="{{asset('img/template/banner_home/bs-4.jpg')}}" class=" d-block" alt="mobile-banner">
-                                    </div>
-                                    <div class="carousel-item" >
-                                        <img draggable="false" src="{{asset('img/template/banner_home/bs-5.jpg')}}" class=" d-block" alt="mobile-banner">
-                                    </div>
-                                    <div class="carousel-item" >
-                                        <img draggable="false" src="{{asset('img/template/banner_home/bs-6.jpg')}}" class=" d-block" alt="mobile-banner">
-                                    </div>
+                                    @foreach ($smallBanners as $key => $item) 
+                                        <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                                            <img draggable="false" src="{{Storage::url($item->photo)}}" class=" d-block" alt="mobile-banner">
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -64,9 +50,9 @@
     </section>
     <div class="bg-white">
         <div class="container">
-            <div class="row flex-nowrap overflow-auto">
+            <div class="row flex-nowrap overflow-auto ">
                 <div class="col-12">
-                    <ul class="nav nav-pills nav-day justify-content-center" id="pills-tab" role="tablist">
+                    <ul class="nav nav-pills nav-day flex-nowrap overflow-auto justify-content-lg-center justify-content-start" id="pills-tab" role="tablist">
                         @foreach ($days as $item)
                         <li class="nav-item" role="presentation">
                             <button class="nav-link py-4 px-5 rounded-0 {{$item == $today ? 'active' : ''}}" id="pills-{{$item}}-tab" data-bs-toggle="pill" data-bs-target="#pills-{{$item}}" type="button" role="tab" aria-controls="pills-{{$item}}" aria-selected="true">{{$item}}</button>
@@ -264,26 +250,25 @@
                                 <h4 class="front-title-header">Berdasarkan Genre <a href="/genre?s={{$genreWith5Data->slug}}" class="fs-s-sm text-decoration-none text-primary ms-2">({{$genreWith5Data->name}})</a></h4>
                             </div>
                             <div class="row">
-                                @foreach ($genreWith5Data->genreDetail->take(5) as $item)
-                                    @if ($item->contents->status == 3)
+                                
+                                @foreach (get5ContentByGenre($genreWith5Data->slug) as $item)
                                     @php
-                                    $likeCountAll = $item->contents->chapters->sum(function ($chapter) {
+                                        $likeCountAll = $item->chapters->sum(function ($chapter) {
                                             return $chapter->likes->count();
                                         });
                                     @endphp
-                                    <div class="col-12 mb-3 ">
-                                        <a href="/komik/{{$item->contents->slug}}/list" class="d-flex text-decoration-none">
-                                            <img src="{{Storage::url($item->contents->thumbnail)}}" width="100px" height="100px" class="object-fit-cover" alt="">
+                                    <div class="col-12 mb-3">
+                                        <a href="/komik/{{$item->slug}}/list" class="d-flex text-decoration-none">
+                                            <img src="{{ Storage::url($item->thumbnail) }}" width="100px" height="100px" class="object-fit-cover" alt="">
                                             <div class="ms-3">
-                                    
-                                                <p class="mb-0 fs-s-sm text-gray ">{{ $item->contents->genreDetail->pluck('genre.name')->implode(', ') }}</p>
-                                                <p class="text-dark fw-500 mb-1 one-line-text">{{$item->contents->title}}</p>
-                                                <p class="fs-s-sm two-line-text text-gray">{{$item->contents->synopsis}}</p>
+                                                <p class="mb-0 fs-s-sm text-gray">{{ $item->genreDetail->pluck('genre.name')->implode(', ') }}</p>
+                                                <p class="text-dark fw-500 mb-1 one-line-text">{{ $item->title }}</p>
+                                                <p class="fs-s-sm two-line-text text-gray">{{ $item->synopsis }}</p>
                                             </div>
                                         </a>
                                     </div>
-                                    @endif
                                 @endforeach
+                            
                             </div>
                         </div>
                         <div class="col-12 mt-4">

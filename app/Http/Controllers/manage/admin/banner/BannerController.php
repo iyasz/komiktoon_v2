@@ -48,14 +48,15 @@ class BannerController extends Controller
     // pemisah 
     
     public function bannerHome() {
-        $banners = Banner::orderBy('created_at', 'desc')->where('type', 1)->get();
+        $banners = Banner::orderBy('created_at', 'desc')->whereIn('type', [1, 3])->get();
+
         return view('manage.admin.other.home-banners.index', compact('banners'));
     }
 
     public function homeCreate() {
         return view('manage.admin.other.home-banners.create');
     }
-
+    
     public function homeStore(Request $request) {
         $request->validate([
             'link' => 'required',
@@ -85,6 +86,31 @@ class BannerController extends Controller
         $banner->delete();
         
         return redirect('/panel/background/home');
+    }
+    
+    public function homeSmallCreate() {
+        return view('manage.admin.other.home-banners.smallcreate');
+    }
+
+    public function homeSmallStore(Request $request) {
+        $request->validate([
+            'link' => 'required',
+            'photo' => 'required|max:1024|mimes:jpeg,png,jpg|image',
+        ],[
+            'link.required' => 'Link tidak boleh kosong!',
+            
+            'photo.required' => 'Photo tidak boleh kosong!',
+            'photo.max' => 'Size photo terlalu besar!',
+            'photo.mimes' => 'Photo harus jpeg, png, jpg!',
+        ]);
+        
+        $banners = new Banner();
+        $banners->photo = $request->photo->store('banner/home','public');
+        $banners->type = 3;
+        $banners->link = $request->link;
+        $banners->save();
+        
+        return redirect('/panel/background/home');  
     }
 
 }

@@ -17,7 +17,7 @@ class IndexController extends Controller
 {
     public function index() {
 
-        $content = Content::where('status', 3)->take(15)->inRandomOrder()->get();
+        $content = Content::where('status', 3)->take(18)->inRandomOrder()->get();
         $newest = Content::where('status', 3)->orderBy('created_at', 'desc')->take(10)->get();
 
         $days = [
@@ -48,6 +48,7 @@ class IndexController extends Controller
         ->get();
 
         $banners = Banner::where('type', 1)->get();
+        $smallBanners = Banner::where('type', 3)->get();
 
         $genreWith5Data = Category::inRandomOrder()->first();
         
@@ -55,7 +56,7 @@ class IndexController extends Controller
 
         $today = $days[$todayIndex];
 
-        return view('main.front.index', compact('content', 'days', 'today', 'newest', 'top5Views', 'genreWith5Data', 'banners'));
+        return view('main.front.index', compact('content', 'days', 'today', 'newest', 'top5Views', 'genreWith5Data', 'banners', 'smallBanners'));
     }
 
     public function search() {
@@ -93,51 +94,60 @@ class IndexController extends Controller
     
     public function populer() {
 
-        $startDate = Carbon::now()->subDays(7);
-
+        $startDate = Carbon::now()->subDays(6)->format('Y-m-d');
+        $endDate = Carbon::now()->format('Y-m-d');
+        
         $topOneContents = Content::join('chapters', 'contents.id', '=', 'chapters.content_id')
-        ->leftJoin('views', 'chapters.id', '=', 'views.chapter_id')
-        ->leftJoin('likes', 'chapters.id', '=', 'likes.chapter_id')
-        ->select('contents.*', 
-                 DB::raw('IFNULL(COUNT(DISTINCT views.id), 0) * 1 AS view_score'), 
-                 DB::raw('IFNULL(COUNT(DISTINCT likes.id), 0) * 3 AS like_score')) 
-        ->where('contents.created_at', '>=', $startDate)
-        ->groupBy('contents.id')
-        ->orderByRaw('view_score + like_score DESC') 
-        ->first();
-
-
+            ->leftJoin('views', 'chapters.id', '=', 'views.chapter_id')
+            ->leftJoin('likes', 'chapters.id', '=', 'likes.chapter_id')
+            ->select('contents.*',
+                     DB::raw('IFNULL(COUNT(DISTINCT views.id), 0) * 1 AS view_score'),
+                     DB::raw('IFNULL(COUNT(DISTINCT likes.id), 0) * 3 AS like_score'))
+            ->where('views.created_at', '>=', $startDate . ' 00:00:00')
+            ->where('views.created_at', '<=', $endDate. ' 23:59:59')
+            ->orWhere('likes.created_at', '>=', $startDate . ' 00:00:00')
+            ->orWhere('likes.created_at', '<=', $endDate. ' 23:59:59')
+            ->groupBy('contents.id')
+            ->orderByRaw('view_score + like_score DESC')
+            ->first();
+        
+        
         $topOneContentsData = DB::table('contents')
             ->join('chapters', 'contents.id', '=', 'chapters.content_id')
             ->leftJoin('views', 'chapters.id', '=', 'views.chapter_id')
             ->leftJoin('likes', 'chapters.id', '=', 'likes.chapter_id')
-            ->select('contents.*', 
-                     DB::raw('IFNULL(COUNT(DISTINCT views.id), 0) * 1 AS view_score'), 
-                     DB::raw('IFNULL(COUNT(DISTINCT likes.id), 0) * 3 AS like_score')) 
-            ->where('contents.created_at', '>=', $startDate)
+            ->select('contents.*',
+                     DB::raw('IFNULL(COUNT(DISTINCT views.id), 0) * 1 AS view_score'),
+                     DB::raw('IFNULL(COUNT(DISTINCT likes.id), 0) * 3 AS like_score'))
+            ->where('views.created_at', '>=', $startDate . ' 00:00:00')
+            ->where('views.created_at', '<=', $endDate. ' 23:59:59')
+            ->orWhere('likes.created_at', '>=', $startDate . ' 00:00:00')
+            ->orWhere('likes.created_at', '<=', $endDate. ' 23:59:59')
             ->groupBy('contents.id')
-            ->orderByRaw('view_score + like_score DESC') 
+            ->orderByRaw('view_score + like_score DESC')
             ->take(1)
             ->get();
-
+        
         $topOneContentsDataIds = $topOneContentsData->pluck('id')->toArray();
-
-
+        
+        
         $topContents = Content::select('contents.*')
-        ->join('chapters', 'contents.id', '=', 'chapters.content_id')
-        ->leftJoin('views', 'chapters.id', '=', 'views.chapter_id')
-        ->leftJoin('likes', 'chapters.id', '=', 'likes.chapter_id')
-        ->selectRaw('IFNULL(COUNT(DISTINCT views.id), 0) * 1 AS view_score')
-        ->selectRaw('IFNULL(COUNT(DISTINCT likes.id), 0) * 3 AS like_score')
-        ->where('contents.created_at', '>=', $startDate)
-        ->groupBy('contents.id')
-        ->orderByRaw('view_score + like_score DESC')
-        ->take(9)
-        ->whereNotIn('contents.id', $topOneContentsDataIds)
-        ->with('genreDetail')
-        ->get();
-    
-
+            ->join('chapters', 'contents.id', '=', 'chapters.content_id')
+            ->leftJoin('views', 'chapters.id', '=', 'views.chapter_id')
+            ->leftJoin('likes', 'chapters.id', '=', 'likes.chapter_id')
+            ->selectRaw('IFNULL(COUNT(DISTINCT views.id), 0) * 1 AS view_score')
+            ->selectRaw('IFNULL(COUNT(DISTINCT likes.id), 0) * 3 AS like_score')
+            ->where('views.created_at', '>=', $startDate . ' 00:00:00')
+            ->where('views.created_at', '<=', $endDate. ' 23:59:59')
+            ->orWhere('likes.created_at', '>=', $startDate . ' 00:00:00')
+            ->orWhere('likes.created_at', '<=', $endDate. ' 23:59:59')
+            ->groupBy('contents.id')
+            ->orderByRaw('view_score + like_score DESC')
+            ->take(9)
+            ->whereNotIn('contents.id', $topOneContentsDataIds)
+            ->with('genreDetail')
+            ->get();
+        
         
         return view('main.front.populer', compact('topContents', 'topOneContents'));
     }

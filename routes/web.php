@@ -97,11 +97,16 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/panel/background/home/create', [BannerController::class, 'homeCreate']);
         Route::post('/panel/background/home/create', [BannerController::class, 'homeStore']);
         Route::delete('/panel/background/home/{id}', [BannerController::class, 'homeDelete']);
+
+        Route::get('/panel/background/home/small/create', [BannerController::class, 'homeSmallCreate']);
+        Route::post('/panel/background/home/small/create', [BannerController::class, 'homeSmallStore']);
     });
 
     
     // Content manage 
     Route::get('/contribute/dashboard', [ContributeController::class, 'index']);
+    Route::post('/contribute/dashboard', [ContributeController::class, 'getCountData']);
+
     Route::get('/contribute/content', [ContentController::class, 'index']);
     Route::post('/contribute/content', [ContentController::class, 'store']);
     Route::get('/contribute/content/create', [ContentController::class, 'create']);

@@ -32,8 +32,9 @@
                                 <p class="mb-0 fs-sm">Likes</p>
                             </div>
                             <div class="col-5">
-                                <select name="" id="" class="form-control form-control-sm fs-s-sm p-2">
-                                    <option value="" selected>All</option>
+                                <select id="likesCount" class="form-control form-control-sm fs-s-sm p-2">
+                                    <option selected>All</option>
+                                    <option value="7">7 Days</option>
                                 </select>
                             </div>
 
@@ -45,7 +46,7 @@
                                   </svg>
                             </div>
                             <div class="ms-3 mt-3">
-                                <p class="mb-0 fw-600">{{number_format($totalLikes)}}</p>
+                                <p class="mb-0 fw-600" id="d_likesCount">{{number_format($totalLikes)}}</p>
                                 <p class="fs-s-sm">Jumlah Seluruh Like</p>
                             </div>
 
@@ -62,8 +63,9 @@
                                 <p class="mb-0 fs-sm">Views</p>
                             </div>
                             <div class="col-5">
-                                <select name="" id="" class="form-control form-control-sm fs-s-sm p-2">
-                                    <option value="" selected>All</option>
+                                <select id="viewsCount" class="form-control form-control-sm fs-s-sm p-2">
+                                    <option selected>All</option>
+                                    <option value="7">7 Days</option>
                                 </select>
                             </div>
 
@@ -76,7 +78,7 @@
                                 </svg>
                             </div>
                             <div class="ms-3 mt-3">
-                                <p class="mb-0 fw-600">{{number_format($totalViews)}}</p>
+                                <p class="mb-0 fw-600" id="d_viewsCount">{{number_format($totalViews)}}</p>
                                 <p class="fs-s-sm">Jumlah Pembaca</p>
                             </div>
 
@@ -93,8 +95,9 @@
                                 <p class="mb-0 fs-sm">Comments</p>
                             </div>
                             <div class="col-5">
-                                <select name="" id="" class="form-control form-control-sm fs-s-sm p-2">
-                                    <option value="" selected>All</option>
+                                <select id="commentsCount" class="form-control form-control-sm fs-s-sm p-2">
+                                    <option selected>All</option>
+                                    <option value="7">7 Days</option>
                                 </select>
                             </div>
 
@@ -106,7 +109,7 @@
                                 </svg>  
                             </div>
                             <div class="ms-3 mt-3">
-                                <p class="mb-0 fw-600">{{number_format($totalComments)}}</p>
+                                <p class="mb-0 fw-600" id="d_commentsCount">{{number_format($totalComments)}}</p>
                                 <p class="fs-s-sm">Jumlah Total Komentar</p>    
                             </div>
 
@@ -161,15 +164,34 @@
 
     <script>
         
-        const app = {
-            data(){
-                return{
-                    nama : 'iyasz'
-                }
-            },
-        }
+        $('#likesCount').on('change', function(){
+            let data = new FormData();
+            data.append('likesCount', $('#likesCount').val());
+            
+            axios.post(window.location.href, data).then(function (response) {
+                $('#d_likesCount').text(response.data.likeDataCount)
+            });
 
-        Vue.createApp(app).mount('#app')
+        })
+
+        $('#viewsCount').on('change', function(){
+            let data = new FormData();
+            data.append('viewData', $('#viewsCount').val());
+            
+            axios.post(window.location.href, data).then(function (response) {
+                $('#d_viewsCount').text(response.data.viewsDataCount)
+            });
+
+        })
+
+        $('#commentsCount').on('change', function(){
+            let data = new FormData();
+            data.append('commentData', $('#commentsCount').val());
+            
+            axios.post(window.location.href, data).then(function (response) {
+                $('#d_commentsCount').text(response.data.commentDataCount)
+            });
+        })
 
     </script>
 

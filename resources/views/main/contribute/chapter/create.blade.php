@@ -96,7 +96,7 @@
                                         <div id="sortable"></div>
                                     </div>
                                     <p class="fs-sm opacity-75 fw-300 mt-3">Sistem akan otomatis memotong dan mengurangi
-                                        ukuran gambarmu untuk memenuhi dimensi gambar maksimal, yaitu 800px x 1000 px. <br>
+                                        ukuran gambarmu untuk memenuhi dimensi gambar maksimal, yaitu 690px x 1000px. <br>
                                         Gambar yang melebihi dimensi maksimal mungkin dioptimisasi dengan beberapa cara.
                                         Gambar dapat dipotong menjadi beberapa gambar, kualitas gambar mungkin menurun,
                                         dimensi gambar mungkin dikurangi, dan/atau ukuran dokumen serta format mungkin
@@ -261,7 +261,7 @@
                 acceptedFiles: 'image/png, image/jpg, image/jpeg',
                 maxThumbnailFilesize: 20,
                 thumbnailMethod: "crop",
-                thumbnailWidth: 800,
+                thumbnailWidth: 690,
                 thumbnailHeight: 1000,
                 dictInvalidFileType: "Tipe file ini tidak diizinkan",
                 dictResponseError: "Terjadi kesalahan saat mengunggah file.",

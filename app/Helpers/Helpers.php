@@ -23,7 +23,7 @@ function getLikeCountByDate($year, $month, $day) {
 }
 
 function getViewCountByDate($year, $month, $day) {
-    return View::whereYear('created_at', $year)->whereMonth('created_at', $month)->whereDay('created_at', $day)->whereHas('chapter', function($query){
+    return View::whereDate('created_at', $year . '-' . $month . '-' . $day)->whereHas('chapter', function($query){
         $query->whereHas('content', function($e){
             $e->where('status', 3)->where('user_id', Auth::user()->id);;
         });
@@ -45,4 +45,12 @@ function getContentUseWeek($week) {
                   $query->where('update_day', $days[$week])->orWhere('update_day_2', $days[$week]);
               })->take(10)->get();
 
+}
+
+function get5ContentByGenre($genreSlug) {
+    return Content::where('status', 3)->whereHas('genreDetail', function($query) use ($genreSlug) {
+        $query->whereHas('genre', function($e) use ($genreSlug) {
+            $e->where('slug', $genreSlug);
+        });
+    })->take(5)->get();
 }

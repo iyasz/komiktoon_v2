@@ -66,7 +66,7 @@
                                         <div class="badge-icon">
                                             <img src="{{asset('img/template/new_st.png')}}" alt="status" width="30">
                                         </div>
-                                        @elseif($data->chapters()->whereDate('created_at', '>', now()->subDays(3))->exists())
+                                        @elseif($data->whereDate('created_at', '>', now()->subDays(3))->exists())
                                         <div class="badge-icon">
                                             <img src="{{asset('img/template/up_st.png')}}" alt="status" width="30">
                                         </div>

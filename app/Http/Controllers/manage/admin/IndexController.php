@@ -16,12 +16,14 @@ class IndexController extends Controller
 {
     public function index() {
 
-        $userCount = User::whereMonth('created_at', Carbon::now()->month)->whereYear('created_at', Carbon::now()->year)->whereHas('contents', function($query){
+        $userCount = User::whereHas('contents', function($query){
             $query->where('status', 3);
         })->count();
         
-        $takedownCount = Takedown::whereMonth('created_at', Carbon::now()->month)->whereYear('created_at', Carbon::now()->year)->count();
-        $reportCount = Report::whereMonth('created_at', Carbon::now()->month)->whereYear('created_at', Carbon::now()->year)->count();
+        $takedownCount = Takedown::count();
+        $reportCount = Report::whereHas('content', function($query){
+            $query->where('status', 3);
+        })->count();
 
 
         $data7Days = [];
@@ -39,9 +41,9 @@ class IndexController extends Controller
             ];
         }
 
-        $komikUpdatedCount = Content::where('status', 2)->whereMonth('created_at', Carbon::now()->month)->whereYear('created_at', Carbon::now()->year)->count();
-        $komikActiveCount = Content::where('status', 3)->whereMonth('created_at', Carbon::now()->month)->whereYear('created_at', Carbon::now()->year)->count();
-        $komikTakedownCount = Content::where('status', 5)->whereMonth('created_at', Carbon::now()->month)->whereYear('created_at', Carbon::now()->year)->count();
+        $komikUpdatedCount = Content::where('status', 2)->count();
+        $komikActiveCount = Content::where('status', 3)->count();
+        $komikTakedownCount = Content::where('status', 5)->count();
 
         $data7toJson = json_encode($data7Days);
         
@@ -50,20 +52,23 @@ class IndexController extends Controller
     }
 
     public function getDataKomikSelect(Request $request) {
-        $startOfWeek = Carbon::now()->startOfWeek();
-        $endOfWeek = Carbon::now()->endOfWeek();
+        $startDate = Carbon::now()->subDays(6)->format('Y-m-d');
+        $endDate = Carbon::now()->format('Y-m-d'); 
 
         if($request->userCreator){
-            $conuserCounttentCount = '';
-            if($request->userCreator == 30){
-                $userCount = User::whereMonth('created_at', Carbon::now()->month)->whereYear('created_at', Carbon::now()->year)->whereHas('contents', function($query){
+            $userCount = '';
+            if($request->userCreator == 7){
+
+                $userCount = User::whereBetween('created_at', [$startDate . ' 00:00:00', $endDate. ' 23:59:59'])->whereHas('contents', function($query){
                     $query->where('status', 3);
                 })->count();
                 
             }else{
+
                 $userCount = User::whereHas('contents', function($query){
                     $query->where('status', 3);
                 })->count();
+
             }
             return response()->json(['contentCount' => $userCount]);
         }
@@ -71,9 +76,11 @@ class IndexController extends Controller
         if($request->dataTakedown){
             $takedownCount = '';
             if($request->dataTakedown == 7){
-                $takedownCount = Takedown::whereBetween('created_at', [$startOfWeek, $endOfWeek])->whereMonth('created_at', Carbon::now()->month)->whereYear('created_at', Carbon::now()->year)->count();
+                $takedownCount = Takedown::whereBetween('created_at', [$startDate . ' 00:00:00', $endDate. ' 23:59:59'])->count();
+
             }else{
-                $takedownCount = Takedown::whereMonth('created_at', Carbon::now()->month)->whereYear('created_at', Carbon::now()->year)->count();   
+                
+                $takedownCount = Takedown::count();
             }
             return response()->json(['takedownCount' => $takedownCount]);
             
@@ -82,9 +89,12 @@ class IndexController extends Controller
         if($request->dataReport){
             if($request->dataReport == 7){
                 
-                $reportCount = Report::whereBetween('created_at', [$startOfWeek, $endOfWeek])->whereMonth('created_at', Carbon::now()->month)->whereYear('created_at', Carbon::now()->year)->count();
+                $reportCount = Report::whereBetween('created_at', [$startDate . ' 00:00:00', $endDate. ' 23:59:59'])->count();
+
             }else{
-                $reportCount = Report::whereMonth('created_at', Carbon::now()->month)->whereYear('created_at', Carbon::now()->year)->count();
+                $reportCount = Report::whereHas('content', function($query){
+                    $query->where('status', 3);
+                })->count();
                 
             }
             

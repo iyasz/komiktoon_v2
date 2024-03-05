@@ -52,7 +52,7 @@
                                         <form action="/panel/category/{{$data->slug}}" method="POST">
                                             @csrf
                                             @method('delete')
-                                            <button onclick="return confirm('Apakah anda ingin menghapus cateogry ini?')" class="btn btn-primary border-0 rounded-1 fs-s-sm mx-1"><i class="bi bi-trash3"></i></button>
+                                            <button onclick="return confirm('Apakah anda ingin menghapus Category ini?')" class="btn btn-primary border-0 rounded-1 fs-s-sm mx-1"><i class="bi bi-trash3"></i></button>
                                         </form>
                                     </div> 
                                 </td>

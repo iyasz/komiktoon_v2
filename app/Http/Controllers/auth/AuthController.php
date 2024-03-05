@@ -165,7 +165,7 @@ class AuthController extends Controller
                 
                 'name.required' => 'Nama tidak boleh kosong!',
                 'name.max' => 'Tidak boleh lebih dari 50 huruf!',
-                'password.min' => 'Nama terlalu pendek!',
+                'name.min' => 'Nama terlalu pendek!',
     
                 'password.required' => 'Password tidak boleh kosong!',
                 'password.confirmed' => 'Password tidak sesuai!',

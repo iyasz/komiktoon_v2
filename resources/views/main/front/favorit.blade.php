@@ -46,15 +46,15 @@
                                             <i class="bi bi-heart-fill text-primary"></i>
                                             <p class="mb-0 ms-2">{{ number_format($likeCountAll) }}</p>
                                         </div>
-                                        @if ($data->content->created_at >  \Carbon\Carbon::now()->subWeek())
+                                        @if ($data->created_at >  \Carbon\Carbon::now()->subWeek())
                                         <div class="badge-icon">
                                             <img src="{{asset('img/template/new_st.png')}}" alt="status" width="30">
                                         </div>
-                                        @elseif($data->content->chapters()->whereDate('created_at', '>', now()->subDays(3))->exists())
+                                        @elseif($data->whereDate('created_at', '>', now()->subDays(3))->exists())
                                         <div class="badge-icon">
                                             <img src="{{asset('img/template/up_st.png')}}" alt="status" width="30">
                                         </div>
-                                        @elseif($data->content->is_ongoing == 2)
+                                        @elseif($data->is_ongoing == 2)
                                         <div class="badge-icon">
                                             <img src="{{asset('img/template/end_st.png')}}" alt="status" width="30">
                                         </div>
