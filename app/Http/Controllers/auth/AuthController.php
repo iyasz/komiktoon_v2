@@ -33,7 +33,7 @@ class AuthController extends Controller
                 'password' => 'required|string',
             ],[
                 'email.required' => 'Email tidak boleh kosong!',
-                'email.email' => 'Email tidak boleh kosong!',
+                'email.email' => 'Harus Tipe email!',
 
                 'password.required' => 'Password tidak boleh kosong!',
             ]);

@@ -175,6 +175,10 @@ th {
     background: #fefddc;
 }
 
+.ww-break {
+    word-wrap: break-word;
+}
+
 .fs-s-sm {
     font-size: 12px !important;
     letter-spacing: 0.2px;
@@ -260,6 +264,21 @@ input[type="checkbox"]:checked {
     animation: slideInDown 5s ease-in-out;
 }
 
+@keyframes slideInDown {
+    0% {
+        transform: translateY(-100%);
+    }
+    20% {
+        transform: translateY(0);
+    }
+    80% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-100%);
+    }
+}
+
 .dropdown-menu {
     min-width: 15rem !important;
     box-shadow: 0 0.2rem 1rem #00000014;
@@ -295,20 +314,6 @@ input[type="checkbox"]:checked {
     background: var(--var-primary);
 }
 
-@keyframes slideInDown {
-    0% {
-        transform: translateY(-100%);
-    }
-    20% {
-        transform: translateY(0);
-    }
-    80% {
-        transform: translateY(0);
-    }
-    100% {
-        transform: translateY(-100%);
-    }
-}
 
 
 /* END CUSTOM CLASS CSS ALL  */

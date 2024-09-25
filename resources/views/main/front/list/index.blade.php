@@ -338,7 +338,7 @@
                                     @endif
                                 </div>
                                 <div class="desc mt-4">
-                                    <p class="mb-0 fs-sm opacity-75">{!! nl2br(e($content->synopsis)) !!}</p>
+                                    <p class="mb-0 fs-sm opacity-75 ww-break" >{!! nl2br(e($content->synopsis)) !!}</p>
                                 </div>
                                 <div class="action mt-5">
                                     <a href="/{{$content->slug}}/{{$firstChapter->slug}}/view" class="btn btn-dark fs-sm w-100 rounded-pill border-0 py-3 d-flex justify-content-between align-items-center"> <span class="mx-auto">Ch. Pertama</span> <span><i class="bi bi-chevron-right "></i></span>

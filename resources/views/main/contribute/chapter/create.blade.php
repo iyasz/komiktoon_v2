@@ -81,15 +81,10 @@
                                 <div class="mb-4 ">
                                     <p class="text-gray fw-500">Upload File</p>
                                     <div class="mb-3 d-flex align-items-center">
-                                        {{-- <input type="hidden" name="" id="_selectFileInput" multiple> --}}
                                         <a class="btn btn-primary fs-s-sm border-0 rounded-1 me-2" id="inpSelectFile">Pilih
                                             file</a>
                                         <a class="btn btn-danger fs-s-sm border-0 rounded-1" id="resetUploadsModal">Hapus
                                             semua</a>
-                                        {{-- <div class="ms-auto">
-                                            <p class="fs-sm mb-0"><span class="fw-600" id="sizeFileContent">0KB</span> /
-                                                20MB</p>
-                                        </div> --}}
                                     </div>
 
                                     <div class="upload_file_image rounded-2 bg-semi-gray">
@@ -107,13 +102,6 @@
                                         mengunggah gambar berukuran maksimum 800x1280px dan memenuhi batas ukuran dokumen.
                                         Hanya format JPG, JPEG, dan PNG yang diizinkan.
                                     </p>
-                                    {{-- <div class="row mt-3">
-                                        <div class="col-12">
-                                            <a class="btn btn-primary fs-s-sm border-0 rounded-pill ">Pratinjau PC</a>
-                                            <a class="btn btn-primary fs-s-sm border-0 rounded-pill ms-2 ">Pratinjau
-                                                Mobile</a>
-                                        </div>
-                                    </div> --}}
 
                                 </div>
                                 <hr class="my-5">
@@ -473,7 +461,7 @@
                 var inputText = $(this).val();
 
                 if (inputText.length > maxDataNumber) {
-                    var trimmedText = inputText.substring(0, maxDataNumber);
+                    var trimmedText = inputText.subString(0, maxDataNumber);
                     $(this).val(trimmedText);
                 }
 

@@ -7,7 +7,7 @@
                 <div class="row justify-content-center search-input-main">
                     <div class="col-lg-5 col-md-8 col-12 text-center">
                         <form action="/search" method="get">
-                            <input type="text" name="q" id="" placeholder="Cari Judul atau Author" class="form-control w-100 rounded-pill fs-sm px-md-4 px-3 text-gray">
+                            <input type="text" name="q" id="" placeholder="Cari Judul Komik" value="{{request()->input('q')}}" class="form-control w-100 rounded-pill fs-sm px-md-4 px-3 text-gray">
                         </form>
                     </div>
                 </div>
